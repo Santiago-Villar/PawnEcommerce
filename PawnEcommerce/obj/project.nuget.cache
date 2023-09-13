@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "9t1Bv3axldNHrnwMt4awo3/wNcwoSNU4twZ5V+P/6lPYJVlBR2x1iLovQ7tJEDPv2FiZ42Kl7s13bfMelU1dtw==",
+  "success": true,
+  "projectFilePath": "/Users/pabloduran/Projects/PawnEcommerce/PawnEcommerce/PawnEcommerce.csproj",
+  "expectedPackageFiles": [
+    "/Users/pabloduran/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/pabloduran/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/pabloduran/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/Users/pabloduran/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/Users/pabloduran/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/Users/pabloduran/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
