@@ -1,5 +1,7 @@
-﻿namespace Test;
+﻿using Service.Exception;
 using Service.User;
+
+namespace Test;
 
 [TestClass]
 public class UserTest
@@ -21,6 +23,19 @@ public class UserTest
         
         Assert.AreEqual("testEmail", user.Email);
     }
+
+    [ExpectedException(typeof(ModelException))]
+    [TestMethod]
+    public void CanSetEmail_WrongSyntax_Throws()
+    {
+        var user = new User()
+        {
+            Email = "testEmail"
+        };
+        
+    }
+    
+    
 
     
 }
