@@ -24,4 +24,11 @@ public class ProductTest
         Product aProduct = new Product("Juan");
         Assert.AreEqual("Juan", aProduct.Name);
     }
+    [TestMethod]
+    public void ProductHasDescription()
+    {
+        Product aProduct = new Product("Juan");
+        aProduct.Description = "Es bueno";
+        Assert.AreEqual("Es bueno", aProduct.Description);
+    }
 }
