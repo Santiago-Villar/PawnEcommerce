@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "U5EPXU5IVCTaf24dDxwEaVxgaygZDjm9rl/i5n2X0dJXpJd6jxAaFsX6alpu18coPFxigzYSd1Fg1pOkmg1BSg==",
+  "dgSpecHash": "xxsipVmoHo5AluijHq3v9vgD+E/HuHzo2Xe1/4MpqmbHhyU7FHIOWA46x++EkJcMpAogT3S3kxZvcrEwr/qFZw==",
   "success": true,
   "projectFilePath": "/Users/mateogiraz/Documents/256345-241195-270956/Service/Service.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/mateogiraz/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

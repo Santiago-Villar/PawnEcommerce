@@ -1863,6 +1863,9 @@
       "Service/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BCrypt.Net-Next": "4.0.3"
+        },
         "compile": {
           "bin/placeholder/Service.dll": {}
         },

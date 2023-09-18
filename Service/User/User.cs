@@ -7,6 +7,20 @@ namespace Service.User;
 public class User
 {
     private string _email;
+    private string _passwordHash;
+    public string PasswordHash
+    {
+        get => _passwordHash;
+        init
+        {
+            const int saltFactor = 12;
+            
+            var salt = BCrypt.Net.BCrypt.GenerateSalt(saltFactor);
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(value, salt);
+            
+            _passwordHash = hashedPassword;
+        }
+    }
     
     public string Email
     {
