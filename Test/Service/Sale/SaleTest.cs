@@ -22,11 +22,11 @@ public class SaleTest
 
         var userMock = new Mock<IUser>();
         userMock.Setup(user => user.Email).Returns("diegoalmenara@gmail.com");
-
+        var plainUser = userMock.Object;
         var s = new Sale()
         {
-            User = (IUser) userMock
+            User = plainUser
         };
-        Assert.Equals(s.User.Email, "diegoalmenara@gmail.com");
+        Assert.AreEqual(s.User.Email, "diegoalmenara@gmail.com");
     }
 }
