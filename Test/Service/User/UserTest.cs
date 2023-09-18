@@ -82,4 +82,19 @@ public class UserTest
         Assert.IsTrue(isPasswordValid);
     }
     
+    [TestMethod]
+    public void CanAddRole_Ok()
+    {
+        var user = new User();
+
+        var role = new Role()
+        {
+            RoleType = RoleType.ADMIN
+        };
+        
+        user.AddRole(role);
+        
+        CollectionAssert.Contains(user.Roles(), role);
+    }
+    
 }
