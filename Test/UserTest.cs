@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Service;
+using Service.User;
 
 namespace Test;
 
@@ -11,8 +12,10 @@ namespace Test;
 public class UserTest
 {
     User user = new User();
+
     [TestMethod]
-    public void TestMethod1()
+    public void CreateUserOk()
     {
+        Assert.IsNotNull(user);
     }
 }
