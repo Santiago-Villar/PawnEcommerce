@@ -55,12 +55,14 @@ public class UserTest
     [TestMethod]
     public void CanSetAddress_Ok()
     {
+        const string address = "Loch Ness Road, Towson, MD.";
+        
         var user = new User()
         {
-            Address = "Loch Ness Road, Towson, MD."
+            Address = address
         };
         
-        Assert.AreEqual("Loch Ness Road, Towson, MD.", user.Address);
+        Assert.AreEqual(address, user.Address);
     }
     
     [TestMethod]
