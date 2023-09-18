@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Service;
@@ -16,5 +17,11 @@ public class ProductTest
     public void CreateProductOk()
     {
         Assert.IsNotNull(testProduct);
+    }
+    [TestMethod]
+    public void ProductHasName()
+    {
+        Product aProduct = new Product("Juan");
+        Assert.AreEqual("Juan", aProduct.Name);
     }
 }
