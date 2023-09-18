@@ -1,5 +1,6 @@
 ﻿using Service.Exception;
 using Service.User;
+using Moq;
 
 namespace Test;
 
@@ -32,6 +33,23 @@ public class UserTest
         {
             Email = "testEmail"
         };
+    }
+
+    [ExpectedException(typeof(RepositoryException))]
+    [TestMethod]
+    public void CanCreateUser_RepeatedEmail_Throws()
+    {
+        var user = new User()
+        {
+            Email = "alreadyExistingEmail@ort.com"
+        };
+        
+        var mockUserRepository = new Mock<IUserRepository>();
+        mockUserRepository.Setup(userRepo => userRepo.Add(user))
+            .Throws(new RepositoryException("Email already exists"));
+
+        var mockedRepo = mockUserRepository.Object;
+        mockedRepo.Add(user);
     }
     
     
