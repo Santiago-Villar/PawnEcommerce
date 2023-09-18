@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/PawnEcommerce.csproj": {}
+    "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\PawnEcommerce\\PawnEcommerce.csproj": {}
   },
   "projects": {
-    "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/PawnEcommerce.csproj": {
+    "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\PawnEcommerce\\PawnEcommerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/PawnEcommerce.csproj",
+        "projectUniqueName": "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\PawnEcommerce\\PawnEcommerce.csproj",
         "projectName": "PawnEcommerce",
-        "projectPath": "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/PawnEcommerce.csproj",
-        "packagesPath": "/Users/mateogiraz/.nuget/packages/",
-        "outputPath": "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/obj/",
+        "projectPath": "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\PawnEcommerce\\PawnEcommerce.csproj",
+        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\PawnEcommerce\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/mateogiraz/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -62,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.413/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

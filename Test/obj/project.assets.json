@@ -6336,24 +6336,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/mateogiraz/.nuget/packages/": {}
+    "C:\\Users\\santi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mateogiraz/Documents/256345-241195-270956/Test/Test.csproj",
+      "projectUniqueName": "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\Test\\Test.csproj",
       "projectName": "Test",
-      "projectPath": "/Users/mateogiraz/Documents/256345-241195-270956/Test/Test.csproj",
-      "packagesPath": "/Users/mateogiraz/.nuget/packages/",
-      "outputPath": "/Users/mateogiraz/Documents/256345-241195-270956/Test/obj/",
+      "projectPath": "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\Test\\Test.csproj",
+      "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\santi\\OneDrive\\Escritorio\\Diseño2Obli\\256345-241195-270956\\Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mateogiraz/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6405,7 +6407,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.413/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
