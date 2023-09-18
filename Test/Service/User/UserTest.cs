@@ -52,7 +52,15 @@ public class UserTest
         mockedRepo.Add(user);
     }
     
-    
-
+    [TestMethod]
+    public void CanSetAddress_Ok()
+    {
+        var user = new User()
+        {
+            Address = "Loch Ness Road, Towson, MD."
+        };
+        
+        Assert.AreEqual("Loch Ness Road, Towson, MD.", user.Address);
+    }
     
 }
