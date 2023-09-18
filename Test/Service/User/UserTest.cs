@@ -1,5 +1,6 @@
 ﻿using Service.Exception;
 using Service.User;
+using Service.User.Role;
 using Moq;
 
 namespace Test;
@@ -87,14 +88,11 @@ public class UserTest
     {
         var user = new User();
 
-        var role = new Role()
-        {
-            RoleType = RoleType.ADMIN
-        };
+        const RoleType role = RoleType.User;
         
         user.AddRole(role);
         
-        CollectionAssert.Contains(user.Roles(), role);
+        CollectionAssert.Contains(user.Roles, role);
     }
     
 }

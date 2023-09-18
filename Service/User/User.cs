@@ -1,15 +1,18 @@
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using Service.Exception;
+using Service.User.Role;
 
 namespace Service.User;
 
 public class User
 {
     public string Address { get; set; }
-
+    public List<RoleType> Roles { get; private set; } = new();
+    
     private string _email;
     private string _passwordHash;
+    
     public string PasswordHash
     {
         get => _passwordHash;
@@ -38,6 +41,11 @@ public class User
                 throw new ModelException("Invalid email address");
             }
         }
+    }
+
+    public void AddRole(RoleType role)
+    {
+        Roles.Add(role);
     }
     
     private bool IsValidEmail(string email)
