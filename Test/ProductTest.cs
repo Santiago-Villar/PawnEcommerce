@@ -21,13 +21,13 @@ public class ProductTest
     [TestMethod]
     public void ProductHasName()
     {
-        Product aProduct = new Product("Juan");
+        Product aProduct = new Product("Juan", "Está godines");
         Assert.AreEqual("Juan", aProduct.Name);
     }
     [TestMethod]
     public void ProductHasDescription()
     {
-        Product aProduct = new Product("Juan");
+        Product aProduct = new Product("Juan", "Está godines");
         aProduct.Description = "Es bueno";
         Assert.AreEqual("Es bueno", aProduct.Description);
     }
