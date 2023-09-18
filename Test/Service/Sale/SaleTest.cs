@@ -1,14 +1,16 @@
-﻿
-namespace Test.Service.Sale;
-using Service;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Service.Sale;
+using System;
+namespace Test;
 
 [TestClass]
 public class SaleTest
 {
+
     [TestMethod]
     public void CanCreateSale_Ok()
     {
-        Sale s = new Sale();
+        var s = new Sale();
         Assert.IsNotNull(s);
     }
 }

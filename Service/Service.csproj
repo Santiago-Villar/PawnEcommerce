@@ -6,4 +6,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Sale\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Sale\" />
+    </ItemGroup>
 </Project>

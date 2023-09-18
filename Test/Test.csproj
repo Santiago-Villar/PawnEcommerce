@@ -23,4 +23,7 @@
     <Folder Include="Service\" />
     <Folder Include="Service\Sale\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Service\Service.csproj" />
+  </ItemGroup>
 </Project>
