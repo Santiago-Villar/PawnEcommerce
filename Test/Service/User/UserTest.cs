@@ -17,12 +17,14 @@ public class UserTest
     [TestMethod]
     public void CanSetEmail_Ok()
     {
+        const string email = "test@email.com";
+        
         var user = new User()
         {
-            Email = "test@email.com"
+            Email = email
         };
         
-        Assert.AreEqual("test@email.com", user.Email);
+        Assert.AreEqual(email, user.Email);
     }
 
     [ExpectedException(typeof(ModelException))]
