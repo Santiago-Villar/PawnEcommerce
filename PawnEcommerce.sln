@@ -5,11 +5,11 @@ VisualStudioVersion = 25.0.1706.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PawnEcommerce", "PawnEcommerce\PawnEcommerce.csproj", "{35203D04-0809-4592-A0AE-5049870F0C02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{063734C1-4FD8-4106-939E-427BA5FB3334}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{AFB6D99D-B258-4F5D-BB43-2F3F2F37947A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A3FF8FE4-9F22-4772-ABBA-ADE48D68D25B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{5BA37BEC-F8F4-48EB-B8D0-FC8AE166A983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{35203D04-0809-4592-A0AE-5049870F0C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35203D04-0809-4592-A0AE-5049870F0C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35203D04-0809-4592-A0AE-5049870F0C02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{063734C1-4FD8-4106-939E-427BA5FB3334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{063734C1-4FD8-4106-939E-427BA5FB3334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{063734C1-4FD8-4106-939E-427BA5FB3334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{063734C1-4FD8-4106-939E-427BA5FB3334}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFB6D99D-B258-4F5D-BB43-2F3F2F37947A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFB6D99D-B258-4F5D-BB43-2F3F2F37947A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFB6D99D-B258-4F5D-BB43-2F3F2F37947A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{A3FF8FE4-9F22-4772-ABBA-ADE48D68D25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3FF8FE4-9F22-4772-ABBA-ADE48D68D25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3FF8FE4-9F22-4772-ABBA-ADE48D68D25B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA37BEC-F8F4-48EB-B8D0-FC8AE166A983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA37BEC-F8F4-48EB-B8D0-FC8AE166A983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA37BEC-F8F4-48EB-B8D0-FC8AE166A983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA37BEC-F8F4-48EB-B8D0-FC8AE166A983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
