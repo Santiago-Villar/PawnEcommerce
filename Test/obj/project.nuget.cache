@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "rOby9aIq7xgbyCJRC2mfu8phJHkZorNhBm57+yUOTliUObIDsPf0ZxoQLQgN6vX07zuQWmx32JopUyVbcQppIA==",
+  "dgSpecHash": "2RG9Dg6LQflXPql8vE6kxNu406o6qOtgxZjdoPjMk1K3WpmnISJayYbpkJkrumMA6e1jqitILp3p/g+xSa938Q==",
   "success": true,
   "projectFilePath": "/Users/mateogiraz/Documents/256345-241195-270956/Test/Test.csproj",
   "expectedPackageFiles": [
+    "/Users/mateogiraz/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/mateogiraz/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/Users/mateogiraz/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
     "/Users/mateogiraz/.nuget/packages/microsoft.codecoverage/17.1.0/microsoft.codecoverage.17.1.0.nupkg.sha512",

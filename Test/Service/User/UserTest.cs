@@ -63,4 +63,17 @@ public class UserTest
         Assert.AreEqual("Loch Ness Road, Towson, MD.", user.Address);
     }
     
+    [TestMethod]
+    public void CanSetPasswordHash_Ok()
+    {
+        var user = new User()
+        {
+            PasswordHash = "SafeSecret"
+        };
+        
+        var isPasswordValid = BCrypt.Net.BCrypt.Verify("SafeSecret", user.PasswordHash);
+
+        Assert.IsTrue(isPasswordValid);
+    }
+    
 }
