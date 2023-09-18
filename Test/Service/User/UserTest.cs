@@ -18,10 +18,10 @@ public class UserTest
     {
         var user = new User()
         {
-            Email = "testEmail"
+            Email = "test@email.com"
         };
         
-        Assert.AreEqual("testEmail", user.Email);
+        Assert.AreEqual("test@email.com", user.Email);
     }
 
     [ExpectedException(typeof(ModelException))]
@@ -32,7 +32,6 @@ public class UserTest
         {
             Email = "testEmail"
         };
-        
     }
     
     
