@@ -66,12 +66,14 @@ public class UserTest
     [TestMethod]
     public void CanSetPasswordHash_Ok()
     {
+        const string password = "SafeSecret";
+        
         var user = new User()
         {
-            PasswordHash = "SafeSecret"
+            PasswordHash = password
         };
         
-        var isPasswordValid = BCrypt.Net.BCrypt.Verify("SafeSecret", user.PasswordHash);
+        var isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
 
         Assert.IsTrue(isPasswordValid);
     }
