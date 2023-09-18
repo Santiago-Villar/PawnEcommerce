@@ -1,4 +1,5 @@
 ﻿namespace Test;
+using Service.User;
 
 [TestClass]
 public class UserTest
@@ -7,5 +8,7 @@ public class UserTest
     public void CanCreateUser_Ok()
     {
         var user = new User();
+        Assert.IsNotNull(user);
     }
+    
 }

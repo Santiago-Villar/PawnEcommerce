@@ -95,3 +95,6 @@
 /Users/mateogiraz/Documents/256345-241195-270956/Test/obj/Debug/net6.0/Test.pdb
 /Users/mateogiraz/Documents/256345-241195-270956/Test/obj/Debug/net6.0/Test.genruntimeconfig.cache
 /Users/mateogiraz/Documents/256345-241195-270956/Test/obj/Debug/net6.0/ref/Test.dll
+/Users/mateogiraz/Documents/256345-241195-270956/Test/bin/Debug/net6.0/CoverletSourceRootsMapping
+/Users/mateogiraz/Documents/256345-241195-270956/Test/bin/Debug/net6.0/Service.dll
+/Users/mateogiraz/Documents/256345-241195-270956/Test/bin/Debug/net6.0/Service.pdb
