@@ -6,6 +6,8 @@ namespace Service.User;
 
 public class User
 {
+    public string Address { get; set; }
+
     private string _email;
     private string _passwordHash;
     public string PasswordHash
@@ -37,9 +39,7 @@ public class User
             }
         }
     }
-
-    public string Address { get; set; }
-
+    
     private bool IsValidEmail(string email)
     {
         const string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
