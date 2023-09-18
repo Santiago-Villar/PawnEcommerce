@@ -437,25 +437,24 @@
     ]
   },
   "packageFolders": {
-    "/Users/pabloduran/.nuget/packages/": {}
+    "/Users/mateogiraz/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pabloduran/Projects/PawnEcommerce/PawnEcommerce/PawnEcommerce.csproj",
+      "projectUniqueName": "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/PawnEcommerce.csproj",
       "projectName": "PawnEcommerce",
-      "projectPath": "/Users/pabloduran/Projects/PawnEcommerce/PawnEcommerce/PawnEcommerce.csproj",
-      "packagesPath": "/Users/pabloduran/.nuget/packages/",
-      "outputPath": "/Users/pabloduran/Projects/PawnEcommerce/PawnEcommerce/obj/",
+      "projectPath": "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/PawnEcommerce.csproj",
+      "packagesPath": "/Users/mateogiraz/.nuget/packages/",
+      "outputPath": "/Users/mateogiraz/Documents/256345-241195-270956/PawnEcommerce/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/pabloduran/.nuget/NuGet/NuGet.Config"
+        "/Users/mateogiraz/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/sdk/7.0.307/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -498,7 +497,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.413/RuntimeIdentifierGraph.json"
       }
     }
   }
