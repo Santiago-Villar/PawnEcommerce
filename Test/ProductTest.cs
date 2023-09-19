@@ -75,7 +75,13 @@ public class ProductTest
     [TestMethod]
     public void ProductBrandFails()
     {
-        Assert.AreEqual(aProduct.Brand.Name, "Puma");
+        Assert.AreNotEqual(aProduct.Brand.Name, "Puma");
+    }
+
+    [TestMethod]
+    public void ProductColorsAreNotNull()
+    {
+        Assert.IsNotNull(aProduct.Colors);
     }
 
 }
