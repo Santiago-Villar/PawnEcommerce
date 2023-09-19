@@ -27,5 +27,7 @@
             this.Brand = brand;
             this.Colors = new List<string>();  
         }
+
+
     }
 }

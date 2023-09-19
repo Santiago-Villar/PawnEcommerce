@@ -83,5 +83,11 @@ public class ProductTest
     {
         Assert.IsNotNull(aProduct.Colors);
     }
+    [TestMethod]
+    [ExpectedException(typeof(ServiceException))]
+    public void AddEmptyColor()
+    {
+        aProduct.AddColor("");
+    }
 
 }
