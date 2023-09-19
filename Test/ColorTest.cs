@@ -1,4 +1,6 @@
 ﻿namespace Test;
+
+using Service;
 using Service.Product;
 
 [TestClass]
@@ -13,5 +15,15 @@ public class ColorTest
     public void ColorIsNotNull()
     {
         Assert.IsNotNull(aColor);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ServiceException))]
+    public void CreateEmptyColor()
+    {
+        Color color = new Color()
+        {
+            Name=""
+        };
     }
 }
