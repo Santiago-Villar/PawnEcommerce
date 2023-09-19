@@ -31,4 +31,12 @@ public class ProductTest
         aProduct.Description = "Es bueno";
         Assert.AreEqual("Es bueno", aProduct.Description);
     }
+    [TestMethod]
+    public void ProductHasPrice()
+    {
+        Product aProduct = new Product("Juan", "Está godines",10);
+        aProduct.Price = 500;
+        Assert.AreEqual(500, aProduct.Price);
+    }
+
 }
