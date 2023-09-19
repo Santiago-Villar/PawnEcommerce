@@ -10,8 +10,12 @@ namespace Test.Service.Promotion;
 [TestClass]
 public class PromotionTest
 {
-    private Mock<IProduct> CreateMockProduct(int price, string category, string color)
+    private Mock<IProduct> CreateMockProduct()
     {
+        const int price = 10;
+        const string category = "Jeans";
+        const string color = "Blue";
+        
         var mockColor = new Mock<IColor>();
         mockColor.Setup(col => col.Name).Returns(color);
         var mockedColor = mockColor.Object;
@@ -63,11 +67,7 @@ public class PromotionTest
     {
         var twentyPercentDiscount = new TwentyPercentDiscount();
         
-        const int productPrice = 10;
-        const string productCategory = "Jeans";
-        const string productColor = "Blue";
-
-        var mockedProduct = CreateMockProduct(productPrice, productCategory, productColor).Object;
+        var mockedProduct = CreateMockProduct().Object;
 
         var products = Enumerable.Repeat(mockedProduct, 2).ToList();
 
@@ -82,11 +82,7 @@ public class PromotionTest
     {
         var threeForTwoDiscount = new ThreeForTwo();
 
-        const int productPrice = 10;
-        const string productCategory = "Jeans";
-        const string productColor = "Blue";
-
-        var mockedProduct = CreateMockProduct(productPrice, productCategory, productColor).Object;
+        var mockedProduct = CreateMockProduct().Object;
 
         var products = Enumerable.Repeat(mockedProduct, 4).ToList();
         
@@ -101,11 +97,7 @@ public class PromotionTest
     {
         var totalLook = new TotalLook();
 
-        const int productPrice = 10;
-        const string productCategory = "Jeans";
-        const string productColor = "Blue";
-        
-        var mockedProduct = CreateMockProduct(productPrice, productCategory, productColor).Object;
+        var mockedProduct = CreateMockProduct().Object;
 
         var products = Enumerable.Repeat(mockedProduct, 4).ToList();
         
