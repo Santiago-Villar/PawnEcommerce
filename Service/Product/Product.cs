@@ -12,6 +12,9 @@
                 _price = value; 
             }
         }
+
+        public Category Category { get; set; }
+
         public Product(String name, String Description, int price) {
             this.Name = name;  
             this.Description = Description;
