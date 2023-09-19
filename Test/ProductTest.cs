@@ -29,8 +29,18 @@ public class ProductTest
         Category = aCategory,
         Brand = aBrand,
         Colors = new List<Color>()
-
-
+    };
+    Color firstColor = new Color()
+    {
+        Name = "Red"
+    };
+    Color secondColor = new Color()
+    {
+        Name = "Green"
+    };
+    Color thirdColor = new Color()
+    {
+        Name = "Blue"
     };
     [TestMethod]
     public void CreateProductOk()
@@ -41,7 +51,7 @@ public class ProductTest
     public void ProductHasName()
     {
         
-        Assert.AreEqual("Juan", aProduct.Name);
+        Assert.AreEqual("Abdul's Udemy Course", aProduct.Name);
     }
 
     [TestMethod]
@@ -107,22 +117,26 @@ public class ProductTest
     [ExpectedException(typeof(ServiceException))]
     public void AddEmptyColor()
     {
-        aProduct.AddColor("");
+        Color emptyColor=new Color()
+        {
+            Name=""
+        };
+        aProduct.AddColor(emptyColor);
     }
     [TestMethod]
     public void AddColorOk()
     {
-        aProduct.AddColor("Green");
-        aProduct.AddColor("Red");
+
+        aProduct.AddColor(firstColor);
+        aProduct.AddColor(secondColor);
         Assert.AreEqual(aProduct.Colors.Count, 2);
     }
     [TestMethod]
     public void AddDuplicateColor()
     {
-        aProduct.AddColor("Green");
-        aProduct.AddColor("Red");
-        aProduct.AddColor("Green");
-        Assert.AreEqual(aProduct.Colors.Count, 2);
+        aProduct.AddColor(firstColor);
+        aProduct.AddColor(thirdColor);
+        Assert.AreEqual(aProduct.Colors.Count, 3);
     }
 
 }

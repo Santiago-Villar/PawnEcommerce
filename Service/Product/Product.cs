@@ -19,7 +19,7 @@
 
         public List<Color> Colors { get; set; }
 
-        public void AddColor(string color)
+        public void AddColor(Color color)
         {
             if (color.Equals("")) throw new ServiceException("Color must not be null");
             if (Colors.Contains(color)) return;

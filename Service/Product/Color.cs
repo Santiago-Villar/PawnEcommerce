@@ -8,7 +8,20 @@ namespace Service.Product
 {
     public class Color:IColor
     {
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value.Equals(""))
+                {
+                    throw new ServiceException("Category Name must not be empty");
+                }
+                _name = value;
+            }
+
+        }
 
 
         public override bool Equals(object obj)
