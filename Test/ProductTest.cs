@@ -24,17 +24,26 @@ public class ProductTest
         
         Assert.AreEqual("Juan", aProduct.Name);
     }
+
     [TestMethod]
     public void ProductHasDescription()
     {
         aProduct.Description = "Es bueno";
         Assert.AreEqual("Es bueno", aProduct.Description);
     }
+
     [TestMethod]
     public void ProductHasPrice()
     {
         aProduct.Price = 500;
         Assert.AreEqual(500, aProduct.Price);
     }
+
+    [TestMethod]
+    public void ProductHasNegativePrice()
+    {
+        aProduct.Price = -500;
+    }
+
 
 }
