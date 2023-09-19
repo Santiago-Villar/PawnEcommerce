@@ -56,7 +56,7 @@ public class ProductTest
     [TestMethod]
     public void ProductHasCategory()
     {
-        aProduct.Category = new Category();
+        aProduct.Category = new Category("Casual");
         Assert.IsNotNull(aProduct.Category);
     }
 
