@@ -40,9 +40,10 @@ public class ProductTest
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ServiceException))]
     public void ProductHasNegativePrice()
     {
-        aProduct.Price = -500;
+        aProduct.Price = -5;
     }
 
 
