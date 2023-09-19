@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Service.Product;
 using System.Threading.Tasks;
+using Service;
 
 namespace Test;
 
@@ -16,5 +17,12 @@ public class BrandTest
     public void BrandIsNotNull()
     {
         Assert.IsNotNull(aBrand);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ServiceException))]
+    public void BrandNameIsEmpty()
+    {
+        Brand otherBrand = new Brand("");
     }
 }
