@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "/Users/mateogiraz/.nuget/packages/": {}
+    "/Users/pabloduran/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mateogiraz/Documents/256345-241195-270956/Service/Service.csproj",
+      "projectUniqueName": "/Users/pabloduran/Projects/PawnEcommerce/Service/Service.csproj",
       "projectName": "Service",
-      "projectPath": "/Users/mateogiraz/Documents/256345-241195-270956/Service/Service.csproj",
-      "packagesPath": "/Users/mateogiraz/.nuget/packages/",
-      "outputPath": "/Users/mateogiraz/Documents/256345-241195-270956/Service/obj/",
+      "projectPath": "/Users/pabloduran/Projects/PawnEcommerce/Service/Service.csproj",
+      "packagesPath": "/Users/pabloduran/.nuget/packages/",
+      "outputPath": "/Users/pabloduran/Projects/PawnEcommerce/Service/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mateogiraz/.nuget/NuGet/NuGet.Config"
+        "/Users/pabloduran/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.413/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
       }
     }
   }

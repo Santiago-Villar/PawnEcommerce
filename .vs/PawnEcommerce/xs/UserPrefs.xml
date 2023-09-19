@@ -1,34 +1,38 @@
 ﻿<Properties StartupConfiguration="{35203D04-0809-4592-A0AE-5049870F0C02}|Default">
-  <MonoDevelop.Ide.ItemProperties.ILogic FirstBuild="True" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Logic FirstBuild="True" />
   <MonoDevelop.Ide.ItemProperties.Test FirstBuild="True" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PawnEcommerce/Program.cs">
+  <MonoDevelop.Ide.ItemProperties.Model FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.ILogic FirstBuild="True" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.PawnEcommerce PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.IModel FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Repository FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Logic FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.IRepository FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Test/UnitTest1.cs">
     <Files>
-      <File FileName="PawnEcommerce/Controllers/WeatherForecastController.cs" Line="21" Column="40" />
-      <File FileName="PawnEcommerce/Program.cs" Line="27" Column="1" />
-      <File FileName="PawnEcommerce/WeatherForecast.cs" Line="1" Column="1" />
-      <File FileName="PawnEcommerce/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="PawnEcommerce/Program.cs" />
+      <File FileName="PawnEcommerce/Properties/launchSettings.json" />
+      <File FileName="ILogic/Class1.cs" />
+      <File FileName="Logic/Class1.cs" />
+      <File FileName="Model/Class1.cs" />
+      <File FileName="IRepository/Class1.cs" />
+      <File FileName="Repository/Class1.cs" />
+      <File FileName="IModel/Class1.cs" />
+      <File FileName="Test/UnitTest1.cs" Line="11" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="PawnEcommerce" expanded="True">
-            <Node name="PawnEcommerce" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Properties" expanded="True" />
-            </Node>
+          <Node name="PawnEcommerce">
+            <Node name="Model" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.IModel FirstBuild="True" />
-  <MonoDevelop.Ide.ItemProperties.IRepository FirstBuild="True" />
-  <MonoDevelop.Ide.ItemProperties.PawnEcommerce PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.ItemProperties.Repository FirstBuild="True" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints />
-  <MonoDevelop.Ide.ItemProperties.Model FirstBuild="True" />
 </Properties>
