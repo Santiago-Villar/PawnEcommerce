@@ -72,4 +72,10 @@ public class ProductTest
         Assert.AreEqual(aProduct.Brand.Name, "Kova");
     }
 
+    [TestMethod]
+    public void ProductBrandFails()
+    {
+        Assert.AreEqual(aProduct.Brand.Name, "Puma");
+    }
+
 }
