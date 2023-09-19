@@ -54,6 +54,11 @@ public class SaleTest
         Assert.AreEqual(s.Products[0].Name, "Product1");
         Assert.AreEqual(s.Products[1].Name, "Product2");
     }
-    
+    [TestMethod]
+    public void SaleHasDate()
+    {
+        var s = new Sale();
+        Assert.IsTrue((DateTime.Now - s.Date).TotalSeconds < 1);
+    }
 
 }
