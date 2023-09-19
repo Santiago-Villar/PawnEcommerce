@@ -12,9 +12,17 @@ public class PromotionTest
         Assert.IsNotNull(totalLook);
     }
     
+    [TestMethod]
     public void CanCreateThreeForOne_Ok()
     {
         var threeForOne = new ThreeForOne();
         Assert.IsNotNull(threeForOne);
+    }
+    
+    [TestMethod]
+    public void CanCreateThreeForTwo_Ok()
+    {
+        var threeForTwo = new ThreeForTwo();
+        Assert.IsNotNull(threeForTwo);
     }
 }
