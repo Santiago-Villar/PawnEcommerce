@@ -26,4 +26,14 @@ public class ColorTest
             Name=""
         };
     }
+
+
+    [TestMethod]
+    public void ColorEqualsOk() {
+        Color anotherColor = new Color()
+        {
+            Name = "Green"
+        };
+        Assert.AreEqual(aColor,anotherColor);
+    }
 }
