@@ -60,5 +60,10 @@ public class ProductTest
         aProduct.Category = new Category("Casual");
         Assert.IsNotNull(aProduct.Category);
     }
+    [TestMethod]
+    public void ProductHasBrand()
+    {
+        Assert.IsNotNull(aProduct.Brand);
+    }
 
 }

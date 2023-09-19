@@ -14,6 +14,7 @@
         }
 
         public Category Category { get; set; }
+        public object Brand { get; set; }
 
         public Product(String name, String Description, int price,Category category) {
             this.Name = name;  
