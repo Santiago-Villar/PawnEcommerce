@@ -44,7 +44,7 @@ public class PromotionTest
         var mockProduct = new Mock<IProduct>();
         mockProduct.Setup(product => product.Price).Returns(productPrice);
         var mockedProduct = mockProduct.Object;
-
+        
         var products = new List<IProduct>()
         {
             mockedProduct,
