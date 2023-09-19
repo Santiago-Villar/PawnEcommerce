@@ -74,16 +74,10 @@ public class PromotionTest
     public void ApplyDiscount_ThreeForTwo_Ok()
     {
         var threeForTwoDiscount = new ThreeForTwo();
-        const int productPrice = 10;
 
-        var mockCategory = new Mock<ICategory>();
-        mockCategory.Setup(category => category.Name).Returns("Jeans");
-        var mockedCategory = mockCategory.Object;
-        
-        var mockProduct = new Mock<IProduct>();
-        mockProduct.Setup(product => product.Category).Returns(mockedCategory);
-        mockProduct.Setup(product => product.Price).Returns(productPrice);
-        var mockedProduct = mockProduct.Object;
+        const int productPrice = 10;
+        const string productCategory = "Jeans";
+        var mockedProduct = CreateMockProduct(productPrice, productCategory).Object;
 
         var products = new List<IProduct>()
         {
