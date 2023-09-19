@@ -136,4 +136,21 @@ public class PromotionTest
         var promotionsCollection = new PromotionCollection();
         Assert.IsNotNull(promotionsCollection);
     }
+    
+    [TestMethod]
+    public void GetPromotions_Ok()
+    {
+        var promotionsCollection = new PromotionCollection();
+        
+        var promotions = new List<IPromotionStrategy>()
+        {
+            new TotalLook(),
+            new ThreeForOne(),
+            new ThreeForTwo(),
+            new TwentyPercentDiscount()
+        };
+        
+        CollectionAssert.IsSubsetOf(promotions, promotionsCollection.GetPromotions());
+    }
+    
 }
