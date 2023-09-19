@@ -1,4 +1,5 @@
 using Service.Product;
+using Service.Product.Category;
 
 namespace Service.Promotion.ConcreteStrategies;
 
@@ -16,20 +17,30 @@ public class ThreeForTwo : IPromotionStrategy
     
     private static IProduct? FindCheapestProductInCommonCategories(List<IProduct> products)
     {
-        var categoryCounts = products
-            .GroupBy(product => product.Category)
-            .Where(group => group.Count() >= MinCategoryCount)
-            .Select(group => group.Key)
-            .ToList();
+        var categoryCounts = FindCategoryCount(products);
 
         if (categoryCounts.Count == 0)
             return null;
 
-        var cheapestProduct = products
-            .Where(product => categoryCounts
-            .Contains(product.Category))
-            .MinBy(product => product.Price);
+        var cheapestProduct = FindCheapestProduct(products, categoryCounts);
 
         return cheapestProduct;
+    }
+
+    private static IProduct? FindCheapestProduct(List<IProduct> products, List<ICategory> categoryCounts)
+    {
+        return products
+            .Where(product => categoryCounts
+                .Contains(product.Category))
+            .MinBy(product => product.Price);
+    }
+
+    private static List<ICategory> FindCategoryCount(List<IProduct> products)
+    {
+        return products
+            .GroupBy(product => product.Category)
+            .Where(group => group.Count() >= MinCategoryCount)
+            .Select(group => group.Key)
+            .ToList();
     }
 }
