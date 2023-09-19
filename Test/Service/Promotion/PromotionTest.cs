@@ -128,4 +128,11 @@ public class PromotionTest
 
         Assert.AreEqual(expectedDiscountPrice, discountPrice);
     }
+    
+    [TestMethod]
+    public void CanCreatePromotionsCollection_Ok()
+    {
+        var promotionsCollection = new PromotionCollection();
+        Assert.IsNotNull(promotionsCollection);
+    }
 }
