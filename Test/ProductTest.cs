@@ -46,5 +46,11 @@ public class ProductTest
         aProduct.Price = -5;
     }
 
+    [TestMethod]
+    public void ProductHasPositivePrice()
+    {
+        aProduct.Price = 50;
+        Assert.IsTrue(aProduct.Price > 0);
+    }
 
 }
