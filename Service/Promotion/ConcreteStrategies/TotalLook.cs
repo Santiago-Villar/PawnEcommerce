@@ -18,25 +18,39 @@ public class TotalLook : IPromotionStrategy
 
     private static IProduct? FindMostExpensiveProductWithSharedColor(List<IProduct> products)
     {
-        var colorCounts = products
-            .SelectMany(product => product.Colors)
-            .GroupBy(color => color)
-            .ToDictionary(group => group.Key, group => group.Count());
+        var colorCounts = FindColorCount(products);
 
-
-        var targetColor = colorCounts
-            .Where(kvp => kvp.Value >= MinCategoryCount)
-            .OrderByDescending(kvp => GetPriceForColor(products, kvp.Key))
-            .FirstOrDefault().Key;
+        var targetColor = FindTargetColor(products, colorCounts);
 
         if (targetColor == null)
             return null;
 
-        var mostExpensiveProduct = products
-            .Where(product => product.Colors.Contains(targetColor))
-            .MaxBy(product => product.Price);
+        var mostExpensiveProduct = FindMostExpensiveProduct(products, targetColor);
 
         return mostExpensiveProduct;
+    }
+
+    private static IProduct? FindMostExpensiveProduct(List<IProduct> products, IColor targetColor)
+    {
+        return products
+            .Where(product => product.Colors.Contains(targetColor))
+            .MaxBy(product => product.Price);
+    }
+
+    private static IColor? FindTargetColor(List<IProduct> products, Dictionary<IColor, int> colorCounts)
+    {
+        return colorCounts
+            .Where(kvp => kvp.Value >= MinCategoryCount)
+            .OrderByDescending(kvp => GetPriceForColor(products, kvp.Key))
+            .FirstOrDefault().Key;
+    }
+
+    private static Dictionary<IColor, int> FindColorCount(List<IProduct> products)
+    {
+        return products
+            .SelectMany(product => product.Colors)
+            .GroupBy(color => color)
+            .ToDictionary(group => group.Key, group => group.Count());
     }
 
     private static decimal GetPriceForColor(List<IProduct> products, IColor color)
