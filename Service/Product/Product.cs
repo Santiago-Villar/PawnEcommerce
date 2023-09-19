@@ -28,6 +28,9 @@
             this.Colors = new List<string>();  
         }
 
-
+        public void AddColor(string color)
+        {
+            if (color.Equals("")) throw new ServiceException("Color must not be null");
+        }
     }
 }
