@@ -25,4 +25,11 @@ public class PromotionTest
         var threeForTwo = new ThreeForTwo();
         Assert.IsNotNull(threeForTwo);
     }
+    
+    [TestMethod]
+    public void TwentyPercentDiscount_Ok()
+    {
+        var twentyPercentDiscount = new TwentyPercentDiscount();
+        Assert.IsNotNull(twentyPercentDiscount);
+    }
 }
