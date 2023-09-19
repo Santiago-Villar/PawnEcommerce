@@ -11,7 +11,7 @@ namespace Test;
 [TestClass]
 public class CategoryTest
 {
-    Category aCategory = new Category();
+    Category aCategory = new Category("Casual");
     [TestMethod]
     public void CategoryIsNotNull()
     {
