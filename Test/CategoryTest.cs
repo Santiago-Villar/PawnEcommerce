@@ -28,4 +28,9 @@ public class CategoryTest
     {
         Assert.AreEqual(aCategory.Name,"Casual");
     }
+
+    public void CategoryNameFails()
+    {
+        Assert.AreNotEqual(aCategory.Name, "Outwear");
+    }
 }
