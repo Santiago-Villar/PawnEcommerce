@@ -1,4 +1,6 @@
 using Service.Promotion.ConcreteStrategies;
+using Moq;
+using Service.Product;
 
 namespace Test.Promotion;
 
@@ -32,4 +34,25 @@ public class PromotionTest
         var twentyPercentDiscount = new TwentyPercentDiscount();
         Assert.IsNotNull(twentyPercentDiscount);
     }
-}
+    
+    [TestMethod]
+    public void ApplyDiscount_TwentyPercentDiscount_Ok()
+    {
+        var twentyPercentDiscount = new TwentyPercentDiscount();
+        const int productPrice = 10;
+        
+        var mockProduct = new Mock<IProduct>();
+        mockProduct.Setup(product => product.Price).Returns(productPrice);
+        var mockedProduct = mockProduct.Object;
+
+        var products = new List<IProduct>()
+        {
+            mockedProduct,
+            mockedProduct
+        };
+        
+        var discountPrice = twentyPercentDiscount.GetDiscountPrice(products);
+        const float expectedDiscountPrice = 18;
+
+        Assert.AreEqual(expectedDiscountPrice, discountPrice);
+    }}
