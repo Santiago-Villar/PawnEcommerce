@@ -23,4 +23,9 @@ public class CategoryTest
     {
         Category otherCategory = new Category("");
     }
+    [TestMethod]
+    public void CategoryNameIsOk()
+    {
+        Assert.AreEqual(aCategory.Name,"Casual");
+    }
 }
