@@ -58,11 +58,7 @@ public class PromotionTest
         const string productCategory = "Jeans";
         var mockedProduct = CreateMockProduct(productPrice, productCategory).Object;
 
-        var products = new List<IProduct>()
-        {
-            mockedProduct,
-            mockedProduct
-        };
+        var products = Enumerable.Repeat(mockedProduct, 2).ToList();
 
         var discountPrice = twentyPercentDiscount.GetDiscountPrice(products);
         const float expectedDiscountPrice = 18;
@@ -79,14 +75,8 @@ public class PromotionTest
         const string productCategory = "Jeans";
         var mockedProduct = CreateMockProduct(productPrice, productCategory).Object;
 
-        var products = new List<IProduct>()
-        {
-            mockedProduct,
-            mockedProduct,
-            mockedProduct,
-            mockedProduct,
-        };
-
+        var products = Enumerable.Repeat(mockedProduct, 4).ToList();
+        
         var discountPrice = threeForTwoDiscount.GetDiscountPrice(products);
         const float expectedDiscountPrice = 30;
 
