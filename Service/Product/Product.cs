@@ -15,10 +15,11 @@
 
         public Category Category { get; set; }
 
-        public Product(String name, String Description, int price) {
+        public Product(String name, String Description, int price,Category category) {
             this.Name = name;  
             this.Description = Description;
             this.Price = price;
+            this.Category = category;
         }
     }
 }

@@ -12,7 +12,8 @@ namespace Test;
 [TestClass]
 public class ProductTest
 {
-    Product aProduct = new Product("Juan", "Está godines", 10);
+    public static Category aCategory = new Category("Retro");
+    public static Product aProduct = new Product("Juan", "Está godines", 10,aCategory);
     [TestMethod]
     public void CreateProductOk()
     {
