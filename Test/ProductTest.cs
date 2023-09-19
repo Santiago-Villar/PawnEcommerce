@@ -89,5 +89,12 @@ public class ProductTest
     {
         aProduct.AddColor("");
     }
+    [TestMethod]
+    public void AddColorOk()
+    {
+        aProduct.AddColor("Green");
+        aProduct.AddColor("Red");
+        Assert.AreEqual(aProduct.Colors.Count, 2);
+    }
 
 }
