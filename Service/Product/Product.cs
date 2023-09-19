@@ -31,6 +31,7 @@
         public void AddColor(string color)
         {
             if (color.Equals("")) throw new ServiceException("Color must not be null");
+            if (Colors.Contains(color)) return;
             Colors.Add(color);
         }
     }

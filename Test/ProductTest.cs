@@ -100,8 +100,9 @@ public class ProductTest
     public void AddDuplicateColor()
     {
         aProduct.AddColor("Green");
+        aProduct.AddColor("Red");
         aProduct.AddColor("Green");
-        Assert.AreEqual(aProduct.Colors.Count, 1);
+        Assert.AreEqual(aProduct.Colors.Count, 2);
     }
 
 }
