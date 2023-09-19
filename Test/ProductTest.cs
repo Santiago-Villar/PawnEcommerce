@@ -65,5 +65,11 @@ public class ProductTest
     {
         Assert.IsNotNull(aProduct.Brand);
     }
+    [TestMethod]
+    public void ProductBrandOk()
+    {
+        Brand otherBrand = new Brand("Kova");
+        Assert.AreEqual(aProduct.Brand.Name, "Kova");
+    }
 
 }
