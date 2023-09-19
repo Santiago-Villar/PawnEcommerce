@@ -53,4 +53,11 @@ public class ProductTest
         Assert.IsTrue(aProduct.Price > 0);
     }
 
+    [TestMethod]
+    public void ProductHasCategory()
+    {
+        aProduct.Category = new Category("Casual");
+        Assert.IsNotNull(aProduct.Category);
+    }
+
 }
