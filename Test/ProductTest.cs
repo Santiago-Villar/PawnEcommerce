@@ -12,8 +12,9 @@ namespace Test;
 [TestClass]
 public class ProductTest
 {
+   public static Brand aBrand = new Brand("Kova");
     public static Category aCategory = new Category("Retro");
-    public static Product aProduct = new Product("Juan", "Está godines", 10,aCategory);
+    public static Product aProduct = new Product("Juan", "Está godines", 10,aCategory,aBrand);
     [TestMethod]
     public void CreateProductOk()
     {
@@ -68,7 +69,6 @@ public class ProductTest
     [TestMethod]
     public void ProductBrandOk()
     {
-        Brand otherBrand = new Brand("Kova");
         Assert.AreEqual(aProduct.Brand.Name, "Kova");
     }
 

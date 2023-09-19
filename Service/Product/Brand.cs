@@ -2,7 +2,20 @@
 {
     public class Brand
     {
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value.Equals(""))
+                {
+                    throw new ServiceException("Brand Name must not be empty");
+                }
+                _name = value;
+            }
+
+        }
 
         public Brand(string name)
         {
