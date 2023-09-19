@@ -25,8 +25,15 @@ public class BrandTest
     {
         Brand otherBrand = new Brand("");
     }
+    [TestMethod]
     public void BrandNameIsOk()
     {
         Assert.AreEqual(aBrand.Name, "Kova");
+    }
+    [TestMethod]
+
+    public void BrandNameFails()
+    {
+        Assert.AreNotEqual(aBrand.Name, "Puma");
     }
 }
