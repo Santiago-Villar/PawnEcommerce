@@ -12,7 +12,10 @@ namespace Test;
 [TestClass]
 public class BrandTest
 {
-    public static Brand aBrand = new Brand("Kova");
+    public static Brand aBrand = new Brand()
+    {
+        Name = "Kova"
+    };
     [TestMethod]
     public void BrandIsNotNull()
     {
@@ -23,7 +26,10 @@ public class BrandTest
     [ExpectedException(typeof(ServiceException))]
     public void BrandNameIsEmpty()
     {
-        Brand otherBrand = new Brand("");
+        Brand otherBrand = new Brand()
+        {
+            Name = ""
+        };
     }
     [TestMethod]
     public void BrandNameIsOk()

@@ -17,16 +17,7 @@
         public Category Category { get; set; }
         public Brand Brand { get; set; }
 
-        public List<string> Colors { get; set; }
-
-        public Product(String name, String Description, int price,Category category,Brand brand) {
-            this.Name = name;  
-            this.Description = Description;
-            this.Price = price;
-            this.Category = category;
-            this.Brand = brand;
-            this.Colors = new List<string>();  
-        }
+        public List<Color> Colors { get; set; }
 
         public void AddColor(string color)
         {

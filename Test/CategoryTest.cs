@@ -11,7 +11,10 @@ namespace Test;
 [TestClass]
 public class CategoryTest
 {
-    Category aCategory = new Category("Casual");
+    Category aCategory = new Category()
+    {
+        Name = "Casual"
+    };
     [TestMethod]
     public void CategoryIsNotNull()
     {
@@ -21,7 +24,10 @@ public class CategoryTest
     [ExpectedException(typeof(ServiceException))]
     public void CategoryNameIsEmpty()
     {
-        Category otherCategory = new Category("");
+        Category otherCategory = new Category()
+        {
+            Name = ""
+        };
     }
     [TestMethod]
     public void CategoryNameIsOk()

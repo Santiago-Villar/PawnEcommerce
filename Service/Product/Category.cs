@@ -13,8 +13,5 @@
             }
                 
             }
-        public Category(string name) {
-            this.Name=name;
-        }
     }
 }

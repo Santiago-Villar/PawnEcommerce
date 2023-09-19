@@ -17,9 +17,6 @@
 
         }
 
-        public Brand(string name)
-        {
-            this.Name = name;
-        }
+
     }
 }

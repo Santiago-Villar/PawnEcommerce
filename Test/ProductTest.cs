@@ -12,9 +12,26 @@ namespace Test;
 [TestClass]
 public class ProductTest
 {
-   public static Brand aBrand = new Brand("Kova");
-    public static Category aCategory = new Category("Retro");
-    public static Product aProduct = new Product("Juan", "Está godines", 10,aCategory,aBrand);
+    public static Brand aBrand = new Brand()
+    {
+        Name = "Kova"
+    };
+    public static Category aCategory = new Category()
+    {
+        Name= "Retro"
+    };
+
+    public static Product aProduct = new Product()
+    {
+        Name = "Abdul's Udemy Course",
+        Description = "Está godines",
+        Price = 10,
+        Category = aCategory,
+        Brand = aBrand,
+        Colors = new List<Color>()
+
+
+    };
     [TestMethod]
     public void CreateProductOk()
     {
@@ -58,7 +75,10 @@ public class ProductTest
     [TestMethod]
     public void ProductHasCategory()
     {
-        aProduct.Category = new Category("Casual");
+        aProduct.Category = new Category()
+        {
+            Name = "Casual"
+        };
         Assert.IsNotNull(aProduct.Category);
     }
     [TestMethod]
