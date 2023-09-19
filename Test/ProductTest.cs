@@ -96,5 +96,12 @@ public class ProductTest
         aProduct.AddColor("Red");
         Assert.AreEqual(aProduct.Colors.Count, 2);
     }
+    [TestMethod]
+    public void AddDuplicateColor()
+    {
+        aProduct.AddColor("Green");
+        aProduct.AddColor("Green");
+        Assert.AreEqual(aProduct.Colors.Count, 1);
+    }
 
 }
