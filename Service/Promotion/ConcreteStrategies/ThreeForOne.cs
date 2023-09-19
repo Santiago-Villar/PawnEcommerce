@@ -12,9 +12,9 @@ public class ThreeForOne : IPromotionStrategy
     {
         var totalPrice = products.Sum(product => product.Price);
         var cheapestProduct = FindCheapestProductsInCommonBrands(products);
-        var cheapestPrice = cheapestProduct?.Sum(product => product.Price) ?? 0;
+        var discountPrice = cheapestProduct?.Sum(product => product.Price) ?? 0;
         
-        return totalPrice - cheapestPrice;
+        return totalPrice - discountPrice;
     }
     
     private static List<IProduct>? FindCheapestProductsInCommonBrands(List<IProduct> products)
