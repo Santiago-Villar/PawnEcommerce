@@ -1,4 +1,5 @@
-﻿using Service.Product;
+﻿using Service;
+using Service.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,11 @@ public class CategoryTest
     public void CategoryIsNotNull()
     {
         Assert.IsNotNull(aCategory);
-
+    }
+    [TestMethod]
+    [ExpectedException(typeof(ServiceException))]
+    public void CategoryNameIsEmpty()
+    {
+        Category otherCategory = new Category("");
     }
 }
