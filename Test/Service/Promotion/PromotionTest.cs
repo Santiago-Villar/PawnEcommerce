@@ -157,16 +157,19 @@ public class PromotionTest
         CollectionAssert.AreEquivalent(promotionsName, names);
     }
     
+    [TestMethod]
     public void GetBestPromotion_Ok()
     {
-        var totalLook = new TotalLook();
+        var threeForOne = new ThreeForOne();
         var mockedProduct = CreateMockProduct().Object;
 
         var products = Enumerable.Repeat(mockedProduct, 5).ToList();
-        
-        var bestPromotion = PromotionSelector.GetBestPromotion(products);
 
-        Assert.AreEqual(totalLook.Name, bestPromotion.Name);
+        var promotionSelector = new PromotionSelector();
+        
+        var bestPromotion = promotionSelector.GetBestPromotion(products);
+
+        Assert.AreEqual(threeForOne.Name, bestPromotion?.Name);
     }
     
 }
