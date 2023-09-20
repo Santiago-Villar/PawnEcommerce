@@ -7,6 +7,7 @@ public class TotalLook : IPromotionStrategy
 {
     public string Name { get; init; } = "Total Look";
 
+    private const double FiftyPercentConverter = 0.5;
     private const int MinCategoryCount = 3;
 
     public double GetDiscountPrice(List<IProduct> products)
@@ -15,13 +16,13 @@ public class TotalLook : IPromotionStrategy
         var mostExpensiveProduct = FindMostExpensiveProductWithSharedColor(products);
         var mostExpensivePrice = mostExpensiveProduct?.Price ?? 0;
 
-        return totalPrice - mostExpensivePrice;
+        return totalPrice - mostExpensivePrice * FiftyPercentConverter;
     }
 
     private static IProduct? FindMostExpensiveProductWithSharedColor(List<IProduct> products)
     {
         var colorCounts = FindColorCount(products);
-
+        
         var targetColor = FindTargetColor(products, colorCounts);
 
         if (targetColor == null)
@@ -50,8 +51,9 @@ public class TotalLook : IPromotionStrategy
     private static Dictionary<IColor, int> FindColorCount(List<IProduct> products)
     {
         return products
-            .SelectMany(product => product.Colors)
+            .SelectMany(product => product.Colors.Distinct())
             .GroupBy(color => color)
+            .Where(group => group.Count() >= MinCategoryCount)
             .ToDictionary(group => group.Key, group => group.Count());
     }
 
