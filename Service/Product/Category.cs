@@ -1,4 +1,6 @@
-﻿namespace Service.Product
+﻿using Service.Exception;
+
+namespace Service.Product
 {
     public class Category
     {
@@ -7,7 +9,7 @@
             set
             {
                 if(value.Equals("")) { 
-                    throw new ServiceException("Category Name must not be empty");
+                    throw new ModelException("Category Name must not be empty");
                 }
                 _name = value;
             }

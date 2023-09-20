@@ -1,4 +1,6 @@
-﻿namespace Service.Product
+﻿using Service.Exception;
+
+namespace Service.Product
 {
     public class Product
     {
@@ -9,7 +11,7 @@
         private int _price;
         public int Price { get => _price;
             set {  
-               if(value< 0) throw new ServiceException("Price must be a positive integer.");
+               if(value< 0) throw new ModelException("Price must be a positive integer.");
                 _price = value; 
             }
         }
@@ -21,7 +23,7 @@
 
         public void AddColor(Color color)
         {
-            if (color.Equals("")) throw new ServiceException("Color must not be null");
+            if (color.Equals("")) throw new ModelException("Color must not be null");
             if (Colors.Contains(color)) return;
             Colors.Add(color);
         }

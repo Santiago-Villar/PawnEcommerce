@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Service.Exception;
 
 namespace Service.Product
 {
@@ -16,7 +17,7 @@ namespace Service.Product
             {
                 if (value.Equals(""))
                 {
-                    throw new ServiceException("Category Name must not be empty");
+                    throw new ModelException("Category Name must not be empty");
                 }
                 _name = value;
             }

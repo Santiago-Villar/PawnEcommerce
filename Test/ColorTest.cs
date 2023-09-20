@@ -1,4 +1,6 @@
-﻿namespace Test;
+﻿using Service.Exception;
+
+namespace Test;
 
 using Service;
 using Service.Product;
@@ -18,7 +20,7 @@ public class ColorTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ServiceException))]
+    [ExpectedException(typeof(ModelException))]
     public void CreateEmptyColor()
     {
         Color color = new Color()
