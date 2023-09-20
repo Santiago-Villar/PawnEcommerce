@@ -38,7 +38,7 @@ public class ThreeForTwoTest
         
         var mockColor = PromotionTestHelper.CreateMockColor("Blue").Object;
 
-        var colors = Enumerable.Repeat(mockColor, 2).ToList(); //error is here
+        var colors = Enumerable.Repeat(mockColor, 2).ToList();
 
         var mockCategory1 = PromotionTestHelper.CreateMockCategory("cat1").Object;
         var mockCategory2 = PromotionTestHelper.CreateMockCategory("cat2").Object;
