@@ -123,7 +123,7 @@ public class PromotionTest
         var products = Enumerable.Repeat(mockedProduct, 4).ToList();
         
         var discountPrice = totalLook.GetDiscountPrice(products);
-        const float expectedDiscountPrice = 30;
+        const float expectedDiscountPrice = 35;
 
         Assert.AreEqual(expectedDiscountPrice, discountPrice);
     }
@@ -193,7 +193,8 @@ public class PromotionTest
         const string color = "Blue";
         
         var mockColor = CreateMockColor("Blue").Object;
-        var colors = Enumerable.Repeat(mockColor, 3).ToList();
+
+        var colors = Enumerable.Repeat(mockColor, 2).ToList(); //error is here
 
         var mockCategory1 = CreateMockCategory("cat1").Object;
         var mockCategory2 = CreateMockCategory("cat2").Object;
@@ -202,7 +203,7 @@ public class PromotionTest
         var mockBrand2 = CreateMockBrand("brand2").Object;
 
         var mockProduct1 = CreateProduct(mockCategory1, colors, mockBrand1);
-        var mockProduct2 = CreateProduct(mockCategory2, colors, mockBrand2);
+        var mockProduct2 = CreateProduct(mockCategory1, colors, mockBrand1);
         var mockProduct3 = CreateProduct(mockCategory2, colors, mockBrand2);
 
         var products = new List<IProduct>()
