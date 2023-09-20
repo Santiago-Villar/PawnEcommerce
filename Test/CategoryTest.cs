@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Service.Exception;
 
 namespace Test;
 
@@ -21,7 +22,7 @@ public class CategoryTest
         Assert.IsNotNull(aCategory);
     }
     [TestMethod]
-    [ExpectedException(typeof(ServiceException))]
+    [ExpectedException(typeof(ModelException))]
     public void CategoryNameIsEmpty()
     {
         Category otherCategory = new Category()

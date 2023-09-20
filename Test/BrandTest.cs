@@ -6,6 +6,7 @@ using System.Text;
 using Service.Product;
 using System.Threading.Tasks;
 using Service;
+using Service.Exception;
 
 namespace Test;
 
@@ -23,7 +24,7 @@ public class BrandTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ServiceException))]
+    [ExpectedException(typeof(ModelException))]
     public void BrandNameIsEmpty()
     {
         Brand otherBrand = new Brand()

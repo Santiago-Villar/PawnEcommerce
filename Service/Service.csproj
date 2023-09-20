@@ -6,7 +6,6 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-<<<<<<< HEAD
 
 
     <ItemGroup>
@@ -16,7 +15,6 @@
 
 
 
-=======
     <ItemGroup>
       <None Remove="Sale\" />
       <None Remove="User\" />
@@ -27,5 +25,4 @@
       <Folder Include="User\" />
       <Folder Include="Product\" />
     </ItemGroup>
->>>>>>> develop
 </Project>

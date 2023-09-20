@@ -1,4 +1,6 @@
-﻿namespace Service.Product
+﻿using Service.Exception;
+
+namespace Service.Product
 {
     public class Brand
     {
@@ -10,7 +12,7 @@
             {
                 if (value.Equals(""))
                 {
-                    throw new ServiceException("Brand Name must not be empty");
+                    throw new ModelException("Brand Name must not be empty");
                 }
                 _name = value;
             }

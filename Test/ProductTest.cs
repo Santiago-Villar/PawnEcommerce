@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Service;
+using Service.Exception;
 using Service.Product;
 
 namespace Test;
@@ -69,7 +70,7 @@ public class ProductTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ServiceException))]
+    [ExpectedException(typeof(ModelException))]
     public void ProductHasNegativePrice()
     {
         aProduct.Price = -5;
@@ -114,7 +115,7 @@ public class ProductTest
         Assert.IsNotNull(aProduct.Colors);
     }
     [TestMethod]
-    [ExpectedException(typeof(ServiceException))]
+    [ExpectedException(typeof(ModelException))]
     public void AddEmptyColor()
     {
         Color emptyColor=new Color()
