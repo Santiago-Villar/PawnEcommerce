@@ -6,6 +6,6 @@ namespace Service.Product
     {
         string Name { get; set; }
 
-        bool Equals(object Other);
+        bool Equals(object other);
     }
 }

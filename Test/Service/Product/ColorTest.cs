@@ -1,9 +1,7 @@
 ﻿using Service.Exception;
+using Service.Product;
 
 namespace Test;
-
-using Service;
-using Service.Product;
 
 [TestClass]
 public class ColorTest
