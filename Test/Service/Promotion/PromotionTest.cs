@@ -12,6 +12,27 @@ namespace Test.Service.Promotion;
 [TestClass]
 public class PromotionTest
 {
+    private Mock<ICategory> CreateMockCategory(string name)
+    {
+        var mockCategory = new Mock<ICategory>();
+        mockCategory.Setup(cat => cat.Name).Returns(name);
+        return mockCategory;
+    }
+    
+    private Mock<IBrand> CreateMockBrand(string name)
+    {
+        var mockBrand = new Mock<IBrand>();
+        mockBrand.Setup(bra => bra.Name).Returns(name);
+        return mockBrand;
+    }
+    
+    private Mock<IColor> CreateMockColor(string name)
+    {
+        var mockColor = new Mock<IColor>();
+        mockColor.Setup(col => col.Name).Returns(name);
+        return mockColor;
+    }
+
     private Mock<IProduct> CreateMockProduct()
     {
         const int price = 10;
@@ -19,25 +40,17 @@ public class PromotionTest
         const string color = "Blue";
         const string brand = "Zara";
 
-        var mockColor = new Mock<IColor>();
-        mockColor.Setup(col => col.Name).Returns(color);
-        var mockedColor = mockColor.Object;
-        
-        var colors = Enumerable.Repeat(mockedColor, 3).ToList();
-        
-        var mockCategory = new Mock<ICategory>();
-        mockCategory.Setup(cat => cat.Name).Returns(category);
-        var mockedCategory = mockCategory.Object;
-        
-        var mockBrand = new Mock<IBrand>();
-        mockBrand.Setup(bra => bra.Name).Returns(brand);
-        var mockedBrand = mockBrand.Object;
+        var mockColor = CreateMockColor(color).Object;
+        var colors = Enumerable.Repeat(mockColor, 3).ToList();
+
+        var mockCategory = CreateMockCategory(category).Object;
+        var mockBrand = CreateMockBrand(brand).Object;
         
         var mockProduct = new Mock<IProduct>();
-        mockProduct.Setup(product => product.Category).Returns(mockedCategory);
+        mockProduct.Setup(product => product.Category).Returns(mockCategory);
         mockProduct.Setup(product => product.Price).Returns(price);
         mockProduct.Setup(product => product.Colors).Returns(colors);
-        mockProduct.Setup(product => product.Brand).Returns(mockedBrand);
+        mockProduct.Setup(product => product.Brand).Returns(mockBrand);
 
         return mockProduct;
     }
@@ -156,7 +169,7 @@ public class PromotionTest
         
         CollectionAssert.AreEquivalent(promotionsName, names);
     }
-    
+
     [TestMethod]
     public void GetBestPromotion_Ok()
     {
@@ -166,10 +179,10 @@ public class PromotionTest
         var products = Enumerable.Repeat(mockedProduct, 5).ToList();
 
         var promotionSelector = new PromotionSelector();
-        
+
         var bestPromotion = promotionSelector.GetBestPromotion(products);
 
         Assert.AreEqual(threeForOne.Name, bestPromotion?.Name);
     }
-    
+
 }
