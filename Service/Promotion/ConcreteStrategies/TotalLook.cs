@@ -1,5 +1,4 @@
 using Service.Product;
-using Service.Product.Color;
 
 namespace Service.Promotion.ConcreteStrategies;
 

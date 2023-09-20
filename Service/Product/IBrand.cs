@@ -1,4 +1,4 @@
-namespace Service.Product.Brand;
+namespace Service.Product;
 
 public interface IBrand
 {

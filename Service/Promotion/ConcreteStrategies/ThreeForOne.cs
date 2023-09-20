@@ -1,6 +1,4 @@
 using Service.Product;
-using Service.Product.Brand;
-using Service.Product.Category;
 
 namespace Service.Promotion.ConcreteStrategies;
 

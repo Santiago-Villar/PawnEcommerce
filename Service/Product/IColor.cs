@@ -1,6 +1,11 @@
-namespace Service.Product.Color;
+﻿using System.Runtime.CompilerServices;
 
-public interface IColor
+namespace Service.Product
 {
-    public string Name { get; set; }
+    public interface IColor
+    {
+        string Name { get; set; }
+
+        bool Equals(object other);
+    }
 }

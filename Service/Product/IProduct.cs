@@ -1,6 +1,4 @@
-using Service.Product.Brand;
-using Service.Product.Category;
-using Service.Product.Color;
+using Service.Product;
 
 namespace Service.Product;
 

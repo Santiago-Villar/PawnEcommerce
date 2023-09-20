@@ -2,9 +2,6 @@ using System.Drawing;
 using Service.Promotion.ConcreteStrategies;
 using Moq;
 using Service.Product;
-using Service.Product.Brand;
-using Service.Product.Category;
-using Service.Product.Color;
 using Service.Promotion;
 
 namespace Test.Service.Promotion;

@@ -1,8 +1,5 @@
 using Moq;
 using Service.Product;
-using Service.Product.Brand;
-using Service.Product.Category;
-using Service.Product.Color;
 
 namespace Test.Service.Promotion;
 

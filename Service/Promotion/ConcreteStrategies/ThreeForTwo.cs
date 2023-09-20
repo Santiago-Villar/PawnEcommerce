@@ -1,5 +1,5 @@
 using Service.Product;
-using Service.Product.Category;
+using Service.Product;
 
 namespace Service.Promotion.ConcreteStrategies;
 

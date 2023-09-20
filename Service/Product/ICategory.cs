@@ -1,4 +1,4 @@
-namespace Service.Product.Category;
+namespace Service.Product;
 
 public interface ICategory
 {
