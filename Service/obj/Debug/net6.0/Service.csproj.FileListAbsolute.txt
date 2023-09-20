@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Users/mateogiraz/Documents/256345-241195-270956/Service/bin/Debug/net6.0/Service.deps.json
 /Users/mateogiraz/Documents/256345-241195-270956/Service/bin/Debug/net6.0/Service.dll
 /Users/mateogiraz/Documents/256345-241195-270956/Service/bin/Debug/net6.0/Service.pdb
@@ -10,3 +11,17 @@
 /Users/mateogiraz/Documents/256345-241195-270956/Service/obj/Debug/net6.0/refint/Service.dll
 /Users/mateogiraz/Documents/256345-241195-270956/Service/obj/Debug/net6.0/Service.pdb
 /Users/mateogiraz/Documents/256345-241195-270956/Service/obj/Debug/net6.0/ref/Service.dll
+=======
+/Users/pabloduran/Projects/PawnEcommerce/Service/bin/Debug/net6.0/Service.deps.json
+/Users/pabloduran/Projects/PawnEcommerce/Service/bin/Debug/net6.0/Service.dll
+/Users/pabloduran/Projects/PawnEcommerce/Service/bin/Debug/net6.0/Service.pdb
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.csproj.AssemblyReference.cache
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.GeneratedMSBuildEditorConfig.editorconfig
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.AssemblyInfoInputs.cache
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.AssemblyInfo.cs
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.csproj.CoreCompileInputs.cache
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.dll
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/refint/Service.dll
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/Service.pdb
+/Users/pabloduran/Projects/PawnEcommerce/Service/obj/Debug/net6.0/ref/Service.dll
+>>>>>>> develop
