@@ -5,6 +5,8 @@ namespace Service.Promotion.ConcreteStrategies;
 
 public class TwentyPercentDiscount : IPromotionStrategy
 {
+    public string Name { get; init; } = "Twenty Percent Discount";
+
     private const double TwentyPercentConverter = 0.8;
     
     public double GetDiscountPrice(List<IProduct> products)

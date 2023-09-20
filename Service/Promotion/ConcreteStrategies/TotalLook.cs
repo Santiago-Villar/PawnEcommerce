@@ -5,6 +5,8 @@ namespace Service.Promotion.ConcreteStrategies;
 
 public class TotalLook : IPromotionStrategy
 {
+    public string Name { get; init; } = "Total Look";
+
     private const int MinCategoryCount = 3;
 
     public double GetDiscountPrice(List<IProduct> products)

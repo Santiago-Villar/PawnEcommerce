@@ -142,15 +142,31 @@ public class PromotionTest
     {
         var promotionsCollection = new PromotionCollection();
         
-        var promotions = new List<IPromotionStrategy>()
+        var promotionsName = new List<string>()
         {
-            new TotalLook(),
-            new ThreeForOne(),
-            new ThreeForTwo(),
-            new TwentyPercentDiscount()
+            "Total Look",
+             "Three For One",
+             "Three For Two",
+             "Twenty Percent Discount"
         };
+
+        var promotions = promotionsCollection.GetPromotions();
+
+        var names = promotions.Select(promotion => promotion.Name).ToList();
         
-        CollectionAssert.IsSubsetOf(promotions, promotionsCollection.GetPromotions());
+        CollectionAssert.AreEquivalent(promotionsName, names);
+    }
+    
+    public void GetBestPromotion_Ok()
+    {
+        var totalLook = new TotalLook();
+        var mockedProduct = CreateMockProduct().Object;
+
+        var products = Enumerable.Repeat(mockedProduct, 5).ToList();
+        
+        var bestPromotion = PromotionSelector.GetBestPromotion(products);
+
+        Assert.AreEqual(totalLook.Name, bestPromotion.Name);
     }
     
 }

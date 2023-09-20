@@ -6,6 +6,8 @@ namespace Service.Promotion.ConcreteStrategies;
 
 public class ThreeForOne : IPromotionStrategy
 {
+    public string Name { get; init; } = "Three For One";
+
     private const int MinBrandCount = 3;
     private const int MaxFreeItems = 2;
     public double GetDiscountPrice(List<IProduct> products)
