@@ -184,6 +184,19 @@ public class PromotionTest
 
         Assert.AreEqual(threeForOne.Name, bestPromotion?.Name);
     }
+    
+    Mock<IProduct> CreateProduct(ICategory category, List<IColor> list, IBrand brand)
+    {
+        const int price = 10;
+
+        var mock = new Mock<IProduct>();
+        mock.Setup(product => product.Category).Returns(category);
+        mock.Setup(product => product.Price).Returns(price);
+        mock.Setup(product => product.Colors).Returns(list);
+        mock.Setup(product => product.Brand).Returns(brand);
+            
+        return mock;
+    }
 
     [TestMethod]
     public void GetBestPromotion_TotalLook_Ok()
@@ -218,20 +231,6 @@ public class PromotionTest
         var bestPromotion = promotionSelector.GetBestPromotion(products);
 
         Assert.AreEqual(totalLook.Name, bestPromotion?.Name);
-        return;
-
-        Mock<IProduct> CreateProduct(ICategory category, List<IColor> list, IBrand brand)
-        {
-            const int price = 10;
-
-            var mock = new Mock<IProduct>();
-            mock.Setup(product => product.Category).Returns(category);
-            mock.Setup(product => product.Price).Returns(price);
-            mock.Setup(product => product.Colors).Returns(list);
-            mock.Setup(product => product.Brand).Returns(brand);
-            
-            return mock;
-        }
     }
     
     [TestMethod]
@@ -267,19 +266,42 @@ public class PromotionTest
         var bestPromotion = promotionSelector.GetBestPromotion(products);
 
         Assert.AreEqual(threeForTwo.Name, bestPromotion?.Name);
-        return;
+    }
+    
+    [TestMethod]
+    public void GetBestPromotion_TwentyPercentDiscount_Ok()
+    {
+        var twentyPercentDiscount = new TwentyPercentDiscount();
+        
+        const string color = "Blue";
+        
+        var mockColor = CreateMockColor("Blue").Object;
+        var mockColor2 = CreateMockColor("Red").Object;
 
-        Mock<IProduct> CreateProduct(ICategory category, List<IColor> list, IBrand brand)
+        var colors = Enumerable.Repeat(mockColor, 2).ToList(); //error is here
+        var colors2 = Enumerable.Repeat(mockColor2, 2).ToList(); //error is here
+
+        var mockCategory1 = CreateMockCategory("cat1").Object;
+        var mockCategory2 = CreateMockCategory("cat2").Object;
+
+        var mockBrand1 = CreateMockBrand("brand1").Object;
+        var mockBrand2 = CreateMockBrand("brand2").Object;
+
+        var mockProduct1 = CreateProduct(mockCategory1, colors, mockBrand1);
+        var mockProduct2 = CreateProduct(mockCategory1, colors, mockBrand1);
+        var mockProduct3 = CreateProduct(mockCategory2, colors2, mockBrand2);
+
+        var products = new List<IProduct>()
         {
-            const int price = 10;
+            mockProduct1.Object,
+            mockProduct2.Object,
+            mockProduct3.Object,
+        };
 
-            var mock = new Mock<IProduct>();
-            mock.Setup(product => product.Category).Returns(category);
-            mock.Setup(product => product.Price).Returns(price);
-            mock.Setup(product => product.Colors).Returns(list);
-            mock.Setup(product => product.Brand).Returns(brand);
-            
-            return mock;
-        }
+        var promotionSelector = new PromotionSelector();
+        
+        var bestPromotion = promotionSelector.GetBestPromotion(products);
+
+        Assert.AreEqual(twentyPercentDiscount.Name, bestPromotion?.Name);
     }
 }
