@@ -557,8 +557,8 @@ FodyWeavers.xsd
 
 
 # .NET Core specific
-bin/
-obj/
+**/bin/
+**/obj/
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
