@@ -1,9 +1,9 @@
 namespace Service.Filter.ConcreteFilter;
 using Service.Product;
-public class NameFilter
+public class NameFilter : FilterTemplate
 {
-    public bool Match(Product product, string name)
+    public override bool Match(Product product, object name)
     {
-        return product.Name.Contains(name, StringComparison.OrdinalIgnoreCase);
+        return product.Name.Contains(name as string, StringComparison.OrdinalIgnoreCase);
     }
 }
