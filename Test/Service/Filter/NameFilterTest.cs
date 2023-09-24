@@ -26,4 +26,19 @@ public class NameFilterTest
         var match = nameFilter.Match(product, name);
         Assert.IsTrue(match);
     }
+    
+    [TestMethod]
+    public void Match_IncludesName_Ok()
+    {
+        const string productName = "Potato";
+        const string filterQuery = "Pot";
+        var product = new Product()
+        {
+            Name = productName
+        };
+        
+        var nameFilter = new NameFilter();
+        var match = nameFilter.Match(product, filterQuery);
+        Assert.IsTrue(match);
+    }
 }
