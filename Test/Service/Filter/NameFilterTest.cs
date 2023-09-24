@@ -1,3 +1,4 @@
+using Service.Filter;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
 
@@ -17,13 +18,18 @@ public class NameFilterTest
     public void Match_EqualName_Ok()
     {
         const string name = "Potato";
+        var filterCriteria = new StringFilterCriteria()
+        {
+            Value = name
+        };
+        
         var product = new Product()
         {
             Name = name
         };
         
         var nameFilter = new NameFilter();
-        var match = nameFilter.Match(product, name);
+        var match = nameFilter.Match(product, filterCriteria);
         Assert.IsTrue(match);
     }
     
@@ -32,13 +38,17 @@ public class NameFilterTest
     {
         const string productName = "Potato";
         const string filterQuery = "Pot";
+        var filterCriteria = new StringFilterCriteria()
+        {
+            Value = filterQuery
+        };
         var product = new Product()
         {
             Name = productName
         };
         
         var nameFilter = new NameFilter();
-        var match = nameFilter.Match(product, filterQuery);
+        var match = nameFilter.Match(product, filterCriteria);
         Assert.IsTrue(match);
     }
 }

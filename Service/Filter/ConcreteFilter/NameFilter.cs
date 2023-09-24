@@ -1,9 +1,14 @@
 namespace Service.Filter.ConcreteFilter;
 using Service.Product;
+
 public class NameFilter : FilterTemplate
 {
-    public override bool Match(Product product, object name)
+    public override bool Match(Product product, IFilterCriteria stringCriteria)
     {
-        return product.Name.Contains(name as string, StringComparison.OrdinalIgnoreCase);
+        if (stringCriteria is StringFilterCriteria criteria)
+        {
+            return product.Name.Contains(criteria.Value, StringComparison.OrdinalIgnoreCase);
+        }
+        throw new ArgumentException("Invalid Criteria type. Expected StringCriteria.");
     }
 }

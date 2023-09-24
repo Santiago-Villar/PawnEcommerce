@@ -52,9 +52,14 @@ public class FilterTemplateTest
     public void CanFilter_NameFilter_Ok()
     {
         FilterTemplate nameFilter = new NameFilter();
+        
         const string filter = "Bread";
+        var filterCriteria = new StringFilterCriteria()
+        {
+            Value = filter
+        };
 
-        var filteredProducts = nameFilter.Filter(Products, filter);
+        var filteredProducts = nameFilter.Filter(Products, filterCriteria);
 
         var toCheckList = new List<Product>()
         {
