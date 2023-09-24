@@ -7,31 +7,59 @@ namespace Test.Service.Filter;
 [TestClass]
 public class FilterTemplateTest
 {
+    private static readonly Brand FilterBrand = new Brand(){ Name = "Vegetable" };
+    private static readonly Brand OtherBrand = new Brand(){ Name = "Tuber" };
+    private static readonly Category FilterCategory = new Category(){ Name = "Vegetable" };
+    private static readonly Category OtherCategory = new Category(){ Name = "Tuber" };
+    
+    private static readonly Product Potato = new Product()
+    {
+        Name = "Potato",
+        Brand = FilterBrand,
+        Category = FilterCategory
+    };
+    
+    private static readonly Product Pizza = new Product()
+    {
+        Name = "Pizza",
+        Brand = FilterBrand,
+        Category = OtherCategory
+    };
+    
+    private static readonly Product Bread = new Product()
+    {
+        Name = "Bread",
+        Brand = OtherBrand,
+        Category = OtherCategory
+    };
+    
+    private static readonly Product IntegralBread = new Product()
+    {
+        Name = "IntegralBread",
+        Brand = OtherBrand,
+        Category = FilterCategory
+    };
+    
+    private readonly List<Product> Products = new List<Product>()
+    {
+        Potato,
+        Pizza,
+        Bread,
+        IntegralBread
+    };
+    
     [TestMethod]
     public void CanFilter_NameFilter_Ok()
     {
         FilterTemplate nameFilter = new NameFilter();
         const string filter = "Bread";
-        
-        var potato = new Product() { Name = "Potato" };
-        var pizza = new Product() { Name = "Pizza" };
-        var bread = new Product() { Name = "Bread" };
-        var integralBread = new Product() { Name = "IntegralBread" };
-        
-        var products = new List<Product>()
-        {
-            potato,
-            pizza,
-            bread,
-            integralBread
-        };
 
-        var filteredProducts = nameFilter.Filter(products, filter);
+        var filteredProducts = nameFilter.Filter(Products, filter);
 
         var toCheckList = new List<Product>()
         {
-            bread,
-            integralBread
+            Bread,
+           IntegralBread
         };
         
         CollectionAssert.AreEqual(filteredProducts, toCheckList);
@@ -41,28 +69,12 @@ public class FilterTemplateTest
     public void CanFilter_BrandFilter_Ok()
     {
         FilterTemplate brandFilter = new BrandFilter();
-        var filterBrand = new Brand(){ Name = "Vegetable" };
-        var otherBrand = new Brand(){ Name = "Tuber" };
-
-        var potato = new Product() { Brand = filterBrand };
-        var pizza = new Product() { Brand = filterBrand };
-        var bread = new Product() { Brand = otherBrand };
-        var integralBread = new Product() { Brand = otherBrand };
-        
-        var products = new List<Product>()
-        {
-            potato,
-            pizza,
-            bread,
-            integralBread
-        };
-
-        var filteredProducts = brandFilter.Filter(products, filterBrand);
+        var filteredProducts = brandFilter.Filter(Products, FilterBrand);
 
         var toCheckList = new List<Product>()
         {
-            potato,
-            pizza
+            Potato,
+            Pizza
         };
         
         CollectionAssert.AreEqual(filteredProducts, toCheckList);
@@ -72,28 +84,12 @@ public class FilterTemplateTest
     public void CanFilter_CategoryFilter_Ok()
     {
         FilterTemplate categoryFilter = new CategoryFilter();
-        var filterBrand = new Category(){ Name = "Vegetable" };
-        var otherBrand = new Category(){ Name = "Tuber" };
-
-        var potato = new Product() { Category = filterBrand };
-        var pizza = new Product() { Category =  otherBrand };
-        var bread = new Product() { Category = otherBrand };
-        var integralBread = new Product() { Category = filterBrand };
-        
-        var products = new List<Product>()
-        {
-            potato,
-            pizza,
-            bread,
-            integralBread
-        };
-
-        var filteredProducts = categoryFilter.Filter(products, filterBrand);
+        var filteredProducts = categoryFilter.Filter(Products, FilterCategory);
 
         var toCheckList = new List<Product>()
         {
-            potato,
-            integralBread
+            Potato,
+            IntegralBread
         };
         
         CollectionAssert.AreEqual(filteredProducts, toCheckList);
