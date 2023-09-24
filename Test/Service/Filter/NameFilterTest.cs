@@ -23,7 +23,7 @@ public class NameFilterTest
         };
         
         var nameFilter = new NameFilter();
-        var match = nameFilter.Match(product);
+        var match = nameFilter.Match(product, name);
         Assert.IsTrue(match);
     }
 }
