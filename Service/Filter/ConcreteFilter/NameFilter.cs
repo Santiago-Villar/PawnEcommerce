@@ -4,6 +4,6 @@ public class NameFilter
 {
     public bool Match(Product product, string name)
     {
-        return product.Name == name;
+        return product.Name.Contains(name, StringComparison.OrdinalIgnoreCase);
     }
 }
