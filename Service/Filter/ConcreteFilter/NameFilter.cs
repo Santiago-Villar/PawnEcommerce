@@ -1,3 +1,5 @@
+using Service.Exception;
+
 namespace Service.Filter.ConcreteFilter;
 using Service.Product;
 
@@ -9,6 +11,6 @@ public class NameFilter : FilterTemplate
         {
             return product.Name.Contains(criteria.Value, StringComparison.OrdinalIgnoreCase);
         }
-        throw new ArgumentException("Invalid Criteria type. Expected StringCriteria.");
+        throw new ModelException("Invalid Criteria type. Expected StringCriteria.");
     }
 }

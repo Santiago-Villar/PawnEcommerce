@@ -1,3 +1,4 @@
+using Service.Exception;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
@@ -50,5 +51,24 @@ public class NameFilterTest
         var nameFilter = new NameFilter();
         var match = nameFilter.Match(product, filterCriteria);
         Assert.IsTrue(match);
+    }
+    
+    [TestMethod]
+    [ExpectedException(typeof(ModelException))]
+    public void Match_WrongFilterCriteria_Throws()
+    {
+        const string productName = "Potato";
+        const string filterQuery = "Pot";
+        var filterCriteria = new Category()
+        {
+            Name = filterQuery
+        };
+        var product = new Product()
+        {
+            Name = productName
+        };
+        
+        var nameFilter = new NameFilter();
+        var match = nameFilter.Match(product, filterCriteria);
     }
 }
