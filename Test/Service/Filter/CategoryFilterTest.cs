@@ -30,4 +30,27 @@ public class CategoryFilterTest
         var match = categoryFilter.Match(product, category);
         Assert.IsTrue(match);
     }
+    
+    [TestMethod]
+    public void MatchCategory_DifferentCategory_Ok()
+    {
+        var category = new Category()
+        {
+            Name = "Vegetable",
+        };
+        
+        var toCheckCategory = new Category()
+        {
+            Name = "Tuber",
+        };
+        
+        var product = new Product()
+        {
+            Category = category
+        };
+        
+        var categoryFilter = new CategoryFilter();
+        var match = categoryFilter.Match(product, toCheckCategory);
+        Assert.IsFalse(match);
+    }
 }
