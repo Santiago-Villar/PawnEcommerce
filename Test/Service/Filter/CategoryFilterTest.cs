@@ -1,4 +1,5 @@
 using Service.Filter.ConcreteFilter;
+using Service.Product;
 
 namespace Test.Service.Filter;
 
@@ -10,5 +11,23 @@ public class CategoryFilterTest
     {
         var categoryFilter = new CategoryFilter();
         Assert.IsNotNull(categoryFilter);
+    }
+    
+    [TestMethod]
+    public void MatchCategory_Ok()
+    {
+        var category = new Category()
+        {
+            Name = "Tuber",
+        };
+        
+        var product = new Product()
+        {
+            Category = category
+        };
+        
+        var categoryFilter = new CategoryFilter();
+        var match = categoryFilter.Match(product, category);
+        Assert.IsTrue(match);
     }
 }
