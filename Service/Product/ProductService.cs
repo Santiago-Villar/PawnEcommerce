@@ -61,9 +61,12 @@ namespace Service.Product
             throw new NotImplementedException();
         }
 
-        public void UpdateProduct(Product mockProduct)
+        public void UpdateProduct(Product newProductVersion)
         {
-            throw new NotImplementedException();
+            if (_productRepository.Exists(newProductVersion))
+            {
+                _productRepository.UpdateProduct(newProductVersion);
+            }
         }
     }
 }
