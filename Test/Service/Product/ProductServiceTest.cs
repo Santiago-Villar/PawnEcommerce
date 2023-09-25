@@ -8,8 +8,8 @@ namespace Test;
 [TestClass]
 public class ProductServiceTest
 {
-    private readonly IProductService _productService;
-    private readonly Mock<IProductRepository> _productRepositoryMock;
+    public IProductService _productService;
+   public  Mock<IProductRepository> _productRepositoryMock;
 
     public ProductServiceTest()
     {
@@ -47,6 +47,32 @@ public class ProductServiceTest
     {
         Name = "Blue"
     };
+
+    [TestInitialize]
+    public void SetUp()
+    {
+        // Recrear mocks
+        _productRepositoryMock = new Mock<IProductRepository>();
+        _productService = new ProductService(_productRepositoryMock.Object);
+
+        // Recrear instancias de objetos
+        aBrand = new Brand() { Name = "Kova" };
+        aCategory = new Category() { Name = "Retro" };
+
+        aProduct = new Product()
+        {
+            Name = "Abdul's Udemy Course",
+            Description = "Está godines",
+            Price = 10,
+            Category = aCategory,
+            Brand = aBrand,
+            Colors = new List<Color>()
+        };
+
+        firstColor = new Color() { Name = "Red" };
+        secondColor = new Color() { Name = "Green" };
+        thirdColor = new Color() { Name = "Blue" };
+    }
 
 
     [TestMethod]
