@@ -32,10 +32,15 @@ namespace Service.Product
             else throw new ServiceException("Product " + product.Name + " does not exist.");
         }
 
-        public Product GetProductByName(string ProductName, IUser owner)
+        public Product GetProductByName(string productName, IUser owner)
         {
-            throw new NotImplementedException();
+
+            var product = _productRepository.GetProductByName(productName, owner);
+
+
+            return product;
         }
+
 
         public Product[] GetProductsByOwner(IUser User)
         {
