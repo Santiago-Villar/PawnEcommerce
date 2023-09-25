@@ -42,6 +42,18 @@ public class UserService
         
         _userRepository.Delete(toCheckUser);
     }
+    
+    public void UpdateUser(IUser updatedUser)
+    {
+        var toUpdateUser = _userRepository.Get(updatedUser.Email);
+
+        if (toUpdateUser == null)
+            throw new RepositoryException("User was not found");
+
+        toUpdateUser.Address = updatedUser.Address;
+
+        _userRepository.Update(toUpdateUser);
+    }
 
     private bool Exists(string email)
     {

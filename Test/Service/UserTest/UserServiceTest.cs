@@ -167,4 +167,5 @@ public class UserServiceTest
         var userService = new UserService(mockRepository.Object);
         userService.UpdateUser(mockUser.Object);
     }
+    
 }
