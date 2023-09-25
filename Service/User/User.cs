@@ -48,6 +48,11 @@ public class User : IUser
         Roles.Add(role);
     }
     
+    public void RemoveRole(RoleType role)
+    {
+        Roles.RemoveAll(r => r == role);
+    }
+    
     private bool IsValidEmail(string email)
     {
         const string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
