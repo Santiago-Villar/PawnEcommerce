@@ -84,5 +84,21 @@ public class ProductServiceTest
         Assert.AreNotEqual(aProduct, result);
         _productRepositoryMock.Verify(repo => repo.AddProduct(differentProduct), Times.Once());
     }
+
+
+    [TestMethod]
+    public void AddExistingProduct()
+    {
+        // Arrange
+        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true); // Indicamos que el producto ya existe
+
+        // Act & Assert
+        var exception = Assert.ThrowsException<ServiceException>(() => _productService.AddProduct(aProduct));
+        Assert.AreEqual($"Product {aProduct.Name} already exists.", exception.Message);
+
+        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never()); // Verificamos que nunca se intentó agregar el producto
+    }
+
 }
 

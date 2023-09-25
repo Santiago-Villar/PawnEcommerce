@@ -11,13 +11,16 @@ namespace Service.Product
     {
         public IProductRepository _productRepository { get; set; }
         public ProductService(IProductRepository repo) 
-        {
+        {   
             _productRepository = repo;
         }
 
         public Product AddProduct(Product Product)
         {
-            return _productRepository.AddProduct(Product);
+            if(_productRepository.Exists(Product)) {
+                throw new ServiceException("Product " + Product.Name + " already exists.");
+            }
+            else return _productRepository.AddProduct(Product);
         }
 
         public Product DeleteProduct(Product mockProduct)
