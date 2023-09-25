@@ -220,7 +220,7 @@ public class ProductServiceTest
     [TestMethod]
     public void UpdateNullProduct()
     {
-        Assert.ThrowsException<ArgumentException>(() => _productService.UpdateProduct(null));
+        Assert.ThrowsException<ServiceException>(() => _productService.UpdateProduct(null));
     }
 
 
