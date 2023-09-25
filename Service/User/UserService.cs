@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using BCrypt.Net;
 using Service.Exception;
 
 namespace Service.User;
@@ -6,6 +7,7 @@ namespace Service.User;
 public class UserService
 {
     private readonly IUserRepository _userRepository;
+    
     public UserService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
@@ -13,23 +15,32 @@ public class UserService
 
     public void SignUp(IUser user)
     {
-        if (Exists(user))
+        if (Exists(user.Email))
             throw new RepositoryException("User already exists");
         _userRepository.Add(user);
     }
 
-    public void LogIn(IUser user)
+    public IUser? LogIn(string email, string password)
     {
-        if (!Exists(user))
+        var toCheckUser = _userRepository.Get(email);
+        
+        if (toCheckUser is null)
             throw new RepositoryException("User does not exists");
         
-        var toCheckUser = _userRepository.Get(user.Email);
-        if(toCheckUser.PasswordHash != user.PasswordHash)
+        if (!CheckPassword(toCheckUser, password))
             throw new RepositoryException("Invalid credentials");
+
+        return toCheckUser;
     }
 
-    private bool Exists(IUser user)
+    private bool Exists(string email)
     {
-        return _userRepository.Exists(user);
+        var toCheckUser = _userRepository.Get(email);
+        return toCheckUser != null;
+    }
+    
+    private bool CheckPassword(IUser user, string password)
+    {
+        return BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
     }
 }

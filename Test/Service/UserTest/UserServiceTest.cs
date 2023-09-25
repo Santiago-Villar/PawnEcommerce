@@ -33,8 +33,9 @@ public class UserServiceTest
     {
         var mockUser = new Mock<IUser>();
         mockUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
+        
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Exists(mockUser.Object)).Returns(true);
+        mockRepository.Setup(repo => repo.Get(mockUser.Object.Email)).Returns(mockUser.Object);
         
         var userService = new UserService(mockRepository.Object);
         userService.SignUp(mockUser.Object);
@@ -44,47 +45,68 @@ public class UserServiceTest
     [TestMethod]
     public void CanLogInUser_UnregisteredUser_Throw()
     {
+        const string email = "TestEmail@gmail.com";
+        const string password = "currentPassword";
+
         var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
+        mockUser.Setup(user => user.Email).Returns(email);
+
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Exists(mockUser.Object)).Returns(false);
+        mockRepository.Setup(repo => repo.Get(mockUser.Object.Email)).Returns(() => null);
         
         var userService = new UserService(mockRepository.Object);
-        userService.LogIn(mockUser.Object);
+        userService.LogIn(email, password);
     }
     
     [ExpectedException(typeof(RepositoryException))]
     [TestMethod]
     public void CanLogInUser_WrongPassword_Throw()
     {
+        const string email = "TestEmail@gmail.com";
+        const string password = "differentPassword";
+        
         var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
-        mockUser.Setup(user => user.PasswordHash).Returns("currentPassword");
+        mockUser.Setup(user => user.Email).Returns(email);
+        mockUser.Setup(user => user.PasswordHash).Returns(HashPassword("currentPassword"));
 
         var mockToCheckUser = new Mock<IUser>();
-        mockToCheckUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
-        mockToCheckUser.Setup(user => user.PasswordHash).Returns("differentPassword");
+        mockToCheckUser.Setup(user => user.Email).Returns(email);
+        mockToCheckUser.Setup(user => user.PasswordHash).Returns(HashPassword(password));
         
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Exists(mockToCheckUser.Object)).Returns(true);
-        mockRepository.Setup(repo => repo.Get(mockToCheckUser.Object.Email)).Returns(mockUser.Object);
+        mockRepository.Setup(repo => repo.Get(email)).Returns(mockUser.Object);
 
         var userService = new UserService(mockRepository.Object);
-        userService.LogIn(mockToCheckUser.Object);
+        userService.LogIn(email, password);
     }
     
     [TestMethod]
-    public void CanLogInUser_Ok_Throw()
+    public void CanLogInUser_Ok()
     {
+        const string email = "TestEmail@gmail.com";
+        const string password = "currentPassword";
+
         var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
-        mockUser.Setup(user => user.PasswordHash).Returns("currentPassword");
+        mockUser.Setup(user => user.Email).Returns(email);
+        mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(password));
 
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Exists(mockUser.Object)).Returns(true);
-        mockRepository.Setup(repo => repo.Get(mockUser.Object.Email)).Returns(mockUser.Object);
+        mockRepository.Setup(repo => repo.Get(email)).Returns(mockUser.Object);
 
         var userService = new UserService(mockRepository.Object);
-        userService.LogIn(mockUser.Object);
+        var loggedInUser = userService.LogIn(email, password);
+        
+        Assert.AreEqual(mockUser.Object, loggedInUser);
     }
+
+    private string HashPassword(string password)
+    {
+        const int saltFactor = 12;
+            
+        var salt = BCrypt.Net.BCrypt.GenerateSalt(saltFactor);
+        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+        return hashedPassword;
+    }
+
 }
