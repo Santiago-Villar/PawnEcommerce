@@ -1,6 +1,7 @@
-using Service.User.UserService;
+using Moq;
+using Service.User;
 
-namespace Test;
+namespace Test.Service.User;
 
 [TestClass]
 public class UserServiceTest
@@ -8,7 +9,9 @@ public class UserServiceTest
     [TestMethod]
     public void CanCreateUserService_Ok()
     {
-        var user = new UserService();
-        Assert.IsNotNull(user);
+        var mockRepository = new Mock<IUserRepository>();
+        var userService = new UserService(mockRepository.Object);
+        Assert.IsNotNull(userService);
     }
+
 }
