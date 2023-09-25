@@ -49,7 +49,7 @@ namespace Service.Product
         }
         public Product[] GetAllProducts()
         {
-            throw new NotImplementedException();
+            return _productRepository.GetAllProducts();
         }
         public bool NewNameIsValid(string newName, Product Product)
         {
