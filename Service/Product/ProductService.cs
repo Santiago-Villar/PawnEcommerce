@@ -23,9 +23,13 @@ namespace Service.Product
             else _productRepository.AddProduct(Product);
         }
 
-        public void DeleteProduct(Product mockProduct)
+        public void DeleteProduct(Product product)
         {
-            _productRepository.DeleteProduct(mockProduct);
+            if (_productRepository.Exists(product))
+            {
+                _productRepository.DeleteProduct(product);
+            }
+            else throw new ServiceException("Product " + product.Name + " does not exist.");
         }
 
         public Product GetProductByName(string ProductName, IUser owner)
