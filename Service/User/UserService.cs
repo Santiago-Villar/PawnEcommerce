@@ -17,44 +17,41 @@ public class UserService
     {
         if (Exists(user.Email))
             throw new RepositoryException("User already exists");
+        
         _userRepository.Add(user);
     }
 
-    public IUser? LogIn(string email, string password)
+    public IUser LogIn(string email, string password)
     {
-        var toCheckUser = _userRepository.Get(email);
-        
-        if (toCheckUser is null)
-            throw new RepositoryException("User does not exists");
-        
+        var toCheckUser = FindUser(email);
         if (!CheckPassword(toCheckUser, password))
             throw new RepositoryException("Invalid credentials");
-
+        
         return toCheckUser;
     }
 
     public void DeleteUser(IUser user)
     {
-        var toCheckUser = _userRepository.Get(user.Email);
-        
-        if (toCheckUser is null)
-            throw new RepositoryException("User was already deleted");
-        
+        var toCheckUser = FindUser(user.Email);
         _userRepository.Delete(toCheckUser);
     }
     
     public void UpdateUser(IUser updatedUser)
     {
-        var toUpdateUser = _userRepository.Get(updatedUser.Email);
-
-        if (toUpdateUser == null)
-            throw new RepositoryException("User was not found");
-
+        var toUpdateUser = FindUser(updatedUser.Email);
         toUpdateUser.Address = updatedUser.Address;
-
         _userRepository.Update(toUpdateUser);
     }
 
+    private IUser FindUser(string email)
+    {
+        var foundUser = _userRepository.Get(email);
+        if (foundUser == null)
+            throw new RepositoryException("User does not exists");
+
+        return foundUser;
+    }
+    
     private bool Exists(string email)
     {
         var toCheckUser = _userRepository.Get(email);
