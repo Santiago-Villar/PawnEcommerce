@@ -14,7 +14,7 @@ namespace Service.Product
     {
         void AddProduct(Product newProduct);
         Product GetProductByName(string productName);
-        void UpdateProduct(Product newProductVersion, string previousVersionName);
+        void UpdateProduct(Product newProductVersion);
         void DeleteProduct(Product product);
         Product[] GetAllProducts();
         Boolean Exists(Product product);

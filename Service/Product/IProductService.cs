@@ -10,8 +10,7 @@ namespace Service.Product
         public Product GetProductByName(string productName);
 
         public Product[] GetAllProducts();
-        public void UpdateProduct(Product mockProduct, string newName);
+        public void UpdateProduct(Product mockProduct);
         public void Reset();
-        public bool NewNameIsValid(string newName, Product Product);
     }
 }

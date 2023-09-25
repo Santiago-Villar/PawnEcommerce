@@ -52,11 +52,9 @@ public class ProductServiceTest
     [TestInitialize]
     public void SetUp()
     {
-        // Recrear mocks
         _productRepositoryMock = new Mock<IProductRepository>();
         _productService = new ProductService(_productRepositoryMock.Object);
 
-        // Recrear instancias de objetos
         aBrand = new Brand() { Name = "Kova" };
         aCategory = new Category() { Name = "Retro" };
 
@@ -79,11 +77,10 @@ public class ProductServiceTest
     [TestMethod]
     public void AddProductOk()
     {
-        // Aquí solo verificamos que se llama a AddProduct sin excepciones
-        _productRepositoryMock.Setup(repo => repo.AddProduct(aProduct)); // Configuración del mock sin retorno
 
-        // Act & Assert
-        _productService.AddProduct(aProduct); // Si no lanza excepciones, el test pasará
+        _productRepositoryMock.Setup(repo => repo.AddProduct(aProduct)); 
+
+        _productService.AddProduct(aProduct); 
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Once());
     }
 
@@ -99,11 +96,11 @@ public class ProductServiceTest
             Brand = aBrand,
             Colors = new List<Color>()
         };
-        // Aquí solo verificamos que se llama a AddProduct sin excepciones
-        _productRepositoryMock.Setup(repo => repo.AddProduct(aNewProduct)); // Configuración del mock sin retorno
 
-        // Act & Assert
-        _productService.AddProduct(aNewProduct); // Si no lanza excepciones, el test pasará
+        _productRepositoryMock.Setup(repo => repo.AddProduct(aNewProduct));
+
+        
+        _productService.AddProduct(aNewProduct); 
         _productRepositoryMock.Verify(repo => repo.AddProduct(aNewProduct), Times.Once());
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never());
     }
@@ -111,41 +108,37 @@ public class ProductServiceTest
     [TestMethod]
     public void AddExistingProduct()
     {
-        // Arrange
-        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true); // Indicamos que el producto ya existe
 
-        // Act & Assert
+        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true); 
+
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.AddProduct(aProduct));
         Assert.AreEqual($"Product {aProduct.Name} already exists.", exception.Message);
 
         _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
-        _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never()); // Verificamos que nunca se intentó agregar el producto
+        _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never()); 
     }
 
     [TestMethod]
     public void DeleteProductWhenProductExistsOk()
     {
         _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
-        // Aquí solo verificamos que se llama a DeleteProduct sin excepciones
-        _productRepositoryMock.Setup(repo => repo.DeleteProduct(aProduct)); // Configuración del mock sin retorno
 
-        // Act & Assert
-        _productService.DeleteProduct(aProduct); // Si no lanza excepciones, el test pasará
+        _productRepositoryMock.Setup(repo => repo.DeleteProduct(aProduct)); 
+
+        _productService.DeleteProduct(aProduct);
         _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Once());
     }
 
     [TestMethod]
     public void DeleteProductWhenProductDoesNotExist()
     {
-        // Arrange: configurar el mock para que indique que el producto NO existe
         _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(false);
 
-        // Act & Assert: esperamos una excepción al intentar borrar el producto
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.DeleteProduct(aProduct));
         Assert.AreEqual("Product " + aProduct.Name + " does not exist.", exception.Message);
 
-        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once()); // Verificamos que se comprobó la existencia del producto
-        _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Never()); // Verificamos que nunca se intentó borrar el producto
+        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once()); 
+        _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Never()); 
     }
 
     [TestMethod]
@@ -165,11 +158,9 @@ public class ProductServiceTest
     [TestMethod]
     public void GetProductByName_WhenProductDoesNotExist_ThrowsServiceException()
     {
-        // Arrange
         string nonExistingProductName = "NonExistingProductName";
         _productRepositoryMock.Setup(repo => repo.GetProductByName(nonExistingProductName)).Returns((Product)null);
 
-        // Act & Assert
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(nonExistingProductName));
         Assert.AreEqual($"Product {nonExistingProductName} does not exist.", exception.Message);
         _productRepositoryMock.Verify(repo => repo.GetProductByName(nonExistingProductName), Times.Once());
@@ -178,36 +169,40 @@ public class ProductServiceTest
     [TestMethod]
     public void GetProductByName_WhenNameIsNull_ThrowsException()
     {
-        // Act & Assert
         Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(null));
     }
 
     [TestMethod]
     public void GetProductByName_WhenNameIsEmpty_ThrowsException()
     {
-        // Act & Assert
         Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(string.Empty));
     }
 
     [TestMethod]
     public void GetAllProductsOk()
     {
-        // Arrange
         var productList = new List<Product>
     {
         new Product { Name = "Product1" },
         new Product { Name = "Product2" }
-        // Puedes añadir más productos según cómo hayas definido tu clase Product
     };
 
         _productRepositoryMock.Setup(repo => repo.GetAllProducts()).Returns(productList.ToArray());
-
-        // Act
         var result = _productService.GetAllProducts();
-
-        // Assert
         Assert.AreEqual(productList.Count, result.Length);
         _productRepositoryMock.Verify(repo => repo.GetAllProducts(), Times.Once());
+    }
+
+    [TestMethod]
+    public void UpdateProduct_UpdatesSuccessfully_WhenProductExists()
+    {
+        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
+        _productRepositoryMock.Setup(repo => repo.UpdateProduct(aProduct));
+
+        _productService.UpdateProduct(aProduct);
+
+        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Once());
     }
 
 

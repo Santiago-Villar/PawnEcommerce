@@ -61,7 +61,7 @@ namespace Service.Product
             throw new NotImplementedException();
         }
 
-        public void UpdateProduct(Product mockProduct, string newName)
+        public void UpdateProduct(Product mockProduct)
         {
             throw new NotImplementedException();
         }
