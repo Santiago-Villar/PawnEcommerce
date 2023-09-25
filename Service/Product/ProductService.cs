@@ -15,17 +15,17 @@ namespace Service.Product
             _productRepository = repo;
         }
 
-        public Product AddProduct(Product Product)
+        public void AddProduct(Product Product)
         {
             if(_productRepository.Exists(Product)) {
                 throw new ServiceException("Product " + Product.Name + " already exists.");
             }
-            else return _productRepository.AddProduct(Product);
+            else _productRepository.AddProduct(Product);
         }
 
-        public Product DeleteProduct(Product mockProduct)
+        public void DeleteProduct(Product mockProduct)
         {
-            throw new NotImplementedException();
+            _productRepository.DeleteProduct(mockProduct);
         }
 
         public Product GetProductByName(string ProductName, IUser owner)
@@ -48,7 +48,7 @@ namespace Service.Product
             throw new NotImplementedException();
         }
 
-        public Product UpdateProduct(Product mockProduct, string newName)
+        public void UpdateProduct(Product mockProduct, string newName)
         {
             throw new NotImplementedException();
         }

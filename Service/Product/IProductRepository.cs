@@ -12,10 +12,10 @@ namespace Service.Product
 {
     public interface IProductRepository
     {
-        Product AddProduct(Product newProduct);
+        void AddProduct(Product newProduct);
         Product GetProductByName(string productName, IUser owner);
-        Product UpdateProduct(Product newProductVersion, string previousVersionName);
-        Product DeleteProduct(Product product);
+        void UpdateProduct(Product newProductVersion, string previousVersionName);
+        void DeleteProduct(Product product);
         Product GetAllProducts();
         Product[] GetProductsByUser(IUser user);
         Boolean Exists(Product product);
