@@ -39,4 +39,17 @@ public class UserServiceTest
         var userService = new UserService(mockRepository.Object);
         userService.SignUp(mockUser.Object);
     }
+    
+    [ExpectedException(typeof(RepositoryException))]
+    [TestMethod]
+    public void CanLogInUser_UnregisteredUser_Throw()
+    {
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Exists(mockUser.Object)).Returns(false);
+        
+        var userService = new UserService(mockRepository.Object);
+        userService.LogIn(mockUser.Object);
+    }
 }
