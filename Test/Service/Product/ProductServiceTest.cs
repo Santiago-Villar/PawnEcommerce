@@ -26,7 +26,7 @@ public class ProductServiceTest
         Name = "Retro"
     };
 
-    public static Product aProduct = new Product()
+     Product aProduct = new Product()
     {
         Name = "Abdul's Udemy Course",
         Description = "Está godines",
@@ -52,7 +52,6 @@ public class ProductServiceTest
     [TestMethod]
     public void AddProductOk()
     {
-
         _productRepositoryMock.Setup(repo => repo.AddProduct(aProduct)).Returns(aProduct);
 
         // Act
@@ -61,6 +60,29 @@ public class ProductServiceTest
         // Assert
         Assert.AreEqual(aProduct, result);
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Once());
+    }
+
+    [TestMethod]
+    public void AddProductFails()
+    {
+
+        Product differentProduct = new Product()
+        {
+            Name = "Camiseta del Real Betis Balompié",
+            Description = "OLE OLE OLE OLE BETIS OLÉ",
+            Price = 10,
+            Category = aCategory,
+            Brand = aBrand,
+            Colors = new List<Color>()
+        };
+        _productRepositoryMock.Setup(repo => repo.AddProduct(differentProduct)).Returns(differentProduct);
+
+        // Act
+        var result = _productService.AddProduct(differentProduct);
+
+        // Assert
+        Assert.AreNotEqual(aProduct, result);
+        _productRepositoryMock.Verify(repo => repo.AddProduct(differentProduct), Times.Once());
     }
 }
 
