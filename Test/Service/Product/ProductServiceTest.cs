@@ -126,5 +126,22 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never()); // Verificamos que nunca se intentó agregar el producto
     }
 
+    [TestMethod]
+    public void DeleteProduct_ShouldDeleteAndReturnProduct_WhenProductExists()
+    {
+        // Arrange
+        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
+        _productRepositoryMock.Setup(repo => repo.DeleteProduct(aProduct)).Returns(aProduct);
+
+        // Act
+        var result = _productService.DeleteProduct(aProduct);
+
+        // Assert
+        Assert.AreEqual(aProduct, result);
+        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Once());
+    }
+
+
 }
 
