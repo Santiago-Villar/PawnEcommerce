@@ -1,8 +1,9 @@
 ﻿using Service.Exception;
+using Service.Filter;
 
 namespace Service.Product
 {
-    public class Brand
+    public class Brand : IFilterCriteria
     {
         private string _name;
         public string Name
