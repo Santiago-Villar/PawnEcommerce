@@ -72,4 +72,19 @@ public class UserServiceTest
         var userService = new UserService(mockRepository.Object);
         userService.LogIn(mockToCheckUser.Object);
     }
+    
+    [TestMethod]
+    public void CanLogInUser_Ok_Throw()
+    {
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns("TestEmail@gmail.com");
+        mockUser.Setup(user => user.PasswordHash).Returns("currentPassword");
+
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Exists(mockUser.Object)).Returns(true);
+        mockRepository.Setup(repo => repo.Get(mockUser.Object.Email)).Returns(mockUser.Object);
+
+        var userService = new UserService(mockRepository.Object);
+        userService.LogIn(mockUser.Object);
+    }
 }
