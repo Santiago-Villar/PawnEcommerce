@@ -39,6 +39,8 @@ public class UserService
         
         if (toCheckUser is null)
             throw new RepositoryException("User was already deleted");
+        
+        _userRepository.Delete(toCheckUser);
     }
 
     private bool Exists(string email)
