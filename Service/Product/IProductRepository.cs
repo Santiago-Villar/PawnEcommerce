@@ -8,16 +8,16 @@ using Service;
 using Service.Product;
 using Service.User;
 
-namespace IRepository
+namespace Service.Product
 {
     public interface IProductRepository
     {
         Product AddProduct(Product newProduct);
-        Product GetProductByName(string productName, User owner);
+        Product GetProductByName(string productName, IUser owner);
         Product UpdateProduct(Product newProductVersion, string previousVersionName);
         Product DeleteProduct(Product product);
         Product GetAllProducts();
-        Product[] GetProductsByUser(User user);
+        Product[] GetProductsByUser(IUser user);
         Boolean Exists(Product product);
         void Reset();
     }

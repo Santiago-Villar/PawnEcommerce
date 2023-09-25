@@ -1,10 +1,10 @@
 ﻿using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Logic;
-using IRepository;
+
 using Service.Product;
 using Service.User;
 
+namespace Test;
 [TestClass]
 public class ProductServiceTest
 {
