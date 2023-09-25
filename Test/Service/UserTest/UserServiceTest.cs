@@ -126,4 +126,21 @@ public class UserServiceTest
         var userService = new UserService(mockRepository.Object);
         userService.DeleteUser(mockUser.Object);
     }
+    
+    [TestMethod]
+    public void CanDeleteUser_Ok()
+    {
+        const string email = "TestEmail@gmail.com";
+        const string password = "currentPassword";
+
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns(email);
+        mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(password));
+
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Get(email)).Returns(mockUser.Object);
+
+        var userService = new UserService(mockRepository.Object);
+        userService.DeleteUser(mockUser.Object);
+    }
 }
