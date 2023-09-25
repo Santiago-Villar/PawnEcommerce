@@ -175,10 +175,17 @@ public class ProductServiceTest
     }
 
     [TestMethod]
-    public void GetProductByName_WhenNameIsNull_ThrowsArgumentException()
+    public void GetProductByName_WhenNameIsNull_ThrowsException()
     {
         // Act & Assert
         Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(null, It.IsAny<IUser>()));
+    }
+
+    [TestMethod]
+    public void GetProductByName_WhenNameIsEmpty_ThrowsException()
+    {
+        // Act & Assert
+        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(string.Empty, It.IsAny<IUser>()));
     }
 
 
