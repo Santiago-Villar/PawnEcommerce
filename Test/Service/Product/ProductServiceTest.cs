@@ -189,6 +189,27 @@ public class ProductServiceTest
         Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(string.Empty));
     }
 
+    [TestMethod]
+    public void GetAllProductsOk()
+    {
+        // Arrange
+        var productList = new List<Product>
+    {
+        new Product { Name = "Product1" },
+        new Product { Name = "Product2" }
+        // Puedes añadir más productos según cómo hayas definido tu clase Product
+    };
+
+        _productRepositoryMock.Setup(repo => repo.GetAllProducts()).Returns(productList.ToArray());
+
+        // Act
+        var result = _productService.GetAllProducts();
+
+        // Assert
+        Assert.AreEqual(productList.Count, result.Length);
+        _productRepositoryMock.Verify(repo => repo.GetAllProducts(), Times.Once());
+    }
+
 
 
 }
