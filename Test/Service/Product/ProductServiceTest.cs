@@ -174,6 +174,13 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.GetProductByName(nonExistingProductName, It.IsAny<IUser>()), Times.Once());
     }
 
+    [TestMethod]
+    public void GetProductByName_WhenNameIsNull_ThrowsArgumentException()
+    {
+        // Act & Assert
+        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(null, It.IsAny<IUser>()));
+    }
+
 
 
 }
