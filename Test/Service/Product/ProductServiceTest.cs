@@ -161,6 +161,19 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.GetProductByName(aProduct.Name, It.IsAny<IUser>()), Times.Once());
     }
 
+    [TestMethod]
+    public void GetProductByName_WhenProductDoesNotExist_ThrowsServiceException()
+    {
+        // Arrange
+        string nonExistingProductName = "NonExistingProductName";
+        _productRepositoryMock.Setup(repo => repo.GetProductByName(nonExistingProductName, It.IsAny<IUser>())).Returns((Product)null);
+
+        // Act & Assert
+        var exception = Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(nonExistingProductName, It.IsAny<IUser>()));
+        Assert.AreEqual($"Product {nonExistingProductName} does not exist.", exception.Message);
+        _productRepositoryMock.Verify(repo => repo.GetProductByName(nonExistingProductName, It.IsAny<IUser>()), Times.Once());
+    }
+
 
 
 }
