@@ -124,6 +124,7 @@ public class ProductServiceTest
     [TestMethod]
     public void DeleteProductWhenProductExistsOk()
     {
+        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
         // Aquí solo verificamos que se llama a DeleteProduct sin excepciones
         _productRepositoryMock.Setup(repo => repo.DeleteProduct(aProduct)); // Configuración del mock sin retorno
 
@@ -140,7 +141,7 @@ public class ProductServiceTest
 
         // Act & Assert: esperamos una excepción al intentar borrar el producto
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.DeleteProduct(aProduct));
-        Assert.AreEqual($"Product {aProduct.Name} does not exist.", exception.Message);
+        Assert.AreEqual("Product " + aProduct.Name + " does not exist.", exception.Message);
 
         _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once()); // Verificamos que se comprobó la existencia del producto
         _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Never()); // Verificamos que nunca se intentó borrar el producto
