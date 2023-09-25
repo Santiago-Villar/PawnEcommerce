@@ -147,6 +147,20 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Never()); // Verificamos que nunca se intentó borrar el producto
     }
 
+    [TestMethod]
+    public void GetProductByName_WhenProductExists_ReturnsProduct()
+    {
+        // Arrange
+        _productRepositoryMock.Setup(repo => repo.GetProductByName(aProduct.Name, It.IsAny<IUser>())).Returns(aProduct);
+
+        // Act
+        var result = _productService.GetProductByName(aProduct.Name, It.IsAny<IUser>());
+
+        // Assert
+        Assert.AreEqual(aProduct, result);
+        _productRepositoryMock.Verify(repo => repo.GetProductByName(aProduct.Name, It.IsAny<IUser>()), Times.Once());
+    }
+
 
 
 }
