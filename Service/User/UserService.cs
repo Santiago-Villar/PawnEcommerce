@@ -22,6 +22,10 @@ public class UserService
     {
         if (!Exists(user))
             throw new RepositoryException("User does not exists");
+        
+        var toCheckUser = _userRepository.Get(user.Email);
+        if(toCheckUser.PasswordHash != user.PasswordHash)
+            throw new RepositoryException("Invalid credentials");
     }
 
     private bool Exists(IUser user)
