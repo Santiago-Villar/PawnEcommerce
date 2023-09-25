@@ -34,6 +34,10 @@ namespace Service.Product
 
         public Product GetProductByName(string productName, IUser owner)
         {
+            if (string.IsNullOrEmpty(productName))
+            {
+                throw new ArgumentException("Product name cannot be null or empty.");
+            }
 
             var product = _productRepository.GetProductByName(productName, owner);
             if (product == null)
