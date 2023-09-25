@@ -5,7 +5,7 @@ using Service.User.Role;
 
 namespace Service.User;
 
-public class User
+public class User : IUser
 {
     public string Address { get; set; }
     public List<RoleType> Roles { get; private set; } = new();

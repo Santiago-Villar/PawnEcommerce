@@ -7,4 +7,9 @@ public class UserService
     {
         UserRepository = userRepository;
     }
+
+    public void SignUp(IUser user)
+    {
+        UserRepository.Add(user);
+    }
 }
