@@ -33,7 +33,8 @@ public class ProductServiceTest
         Price = 10,
         Category = aCategory,
         Brand = aBrand,
-        Colors = new List<Color>()
+        Colors = new List<Color>(),
+        
     };
     Color firstColor = new Color()
     {
@@ -151,14 +152,14 @@ public class ProductServiceTest
     public void GetProductByName_WhenProductExists_ReturnsProduct()
     {
         // Arrange
-        _productRepositoryMock.Setup(repo => repo.GetProductByName(aProduct.Name, It.IsAny<IUser>())).Returns(aProduct);
+        _productRepositoryMock.Setup(repo => repo.GetProductByName(aProduct.Name)).Returns(aProduct);
 
         // Act
-        var result = _productService.GetProductByName(aProduct.Name, It.IsAny<IUser>());
+        var result = _productService.GetProductByName(aProduct.Name);
 
         // Assert
         Assert.AreEqual(aProduct, result);
-        _productRepositoryMock.Verify(repo => repo.GetProductByName(aProduct.Name, It.IsAny<IUser>()), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.GetProductByName(aProduct.Name), Times.Once());
     }
 
     [TestMethod]
@@ -166,26 +167,26 @@ public class ProductServiceTest
     {
         // Arrange
         string nonExistingProductName = "NonExistingProductName";
-        _productRepositoryMock.Setup(repo => repo.GetProductByName(nonExistingProductName, It.IsAny<IUser>())).Returns((Product)null);
+        _productRepositoryMock.Setup(repo => repo.GetProductByName(nonExistingProductName)).Returns((Product)null);
 
         // Act & Assert
-        var exception = Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(nonExistingProductName, It.IsAny<IUser>()));
+        var exception = Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(nonExistingProductName));
         Assert.AreEqual($"Product {nonExistingProductName} does not exist.", exception.Message);
-        _productRepositoryMock.Verify(repo => repo.GetProductByName(nonExistingProductName, It.IsAny<IUser>()), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.GetProductByName(nonExistingProductName), Times.Once());
     }
 
     [TestMethod]
     public void GetProductByName_WhenNameIsNull_ThrowsException()
     {
         // Act & Assert
-        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(null, It.IsAny<IUser>()));
+        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(null));
     }
 
     [TestMethod]
     public void GetProductByName_WhenNameIsEmpty_ThrowsException()
     {
         // Act & Assert
-        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(string.Empty, It.IsAny<IUser>()));
+        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(string.Empty));
     }
 
 

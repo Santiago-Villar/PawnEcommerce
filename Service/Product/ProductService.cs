@@ -32,14 +32,14 @@ namespace Service.Product
             else throw new ServiceException("Product " + product.Name + " does not exist.");
         }
 
-        public Product GetProductByName(string productName, IUser owner)
+        public Product GetProductByName(string productName)
         {
             if (string.IsNullOrEmpty(productName))
             {
                 throw new ArgumentException("Product name cannot be null or empty.");
             }
 
-            var product = _productRepository.GetProductByName(productName, owner);
+            var product = _productRepository.GetProductByName(productName);
             if (product == null)
             {
                 throw new ServiceException($"Product {productName} does not exist.");
@@ -47,13 +47,10 @@ namespace Service.Product
 
             return product;
         }
-
-
-        public Product[] GetProductsByOwner(IUser User)
+        public Product[] GetAllProducts()
         {
             throw new NotImplementedException();
         }
-
         public bool NewNameIsValid(string newName, Product Product)
         {
             throw new NotImplementedException();
