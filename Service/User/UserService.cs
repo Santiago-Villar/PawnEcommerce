@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using Service.Exception;
 
 namespace Service.User;
@@ -12,12 +13,18 @@ public class UserService
 
     public void SignUp(IUser user)
     {
-        if (Exits(user))
-            throw new RepositoryException("User already Exists");
+        if (Exists(user))
+            throw new RepositoryException("User already exists");
         _userRepository.Add(user);
     }
 
-    private bool Exits(IUser user)
+    public void LogIn(IUser user)
+    {
+        if (!Exists(user))
+            throw new RepositoryException("User does not exists");
+    }
+
+    private bool Exists(IUser user)
     {
         return _userRepository.Exists(user);
     }
