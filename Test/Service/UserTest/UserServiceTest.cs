@@ -108,5 +108,22 @@ public class UserServiceTest
 
         return hashedPassword;
     }
+        
+    [ExpectedException(typeof(RepositoryException))]
+    [TestMethod]
+    public void CanDeleteUser_AlreadyDeletedUser_Throw()
+    {
+        const string email = "TestEmail@gmail.com";
+        const string password = "currentPassword";
 
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns(email);
+        mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(password));
+
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Get(email)).Returns(() => null);
+
+        var userService = new UserService(mockRepository.Object);
+        userService.DeleteUser(mockUser.Object);
+    }
 }
