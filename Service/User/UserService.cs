@@ -33,6 +33,14 @@ public class UserService
         return toCheckUser;
     }
 
+    public void DeleteUser(IUser user)
+    {
+        var toCheckUser = _userRepository.Get(user.Email);
+        
+        if (toCheckUser is null)
+            throw new RepositoryException("User was already deleted");
+    }
+
     private bool Exists(string email)
     {
         var toCheckUser = _userRepository.Get(email);
