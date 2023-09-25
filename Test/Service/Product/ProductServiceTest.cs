@@ -217,6 +217,12 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Never());
     }
 
+    [TestMethod]
+    public void UpdateNullProduct()
+    {
+        Assert.ThrowsException<ArgumentException>(() => _productService.UpdateProduct(null));
+    }
+
 
 
 }
