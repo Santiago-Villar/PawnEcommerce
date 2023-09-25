@@ -4,21 +4,21 @@ namespace Service.User;
 
 public class UserService
 {
-    private readonly IUserRepository UserRepository;
+    private readonly IUserRepository _userRepository;
     public UserService(IUserRepository userRepository)
     {
-        UserRepository = userRepository;
+        _userRepository = userRepository;
     }
 
     public void SignUp(IUser user)
     {
         if (Exits(user))
             throw new RepositoryException("User already Exists");
-        UserRepository.Add(user);
+        _userRepository.Add(user);
     }
 
     private bool Exits(IUser user)
     {
-        return UserRepository.Exists(user);
+        return _userRepository.Exists(user);
     }
 }
