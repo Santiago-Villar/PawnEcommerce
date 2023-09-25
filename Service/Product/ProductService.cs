@@ -36,7 +36,10 @@ namespace Service.Product
         {
 
             var product = _productRepository.GetProductByName(productName, owner);
-
+            if (product == null)
+            {
+                throw new ServiceException($"Product {productName} does not exist.");
+            }
 
             return product;
         }
