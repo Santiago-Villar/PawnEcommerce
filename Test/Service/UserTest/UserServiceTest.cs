@@ -143,4 +143,28 @@ public class UserServiceTest
         var userService = new UserService(mockRepository.Object);
         userService.DeleteUser(mockUser.Object);
     }
+    
+    [ExpectedException(typeof(RepositoryException))]
+    [TestMethod]
+    public void CanUpdateUser_NotExistingUser_Throw()
+    {
+        const string email = "TestEmail@gmail.com";
+        const string toUpdateAddress = "1234 Laughter Lane";
+        const string newAddress = "101 Prankster Place";
+
+        var toUpdateMockUser = new Mock<IUser>();
+        toUpdateMockUser.Setup(user => user.Email).Returns(email);
+        toUpdateMockUser.Setup(user => user.Address).Returns(toUpdateAddress);
+
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns(email);
+        mockUser.Setup(user => user.Address).Returns(newAddress);
+
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Get(email)).Returns(() => null);
+        mockRepository.Setup(repo => repo.Update(toUpdateMockUser.Object));
+        
+        var userService = new UserService(mockRepository.Object);
+        userService.UpdateUser(mockUser.Object);
+    }
 }
