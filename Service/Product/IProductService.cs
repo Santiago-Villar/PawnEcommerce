@@ -4,8 +4,9 @@ using Service.User;
 
 namespace Logic
 {
-    public interface IProductLogic
+    public interface IProductService
     {
+        IProductRepository _productRepository { get; set; }
         public Product AddProduct(Product Product);
         public Product DeleteProduct(Product mockProduct);
         public Product GetProductByName(string ProductName, User owner);
