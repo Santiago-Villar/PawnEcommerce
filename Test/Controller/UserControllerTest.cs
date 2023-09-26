@@ -26,7 +26,6 @@ public class UserControllerTest
         {
             Email = "testEmail@gmail.com",
             Password = "secret",
-            Address = "Lauro Müller 1776"
         };
 
         var result = userController.SignUp(newUser) as OkResult;
@@ -43,7 +42,6 @@ public class UserControllerTest
         {
             Email = "testEmail@gmail.com",
             Password = "secret",
-            Address = "4116 Pretty View Lane"
         };
 
         var result = userController.Update(updateUser) as OkResult;
@@ -60,7 +58,6 @@ public class UserControllerTest
         {
             Email = "testEmail@gmail.com",
             Password = "secret",
-            Address = "4116 Pretty View Lane"
         };
 
         var result = userController.Delete(deleteUser) as OkResult;
