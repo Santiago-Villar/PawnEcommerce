@@ -144,13 +144,10 @@ public class ProductServiceTest
     [TestMethod]
     public void GetProductByName_WhenProductExists_ReturnsProduct()
     {
-        // Arrange
         _productRepositoryMock.Setup(repo => repo.GetProductByName(aProduct.Name)).Returns(aProduct);
 
-        // Act
         var result = _productService.GetProductByName(aProduct.Name);
 
-        // Assert
         Assert.AreEqual(aProduct, result);
         _productRepositoryMock.Verify(repo => repo.GetProductByName(aProduct.Name), Times.Once());
     }
