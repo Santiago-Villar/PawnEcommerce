@@ -22,7 +22,7 @@ namespace Test.Service.Promotion
 
         [ExpectedException(typeof(ServiceException))]
         [TestMethod]
-        public void GetPromotionWithNoProductsThrowsEception()
+        public void GetPromotionWithNoProductsThrowsException()
         {
             IPromotionLogic logic = new PromotionLogic();
             List<IProduct> products = new List<IProduct>();
