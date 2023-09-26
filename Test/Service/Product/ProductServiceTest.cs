@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Service.Product;
+using Service.Exception;
 using Service.User;
 
 namespace Test;
