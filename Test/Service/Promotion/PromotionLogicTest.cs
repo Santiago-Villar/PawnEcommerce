@@ -1,4 +1,6 @@
 ﻿using System;
+using Service.Exception;
+using Service.Product;
 using Service.Promotion;
 
 namespace Test.Service.Promotion
@@ -16,6 +18,15 @@ namespace Test.Service.Promotion
         {
             IPromotionLogic logic = new PromotionLogic();
             Assert.IsNotNull(logic);
+        }
+
+        [ExpectedException(typeof(ServiceException))]
+        [TestMethod]
+        public void GetPromotionWithNoProductsThrowsEception()
+        {
+            IPromotionLogic logic = new PromotionLogic();
+            List<IProduct> products = new List<IProduct>();
+            IPromotionStrategy promo = logic.GetPromotion(products);
         }
     }
 }
