@@ -14,5 +14,12 @@ namespace PawnEcommerce.Controllers
         {
             _userService = userService;
         }
+        
+        [HttpPost]
+        public IActionResult SignUp([FromBody] UserCreateModel newUser)
+        {
+            _userService.SignUp(newUser.ToEntity());
+            return Ok();
+        }
     }
 }
