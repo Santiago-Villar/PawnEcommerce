@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using Service.User;
+using Service.Session;
 
 namespace Test.Service.Session
 {
@@ -12,7 +13,7 @@ namespace Test.Service.Session
 		}
 
         [TestMethod]
-        public void CanCreateUserService_Ok()
+        public void CanCreateSessionService_Ok()
         {
             ISessionService userService = new SessionService();
             Assert.IsNotNull(userService);
