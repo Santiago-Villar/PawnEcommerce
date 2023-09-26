@@ -2,6 +2,7 @@
 using Service.Exception;
 using Service.Product;
 using Service.Promotion;
+using Moq;
 
 namespace Test.Service.Promotion
 {
@@ -27,6 +28,19 @@ namespace Test.Service.Promotion
             IPromotionLogic logic = new PromotionLogic();
             List<IProduct> products = new List<IProduct>();
             IPromotionStrategy promo = logic.GetPromotion(products);
+        }
+
+        [TestMethod]
+        public void GetPromotion_Ok()
+        {
+            IPromotionLogic logic = new PromotionLogic();
+
+            Mock<IProduct> p1 = PromotionTestHelper.CreateMockProduct();
+            Mock<IProduct> p2 = PromotionTestHelper.CreateMockProduct();
+            List<IProduct> products = new List<IProduct> { p1.Object, p2.Object };
+
+            IPromotionStrategy promo = logic.GetPromotion(products);
+            Assert.IsNotNull(promo);
         }
     }
 }
