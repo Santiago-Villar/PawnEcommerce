@@ -5,7 +5,7 @@ using Service.User.Role;
 
 namespace Service.User;
 
-public class User
+public class User : IUser
 {
     public string Address { get; set; }
     public List<RoleType> Roles { get; private set; } = new();
@@ -46,6 +46,11 @@ public class User
     public void AddRole(RoleType role)
     {
         Roles.Add(role);
+    }
+    
+    public void RemoveRole(RoleType role)
+    {
+        Roles.RemoveAll(r => r == role);
     }
     
     private bool IsValidEmail(string email)
