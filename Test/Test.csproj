@@ -25,4 +25,10 @@
 
 
 
+  <ItemGroup>
+    <None Remove="Service\Session\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\Session\" />
+  </ItemGroup>
 </Project>
