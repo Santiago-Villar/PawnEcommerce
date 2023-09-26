@@ -9,7 +9,7 @@ public class TotalLook : IPromotionStrategy
     private const double FiftyPercentConverter = 0.5;
     private const int MinCategoryCount = 3;
 
-    public double GetDiscountPrice(List<IProduct> products)
+    public double GetDiscountPrice(List<Service.Product.Product> products)
     {
         var totalPrice = products.Sum(product => product.Price);
         var mostExpensiveProduct = FindMostExpensiveProductWithSharedColor(products);
@@ -18,7 +18,7 @@ public class TotalLook : IPromotionStrategy
         return totalPrice - mostExpensivePrice * FiftyPercentConverter;
     }
 
-    private static IProduct? FindMostExpensiveProductWithSharedColor(List<IProduct> products)
+    private static Service.Product.Product? FindMostExpensiveProductWithSharedColor(List<Service.Product.Product> products)
     {
         var colorCounts = FindColorCount(products);
         
@@ -32,14 +32,14 @@ public class TotalLook : IPromotionStrategy
         return mostExpensiveProduct;
     }
 
-    private static IProduct? FindMostExpensiveProduct(List<IProduct> products, IColor targetColor)
+    private static Service.Product.Product? FindMostExpensiveProduct(List<Service.Product.Product> products, Color targetColor)
     {
         return products
             .Where(product => product.Colors.Contains(targetColor))
             .MaxBy(product => product.Price);
     }
 
-    private static IColor? FindTargetColor(List<IProduct> products, Dictionary<IColor, int> colorCounts)
+    private static Color? FindTargetColor(List<Service.Product.Product> products, Dictionary<Color, int> colorCounts)
     {
         return colorCounts
             .Where(kvp => kvp.Value >= MinCategoryCount)
@@ -47,7 +47,7 @@ public class TotalLook : IPromotionStrategy
             .FirstOrDefault().Key;
     }
 
-    private static Dictionary<IColor, int> FindColorCount(List<IProduct> products)
+    private static Dictionary<Color, int> FindColorCount(List<Service.Product.Product> products)
     {
         return products
             .SelectMany(product => product.Colors.Distinct())
@@ -56,7 +56,7 @@ public class TotalLook : IPromotionStrategy
             .ToDictionary(group => group.Key, group => group.Count());
     }
 
-    private static decimal GetPriceForColor(List<IProduct> products, IColor color)
+    private static decimal GetPriceForColor(List<Service.Product.Product> products, Color color)
     {
         return products
             .Where(product => product.Colors.Contains(color))

@@ -9,6 +9,10 @@ namespace Service.Product
 {
     public class Color:IColor
     {
+        public int Id { get; set; }  // Assuming you have an Id for Color
+        public int ProductId { get; set; }  // Foreign Key to Product
+        public Product Product { get; set; }  // Navigation property
+
         private string _name;
         public string Name
         {
@@ -23,6 +27,7 @@ namespace Service.Product
             }
 
         }
+
 
 
         public override bool Equals(object obj)

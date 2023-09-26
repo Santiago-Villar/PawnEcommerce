@@ -14,7 +14,6 @@
       <None Remove="Product\" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Sale\" />
       <Folder Include="User\" />
       <Folder Include="Product\" />
     </ItemGroup>
