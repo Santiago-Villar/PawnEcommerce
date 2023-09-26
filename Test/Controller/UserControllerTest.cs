@@ -51,4 +51,21 @@ public class UserControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
+    
+    public void Delete_ReturnsOkResult()
+    {
+        var userServiceMock = new Mock<IUserService>();
+        var userController = new UserController(userServiceMock.Object);
+        var deleteUser = new UserCreateModel()
+        {
+            Email = "testEmail@gmail.com",
+            Password = "secret",
+            Address = "4116 Pretty View Lane"
+        };
+
+        var result = userController.Delete(deleteUser) as OkResult;
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(200, result.StatusCode);
+    }
 }
