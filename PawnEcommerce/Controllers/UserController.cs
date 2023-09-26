@@ -28,5 +28,12 @@ namespace PawnEcommerce.Controllers
             _userService.UpdateUser(updateUser.ToEntity());
             return Ok();
         }
+        
+        [HttpDelete]
+        public IActionResult Delete([FromBody] UserCreateModel deleteUser)
+        {
+            _userService.DeleteUser(deleteUser.ToEntity());
+            return Ok();
+        }
     }
 }
