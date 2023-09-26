@@ -3,7 +3,7 @@ using Service.Filter;
 
 namespace Service.Product
 {
-    public class Category : IFilterCriteria
+    public class Category : IFilterCriteria,ICategory
     {
         private string _name;
         public string Name { get => _name;
