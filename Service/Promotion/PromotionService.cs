@@ -3,11 +3,11 @@ using Service.Product;
 using Service.Exception;
 namespace Service.Promotion
 {
-	public class PromotionLogic : IPromotionLogic
+	public class PromotionService : IPromotionService
 	{
 		private PromotionSelector Selector { get; set; }
 
-		public PromotionLogic()
+		public PromotionService()
 		{
 			Selector = new PromotionSelector();
 		}

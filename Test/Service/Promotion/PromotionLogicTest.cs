@@ -9,37 +9,33 @@ namespace Test.Service.Promotion
     [TestClass]
     public class PromotionLogicTest
 	{
+        IPromotionService Logic = new PromotionService();
 
-		public PromotionLogicTest()
-		{
-		}
 
         [TestMethod]
         public void CanCreatePromotionsLogic_Ok()
         {
-            IPromotionLogic logic = new PromotionLogic();
-            Assert.IsNotNull(logic);
+            Assert.IsNotNull(Logic);
         }
 
         [ExpectedException(typeof(ServiceException))]
         [TestMethod]
         public void GetPromotionWithNoProductsThrowsException()
         {
-            IPromotionLogic logic = new PromotionLogic();
             List<IProduct> products = new List<IProduct>();
-            IPromotionStrategy promo = logic.GetPromotion(products);
+
+            IPromotionStrategy promo = Logic.GetPromotion(products);
         }
 
         [TestMethod]
         public void GetPromotion_Ok()
         {
-            IPromotionLogic logic = new PromotionLogic();
-
             Mock<IProduct> p1 = PromotionTestHelper.CreateMockProduct();
             Mock<IProduct> p2 = PromotionTestHelper.CreateMockProduct();
             List<IProduct> products = new List<IProduct> { p1.Object, p2.Object };
 
-            IPromotionStrategy promo = logic.GetPromotion(products);
+            IPromotionStrategy promo = Logic.GetPromotion(products);
+
             Assert.IsNotNull(promo);
         }
     }

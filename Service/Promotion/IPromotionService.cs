@@ -2,7 +2,7 @@
 using Service.Product;
 namespace Service.Promotion
 {
-	public interface IPromotionLogic
+	public interface IPromotionService
 	{
 		public IPromotionStrategy GetPromotion(List<IProduct> products);
 	}
