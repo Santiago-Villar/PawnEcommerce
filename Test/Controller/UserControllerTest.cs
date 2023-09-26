@@ -34,4 +34,21 @@ public class UserControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
+    
+    public void Update_Ok()
+    {
+        var userServiceMock = new Mock<IUserService>();
+        var userController = new UserController(userServiceMock.Object);
+        var updateUser = new UserCreateModel()
+        {
+            Email = "testEmail@gmail.com",
+            Password = "secret",
+            Address = "4116 Pretty View Lane"
+        };
+
+        var result = userController.Update(updateUser) as OkResult;
+        
+        Assert.IsNotNull(result);
+        Assert.AreEqual(200, result.StatusCode);
+    }
 }
