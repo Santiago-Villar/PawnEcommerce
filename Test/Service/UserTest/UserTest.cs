@@ -95,4 +95,19 @@ public class UserTest
         CollectionAssert.Contains(user.Roles, role);
     }
     
+    [TestMethod]
+    public void CanRemoveRole_Ok()
+    {
+        var user = new User();
+
+        const RoleType role = RoleType.User;
+        
+        user.AddRole(role);
+        user.AddRole(role);
+
+        user.RemoveRole(role);
+        
+        CollectionAssert.DoesNotContain(user.Roles, role);
+    }
+    
 }
