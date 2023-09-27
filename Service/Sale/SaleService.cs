@@ -20,10 +20,13 @@ public class SaleService
         try
         {
             var promotion = _promotionService.GetPromotion(sale.Products);
-            sale.PromotionName = promotion.Name;
-
             var newPrice = promotion.GetDiscountPrice(sale.Products);
-            sale.Price = newPrice;
+            
+            if (!newPrice.Equals(sale.Price))
+            {
+                sale.PromotionName = promotion.Name;
+                sale.Price = newPrice;
+            }
             
             _saleRepository.Add(sale);
         }
@@ -31,5 +34,15 @@ public class SaleService
         {
             _saleRepository.Add(sale);
         }
+    }
+
+    public List<Sale> Get()
+    {
+        return _saleRepository.GetAll();
+    }
+    
+    public List<Sale>  Get(IUser user)
+    {
+        return _saleRepository.GetUserSales(user);
     }
 }

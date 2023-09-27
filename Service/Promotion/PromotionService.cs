@@ -18,9 +18,8 @@ namespace Service.Promotion
 			{
 				throw new ServiceException("Can not get promotion of empty list of products");
 			}
-
+			
 			return Selector.GetBestPromotion(products);
-
 		}
 	}
 }
