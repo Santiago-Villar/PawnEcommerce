@@ -28,7 +28,16 @@ namespace Service.Session
             {
                 throw new RepositoryException("Invalid credentials");
             }
-            return GetToken(user);
+            return createToken(user);
+        }
+
+        public IUser? GetCurrentUser(string token)
+        {
+            var userEmail = ExtractUserEmailFromToken(token);
+            if (userEmail == null)
+                return null;
+
+            return _repository.Get(userEmail);
         }
 
 
@@ -37,7 +46,7 @@ namespace Service.Session
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
 
-        private String GetToken(IUser user)
+        private String createToken(IUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(SecretKey);
@@ -54,6 +63,41 @@ namespace Service.Session
 
             return tokenHandler.WriteToken(token);
         }
+
+        private string ExtractUserEmailFromToken(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+                return null;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(SecretKey);
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                foreach (var claim in jwtToken.Claims)
+                {
+                    Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+                }
+                var userEmailClaim = jwtToken.Claims.First(c => c.Type == "email");
+                return userEmailClaim.Value;
+            }
+            catch(System.Exception ex)
+            {
+                Console.WriteLine("exception next:");
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
     }
 }
+
 

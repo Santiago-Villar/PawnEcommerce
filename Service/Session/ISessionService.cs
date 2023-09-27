@@ -7,6 +7,9 @@ namespace Service.Session
 		public IUserRepository _repository { get; set; }
 
 		public string Authenticate(string email, string password);
-	}
+
+		public IUser? GetCurrentUser(string token);
+
+    }
 }
 

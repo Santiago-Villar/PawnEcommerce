@@ -82,6 +82,7 @@ namespace Test.Service.Session
 
             ISessionService sessionService = new SessionService(mockRepository.Object);
             string token = sessionService.Authenticate(Email, Password);
+            Console.WriteLine(token);
             IUser userGot = sessionService.GetCurrentUser(token);
 
 
