@@ -6,6 +6,11 @@ namespace Service.Session
 		public SessionService()
 		{
 		}
-	}
+
+        public string Authenticate(string email, string password)
+        {
+            return "a";
+        }
+    }
 }
 
