@@ -16,7 +16,7 @@ namespace Service.Sale
 		        CalculateTotalPrice();
 	        }
         }
-        public int Price { get; set; }
+        public double Price { get; set; }
         public DateTime Date { get; set; }
         public string PromotionName { get; set; }
         
