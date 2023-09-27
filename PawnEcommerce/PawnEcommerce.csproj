@@ -19,8 +19,9 @@
   <ItemGroup>
     <None Remove="Controllers\" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Repository\Repository.csproj" />

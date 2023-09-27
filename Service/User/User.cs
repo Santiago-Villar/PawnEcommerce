@@ -14,7 +14,7 @@ public class User : IUser
     
     private string _email;
     private string _passwordHash;
-    
+
     public string PasswordHash
     {
         get => _passwordHash;

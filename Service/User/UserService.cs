@@ -4,7 +4,7 @@ using Service.Exception;
 
 namespace Service.User;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     
