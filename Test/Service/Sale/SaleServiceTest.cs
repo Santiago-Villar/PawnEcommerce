@@ -4,6 +4,7 @@ using Service.User;
 using Service.Product;
 using Moq;
 using System;
+using Service.Exception;
 using Service.Promotion;
 using Test.Service.Promotion;
 namespace Test.Service;
@@ -63,6 +64,26 @@ public class SaleServiceTest
         saleService.Create(sale);
         
         Assert.IsNull(sale.PromotionName);
+    }
+    
+    [ExpectedException(typeof(ServiceException))]
+    [TestMethod]
+    public void CreateSale_NoProducts_Throw()
+    {
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns("testEmail");
+        
+        var sale = new Sale
+        {
+            User = mockUser.Object,
+        };
+
+        var saleList = new List<Sale>() { sale };
+        var mockRepository = new Mock<ISaleRepository>();
+        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
+        
+        var saleService = new SaleService(mockRepository.Object);
+        saleService.Create(sale);
     }
     
 
