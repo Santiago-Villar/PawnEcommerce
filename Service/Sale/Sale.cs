@@ -5,9 +5,9 @@ namespace Service.Sale
 {
 	public class Sale
 	{
-        public int Id { get; set; } // Primary Key
+        public int Id { get; set; } 
 
-        public string UserEmail { get; set; } // Assuming you use Email as primary key in User
+        public string UserEmail { get; set; } 
         public Service.User.User User { get; set; }
         public ICollection<SaleProduct> Products { get; set; }
 

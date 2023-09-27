@@ -18,12 +18,12 @@ namespace Service.Product
         }
 
         [ForeignKey("Brand")]
-        public string BrandName { get; set; } // Foreign Key to Brand
-        public Brand Brand { get; set; }  // Navigation property
+        public string BrandName { get; set; } 
+        public Brand Brand { get; set; }  
 
         [ForeignKey("Category")]
-        public string CategoryName { get; set; } // Foreign Key to Category
-        public Category Category { get; set; }  // Navigation property
+        public string CategoryName { get; set; } 
+        public Category Category { get; set; }  
 
         public ICollection<Color> Colors { get; set; }
         public Product()

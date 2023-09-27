@@ -17,11 +17,11 @@ namespace Repository
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        public DbSet<Color> Colors { get; set; } // Added DbSet for Color.
+        public DbSet<Color> Colors { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Ensure uniqueness for the Name attributes of Brand and Category.
+
             modelBuilder.Entity<Brand>()
                 .HasIndex(b => b.Name)
                 .IsUnique();
@@ -30,39 +30,33 @@ namespace Repository
                 .HasIndex(c => c.Name)
                 .IsUnique();
 
-            // Configure Product
             modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Name)
-                .IsUnique();  // Ensure Product Name uniqueness
+                .IsUnique();  
 
-            // Define relationships:
 
-            // Product to Colors
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.Colors)
                 .WithOne(c => c.Product)
-                .HasForeignKey(c => c.ProductId); // Assuming you add a ProductId foreign key to the Color model.
+                .HasForeignKey(c => c.ProductId); 
 
-            // Product to Brand
+            
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Brand)
                 .WithMany(b => b.Products)
                 .HasForeignKey(p => p.BrandName);
 
-            // Product to Category
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryName);
 
-            // Add other configurations as needed.
 
-            // Configure User
             modelBuilder.Entity<User>()
-                .HasKey(u => u.Email);  // Set Email as primary key for User
+                .HasKey(u => u.Email);  
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
-                .IsUnique();  // Ensure Email uniqueness
+                .IsUnique();  
 
             modelBuilder.Entity<User>()
                 .Property(u => u.Roles)
@@ -73,31 +67,29 @@ namespace Repository
                                                             .ToList()
                                );
 
-            // Configure Sale
             modelBuilder.Entity<Sale>()
-                .HasKey(s => s.Id);  // Define primary key for Sale
+                .HasKey(s => s.Id);  
 
             modelBuilder.Entity<Sale>()
                 .Property(s => s.Date)
-                .HasDefaultValueSql("getdate()"); // Default value for DateTime.Now. Assumes SQL Server.
+                .HasDefaultValueSql("getdate()"); 
 
             modelBuilder.Entity<Sale>()
                 .HasOne(s => s.User)
-                .WithMany(u => u.Sales) // Assuming no navigation property on User for sales.
-                .HasForeignKey(s => s.UserEmail); // Using Email as foreign key as per earlier discussion.
+                .WithMany(u => u.Sales) 
+                .HasForeignKey(s => s.UserEmail); 
 
-            // Configure SaleProduct
             modelBuilder.Entity<SaleProduct>()
-                .HasKey(sp => new { sp.SaleId, sp.ProductId }); // Composite primary key for SaleProduct
+                .HasKey(sp => new { sp.SaleId, sp.ProductId }); 
 
             modelBuilder.Entity<SaleProduct>()
                 .HasOne(sp => sp.Sale)
-                .WithMany(s => s.Products)  // The collection of SaleProducts on Sale
+                .WithMany(s => s.Products)  
                 .HasForeignKey(sp => sp.SaleId);
 
             modelBuilder.Entity<SaleProduct>()
                 .HasOne(sp => sp.Product)
-                .WithMany() // Assuming no navigation property on Product for SaleProduct
+                .WithMany() 
                 .HasForeignKey(sp => sp.ProductId);
 
 
