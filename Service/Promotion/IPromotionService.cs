@@ -4,7 +4,7 @@ namespace Service.Promotion
 {
 	public interface IPromotionService
 	{
-		public IPromotionStrategy GetPromotion(List<IProduct> products);
+		public IPromotionStrategy GetPromotion(List<Service.Product.Product> products);
 	}
 }
 

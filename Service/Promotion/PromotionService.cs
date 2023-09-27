@@ -12,7 +12,7 @@ namespace Service.Promotion
 			Selector = new PromotionSelector();
 		}
 
-		public IPromotionStrategy GetPromotion(List<IProduct> products)
+		public IPromotionStrategy GetPromotion(List<Service.Product.Product> products)
 		{
 			if (products.Count == 0)
 			{
