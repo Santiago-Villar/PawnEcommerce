@@ -4,6 +4,9 @@ using Service.User;
 using Service.Product;
 using Moq;
 using System;
+using Service.Promotion;
+using Test.Service.Promotion;
+
 namespace Test;
 
 [TestClass]
@@ -84,5 +87,31 @@ public class SaleTest
     
         Assert.AreEqual(s.Price, 35);
     }
+    
+    [TestMethod]
+    public void SaleHasPromotionName()
+    {
+        var product1Mock = PromotionTestHelper.CreateMockProduct();
+
+        var mockProducts = new List<IProduct>
+        {
+            product1Mock.Object,
+            product1Mock.Object,
+            product1Mock.Object
+        };
+
+        var s = new Sale
+        {
+            Products = mockProducts
+        };
+
+        var promotionService = new PromotionService();
+        var promotion = promotionService.GetPromotion(s.Products);
+
+        s.PromotionName = promotion.Name;
+
+        Assert.AreEqual(s.PromotionName, promotion.Name);
+    }
+
 
 }
