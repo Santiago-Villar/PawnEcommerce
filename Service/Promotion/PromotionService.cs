@@ -14,7 +14,7 @@ namespace Service.Promotion
 
 		public IPromotionStrategy GetPromotion(List<IProduct> products)
 		{
-			if (products.Count == 0)
+			if (products is null || products.Count == 0)
 			{
 				throw new ServiceException("Can not get promotion of empty list of products");
 			}

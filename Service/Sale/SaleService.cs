@@ -30,9 +30,9 @@ public class SaleService
             
             _saleRepository.Add(sale);
         }
-        catch (ServiceException ex)
+        catch (ServiceException ex) 
         {
-            _saleRepository.Add(sale);
+            throw new ServiceException(ex.Message);
         }
     }
 
