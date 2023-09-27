@@ -89,6 +89,21 @@ namespace Test.Service.Session
             Assert.IsNotNull(userGot);
         }
 
+        [TestMethod]
+        public void GetCurrentUserWithWrongReturns_Null()
+        {
+            var mockUser = GetMockUser();
+            var mockRepository = new Mock<IUserRepository>();
+            mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
+
+            ISessionService sessionService = new SessionService(mockRepository.Object);
+            string token = sessionService.Authenticate(Email, Password);
+            string wrongToken = token + "asdasd";
+
+            IUser userGot = sessionService.GetCurrentUser(wrongToken);
+            Assert.IsNull(userGot);
+        }
+
 
     }
 }
