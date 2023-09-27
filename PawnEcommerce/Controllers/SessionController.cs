@@ -7,7 +7,7 @@ using PawnEcommerce.DTO;
 namespace PawnEcommerce.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class SessionController : ControllerBase
 	{
 		private ISessionService _sessionService { get; set; }
