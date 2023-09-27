@@ -107,10 +107,10 @@ public class SaleServiceTest
 
         var saleList = new List<Sale>() { sale, sale2 };
         var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
+        mockRepository.Setup(repo => repo.GetAll()).Returns(saleList);
         
         var saleService = new SaleService(mockRepository.Object);
         
-        Assert.AreEqual(saleList, saleService.GetAll(sale));
+        Assert.AreEqual(saleList, saleService.GetAll());
     }
 }

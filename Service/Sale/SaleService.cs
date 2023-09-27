@@ -35,13 +35,13 @@ public class SaleService
             throw new ServiceException(ex.Message);
         }
     }
-
-    public List<Sale> Get()
+    
+    public List<Sale> GetAll()
     {
         return _saleRepository.GetAll();
     }
     
-    public List<Sale>  Get(IUser user)
+    public List<Sale> Get(IUser user)
     {
         return _saleRepository.GetUserSales(user);
     }
