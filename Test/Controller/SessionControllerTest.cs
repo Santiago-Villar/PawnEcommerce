@@ -5,6 +5,7 @@ using Service.Session;
 using Microsoft.AspNetCore.Mvc;
 using PawnEcommerce.Controllers;
 using PawnEcommerce.DTO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test.Service.Session
 {
@@ -16,6 +17,7 @@ namespace Test.Service.Session
 		}
 
         private const string Email = "TestEmail@gmail.com";
+        private const string Email2 = "Test2Email@gmail.com";
         private const string Password = "currentPassword";
         private const string DifferentPassword = "differentPassword";
         private const string ToUpdateAddress = "1234 Laughter Lane";
@@ -59,15 +61,48 @@ namespace Test.Service.Session
             var sessionService = new SessionService(mockRepository.Object);
             var sessionController = new SessionController(sessionService);
 
+            var request = new LoginRequest()
+            {
+                Email = Email,
+                Password = Password
+            };
 
-            var result = sessionController.Login(Email, Password);
+            var result = sessionController.Login(request);
 
-            var token = (result.Value as dynamic)?.token as string;
+            var objectResult = result as ObjectResult;
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(200, result.StatusCode);
+            Assert.IsNotNull(objectResult);
+            Assert.AreEqual(200, objectResult.StatusCode);
+
+            var loginResponse = objectResult.Value as LoginResponse;
+
+            Assert.IsNotNull(loginResponse);
+
+            var token = loginResponse.Token;
             Assert.IsFalse(string.IsNullOrEmpty(token));
 
+        }
+        [TestMethod]
+        public void LoginWithWrongMail_ReturnsUnauthorized()
+        {
+
+            var mockUser = GetMockUser();
+            var mockRepository = new Mock<IUserRepository>();
+            mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
+            var sessionService = new SessionService(mockRepository.Object);
+            var sessionController = new SessionController(sessionService);
+
+            var request = new LoginRequest()
+            {
+                Email = Email2,
+                Password = Password
+            };
+
+            var result = sessionController.Login(request);
+            var objectResult = result as ObjectResult;
+
+            Assert.IsNotNull(objectResult);
+            Assert.AreEqual(401, objectResult.StatusCode);
         }
     }
 }
