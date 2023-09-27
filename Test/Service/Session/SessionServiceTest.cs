@@ -2,6 +2,7 @@
 using Moq;
 using Service.User;
 using Service.Session;
+using Service.Exception;
 
 namespace Test.Service.Session
 {
@@ -41,8 +42,8 @@ namespace Test.Service.Session
         [TestMethod]
         public void CanCreateSessionService_Ok()
         {
-            ISessionService userService = new SessionService();
-            Assert.IsNotNull(userService);
+            ISessionService sessionService = new SessionService(mockRepository.Object);
+            Assert.IsNotNull(sessionService);
         }
 
         [TestMethod]
@@ -52,10 +53,23 @@ namespace Test.Service.Session
             var mockRepository = new Mock<IUserRepository>();
             mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
 
-            ISessionService userService = new SessionService();
-            string token = userService.Authenticate(Email, Password);
+            ISessionService sessionService = new SessionService(mockRepository.Object);
+            string token = sessionService.Authenticate(Email, Password);
 
             Assert.IsNotNull(token);
+        }
+
+        [ExpectedException(typeof(RepositoryException))]
+        [TestMethod]
+        public void AuthenticateWithWrongPassword_Throws()
+        {
+            var mockUser = GetMockUser();
+
+            var mockRepository = new Mock<IUserRepository>();
+            mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
+
+            var sessionService = new SessionService(mockRepository.Object);
+            string token = sessionService.Authenticate(Email, DifferentPassword);
         }
     }
 }
