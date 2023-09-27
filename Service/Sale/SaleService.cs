@@ -4,7 +4,7 @@ using Service.User;
 
 namespace Service.Sale;
 
-public class SaleService
+public class SaleService : ISaleService
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IPromotionService _promotionService;
