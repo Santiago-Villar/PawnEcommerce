@@ -60,5 +60,29 @@ public class SaleTest
         var s = new Sale();
         Assert.IsTrue((DateTime.Now - s.Date).TotalSeconds < 1);
     }
+    [TestMethod]
+    public void SaleHasPrice()
+    {
+        var product1Mock = new Mock<IProduct>();
+        product1Mock.Setup(p => p.Name).Returns("Product1");
+        product1Mock.Setup(p => p.Price).Returns(15);
+
+        var product2Mock = new Mock<IProduct>();
+        product2Mock.Setup(p => p.Name).Returns("Product2");
+        product2Mock.Setup(p => p.Price).Returns(20);
+
+        var mockProducts = new List<IProduct>
+        {
+            product1Mock.Object,
+            product2Mock.Object
+        };
+    
+        var s = new Sale
+        {
+            Products = mockProducts
+        };
+    
+        Assert.AreEqual(s.Price, 35);
+    }
 
 }
