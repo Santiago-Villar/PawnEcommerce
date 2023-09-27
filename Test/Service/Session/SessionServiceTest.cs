@@ -72,6 +72,23 @@ namespace Test.Service.Session
             var sessionService = new SessionService(mockRepository.Object);
             string token = sessionService.Authenticate(Email, DifferentPassword);
         }
+
+        [TestMethod]
+        public void CanGetCurrentUser_Ok()
+        {
+            var mockUser = GetMockUser();
+            var mockRepository = new Mock<IUserRepository>();
+            mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
+
+            ISessionService sessionService = new SessionService(mockRepository.Object);
+            string token = sessionService.Authenticate(Email, Password);
+            IUser userGot = sessionService.GetCurrentUser(token);
+
+
+            Assert.IsNotNull(userGot);
+        }
+
+
     }
 }
 
