@@ -42,6 +42,7 @@ namespace Test.Service.Session
         [TestMethod]
         public void CanCreateSessionService_Ok()
         {
+            var mockRepository = new Mock<IUserRepository>();
             ISessionService sessionService = new SessionService(mockRepository.Object);
             Assert.IsNotNull(sessionService);
         }
