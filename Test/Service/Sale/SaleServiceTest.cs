@@ -86,5 +86,31 @@ public class SaleServiceTest
         saleService.Create(sale);
     }
     
+    [TestMethod]
+    public void GetAllPromotions_Ok()
+    {
+        var product1Mock = PromotionTestHelper.CreateMockProduct();
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns("testEmail");
+        
+        var sale = new Sale
+        {
+            User = mockUser.Object,
+            Products = Enumerable.Repeat(product1Mock.Object, 4).ToList()
+        };
+        
+        var sale2 = new Sale
+        {
+            User = mockUser.Object,
+            Products = Enumerable.Repeat(product1Mock.Object, 2).ToList()
+        };
 
+        var saleList = new List<Sale>() { sale, sale2 };
+        var mockRepository = new Mock<ISaleRepository>();
+        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
+        
+        var saleService = new SaleService(mockRepository.Object);
+        
+        Assert.AreEqual(saleList, saleService.GetAll(sale));
+    }
 }
