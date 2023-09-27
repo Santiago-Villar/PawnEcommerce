@@ -18,6 +18,7 @@ namespace Service.Sale
         }
         public int Price { get; set; }
         public DateTime Date { get; set; }
+        public string PromotionName { get; set; }
         
         public Sale()
 		{

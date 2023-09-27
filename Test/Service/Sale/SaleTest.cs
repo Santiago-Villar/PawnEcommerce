@@ -113,5 +113,4 @@ public class SaleTest
         Assert.AreEqual(s.PromotionName, promotion.Name);
     }
 
-
 }
