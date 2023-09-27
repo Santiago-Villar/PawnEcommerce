@@ -5,7 +5,8 @@ using Service.Session;
 
 namespace Test.Service.Session
 {
-	public class SessionControllerTest
+    [TestClass]
+    public class SessionControllerTest
 	{
 		public SessionControllerTest()
 		{
