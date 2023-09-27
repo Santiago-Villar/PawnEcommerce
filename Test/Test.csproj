@@ -18,6 +18,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\PawnEcommerce\PawnEcommerce.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
@@ -31,4 +32,5 @@
   <ItemGroup>
     <Folder Include="Service\Session\" />
   </ItemGroup>
+
 </Project>
