@@ -12,9 +12,6 @@ namespace Test.Service.Session
     [TestClass]
     public class SessionControllerTest
 	{
-		public SessionControllerTest()
-		{
-		}
 
         private const string Email = "TestEmail@gmail.com";
         private const string Email2 = "Test2Email@gmail.com";
@@ -43,6 +40,20 @@ namespace Test.Service.Session
             return hashedPassword;
         }
 
+        private readonly Mock<IUserRepository> _mockRepository;
+        private readonly SessionService _sessionService;
+        private readonly SessionController _sessionController;
+        private readonly IUser _mockUser;
+
+        public SessionControllerTest()
+        {
+            _mockUser = GetMockUser();
+            _mockRepository = new Mock<IUserRepository>();
+            _mockRepository.Setup(repo => repo.Get(It.IsAny<string>())).Returns((string email) => email == Email ? _mockUser : null);
+            _sessionService = new SessionService(_mockRepository.Object);
+            _sessionController = new SessionController(_sessionService);
+        }
+
         [TestMethod]
         public void CanCreateController_Ok()
         {
@@ -54,20 +65,13 @@ namespace Test.Service.Session
         [TestMethod]
         public void Login_Ok()
         {
-
-            var mockUser = GetMockUser();
-            var mockRepository = new Mock<IUserRepository>();
-            mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
-            var sessionService = new SessionService(mockRepository.Object);
-            var sessionController = new SessionController(sessionService);
-
             var request = new LoginRequest()
             {
                 Email = Email,
                 Password = Password
             };
 
-            var result = sessionController.Login(request);
+            var result = _sessionController.Login(request);
 
             var objectResult = result as ObjectResult;
 
@@ -85,20 +89,13 @@ namespace Test.Service.Session
         [TestMethod]
         public void LoginWithWrongMail_ReturnsUnauthorized()
         {
-
-            var mockUser = GetMockUser();
-            var mockRepository = new Mock<IUserRepository>();
-            mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
-            var sessionService = new SessionService(mockRepository.Object);
-            var sessionController = new SessionController(sessionService);
-
             var request = new LoginRequest()
             {
                 Email = Email2,
                 Password = Password
             };
 
-            var result = sessionController.Login(request);
+            var result = _sessionController.Login(request);
             var objectResult = result as ObjectResult;
 
             Assert.IsNotNull(objectResult);
