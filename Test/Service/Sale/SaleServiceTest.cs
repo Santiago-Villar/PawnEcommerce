@@ -1,11 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Service.Sale;
 using Service.User;
-using Service.Product;
 using Moq;
-using System;
 using Service.Exception;
-using Service.Promotion;
+using Service.Product;
 using Test.Service.Promotion;
 namespace Test.Service;
 
@@ -24,19 +21,13 @@ public class SaleServiceTest
     public void CanCreateSale_Ok()
     {
         var product1Mock = PromotionTestHelper.CreateMockProduct();
-        var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Email).Returns("testEmail");
         
         var sale = new Sale
         {
-            User = mockUser.Object,
             Products = Enumerable.Repeat(product1Mock.Object, 3).ToList()
         };
 
-        var saleList = new List<Sale>() { sale };
         var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
-        
         var saleService = new SaleService(mockRepository.Object);
         saleService.Create(sale);
         
@@ -47,19 +38,13 @@ public class SaleServiceTest
     public void CanCreateSale_NoPromotionAvailable_Ok()
     {
         var product1Mock = PromotionTestHelper.CreateMockProduct();
-        var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Email).Returns("testEmail");
         
         var sale = new Sale
         {
-            User = mockUser.Object,
             Products = Enumerable.Repeat(product1Mock.Object, 1).ToList()
         };
 
-        var saleList = new List<Sale>() { sale };
         var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
-        
         var saleService = new SaleService(mockRepository.Object);
         saleService.Create(sale);
         
@@ -93,19 +78,8 @@ public class SaleServiceTest
         var mockUser = new Mock<IUser>();
         mockUser.Setup(user => user.Email).Returns("testEmail");
         
-        var sale = new Sale
-        {
-            User = mockUser.Object,
-            Products = Enumerable.Repeat(product1Mock.Object, 4).ToList()
-        };
+        var saleList = CreateSales(mockUser, product1Mock);
         
-        var sale2 = new Sale
-        {
-            User = mockUser.Object,
-            Products = Enumerable.Repeat(product1Mock.Object, 2).ToList()
-        };
-
-        var saleList = new List<Sale>() { sale, sale2 };
         var mockRepository = new Mock<ISaleRepository>();
         mockRepository.Setup(repo => repo.GetAll()).Returns(saleList);
         
@@ -113,7 +87,7 @@ public class SaleServiceTest
         
         Assert.AreEqual(saleList, saleService.GetAll());
     }
-    
+
     [TestMethod]
     public void GetUserPromotions_Ok()
     {
@@ -121,12 +95,24 @@ public class SaleServiceTest
         var mockUser = new Mock<IUser>();
         mockUser.Setup(user => user.Email).Returns("testEmail");
         
+        var saleList = CreateSales(mockUser, product1Mock);
+
+        var mockRepository = new Mock<ISaleRepository>();
+        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
+        
+        var saleService = new SaleService(mockRepository.Object);
+        
+        Assert.AreEqual(saleList, saleService.Get(mockUser.Object));
+    }
+    
+    private List<Sale> CreateSales(Mock<IUser> mockUser, Mock<IProduct> product1Mock)
+    {
         var sale = new Sale
         {
             User = mockUser.Object,
             Products = Enumerable.Repeat(product1Mock.Object, 4).ToList()
         };
-        
+
         var sale2 = new Sale
         {
             User = mockUser.Object,
@@ -134,11 +120,6 @@ public class SaleServiceTest
         };
 
         var saleList = new List<Sale>() { sale, sale2 };
-        var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
-        
-        var saleService = new SaleService(mockRepository.Object);
-        
-        Assert.AreEqual(saleList, saleService.Get(mockUser.Object));
+        return saleList;
     }
 }
