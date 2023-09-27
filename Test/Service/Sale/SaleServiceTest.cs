@@ -42,5 +42,28 @@ public class SaleServiceTest
         Assert.AreEqual("Three For One", sale.PromotionName);
     }
     
+    [TestMethod]
+    public void CanCreateSale_NoPromotionAvailable_Ok()
+    {
+        var product1Mock = PromotionTestHelper.CreateMockProduct();
+        var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Email).Returns("testEmail");
+        
+        var sale = new Sale
+        {
+            User = mockUser.Object,
+            Products = Enumerable.Repeat(product1Mock.Object, 1).ToList()
+        };
+
+        var saleList = new List<Sale>() { sale };
+        var mockRepository = new Mock<ISaleRepository>();
+        mockRepository.Setup(repo => repo.GetUserSales(mockUser.Object)).Returns(saleList);
+        
+        var saleService = new SaleService(mockRepository.Object);
+        saleService.Create(sale);
+        
+        Assert.IsNull(sale.PromotionName);
+    }
+    
 
 }
