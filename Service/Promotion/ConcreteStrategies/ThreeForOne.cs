@@ -8,7 +8,7 @@ public class ThreeForOne : IPromotionStrategy
 
     private const int MinBrandCount = 3;
     private const int MaxFreeItems = 2;
-    public double GetDiscountPrice(List<IProduct> products)
+    public double GetDiscountPrice(List<Service.Product.Product> products)
     {
         var totalPrice = products.Sum(product => product.Price);
         var cheapestProduct = FindCheapestProductsInCommonBrands(products);
@@ -17,7 +17,7 @@ public class ThreeForOne : IPromotionStrategy
         return totalPrice - discountPrice;
     }
     
-    private static List<IProduct>? FindCheapestProductsInCommonBrands(List<IProduct> products)
+    private static List<Service.Product.Product>? FindCheapestProductsInCommonBrands(List<Service.Product.Product> products)
     {
         var brandCounts = FindBrandCount(products);
 
@@ -29,7 +29,7 @@ public class ThreeForOne : IPromotionStrategy
         return cheapestProducts;
     }
 
-    private static List<IProduct> FindCheapestProducts(List<IProduct> products, List<IBrand> categoryCounts)
+    private static List<Service.Product.Product> FindCheapestProducts(List<Service.Product.Product> products, List<Brand> categoryCounts)
     {
         return products
             .Where(product => categoryCounts.Contains(product.Brand))
@@ -38,7 +38,7 @@ public class ThreeForOne : IPromotionStrategy
             .ToList();
     }
 
-    private static List<IBrand> FindBrandCount(List<IProduct> products)
+    private static List<Brand> FindBrandCount(List<Service.Product.Product> products)
     {
         return products
             .GroupBy(product => product.Brand)
