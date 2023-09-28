@@ -5,24 +5,16 @@ namespace Service.Sale
 {
 	public class Sale
 	{
-        public IUser User { get; set; }
-        private List<IProduct> products;
-        public List<IProduct> Products
-        {
-	        get => products;
-	        init
-	        {
-		        products = value;
-		        CalculateTotalPrice();
-	        }
-        }
+        public int Id { get; set; } 
+        public string UserEmail { get; set; } 
+        public Service.User.User User { get; set; }
+        public ICollection<SaleProduct> Products { get; set; }
         public double Price { get; set; }
-        public DateTime Date { get; set; }
         public string PromotionName { get; set; }
-        
+        public DateTime Date { get; set; }
         public Sale()
-		{
-			Date = DateTime.Now;
+	{
+                Date = DateTime.Now;
         }
 
         private void CalculateTotalPrice()
@@ -32,3 +24,4 @@ namespace Service.Sale
 	}
 }
 
+        

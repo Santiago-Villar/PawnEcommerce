@@ -14,6 +14,8 @@
       <None Remove="Product\" />
     </ItemGroup>
     <ItemGroup>
+      <Folder Include="User\" />
+      <Folder Include="Sale\" />
       <Folder Include="Product\" />
     </ItemGroup>
 </Project>

@@ -8,7 +8,8 @@ public class ColorTest
 {
     Color aColor = new Color()
     {
-        Name = "Green"
+        Name = "Green",
+        Code = 	"#008000"
     };
 
     [TestMethod]
@@ -32,9 +33,12 @@ public class ColorTest
     public void ColorEqualsOk() {
         Color anotherColor = new Color()
         {
-            Name = "Green"
+            Name = "Green",
+            Code = "#008000"
+
         };
         Assert.AreEqual(aColor,anotherColor);
+        Assert.AreEqual(aColor.Code, anotherColor.Code);
     }
 
     [TestMethod]

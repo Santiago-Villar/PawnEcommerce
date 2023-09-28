@@ -1,66 +1,66 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Service.Product;
 using Service.Promotion;
 using Service.Promotion.ConcreteStrategies;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Test.Service.Promotion.ConcretePromotions;
-
-[TestClass]
-public class ThreeForTwoTest
+namespace Test.Service.Promotion.ConcretePromotions
 {
-    [TestMethod]
-    public void CanCreateThreeForTwo_Ok()
+    [TestClass]
+    public class ThreeForTwoTest
     {
-        var threeForTwo = new ThreeForTwoTest();
-        Assert.IsNotNull(threeForTwo);
-    }
-    
-    [TestMethod]
-    public void ApplyDiscount_ThreeForTwo_Ok()
-    {
-        var threeForTwoDiscount = new ThreeForTwo();
-
-        var mockedProduct = PromotionTestHelper.CreateMockProduct().Object;
-
-        var products = Enumerable.Repeat(mockedProduct, 4).ToList();
-        
-        var discountPrice = threeForTwoDiscount.GetDiscountPrice(products);
-        const float expectedDiscountPrice = 30;
-
-        Assert.AreEqual(expectedDiscountPrice, discountPrice);
-    }
-    
-    [TestMethod]
-    public void GetBestPromotion_ThreeForTwo_Ok()
-    {
-        var threeForTwo = new ThreeForTwo();
-        
-        const string color = "Blue";
-        
-        var mockColor = PromotionTestHelper.CreateMockColor("Blue").Object;
-
-        var colors = Enumerable.Repeat(mockColor, 2).ToList();
-
-        var mockCategory1 = PromotionTestHelper.CreateMockCategory("cat1").Object;
-        var mockCategory2 = PromotionTestHelper.CreateMockCategory("cat2").Object;
-
-        var mockBrand1 = PromotionTestHelper.CreateMockBrand("brand1").Object;
-        var mockBrand2 = PromotionTestHelper.CreateMockBrand("brand2").Object;
-
-        var mockProduct1 = PromotionTestHelper.CreateProduct(mockCategory1, colors, mockBrand1);
-        var mockProduct2 = PromotionTestHelper.CreateProduct(mockCategory1, colors, mockBrand1);
-        var mockProduct3 = PromotionTestHelper.CreateProduct(mockCategory1, colors, mockBrand2);
-
-        var products = new List<IProduct>()
+        [TestMethod]
+        public void CanCreateThreeForTwo_Ok()
         {
-            mockProduct1.Object,
-            mockProduct2.Object,
-            mockProduct3.Object,
-        };
+            var threeForTwo = new ThreeForTwo();
+            Assert.IsNotNull(threeForTwo);
+        }
 
-        var promotionSelector = new PromotionSelector();
-        
-        var bestPromotion = promotionSelector.GetBestPromotion(products);
+        [TestMethod]
+        public void ApplyDiscount_ThreeForTwo_Ok()
+        {
+            var threeForTwoDiscount = new ThreeForTwo();
 
-        Assert.AreEqual(threeForTwo.Name, bestPromotion?.Name);
+            var product = PromotionTestHelper.CreateProduct();
+            var products = Enumerable.Repeat(product, 4).ToList();
+
+            var discountPrice = threeForTwoDiscount.GetDiscountPrice(products);
+            const float expectedDiscountPrice = 30;
+
+            Assert.AreEqual(expectedDiscountPrice, discountPrice);
+        }
+
+        [TestMethod]
+        public void GetBestPromotion_ThreeForTwo_Ok()
+        {
+            var threeForTwo = new ThreeForTwo();
+
+            var color = PromotionTestHelper.CreateColor("Blue");
+            var colors = Enumerable.Repeat(color, 2).ToList();
+
+            var category1 = PromotionTestHelper.CreateCategory("cat1");
+            var category2 = PromotionTestHelper.CreateCategory("cat2");
+
+            var brand1 = PromotionTestHelper.CreateBrand("brand1");
+            var brand2 = PromotionTestHelper.CreateBrand("brand2");
+
+            var product1 = PromotionTestHelper.CreateProduct(category1, colors, brand1);
+            var product2 = PromotionTestHelper.CreateProduct(category1, colors, brand1);
+            var product3 = PromotionTestHelper.CreateProduct(category1, colors, brand2);
+
+            var products = new List<Product>
+            {
+                product1,
+                product2,
+                product3
+            };
+
+            var promotionSelector = new PromotionSelector();
+
+            var bestPromotion = promotionSelector.GetBestPromotion(products);
+
+            Assert.AreEqual(threeForTwo.Name, bestPromotion?.Name);
+        }
     }
 }

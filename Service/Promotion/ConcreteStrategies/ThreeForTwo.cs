@@ -7,7 +7,7 @@ public class ThreeForTwo : IPromotionStrategy
     public string Name { get; init; } = "Three For Two";
 
     private const int MinCategoryCount = 3;
-    public double GetDiscountPrice(List<IProduct> products)
+    public double GetDiscountPrice(List<Service.Product.Product> products)
     {
         var totalPrice = products.Sum(product => product.Price);
         var cheapestProduct = FindCheapestProductInCommonCategories(products);
@@ -16,7 +16,7 @@ public class ThreeForTwo : IPromotionStrategy
         return totalPrice - cheapestPrice;
     }
     
-    private static IProduct? FindCheapestProductInCommonCategories(List<IProduct> products)
+    private static Service.Product.Product? FindCheapestProductInCommonCategories(List<Service.Product.Product> products)
     {
         var categoryCounts = FindCategoryCount(products);
 
@@ -28,7 +28,7 @@ public class ThreeForTwo : IPromotionStrategy
         return cheapestProduct;
     }
 
-    private static IProduct? FindCheapestProduct(List<IProduct> products, List<ICategory> categoryCounts)
+    private static Service.Product.Product? FindCheapestProduct(List<Service.Product.Product> products, List<Category> categoryCounts)
     {
         return products
             .Where(product => categoryCounts
@@ -36,7 +36,7 @@ public class ThreeForTwo : IPromotionStrategy
             .MinBy(product => product.Price);
     }
 
-    private static List<ICategory> FindCategoryCount(List<IProduct> products)
+    private static List<Category> FindCategoryCount(List<Service.Product.Product> products)
     {
         return products
             .GroupBy(product => product.Category)

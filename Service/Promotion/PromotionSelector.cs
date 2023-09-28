@@ -3,6 +3,7 @@ using Service.Product;
 
 namespace Service.Promotion;
 
+
 public class PromotionSelector
 {
     private readonly List<IPromotionStrategy> _promotions;
@@ -13,7 +14,7 @@ public class PromotionSelector
         _promotions = promotionCollection.GetPromotions();
     }
     
-    public IPromotionStrategy? GetBestPromotion(List<IProduct> products)
+    public IPromotionStrategy? GetBestPromotion(List<Service.Product.Product> products)
     {
         return _promotions.MinBy(promo => promo.GetDiscountPrice(products));
     }
