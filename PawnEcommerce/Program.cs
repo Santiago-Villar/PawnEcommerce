@@ -17,7 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<AuthorizationMiddleware>(); // Añadir tu middleware personalizado aquí
+app.UseMiddleware<AuthorizationMiddleware>();
 
 app.UseHttpsRedirection();
 
