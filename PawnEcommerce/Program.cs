@@ -1,4 +1,5 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using PawnEcommerce.Middlewares;
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -15,6 +16,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<AuthorizationMiddleware>(); // Añadir tu middleware personalizado aquí
 
 app.UseHttpsRedirection();
 
