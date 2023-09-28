@@ -25,9 +25,9 @@ namespace Service.Product
                 }
                 _name = value;
             }
-
         }
 
+        public string Code { get; set; }
 
 
         public override bool Equals(object obj)

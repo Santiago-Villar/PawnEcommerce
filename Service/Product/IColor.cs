@@ -5,10 +5,11 @@ namespace Service.Product
     public interface IColor
     {
 
-        public int Id { get; set; }  // Assuming you have an Id for Color
-        public int ProductId { get; set; }  // Foreign Key to Product
-        public Product Product { get; set; }  // Navigation property
+        public int Id { get; set; }  
+        public int ProductId { get; set; } 
+        public Product Product { get; set; }  
         string Name { get; set; }
+        string Code { get; set; }
 
 
 

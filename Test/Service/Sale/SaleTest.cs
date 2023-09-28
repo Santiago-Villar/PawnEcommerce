@@ -37,7 +37,6 @@ public class SaleTest
     [TestMethod]
     public void SaleContainsCorrectNumberOfAndSpecificProducts()
     {
-        // Arrange
         var product1 = new Product { Name = "Product1" };
         var product2 = new Product { Name = "Product2" };
 
@@ -55,7 +54,6 @@ public class SaleTest
             Products = mockSaleProducts
         };
 
-        // Assert
         Assert.AreEqual(2, sale.Products.Count);
         Assert.AreEqual("Product1", sale.Products.ElementAt(0).Product.Name);
         Assert.AreEqual("Product2", sale.Products.ElementAt(1).Product.Name);
