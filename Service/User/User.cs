@@ -10,7 +10,7 @@ namespace Service.User;
 public class User : IUser
 {
     public string Address { get; set; }
-    public List<RoleType> Roles { get; private set; } = new();
+    public List<RoleType> Roles { get; set; } = new();
     
     private string _email;
     private string _passwordHash;

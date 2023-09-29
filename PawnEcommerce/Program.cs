@@ -1,6 +1,6 @@
+﻿using PawnEcommerce.Middlewares;
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<EcommerceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EcommerceContext"),
         b => b.MigrationsAssembly("PawnEcommerce")));
-
-
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<AuthorizationMiddleware>();
 
 app.UseHttpsRedirection();
 
