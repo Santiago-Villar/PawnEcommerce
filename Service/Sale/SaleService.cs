@@ -1,7 +1,7 @@
 using Service.Exception;
 using Service.Promotion;
 using Service.User;
-
+using Service.Product;
 namespace Service.Sale;
 
 public class SaleService : ISaleService
@@ -19,8 +19,8 @@ public class SaleService : ISaleService
     {
         try
         {
-            var promotion = _promotionService.GetPromotion(sale.Products);
-            var newPrice = promotion.GetDiscountPrice(sale.Products);
+            var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
+            var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
             
             if (!newPrice.Equals(sale.Price))
             {

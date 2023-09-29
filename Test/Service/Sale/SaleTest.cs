@@ -72,23 +72,41 @@ public class SaleTest
     [TestMethod]
     public void SaleHasPrice()
     {
-        var product1Mock = new Mock<IProduct>();
-        product1Mock.Setup(p => p.Name).Returns("Product1");
-        product1Mock.Setup(p => p.Price).Returns(15);
+        var product1 = new Product()
+        {
+            Name = "Product1",
+            Price = 15
+        };
 
-        var product2Mock = new Mock<IProduct>();
-        product2Mock.Setup(p => p.Name).Returns("Product2");
-        product2Mock.Setup(p => p.Price).Returns(20);
+        var product2 = new Product()
+        {
+            Name = "Product2",
+            Price = 20
+        };
 
         var mockProducts = new List<IProduct>
         {
-            product1Mock.Object,
-            product2Mock.Object
+            product1,
+            product2
         };
-    
+
+        var saleProduct1 = new SaleProduct()
+        {
+            Product = product1
+        };
+        
+        var saleProduct2 = new SaleProduct()
+        {
+            Product = product2
+        };
+
         var s = new Sale
         {
-            Products = mockProducts
+            Products = new List<SaleProduct>
+            {
+                saleProduct1,
+                saleProduct2
+            }
         };
     
         Assert.AreEqual(s.Price, 35);
@@ -97,22 +115,25 @@ public class SaleTest
     [TestMethod]
     public void SaleHasPromotionName()
     {
-        var product1Mock = PromotionTestHelper.CreateMockProduct();
+        var product1 = PromotionTestHelper.CreateProduct();
 
-        var mockProducts = new List<IProduct>
+        var saleProduct1Mock = new SaleProduct
         {
-            product1Mock.Object,
-            product1Mock.Object,
-            product1Mock.Object
+            Product = product1
         };
 
         var s = new Sale
         {
-            Products = mockProducts
+            Products = new List<SaleProduct>
+            {
+                saleProduct1Mock,
+                saleProduct1Mock,
+                saleProduct1Mock
+            }
         };
 
         var promotionService = new PromotionService();
-        var promotion = promotionService.GetPromotion(s.Products);
+        var promotion = promotionService.GetPromotion(s.Products.Select(sp => sp.Product).ToList());
 
         s.PromotionName = promotion.Name;
 
