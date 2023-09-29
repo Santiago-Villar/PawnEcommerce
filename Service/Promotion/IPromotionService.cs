@@ -1,10 +1,10 @@
 ﻿using System;
-using Service.Product;
+using Service;
 namespace Service.Promotion
 {
 	public interface IPromotionService
 	{
-		public IPromotionStrategy GetPromotion(List<Service.Product.Product> products);
+		public IPromotionStrategy GetPromotion(List<Product.Product> products);
 	}
 }
 
