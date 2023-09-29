@@ -9,6 +9,10 @@ namespace Service.Product
 {
     public class Color:IColor
     {
+        public int Id { get; set; }  
+        public int ProductId { get; set; }  
+        public Product Product { get; set; } 
+
         private string _name;
         public string Name
         {
@@ -21,8 +25,9 @@ namespace Service.Product
                 }
                 _name = value;
             }
-
         }
+
+        public string Code { get; set; }
 
 
         public override bool Equals(object obj)

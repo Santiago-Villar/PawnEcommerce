@@ -1,11 +1,13 @@
 ﻿using Service.Exception;
 using Service.Filter;
+using System.ComponentModel.DataAnnotations;
 
 namespace Service.Product
 {
     public class Brand : IFilterCriteria,IBrand
     {
         private string _name;
+        [Key]
         public string Name
         {
             get => _name;
@@ -19,6 +21,7 @@ namespace Service.Product
             }
 
         }
+        public ICollection<Product> Products { get; set; }
 
 
     }

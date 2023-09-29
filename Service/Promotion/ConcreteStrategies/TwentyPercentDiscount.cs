@@ -9,7 +9,7 @@ public class TwentyPercentDiscount : IPromotionStrategy
 
     private const double TwentyPercentConverter = 0.8;
     
-    public double GetDiscountPrice(List<IProduct> products)
+    public double GetDiscountPrice(List<Service.Product.Product> products)
     {
         var totalPrice = products.Sum(product => product.Price);
 
