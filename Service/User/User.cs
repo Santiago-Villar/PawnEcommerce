@@ -9,6 +9,8 @@ namespace Service.User;
 
 public class User : IUser
 {
+    [Key]
+    public int Id { get; set; }
     public string Address { get; set; }
     public List<RoleType> Roles { get; set; } = new();
     

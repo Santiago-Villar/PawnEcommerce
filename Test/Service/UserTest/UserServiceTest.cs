@@ -17,6 +17,7 @@ public class UserServiceTest
     private IUser GetMockUser()
     {
         var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Id).Returns(1);
         mockUser.Setup(user => user.Email).Returns(Email);
         mockUser.Setup(user => user.Address).Returns(ToUpdateAddress);
         mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(Password));
@@ -27,6 +28,7 @@ public class UserServiceTest
     private IUser GetSecondaryMockUser()
     {
         var mockUser = new Mock<IUser>();
+        mockUser.Setup(user => user.Id).Returns(2);
         mockUser.Setup(user => user.Email).Returns(Email);
         mockUser.Setup(user => user.Address).Returns(NewAddress);
         mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(DifferentPassword));
@@ -122,7 +124,7 @@ public class UserServiceTest
         var mockUser = GetMockUser();
 
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Get(Email)).Returns(() => null);
+        mockRepository.Setup(repo => repo.Get(1)).Returns(() => null);
 
         var userService = new UserService(mockRepository.Object);
         userService.DeleteUser(mockUser);
@@ -134,7 +136,7 @@ public class UserServiceTest
         var mockUser = GetMockUser();
 
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
+        mockRepository.Setup(repo => repo.Get(1)).Returns(mockUser);
 
         var userService = new UserService(mockRepository.Object);
         userService.DeleteUser(mockUser);
@@ -148,10 +150,37 @@ public class UserServiceTest
         var mockUser = GetSecondaryMockUser();
         
         var mockRepository = new Mock<IUserRepository>();
-        mockRepository.Setup(repo => repo.Get(Email)).Returns(() => null);
+        mockRepository.Setup(repo => repo.Get(1)).Returns(() => null);
         mockRepository.Setup(repo => repo.Update(toUpdateMockUser));
         
         var userService = new UserService(mockRepository.Object);
         userService.UpdateUser(mockUser);
+    }
+    
+    [TestMethod]
+    public void CanGetUser_Ok()
+    {
+        var user = GetMockUser();
+        
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Get(1)).Returns(user);
+        
+        var userService = new UserService(mockRepository.Object);
+        var foundUser = userService.Get(1);
+        
+        Assert.AreEqual(user, foundUser);
+    }
+    
+    [ExpectedException(typeof(RepositoryException))]
+    [TestMethod]
+    public void CanGetUser_Throw()
+    {
+        var user = GetMockUser();
+        
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Get(9)).Returns(user);
+        
+        var userService = new UserService(mockRepository.Object);
+        var foundUser = userService.Get(1);
     }
 }

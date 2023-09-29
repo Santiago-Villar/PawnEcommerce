@@ -6,7 +6,7 @@ namespace Service.Sale
 	public class Sale
 	{
         public int Id { get; set; } 
-        public string UserEmail { get; set; } 
+        public int UserId { get; set; } 
         public Service.User.User User { get; set; }
         private ICollection<SaleProduct> products;
         public ICollection<SaleProduct> Products

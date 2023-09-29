@@ -32,15 +32,24 @@ public class UserService : IUserService
 
     public void DeleteUser(IUser user)
     {
-        var toCheckUser = FindUser(user.Email);
+        var toCheckUser = Get(user.Id);
         _userRepository.Delete(toCheckUser);
     }
     
     public void UpdateUser(IUser updatedUser)
     {
-        var toUpdateUser = FindUser(updatedUser.Email);
+        var toUpdateUser = Get(updatedUser.Id);
         toUpdateUser.Address = updatedUser.Address;
         _userRepository.Update(toUpdateUser);
+    }
+    
+    public IUser Get(int id)
+    {
+        var foundUser = _userRepository.Get(id);
+        if (foundUser == null)
+            throw new RepositoryException("User does not exists");
+
+        return foundUser;
     }
 
     private IUser FindUser(string email)

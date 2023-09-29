@@ -53,7 +53,7 @@ namespace Repository
 
 
             modelBuilder.Entity<User>()
-                .HasKey(u => u.Email);  
+                .HasKey(u => u.Id);  
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();  
@@ -77,7 +77,7 @@ namespace Repository
             modelBuilder.Entity<Sale>()
                 .HasOne(s => s.User)
                 .WithMany(u => u.Sales) 
-                .HasForeignKey(s => s.UserEmail); 
+                .HasForeignKey(s => s.UserId); 
 
             modelBuilder.Entity<SaleProduct>()
                 .HasKey(sp => new { sp.SaleId, sp.ProductId }); 
