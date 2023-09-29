@@ -53,7 +53,7 @@ namespace Repository
 
 
             modelBuilder.Entity<User>()
-                .HasKey(u => u.Email);  
+                .HasKey(u => u.Id);  
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();  
