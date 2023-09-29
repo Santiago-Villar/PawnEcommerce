@@ -170,4 +170,17 @@ public class UserServiceTest
         
         Assert.AreEqual(user, foundUser);
     }
+    
+    [ExpectedException(typeof(RepositoryException))]
+    [TestMethod]
+    public void CanGetUser_Throw()
+    {
+        var user = GetMockUser();
+        
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(repo => repo.Get(9)).Returns(user);
+        
+        var userService = new UserService(mockRepository.Object);
+        var foundUser = userService.Get(1);
+    }
 }
