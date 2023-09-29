@@ -41,8 +41,8 @@ public class SaleService : ISaleService
         return _saleRepository.GetAll();
     }
     
-    public List<Sale> Get(IUser user)
+    public List<Sale> Get(int id)
     {
-        return _saleRepository.GetUserSales(user);
+        return _saleRepository.GetUserSales(id);
     }
 }

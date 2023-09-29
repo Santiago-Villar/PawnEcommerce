@@ -76,7 +76,7 @@ public class SaleServiceTest
         
         var user = new User
         {
-            Email = "testEmail@gmail.com"
+            Id = 1
         };
         
         var sale = new Sale
@@ -87,7 +87,7 @@ public class SaleServiceTest
 
         var saleList = new List<Sale>() { sale };
         var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(user)).Returns(saleList);
+        mockRepository.Setup(repo => repo.GetUserSales(user.Id)).Returns(saleList);
         
         var saleService = new SaleService(mockRepository.Object);
         saleService.Create(sale);
@@ -118,17 +118,17 @@ public class SaleServiceTest
         var product1Mock = PromotionTestHelper.CreateProduct();
         var user = new User
         {
-            Email = "testEmail@gmail.com"
+            Id = 1
         };
         
         var saleList = CreateSales(user, product1Mock);
 
         var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(user)).Returns(saleList);
+        mockRepository.Setup(repo => repo.GetUserSales(user.Id)).Returns(saleList);
         
         var saleService = new SaleService(mockRepository.Object);
         
-        Assert.AreEqual(saleList, saleService.Get(user));
+        Assert.AreEqual(saleList, saleService.Get(user.Id));
     }
     
     private List<Sale> CreateSales(User user, Product product1Mock)

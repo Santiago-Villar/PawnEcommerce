@@ -25,17 +25,18 @@ public class SaleTest
     public void SaleHasUser()
     {
 
-        User plainUser = new User()
+        var plainUser = new User()
         {
-            Email = "diegoalmenara@gmail.com"
+            Id = 1
         };
         var s = new Sale()
         {
             User = plainUser,
-            UserEmail=plainUser.Email,
+            UserId = plainUser.Id,
         };
-        Assert.AreEqual(s.UserEmail, "diegoalmenara@gmail.com");
+        Assert.AreEqual(s.UserId, 1);
     }
+    
     [TestMethod]
     public void SaleContainsCorrectNumberOfAndSpecificProducts()
     {
