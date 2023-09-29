@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using Service.Exception;
 using Service.User.Role;
+using Service.Sale;
 
 namespace Service.User;
 
@@ -26,7 +28,7 @@ public class User : IUser
             _passwordHash = hashedPassword;
         }
     }
-    
+    [Key]
     public string Email
     {
         get => _email;
@@ -42,6 +44,8 @@ public class User : IUser
             }
         }
     }
+
+    public ICollection<Service.Sale.Sale> Sales { get; set; } = new List<Service.Sale.Sale>();
 
     public void AddRole(RoleType role)
     {

@@ -1,67 +1,60 @@
 using Service.Product;
-using Service.Promotion;
 using Service.Promotion.ConcreteStrategies;
+using Service.Promotion;
+using Test.Service.Promotion;
 
 namespace Test.Service.Promotion.ConcretePromotions;
 
 [TestClass]
 public class TotalLookDiscountTest
 {
-        
     [TestMethod]
     public void CanCreateTotalLook_Ok()
     {
         var totalLook = new TotalLook();
         Assert.IsNotNull(totalLook);
     }
-    
+
     [TestMethod]
     public void ApplyDiscount_TotalLook_Ok()
     {
         var totalLook = new TotalLook();
 
-        var mockedProduct = PromotionTestHelper.CreateMockProduct().Object;
+        var product = PromotionTestHelper.CreateProduct();
+        var products = Enumerable.Repeat(product, 4).ToList();
 
-        var products = Enumerable.Repeat(mockedProduct, 4).ToList();
-        
         var discountPrice = totalLook.GetDiscountPrice(products);
         const float expectedDiscountPrice = 35;
 
         Assert.AreEqual(expectedDiscountPrice, discountPrice);
     }
-    
+
     [TestMethod]
     public void GetBestPromotion_TotalLook_Ok()
     {
         var totalLook = new TotalLook();
-        
-        const string color = "Blue";
-        
-        var mockColor = PromotionTestHelper.CreateMockColor("Blue").Object;
 
-        var colors = Enumerable.Repeat(mockColor, 2).ToList(); //error is here
+        var color = PromotionTestHelper.CreateColor("Blue");
+        var colors = new List<Color> { color, color };
 
-        var mockCategory1 = PromotionTestHelper.CreateMockCategory("cat1").Object;
-        var mockCategory2 = PromotionTestHelper.CreateMockCategory("cat2").Object;
+        var category1 = PromotionTestHelper.CreateCategory("cat1");
+        var category2 = PromotionTestHelper.CreateCategory("cat2");
 
-        var mockBrand1 = PromotionTestHelper.CreateMockBrand("brand1").Object;
-        var mockBrand2 = PromotionTestHelper.CreateMockBrand("brand2").Object;
+        var brand1 = PromotionTestHelper.CreateBrand("brand1");
+        var brand2 = PromotionTestHelper.CreateBrand("brand2");
 
-        var mockProduct1 = PromotionTestHelper.CreateProduct(mockCategory1, colors, mockBrand1);
-        var mockProduct2 = PromotionTestHelper.CreateProduct(mockCategory1, colors, mockBrand1);
-        var mockProduct3 = PromotionTestHelper.CreateProduct(mockCategory2, colors, mockBrand2);
+        var product1 = PromotionTestHelper.CreateProduct(category1, colors, brand1);
+        var product2 = PromotionTestHelper.CreateProduct(category1, colors, brand1);
+        var product3 = PromotionTestHelper.CreateProduct(category2, colors, brand2);
 
-        var products = new List<IProduct>()
-        {
-            mockProduct1.Object,
-            mockProduct2.Object,
-            mockProduct3.Object,
-        };
+        var products = new List<Product> { product1, product2, product3 };
 
         var promotionSelector = new PromotionSelector();
-        
+
         var bestPromotion = promotionSelector.GetBestPromotion(products);
 
         Assert.AreEqual(totalLook.Name, bestPromotion?.Name);
     }
 }
+
+

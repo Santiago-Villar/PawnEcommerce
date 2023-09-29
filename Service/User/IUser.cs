@@ -9,6 +9,7 @@ namespace Service.User
         string Email { get; set; }
         string PasswordHash { get; init; }
         public List<RoleType> Roles { get; set; }
+        public ICollection<Service.Sale.Sale> Sales { get; set; }
     }
 }
 

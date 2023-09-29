@@ -22,7 +22,7 @@ namespace Test.Service.Promotion
         [TestMethod]
         public void GetPromotionWithNoProductsThrowsException()
         {
-            List<IProduct> products = new List<IProduct>();
+            List<Product> products = new List<Product>();
 
             IPromotionStrategy promo = Logic.GetPromotion(products);
         }
@@ -30,9 +30,9 @@ namespace Test.Service.Promotion
         [TestMethod]
         public void GetPromotion_Ok()
         {
-            Mock<IProduct> p1 = PromotionTestHelper.CreateMockProduct();
-            Mock<IProduct> p2 = PromotionTestHelper.CreateMockProduct();
-            List<IProduct> products = new List<IProduct> { p1.Object, p2.Object };
+            Product p1 = new Product() { };
+            Product p2 = new Product() { };
+            List<Product> products = new List<Product> { p1, p2 };
 
             IPromotionStrategy promo = Logic.GetPromotion(products);
 

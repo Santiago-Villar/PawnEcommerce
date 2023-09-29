@@ -5,9 +5,13 @@ namespace Service.Sale
 {
 	public class Sale
 	{
-        public IUser User { get; set; }
-		public List<IProduct> Products { get; set; }
-		public DateTime Date { get; set; }
+        public int Id { get; set; } 
+
+        public string UserEmail { get; set; } 
+        public Service.User.User User { get; set; }
+        public ICollection<SaleProduct> Products { get; set; }
+
+        public DateTime Date { get; set; }
         public Sale()
 		{
 			Date = DateTime.Now;
