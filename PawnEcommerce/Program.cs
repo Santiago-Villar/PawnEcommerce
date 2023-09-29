@@ -1,5 +1,6 @@
 ﻿using PawnEcommerce.Middlewares;
 ﻿using Microsoft.EntityFrameworkCore;
+using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
