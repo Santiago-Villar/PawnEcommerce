@@ -19,11 +19,7 @@ public class ExceptionMiddleware
             {
                 context.Result = new ObjectResult(new { Message = e.Message }) { StatusCode = 404 };
             }
-            catch (ServiceException e)
-            {
-                context.Result = new ObjectResult(new { Message = e.Message }) { StatusCode = 400 };
-            }
-            catch (ModelException e)
+            catch (Exception e) when (e is ServiceException or ModelException)
             {
                 context.Result = new ObjectResult(new { Message = e.Message }) { StatusCode = 400 };
             }
