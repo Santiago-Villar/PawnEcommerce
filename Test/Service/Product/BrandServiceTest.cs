@@ -1,9 +1,11 @@
 ﻿using System;
 using Moq;
+using Service.Exception;
 using Service.Product;
 namespace Test
 {
-	public class BrandServiceTest
+    [TestClass]
+    public class BrandServiceTest
 	{
 		public BrandServiceTest()
 		{
@@ -61,6 +63,17 @@ namespace Test
             Assert.AreEqual(brand2.Name, brandsList[1].Name);
             Assert.AreEqual(brand2.Id, brandsList[1].Id);
 
+        }
+
+        [ExpectedException(typeof(ModelException))]
+        [TestMethod]
+        public void GetWithWrongId_Throw()
+        {
+            var brandRepository = new Mock<IBrandRepository>();
+            brandRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Brand) null);
+
+            IBrandService service = new BrandService(brandRepository.Object);
+            Brand b = service.Get(999);
         }
 
 
