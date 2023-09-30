@@ -59,8 +59,16 @@ namespace Repository
 
         public Product GetProductByName(string productName)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(productName))
+                throw new ArgumentException("Product name should not be null or empty.", nameof(productName));
+
+            return _context.Products
+                           .Include(p => p.Brand)
+                           .Include(p => p.Category)
+                           .Include(p => p.Colors)
+                           .FirstOrDefault(p => p.Name == productName);
         }
+
 
         public void Reset()
         {
