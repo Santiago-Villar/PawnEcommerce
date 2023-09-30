@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Security.Authentication;
 using Moq;
 using Service.User;
 using Service.Session;
-using Service.Exception;
 
 namespace Test.Service.Session
 {
@@ -60,7 +60,7 @@ namespace Test.Service.Session
             Assert.IsNotNull(token);
         }
 
-        [ExpectedException(typeof(RepositoryException))]
+        [ExpectedException(typeof(InvalidCredentialException))]
         [TestMethod]
         public void AuthenticateWithWrongPassword_Throws()
         {

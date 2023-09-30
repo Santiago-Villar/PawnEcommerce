@@ -1,6 +1,6 @@
+using System.Security.Authentication;
 using Moq;
 using Service.User;
-using Moq;
 using Service.Exception;
 
 namespace Test.Service.UserTest;
@@ -80,7 +80,7 @@ public class UserServiceTest
         userService.LogIn(Email, Password);
     }
     
-    [ExpectedException(typeof(RepositoryException))]
+    [ExpectedException(typeof(InvalidCredentialException))]
     [TestMethod]
     public void CanLogInUser_WrongPassword_Throw()
     {
