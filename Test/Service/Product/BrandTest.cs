@@ -15,7 +15,8 @@ public class BrandTest
 {
     public static Brand aBrand = new Brand()
     {
-        Name = "Kova"
+        Name = "Kova",
+        Id = 231
     };
     [TestMethod]
     public void BrandIsNotNull()
@@ -29,8 +30,14 @@ public class BrandTest
     {
         Brand otherBrand = new Brand()
         {
-            Name = ""
+            Name = "",
+            Id = 21
         };
+    }
+    [TestMethod]
+    public void BrandIdIsOk()
+    {
+        Assert.AreEqual(aBrand.Id, 231);
     }
     [TestMethod]
     public void BrandNameIsOk()
