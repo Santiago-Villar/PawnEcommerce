@@ -22,5 +22,12 @@ namespace PawnEcommerce.Controllers
             var products = _productService.GetAllProducts();
             return Ok(products);
         }
+        
+        [HttpGet("{name}")]
+        public IActionResult Get(string name)
+        {
+            var products = _productService.GetProductByName(name);
+            return Ok(products);
+        }
     }
 }
