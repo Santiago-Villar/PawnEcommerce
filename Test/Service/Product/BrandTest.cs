@@ -13,10 +13,9 @@ namespace Test;
 [TestClass]
 public class BrandTest
 {
-    public static Brand aBrand = new Brand()
+    public static Brand aBrand = new Brand(231)
     {
         Name = "Kova",
-        Id = 231
     };
     [TestMethod]
     public void BrandIsNotNull()
@@ -28,10 +27,9 @@ public class BrandTest
     [ExpectedException(typeof(ModelException))]
     public void BrandNameIsEmpty()
     {
-        Brand otherBrand = new Brand()
+        Brand otherBrand = new Brand(21)
         {
             Name = "",
-            Id = 21
         };
     }
     [TestMethod]

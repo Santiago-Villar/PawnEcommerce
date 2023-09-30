@@ -23,9 +23,9 @@ namespace Test
             var brandRepository = new Mock<IBrandRepository>();
             var brandsList = new List<Brand>
             {
-                new Brand() { Name = "Kova" },
-                new Brand() { Name = "Brand2" },
-                new Brand() { Name = "Brand3" }
+                new Brand(1) { Name = "Kova" },
+                new Brand(2) { Name = "Brand2" },
+                new Brand(3) { Name = "Brand3" }
             };
             brandRepository.Setup(repo => repo.GetAll()).Returns(brandsList);
 
