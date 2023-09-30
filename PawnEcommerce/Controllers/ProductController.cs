@@ -43,6 +43,12 @@ namespace PawnEcommerce.Controllers
             _productService.UpdateProduct(updateProduct.ToEntity());
             return Ok();
         }
-
+        
+        [HttpDelete]
+        public IActionResult Delete([FromBody] ProductDTO deleteProduct)
+        {
+            _productService.DeleteProduct(deleteProduct.ToEntity());
+            return Ok();
+        }
     }
 }
