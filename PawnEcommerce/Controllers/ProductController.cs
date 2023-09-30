@@ -36,5 +36,13 @@ namespace PawnEcommerce.Controllers
             _productService.AddProduct(newProduct.ToEntity());
             return Ok();
         }
+                
+        [HttpPut]
+        public IActionResult Update([FromBody] ProductDTO updateProduct)
+        {
+            _productService.UpdateProduct(updateProduct.ToEntity());
+            return Ok();
+        }
+
     }
 }
