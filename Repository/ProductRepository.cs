@@ -20,8 +20,13 @@ namespace Repository
 
         public void AddProduct(Product newProduct)
         {
-            throw new NotImplementedException();
+            if (newProduct == null)
+                throw new ArgumentNullException(nameof(newProduct));
+
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
         }
+
 
         public void DeleteProduct(Product product)
         {
