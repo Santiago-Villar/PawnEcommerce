@@ -29,5 +29,12 @@ namespace PawnEcommerce.Controllers
             var products = _productService.GetProductByName(name);
             return Ok(products);
         }
+        
+        [HttpPost]
+        public IActionResult Create([FromBody] ProductDTO newProduct)
+        {
+            _productService.AddProduct(newProduct.ToEntity());
+            return Ok();
+        }
     }
 }
