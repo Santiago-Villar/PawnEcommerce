@@ -69,6 +69,21 @@ namespace Test
             Assert.IsNull(productInDb);
         }
 
+        [TestMethod]
+        public void Exists_ShouldReturnTrue_WhenProductExists()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            var exists = repository.Exists(product);
+            Assert.IsTrue(exists);
+        }
+
+
     }
 }
 
