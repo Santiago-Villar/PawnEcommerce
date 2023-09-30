@@ -27,6 +27,14 @@ public class ExceptionMiddleware
             {
                 context.Result = new ObjectResult(new { Message = e.Message }) { StatusCode = 401 };
             }
+            catch (Exception)
+            {
+                context.Result =
+                    new ObjectResult(new { Message = "Sorry, try again later" })
+                    {
+                        StatusCode = 500
+                    };
+            }
         }
     }
 }
