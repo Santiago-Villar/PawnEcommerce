@@ -1,4 +1,6 @@
 ﻿using System;
+using Moq;
+using Service.Product;
 namespace Test
 {
 	public class BrandServiceTest
@@ -8,8 +10,10 @@ namespace Test
 		}
 
         [TestMethod]
-        public void EmptyBrandTestMethod()
+        public void CanCreateBrandService_Ok()
         {
+            var brandRepository = new Mock<IBrandRepository>();
+            IBrandService service = new BrandService();
         }
     }
 }
