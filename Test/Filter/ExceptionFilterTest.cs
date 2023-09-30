@@ -111,4 +111,29 @@ public class ExceptionFilterTest
         Assert.IsNotNull(result);
         Assert.AreEqual(401, result.StatusCode);
     }
+    
+    [TestMethod]
+    public void OnException_UnexpectedException_Returns500()
+    {
+        var actionContext = new ActionContext(
+            new DefaultHttpContext(),
+            new RouteData(),
+            new ActionDescriptor());
+
+        var context = new ExceptionContext(
+            actionContext,
+            new List<IFilterMetadata>())
+        {
+            Exception = new Exception("Unexpected exception message")
+        };
+
+        var filter = new ExceptionMiddleware.ExceptionFilter();
+
+        filter.OnException(context);
+
+        var result = context.Result as ObjectResult;
+        
+        Assert.IsNotNull(result);
+        Assert.AreEqual(500, result.StatusCode);
+    }
 }
