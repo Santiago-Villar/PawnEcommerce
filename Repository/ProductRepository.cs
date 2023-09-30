@@ -80,10 +80,16 @@ namespace Repository
         }
 
 
+
         public void UpdateProduct(Product newProductVersion)
         {
-            throw new NotImplementedException();
+            if (newProductVersion == null)
+                throw new ArgumentNullException(nameof(newProductVersion));
+
+            _context.Products.Update(newProductVersion);
+            _context.SaveChanges();
         }
+
     }
-    
+
 }
