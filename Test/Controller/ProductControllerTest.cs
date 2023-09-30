@@ -10,6 +10,18 @@ namespace Test.Controller;
 [TestClass]
 public class ProductControllerTest
 {
+    private readonly  ProductDTO _productDto = new()
+    {
+        Name = "testProd",
+        Description = "test description",
+        Price = 10,
+        BrandName = "none",
+        CategoryName = "none",
+        Colors = new[] { "blue", "red" }
+    };
+
+    private readonly Product _product1 = new() { Name = "product1" };
+    
     [TestMethod]
     public void CanCreateController_Ok()
     {
@@ -21,8 +33,7 @@ public class ProductControllerTest
     [TestMethod]
     public void GetAll_Ok()
     {
-        var product1 = new Product { Name = "product1" };
-        var products = Enumerable.Repeat(product1, 3).ToArray();
+        var products = Enumerable.Repeat(_product1, 3).ToArray();
        
         var productService = new Mock<IProductService>();
         productService.Setup(ps => ps.GetAllProducts()).Returns(products);
@@ -37,35 +48,23 @@ public class ProductControllerTest
     [TestMethod]
     public void GetByName_Ok()
     {
-        var product1 = new Product { Name = "product1" };
-        
         var productService = new Mock<IProductService>();
-        productService.Setup(ps => ps.GetProductByName("product1")).Returns(product1);
+        productService.Setup(ps => ps.GetProductByName("product1")).Returns(_product1);
        
         var productController = new ProductController(productService.Object);
         var result = productController.Get("product1") as OkObjectResult;
         
         Assert.IsNotNull(result);
-        Assert.AreEqual(product1, result.Value);
+        Assert.AreEqual(_product1, result.Value);
     }
     
     [TestMethod]
     public void Create_Ok()
     {
-        var dto = new ProductDTO()
-        {
-            Name = "testProd",
-            Description = "test description",
-            Price = 10,
-            BrandName = "none",
-            CategoryName = "none",
-            Colors = new[] { "blue", "red" }
-        };
-        
         var productService = new Mock<IProductService>();
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Create(dto) as OkResult;
+        var result = productController.Create(_productDto) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
@@ -74,20 +73,10 @@ public class ProductControllerTest
     [TestMethod]
     public void Update_Ok()
     {
-        var dto = new ProductDTO()
-        {
-            Name = "testProd",
-            Description = "test description",
-            Price = 10,
-            BrandName = "none",
-            CategoryName = "none",
-            Colors = new[] { "blue", "red" }
-        };
-        
         var productService = new Mock<IProductService>();
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Update(dto) as OkResult;
+        var result = productController.Update(_productDto) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
@@ -96,20 +85,10 @@ public class ProductControllerTest
     [TestMethod]
     public void Delete_Ok()
     {
-        var dto = new ProductDTO()
-        {
-            Name = "testProd",
-            Description = "test description",
-            Price = 10,
-            BrandName = "none",
-            CategoryName = "none",
-            Colors = new[] { "blue", "red" }
-        };
-        
         var productService = new Mock<IProductService>();
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Delete(dto) as OkResult;
+        var result = productController.Delete(_productDto) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
