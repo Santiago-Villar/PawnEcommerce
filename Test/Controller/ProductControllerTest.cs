@@ -32,4 +32,19 @@ public class ProductControllerTest
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(products, result.Value as Array);
     }
+    
+    [TestMethod]
+    public void GetByName_Ok()
+    {
+        var product1 = new Product { Name = "product1" };
+        
+        var productService = new Mock<IProductService>();
+        productService.Setup(ps => ps.GetProductByName("product1")).Returns(product1);
+       
+        var productController = new ProductController(productService.Object);
+        var result = productController.Get("product1") as OkObjectResult;
+        
+        Assert.IsNotNull(result);
+        Assert.AreEqual(product1, result.Value);
+    }
 }
