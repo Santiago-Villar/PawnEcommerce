@@ -12,11 +12,10 @@ namespace Repository
     public class ProductRepository : IProductRepository
     {
         private readonly EcommerceContext _context;
-        private bool _disposed = false;
 
         public ProductRepository(EcommerceContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
         }
 
         public void AddProduct(Product newProduct)
@@ -54,4 +53,5 @@ namespace Repository
             throw new NotImplementedException();
         }
     }
+    
 }

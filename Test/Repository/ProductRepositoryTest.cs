@@ -1,62 +1,168 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using global::Service.Product;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Repository;
-using Service;
-using System;
-using System.Collections.Generic;
+using Service.Product;
 using System.Linq;
 
 namespace Test
 {
-
-
     [TestClass]
     public class ProductRepositoryTests
     {
-        private Mock<EcommerceContext> _mockContext;
-        private Mock<DbSet<Product>> _mockDbSet;
-        private ProductRepository _repository;
-
-        [TestInitialize]
-        public void Setup()
+        private EcommerceContext GetInMemoryDbContext()
         {
-            var products = new List<Product>
+            var options = new DbContextOptionsBuilder<EcommerceContext>()
+                .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString())
+                .Options;
+
+            var context = new EcommerceContext(options);
+            context.Database.EnsureDeleted();
+            return context;
+        }
+
+        private Product CreateSampleProduct(EcommerceContext context)
         {
-            new Product { Id = 1, Name = "Product A" },
-            new Product { Id = 2, Name = "Product B" }
-        }.AsQueryable();
+            var brand = new Brand { Name = "Sample Brand" };
+            var category = new Category { Name = "Sample Category" };
 
-            _mockDbSet = new Mock<DbSet<Product>>();
-            _mockDbSet.As<IQueryable<Product>>().Setup(m => m.Provider).Returns(products.Provider);
-            _mockDbSet.As<IQueryable<Product>>().Setup(m => m.Expression).Returns(products.Expression);
-            _mockDbSet.As<IQueryable<Product>>().Setup(m => m.ElementType).Returns(products.ElementType);
-            _mockDbSet.As<IQueryable<Product>>().Setup(m => m.GetEnumerator()).Returns(products.GetEnumerator());
+            context.Brands.Add(brand);
+            context.Categories.Add(category);
+            context.SaveChanges();
 
-            _mockContext = new Mock<EcommerceContext>();
-            _mockContext.Setup(c => c.Products).Returns(_mockDbSet.Object);
-
-            _repository = new ProductRepository(_mockContext.Object);
+            return new Product
+            {
+                Name = "Sample Product",
+                Description = "Sample Description",
+                Price = 10,
+                BrandName = brand.Name,
+                CategoryName = category.Name
+            };
         }
 
         [TestMethod]
-        public void AddProduct_WithValidProduct_ShouldCallAddAndSaveChanges()
+        public void AddProduct_ShouldWork()
         {
-            var newProduct = new Product { Id = 3, Name = "Product C" };
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
 
-            _repository.AddProduct(newProduct);
+            var product = CreateSampleProduct(context);
+            repository.AddProduct(product);
 
-            _mockDbSet.Verify(m => m.Add(It.IsAny<Product>()), Times.Once());
-            _mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            var productInDb = context.Products.FirstOrDefault(p => p.Name == "Sample Product");
+            Assert.IsNotNull(productInDb);
+            Assert.AreEqual("Sample Description", productInDb.Description);
         }
 
+        [TestMethod]
+        public void DeleteProduct_ShouldWork()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
 
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
 
+            repository.DeleteProduct(product);
+
+            var productInDb = context.Products.FirstOrDefault(p => p.Name == "Sample Product");
+            Assert.IsNull(productInDb);
+        }
+
+        [TestMethod]
+        public void Exists_ShouldReturnTrue_WhenProductExists()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            var exists = repository.Exists(product);
+            Assert.IsTrue(exists);
+        }
+
+        [TestMethod]
+        public void Exists_ShouldReturnFalse_WhenProductDoesNotExist()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+
+            var exists = repository.Exists(product);
+            Assert.IsFalse(exists);  // Because we haven't added the product to the context.
+        }
+
+        [TestMethod]
+        public void GetAllProducts_ShouldReturnAllProducts()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            product2.Name = "Another Sample Product";  // Make sure the second product has a different name
+
+            context.Products.AddRange(product1, product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts();
+            Assert.AreEqual(2, products.Length);
+        }
+
+        [TestMethod]
+        public void GetProductByName_ShouldReturnCorrectProduct()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            var fetchedProduct = repository.GetProductByName("Sample Product");
+            Assert.IsNotNull(fetchedProduct);
+            Assert.AreEqual("Sample Description", fetchedProduct.Description);
+        }
+
+        [TestMethod]
+        public void Reset_ShouldRemoveAllProducts()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            product2.Name = "Another Sample Product";
+
+            context.Products.AddRange(product1, product2);
+            context.SaveChanges();
+
+            repository.Reset();
+            var productsCount = context.Products.Count();
+            Assert.AreEqual(0, productsCount);
+        }
+
+        [TestMethod]
+        public void UpdateProduct_ShouldUpdateExistingProduct()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            product.Description = "Updated Description";
+            repository.UpdateProduct(product);
+
+            var updatedProduct = context.Products.FirstOrDefault(p => p.Name == "Sample Product");
+            Assert.IsNotNull(updatedProduct);
+            Assert.AreEqual("Updated Description", updatedProduct.Description);
+        }
     }
 }
+
+
