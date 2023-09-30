@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
+using PawnEcommerce.DTO.Product;
 using Service.Product;
 
 namespace Test.Controller;
@@ -46,5 +47,27 @@ public class ProductControllerTest
         
         Assert.IsNotNull(result);
         Assert.AreEqual(product1, result.Value);
+    }
+    
+    [TestMethod]
+    public void Create_Ok()
+    {
+        var dto = new ProductDTO()
+        {
+            Name = "testProd",
+            Description = "test description",
+            Price = 10,
+            BrandName = "none",
+            CategoryName = "none",
+            Colors = new[] { "blue", "red" }
+        };
+        
+        var productService = new Mock<IProductService>();
+       
+        var productController = new ProductController(productService.Object);
+        var result = productController.Create(dto) as OkResult;
+        
+        Assert.IsNotNull(result);
+        Assert.AreEqual(200, result.StatusCode);
     }
 }
