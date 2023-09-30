@@ -1,4 +1,6 @@
 ﻿using System;
+using Service.Exception;
+
 namespace Service.Product
 {
 	public class BrandService : IBrandService
@@ -17,7 +19,15 @@ namespace Service.Product
 
         public Brand Get(int id)
         {
-            return _brandRepository.GetById(id);
+            try
+            {
+                var brand = _brandRepository.GetById(id) ?? throw new ModelException($"Brand with ID {id} not found.");
+                return brand;
+            }
+            catch (RepositoryException ex)
+            {
+                throw new ModelException($"Error retrieving brand with ID {id}. Message: {ex.Message}");
+            }
         }
     }
 }
