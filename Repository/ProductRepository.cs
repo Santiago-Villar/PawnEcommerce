@@ -49,8 +49,13 @@ namespace Repository
 
         public Product[] GetAllProducts()
         {
-            throw new NotImplementedException();
+            return _context.Products
+                           .Include(p => p.Brand)
+                           .Include(p => p.Category)
+                           .Include(p => p.Colors)
+                           .ToArray();
         }
+
 
         public Product GetProductByName(string productName)
         {

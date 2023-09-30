@@ -22,11 +22,23 @@ namespace Test
 
         private Product CreateSampleProduct(EcommerceContext context)
         {
-            var brand = new Brand { Name = "Sample Brand" };
-            var category = new Category { Name = "Sample Category" };
+            var brandName = "Sample Brand";
+            var categoryName = "Sample Category";
 
-            context.Brands.Add(brand);
-            context.Categories.Add(category);
+            var brand = context.Brands.SingleOrDefault(b => b.Name == brandName);
+            if (brand == null)
+            {
+                brand = new Brand { Name = brandName };
+                context.Brands.Add(brand);
+            }
+
+            var category = context.Categories.SingleOrDefault(c => c.Name == categoryName);
+            if (category == null)
+            {
+                category = new Category { Name = categoryName };
+                context.Categories.Add(category);
+            }
+
             context.SaveChanges();
 
             return new Product
@@ -38,6 +50,7 @@ namespace Test
                 CategoryName = category.Name
             };
         }
+
 
         [TestMethod]
         public void AddProduct_ShouldWork()
