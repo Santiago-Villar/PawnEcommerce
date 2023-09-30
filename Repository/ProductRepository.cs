@@ -38,10 +38,14 @@ namespace Repository
         }
 
 
-        public bool Exists(Product product)
+        public Boolean Exists(Product product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
+
+            return _context.Products.Any(p => p.Id == product.Id);
         }
+
 
         public Product[] GetAllProducts()
         {
