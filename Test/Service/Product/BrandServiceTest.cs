@@ -12,8 +12,9 @@ namespace Test
         [TestMethod]
         public void CanCreateBrandService_Ok()
         {
-            var brandRepository = new Mock<IBrandRepository>();
-            IBrandService service = new BrandService();
+            var brandRepository = new Mock<IBrandRepository>().Object;
+            IBrandService service = new BrandService(brandRepository);
+            Assert.IsNotNull(service);
         }
     }
 }
