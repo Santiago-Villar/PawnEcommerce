@@ -92,4 +92,26 @@ public class ProductControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
+    
+    [TestMethod]
+    public void Delete_Ok()
+    {
+        var dto = new ProductDTO()
+        {
+            Name = "testProd",
+            Description = "test description",
+            Price = 10,
+            BrandName = "none",
+            CategoryName = "none",
+            Colors = new[] { "blue", "red" }
+        };
+        
+        var productService = new Mock<IProductService>();
+       
+        var productController = new ProductController(productService.Object);
+        var result = productController.Delete(dto) as OkResult;
+        
+        Assert.IsNotNull(result);
+        Assert.AreEqual(200, result.StatusCode);
+    }
 }
