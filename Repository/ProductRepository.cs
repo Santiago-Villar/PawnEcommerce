@@ -72,8 +72,13 @@ namespace Repository
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            foreach (var product in _context.Products)
+            {
+                _context.Products.Remove(product);
+            }
+            _context.SaveChanges();
         }
+
 
         public void UpdateProduct(Product newProductVersion)
         {
