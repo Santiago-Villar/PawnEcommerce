@@ -125,6 +125,21 @@ namespace Test
             Assert.AreEqual(2, products.Length);
         }
 
+        [TestMethod]
+        public void GetProductByName_ShouldReturnCorrectProduct()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            var fetchedProduct = repository.GetProductByName("Sample Product");
+            Assert.IsNotNull(fetchedProduct);
+            Assert.AreEqual("Sample Description", fetchedProduct.Description);
+        }
+
 
     }
 }
