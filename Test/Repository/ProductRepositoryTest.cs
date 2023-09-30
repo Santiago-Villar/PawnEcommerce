@@ -83,6 +83,19 @@ namespace Test
             Assert.IsTrue(exists);
         }
 
+        [TestMethod]
+        public void Exists_ShouldReturnFalse_WhenProductDoesNotExist()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+
+            var exists = repository.Exists(product);
+            Assert.IsFalse(exists);
+        }
+
+
 
     }
 }
