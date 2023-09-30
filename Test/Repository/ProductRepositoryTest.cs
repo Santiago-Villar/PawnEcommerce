@@ -95,6 +95,22 @@ namespace Test
             Assert.IsFalse(exists);
         }
 
+        [TestMethod]
+        public void GetAllProducts_ShouldReturnAllProducts()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            product2.Name = "Another Sample Product";  // Make sure the second product has a different name
+
+            context.Products.AddRange(product1, product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts();
+            Assert.AreEqual(2, products.Length);
+        }
 
 
     }
