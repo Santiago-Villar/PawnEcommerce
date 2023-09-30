@@ -141,6 +141,25 @@ namespace Test
         }
 
 
+        [TestMethod]
+        public void Reset_ShouldRemoveAllProducts()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            product2.Name = "Another Sample Product";
+
+            context.Products.AddRange(product1, product2);
+            context.SaveChanges();
+
+            repository.Reset();
+            var productsCount = context.Products.Count();
+            Assert.AreEqual(0, productsCount);
+        }
+
+
     }
 }
 
