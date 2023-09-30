@@ -59,7 +59,7 @@ namespace Service.Product
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            _productRepository.Reset();
         }
 
         public void UpdateProduct(Product newProductVersion)
