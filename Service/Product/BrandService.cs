@@ -14,6 +14,11 @@ namespace Service.Product
         {
             return _brandRepository.GetAll();
         }
+
+        public Brand Get(int id)
+        {
+            return _brandRepository.GetById(id);
+        }
     }
 }
 

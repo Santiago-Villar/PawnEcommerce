@@ -6,6 +6,8 @@ namespace Service.Product
         IBrandRepository _brandRepository { get; set; }
 
         public List<Brand> GetAll();
+
+        public Brand Get(int id);
     }
 }
 

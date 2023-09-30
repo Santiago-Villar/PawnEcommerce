@@ -5,6 +5,8 @@ namespace Service.Product
 	{
         public List<Brand> GetAll();
 
+        public Brand GetById(int id);
+
     }
 }
 
