@@ -159,7 +159,23 @@ namespace Test
             Assert.AreEqual(0, productsCount);
         }
 
+        [TestMethod]
+        public void UpdateProduct_ShouldUpdateExistingProduct()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
 
+            var product = CreateSampleProduct(context);
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            product.Description = "Updated Description";
+            repository.UpdateProduct(product);
+
+            var updatedProduct = context.Products.FirstOrDefault(p => p.Name == "Sample Product");
+            Assert.IsNotNull(updatedProduct);
+            Assert.AreEqual("Updated Description", updatedProduct.Description);
+        }
 
     }
 }
