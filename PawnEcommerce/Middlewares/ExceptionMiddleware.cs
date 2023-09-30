@@ -23,6 +23,10 @@ public class ExceptionMiddleware
             {
                 context.Result = new ObjectResult(new { Message = e.Message }) { StatusCode = 400 };
             }
+            catch (ModelException e)
+            {
+                context.Result = new ObjectResult(new { Message = e.Message }) { StatusCode = 400 };
+            }
         }
     }
 }
