@@ -30,8 +30,13 @@ namespace Repository
 
         public void DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
+
+            _context.Products.Remove(product);
+            _context.SaveChanges();
         }
+
 
         public bool Exists(Product product)
         {
