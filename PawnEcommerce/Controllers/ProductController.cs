@@ -24,7 +24,7 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpGet("{name}")]
-        public IActionResult Get(string name)
+        public IActionResult Get([FromRoute] string name)
         {
             var products = _productService.GetProductByName(name);
             return Ok(products);
