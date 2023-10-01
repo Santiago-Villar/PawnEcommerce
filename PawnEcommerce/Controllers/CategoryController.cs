@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Service.Exception;
 using Service.Product;
 
 namespace PawnEcommerce.Controllers
@@ -18,6 +19,20 @@ namespace PawnEcommerce.Controllers
         public IActionResult GetAll()
         {
             return Ok(_categoryService.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                var category = _categoryService.Get(id);
+                return Ok(category);
+            }
+            catch (ModelException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

@@ -54,10 +54,10 @@ namespace Test.Controller
                    .Returns<int>(id => categoriesList.FirstOrDefault(b => b.Id == id));
 
             var result1 = categoryController.Get(1) as OkObjectResult;
-            var category1 = result1.Value as Brand;
+            var category1 = result1.Value as Category;
 
             var result2 = categoryController.Get(2) as OkObjectResult;
-            var category2 = result2.Value as Brand;
+            var category2 = result2.Value as Category;
 
             Assert.AreEqual(category1.Name, categoriesList[0].Name);
             Assert.AreEqual(category1.Id, categoriesList[0].Id);
