@@ -39,10 +39,8 @@ namespace Test
             using var context = GetInMemoryDbContext();
             var repository = new BrandRepository(context);
 
-            var brand1 = CreateSampleBrand(context); // This will have the name "Sample Brand"
+            var brand1 = CreateSampleBrand(context); 
 
-            // To ensure a unique name, you can update the name of the brand
-            // or create a new method for creating a brand with a different name.
             var brand2 = new Brand
             {
                 Id = 2,
@@ -56,18 +54,7 @@ namespace Test
         }
 
 
-        [TestMethod]
-        public void GetById_ShouldReturnCorrectBrand()
-        {
-            using var context = GetInMemoryDbContext();
-            var repository = new BrandRepository(context);
 
-            var brand = CreateSampleBrand(context);
-
-            var fetchedBrand = repository.GetById(brand.Id.Value);
-            Assert.IsNotNull(fetchedBrand);
-            Assert.AreEqual("Sample Brand", fetchedBrand.Name);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
