@@ -1,10 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Service.Product;
 
 namespace PawnEcommerce.Controllers
 {
-	public class BrandController
-	{
+    [Route("api/[controller]")]
+    public class BrandController : ControllerBase
+    {
         private IBrandService _brandService { get; set; }
 
         public BrandController(IBrandService service)
@@ -12,14 +14,16 @@ namespace PawnEcommerce.Controllers
             _brandService = service;
         }
 
-        public List<Brand> GetAll()
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            return _brandService.GetAll();
+            return Ok(_brandService.GetAll());
         }
 
-        public Brand Get(int id)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            return _brandService.Get(id);
+            return Ok(_brandService.Get(id));
         }
 
     }

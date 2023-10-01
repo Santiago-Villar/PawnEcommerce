@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
 using Service.Product;
@@ -8,60 +9,60 @@ namespace Test.Controller
 	[TestClass]
 	public class BrandControllerTest
 	{
-		public BrandControllerTest()
-		{
-		}
+
+        private Mock<IBrandService> _brandServiceMock;
+        private BrandController _brandController;
+        private List<Brand> _brandsList;
+
+        [TestInitialize]
+        public void SetUp()
+        {
+            _brandServiceMock = new Mock<IBrandService>();
+            _brandController = new BrandController(_brandServiceMock.Object);
+
+            _brandsList = new List<Brand>
+            {
+                new Brand(1) { Name = "Kova" },
+                new Brand(2) { Name = "Brand2" },
+                new Brand(3) { Name = "Brand3" }
+            };
+        }
 
         [TestMethod]
         public void CanCreateController_Ok()
         {
-            Mock<IBrandService> userServiceMock = new Mock<IBrandService>();
-            var brandController = new BrandController(userServiceMock.Object);
-            Assert.IsNotNull(brandController);
+            Assert.IsNotNull(_brandController);
         }
 
         [TestMethod]
         public void CanGetAllBrands_Ok()
         {
-            Mock<IBrandService> userServiceMock = new Mock<IBrandService>();
-            var brandsList = new List<Brand>
-            {
-                new Brand(1) { Name = "Kova" },
-                new Brand(2) { Name = "Brand2" },
-                new Brand(3) { Name = "Brand3" }
-            };
-            userServiceMock.Setup(service => service.GetAll()).Returns(brandsList);
+            _brandServiceMock.Setup(service => service.GetAll()).Returns(_brandsList);
 
-            var brandController = new BrandController(userServiceMock.Object);
-            List<Brand> brands = brandController.GetAll();
+            var result = _brandController.GetAll() as OkObjectResult;
+            var brands = result.Value as List<Brand>;
 
             Assert.AreEqual(brands.Count, 3);
-            CollectionAssert.Contains(brands, brandsList[0]);
+            CollectionAssert.Contains(brands, _brandsList[0]);
         }
 
         [TestMethod]
         public void CanGetBrandById_Ok()
         {
-            Mock<IBrandService> userServiceMock = new Mock<IBrandService>();
-            var brandsList = new List<Brand>
-            {
-                new Brand(1) { Name = "Kova" },
-                new Brand(2) { Name = "Brand2" },
-                new Brand(3) { Name = "Brand3" }
-            };
-            userServiceMock.Setup(service => service.Get(It.IsAny<int>()))
-                   .Returns<int>(id => brandsList.FirstOrDefault(b => b.Id == id));
+            _brandServiceMock.Setup(service => service.Get(It.IsAny<int>()))
+                   .Returns<int>(id => _brandsList.FirstOrDefault(b => b.Id == id));
 
-            var brandController = new BrandController(userServiceMock.Object);
+            var result1 = _brandController.Get(1) as OkObjectResult;
+            var brand1 = result1.Value as Brand;
 
-            Brand brand1 = brandController.Get(1);
-            Brand brand2 = brandController.Get(2);
+            var result2 = _brandController.Get(2) as OkObjectResult;
+            var brand2 = result2.Value as Brand;
 
-            Assert.AreEqual(brand1.Name, brandsList[0].Name);
-            Assert.AreEqual(brand1.Id, brandsList[0].Id);
+            Assert.AreEqual(brand1.Name, _brandsList[0].Name);
+            Assert.AreEqual(brand1.Id, _brandsList[0].Id);
 
-            Assert.AreEqual(brand2.Name, brandsList[1].Name);
-            Assert.AreEqual(brand2.Id, brandsList[1].Id);
+            Assert.AreEqual(brand2.Name, _brandsList[1].Name);
+            Assert.AreEqual(brand2.Id, _brandsList[1].Id);
         }
     }
 }
