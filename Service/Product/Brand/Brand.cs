@@ -12,7 +12,9 @@ namespace Service.Product
         {
             Id = id;
         }
-        
+
+        public Brand() { }
+
         private string _name;
         [Key]
         public string Name

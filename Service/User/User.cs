@@ -30,7 +30,6 @@ public class User : IUser
             _passwordHash = hashedPassword;
         }
     }
-    [Key]
     public string Email
     {
         get => _email;
