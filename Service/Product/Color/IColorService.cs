@@ -6,6 +6,8 @@ namespace Service.Product
         public IColorRepository _colorRepository { get; set; }
 
         public List<Color> GetAll();
+
+        public Color Get(int id);
     }
 }
 

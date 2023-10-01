@@ -45,13 +45,13 @@ namespace Test
                 new Color(3) { Name = "Dark asf", Code = "000000" }
             };
             colorsRepository.Setup(repo => repo.GetById(It.IsAny<int>()))
-                   .Returns<int>(id => brandsList.FirstOrDefault(b => b.Id == id));
+                   .Returns<int>(id => colorsList.FirstOrDefault(b => b.Id == id));
 
 
             IColorService service = new ColorService(colorsRepository.Object);
 
-            Brand color1 = service.Get(1);
-            Brand color2 = service.Get(2);
+            Color color1 = service.Get(1);
+            Color color2 = service.Get(2);
 
             Assert.AreEqual(color1.Name, colorsList[0].Name);
             Assert.AreEqual(color1.Id, colorsList[0].Id);

@@ -14,6 +14,11 @@ namespace Service.Product
         {
             return _colorRepository.GetAll();
         }
+
+        public Color Get(int id)
+        {
+            return _colorRepository.GetById(id);
+        }
     }
 }
 
