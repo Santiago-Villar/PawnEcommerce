@@ -49,6 +49,21 @@ public class SaleControllerTest
         Assert.AreEqual(200, result.StatusCode);
     }
     
+    [TestMethod]
+    public void GetAll_Ok()
+    {
+        var sales = Enumerable.Repeat(_newSale, 3).Select(sale => sale.ToEntity()).ToList();
+
+        var saleService = new Mock<ISaleService>();
+        saleService.Setup(ps => ps.GetAll()).Returns(sales);
+
+        var saleController = new SaleController(saleService.Object);
+        var result = saleController.GetAll() as OkObjectResult;
+
+        Assert.IsNotNull(result);
+        CollectionAssert.AreEqual(sales, result.Value as List<Sale>);
+    }
+    
 }
 
     
