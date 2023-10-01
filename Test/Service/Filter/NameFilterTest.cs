@@ -59,7 +59,7 @@ public class NameFilterTest
     {
         const string productName = "Potato";
         const string filterQuery = "Pot";
-        var filterCriteria = new Category()
+        var filterCriteria = new Category(2)
         {
             Name = filterQuery
         };

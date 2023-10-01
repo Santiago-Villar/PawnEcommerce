@@ -6,27 +6,25 @@ using Service.Product;
 namespace PawnEcommerce.Controllers
 {
     [Route("api/[controller]")]
-    public class BrandController : ControllerBase
+    public class CategoryController : ControllerBase
     {
-        private IBrandService _brandService { get; set; }
+        private ICategoryService _categoryService { get; set; }
 
-        public BrandController(IBrandService service)
-		{
-            _brandService = service;
+        public CategoryController(ICategoryService service)
+        {
+            _categoryService = service;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_brandService.GetAll());
+            return Ok(_categoryService.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_brandService.Get(id));
+            return Ok(_categoryService.Get(id));
         }
-
     }
 }
-

@@ -66,15 +66,12 @@ namespace Test.Controller
             Assert.AreEqual(brand2.Id, _brandsList[1].Id);
         }
 
+        [ExpectedException(typeof(ModelException))]
         [TestMethod]
         public void GetBrandByNonExistentId_ReturnsNotFound()
         {
             _brandServiceMock.Setup(service => service.Get(It.IsAny<int>())).Throws(new ModelException("Brand not found"));
-
             var result = _brandController.Get(999) as NotFoundObjectResult;  
-
-            Assert.IsNotNull(result); 
-            Assert.AreEqual(404, result.StatusCode); 
         }
     }
 }

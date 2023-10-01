@@ -12,7 +12,7 @@ namespace Test;
 [TestClass]
 public class CategoryTest
 {
-    Category aCategory = new Category()
+    Category aCategory = new Category(1)
     {
         Name = "Casual"
     };
@@ -25,7 +25,7 @@ public class CategoryTest
     [ExpectedException(typeof(ModelException))]
     public void CategoryNameIsEmpty()
     {
-        Category otherCategory = new Category()
+        Category otherCategory = new Category(2)
         {
             Name = ""
         };
