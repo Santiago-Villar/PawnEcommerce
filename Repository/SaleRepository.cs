@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using Service.User;
+using Service.Exception;
 
 namespace Repository
 {
@@ -14,26 +16,49 @@ namespace Repository
             _context = context;
         }
 
-        public void Add(Sale sale)
+        public int Add(Sale sale)
         {
             if (sale == null)
                 throw new ArgumentNullException(nameof(sale));
 
             _context.Sales.Add(sale);
             _context.SaveChanges();
+            return sale.Id;
         }
 
         public List<Sale> GetUserSales(int userId)
         {
-            if (userId <= 0)
-                throw new ArgumentException("Invalid user ID", nameof(userId));
-
-            return _context.Sales.Where(s => s.UserId == userId).ToList();
+            return _context.Sales
+                           .Include(s => s.User)
+                           .Include(s => s.Products)
+                               .ThenInclude(sp => sp.Product)
+                           .Where(s => s.UserId == userId)
+                           .ToList();
         }
 
         public List<Sale> GetAll()
         {
-            return _context.Sales.ToList();
+            return _context.Sales
+                           .Include(s => s.User)
+                           .Include(s => s.Products)
+                               .ThenInclude(sp => sp.Product)
+                           .ToList();
+        }
+
+        public Sale Get(int id)
+        {
+            var sale = _context.Sales
+                           .Include(s => s.User)
+                           .Include(s => s.Products)
+                               .ThenInclude(sp => sp.Product)
+                           .FirstOrDefault(s => s.Id == id);
+
+            if (sale == null)
+            {
+                throw new ModelException($"Sale with ID {id} not found");
+            }
+
+            return sale;
         }
     }
 }

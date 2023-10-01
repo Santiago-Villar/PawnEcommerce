@@ -128,7 +128,7 @@ public class SaleServiceTest
         
         var saleService = new SaleService(mockRepository.Object);
         
-        Assert.AreEqual(saleList, saleService.Get(user.Id));
+        Assert.AreEqual(saleList, saleService.GetByUser(user.Id));
     }
     
     private List<Sale> CreateSales(User user, Product product1Mock)

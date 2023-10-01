@@ -15,7 +15,7 @@ public class SaleService : ISaleService
         _promotionService = new PromotionService();
     }
 
-    public void Create(Sale sale)
+    public int Create(Sale sale)
     {
         try
         {
@@ -28,7 +28,7 @@ public class SaleService : ISaleService
                 sale.Price = newPrice;
             }
             
-            _saleRepository.Add(sale);
+            return _saleRepository.Add(sale);
         }
         catch (ServiceException ex) 
         {
@@ -41,8 +41,14 @@ public class SaleService : ISaleService
         return _saleRepository.GetAll();
     }
     
-    public List<Sale> Get(int id)
+    public List<Sale> GetByUser(int userId)
     {
-        return _saleRepository.GetUserSales(id);
+        return _saleRepository.GetUserSales(userId);
     }
+
+    public Sale Get(int id)
+    {
+        return _saleRepository.Get(id);
+    }
+
 }

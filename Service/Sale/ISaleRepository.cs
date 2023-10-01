@@ -5,7 +5,8 @@ namespace Service.Sale;
 
 public interface ISaleRepository
 {
-    public void Add(Sale sale);
+    public int Add(Sale sale);
     public List<Sale> GetUserSales(int id);
     public List<Sale> GetAll();
+    public Sale Get(int id);
 }

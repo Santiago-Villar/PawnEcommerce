@@ -4,7 +4,8 @@ namespace Service.Sale;
 
 public interface ISaleService
 {
-    public void Create(Sale sale);
+    public int Create(Sale sale);
     public List<Sale> GetAll();
-    public List<Sale> Get(int id);
+    public List<Sale> GetByUser(int userId);
+    public Sale Get(int id);
 }
