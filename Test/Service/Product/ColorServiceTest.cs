@@ -2,7 +2,7 @@
 using Moq;
 using Service.Product;
 
-namespace Test.Service.Product
+namespace Test
 {
     [TestClass]
     public class ColorServiceTest
