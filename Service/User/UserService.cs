@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using System.Security.Authentication;
 using BCrypt.Net;
 using Service.Exception;
 
@@ -25,7 +26,7 @@ public class UserService : IUserService
     {
         var toCheckUser = FindUser(email);
         if (!CheckPassword(toCheckUser, password))
-            throw new RepositoryException("Invalid credentials");
+            throw new InvalidCredentialException("Invalid credentials");
         
         return toCheckUser;
     }

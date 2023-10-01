@@ -5,6 +5,7 @@ using BCrypt.Net;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
 using Microsoft.IdentityModel.Tokens;
 
 
@@ -26,7 +27,7 @@ namespace Service.Session
             IUser user = _repository.Get(email) ?? throw new RepositoryException("User does not exists");
             if(!VerifyPassword(password,user.PasswordHash))
             {
-                throw new RepositoryException("Invalid credentials");
+                throw new InvalidCredentialException("Invalid credentials");
             }
             return createToken(user);
         }
