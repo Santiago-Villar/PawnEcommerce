@@ -15,7 +15,7 @@ namespace Test
         public void CanCreateBrandService_Ok()
         {
             var categoryRepository = new Mock<ICategoryRepository>().Object;
-            IBrandService service = new BrandService(categoryRepository);
+            ICategoryService service = new CategoryService(categoryRepository);
             Assert.IsNotNull(service);
         }
     }

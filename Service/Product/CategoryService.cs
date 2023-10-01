@@ -1,0 +1,14 @@
+﻿using System;
+namespace Service.Product
+{
+	public class CategoryService : ICategoryService
+	{
+        public ICategoryRepository _categoryRepository { get; set; }
+
+        public CategoryService(ICategoryRepository repo)
+        {
+            _categoryRepository = repo;
+        }
+    }
+}
+
