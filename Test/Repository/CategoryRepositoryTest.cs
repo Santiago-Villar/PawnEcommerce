@@ -66,7 +66,15 @@ namespace Test
             Assert.AreEqual("Sample Category", fetchedCategory.Name);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetById_ShouldThrowException_WhenCategoryNotFound()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new CategoryRepository(context);
 
+            repository.GetById(999);  // We are assuming that this ID doesn't exist
+        }
     }
 }
 
