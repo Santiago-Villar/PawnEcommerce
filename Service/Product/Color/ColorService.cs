@@ -1,4 +1,6 @@
 ﻿using System;
+using Service.Exception;
+
 namespace Service.Product
 {
 	public class ColorService : IColorService
@@ -17,7 +19,15 @@ namespace Service.Product
 
         public Color Get(int id)
         {
-            return _colorRepository.GetById(id);
+            try
+            {
+                var color = _colorRepository.GetById(id) ?? throw new ModelException($"Color with ID {id} not found.");
+                return color;
+            }
+            catch (RepositoryException ex)
+            {
+                throw new ModelException($"Error retrieving color with ID {id}. Message: {ex.Message}");
+            }
         }
     }
 }
