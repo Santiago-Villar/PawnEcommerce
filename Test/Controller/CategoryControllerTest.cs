@@ -31,10 +31,11 @@ namespace Test.Controller
             categoryServiceMock.Setup(service => service.GetAll()).Returns(categoriesList);
 
             var result = categoryController.GetAll() as OkObjectResult;
-            var category = result.Value as List<Brand>;
+            var categories = result.Value as List<Category>;
 
-            Assert.AreEqual(category.Count, 3);
-            CollectionAssert.Contains(category, categoriesList[0]);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(categories.Count, 3);
+            CollectionAssert.Contains(categories, categoriesList[0]);
         }
     }
 }

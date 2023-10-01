@@ -13,5 +13,11 @@ namespace PawnEcommerce.Controllers
         {
             _categoryService = service;
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_categoryService.GetAll());
+        }
     }
 }
