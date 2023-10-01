@@ -31,12 +31,5 @@ namespace PawnEcommerce.Controllers
             var sales = _saleService.GetAll();
             return Ok(sales);
         }
-
-        [HttpGet("{id:int}")]
-        public IActionResult Get([FromRoute] int id)
-        {
-            var sales = _saleService.Get(id);
-            return Ok(sales);
-        }
     }
 }
