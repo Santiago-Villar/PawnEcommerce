@@ -8,72 +8,63 @@ namespace Test
     [TestClass]
     public class CategoryServiceTest
 	{
-		public CategoryServiceTest()
-		{
-		}
+        private Mock<ICategoryRepository> _categoryRepositoryMock;
+        private ICategoryService _service;
+        private List<Category> _categoriesList;
+
+        [TestInitialize]
+        public void TestSetup()
+        {
+            _categoryRepositoryMock = new Mock<ICategoryRepository>();
+            _service = new CategoryService(_categoryRepositoryMock.Object);
+
+            _categoriesList = new List<Category>
+            {
+                new Category(1) { Name = "Kova" },
+                new Category(2) { Name = "Brand2" },
+                new Category(3) { Name = "Brand3" }
+            };
+        }
 
         [TestMethod]
-        public void CanCreateBrandService_Ok()
+        public void CanCreateCategoryService_Ok()
         {
-            var categoryRepository = new Mock<ICategoryRepository>().Object;
-            ICategoryService service = new CategoryService(categoryRepository);
-            Assert.IsNotNull(service);
+            Assert.IsNotNull(_service);
         }
 
         [TestMethod]
         public void CanGetAllCategories_Ok()
         {
-            var categoryRepository = new Mock<ICategoryRepository>();
-            var categoriesList = new List<Category>
-            {
-                new Category(1) { Name = "Kova" },
-                new Category(2) { Name = "Brand2" },
-                new Category(3) { Name = "Brand3" }
-            };
-            categoryRepository.Setup(repo => repo.GetAll()).Returns(categoriesList);
-            ICategoryService service = new CategoryService(categoryRepository.Object);
+            _categoryRepositoryMock.Setup(repo => repo.GetAll()).Returns(_categoriesList);
 
-            List<Category> categories = service.GetAll();
+            List<Category> categories = _service.GetAll();
 
             Assert.AreEqual(categories.Count, 3);
-            CollectionAssert.Contains(categories, categoriesList[0]);
+            CollectionAssert.Contains(categories, _categoriesList[0]);
         }
 
         [TestMethod]
         public void CanGetCategoryById_Ok()
         {
-            var categoryRepository = new Mock<ICategoryRepository>();
-            var categoriesList = new List<Category>
-            {
-                new Category(1) { Name = "Kova" },
-                new Category(2) { Name = "Brand2" },
-                new Category(3) { Name = "Brand3" }
-            };
-            categoryRepository.Setup(repo => repo.GetById(It.IsAny<int>()))
-                   .Returns<int>(id => categoriesList.FirstOrDefault(b => b.Id == id));
+            _categoryRepositoryMock.Setup(repo => repo.GetById(It.IsAny<int>()))
+                   .Returns<int>(id => _categoriesList.FirstOrDefault(b => b.Id == id));
 
+            Category category1 = _service.Get(1);
+            Category category2 = _service.Get(2);
 
-            ICategoryService service = new CategoryService(categoryRepository.Object);
+            Assert.AreEqual(category1.Name, _categoriesList[0].Name);
+            Assert.AreEqual(category1.Id, _categoriesList[0].Id);
 
-            Category category1 = service.Get(1);
-            Category category2 = service.Get(2);
-
-            Assert.AreEqual(category1.Name, categoriesList[0].Name);
-            Assert.AreEqual(category1.Id, categoriesList[0].Id);
-
-            Assert.AreEqual(category2.Name, categoriesList[1].Name);
-            Assert.AreEqual(category2.Id, categoriesList[1].Id);
+            Assert.AreEqual(category2.Name, _categoriesList[1].Name);
+            Assert.AreEqual(category2.Id, _categoriesList[1].Id);
         }
 
         [ExpectedException(typeof(ModelException))]
         [TestMethod]
         public void GetWithWrongId_Throw()
         {
-            var categoryRepository = new Mock<ICategoryRepository>();
-            categoryRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Category)null);
-
-            ICategoryService service = new CategoryService(categoryRepository.Object);
-            Category c = service.Get(999);
+            _categoryRepositoryMock.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Category)null);
+            Category c = _service.Get(999);
         }
     }
 }
