@@ -9,6 +9,11 @@ namespace Service.Product
         {
             _colorRepository = repo;
         }
+
+        public List<Color> GetAll()
+        {
+            return _colorRepository.GetAll();
+        }
     }
 }
 
