@@ -24,5 +24,19 @@ namespace PawnEcommerce.Controllers
             _saleService.Create(newSale.ToEntity());
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var sales = _saleService.GetAll();
+            return Ok(sales);
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult Get([FromRoute] int id)
+        {
+            var sales = _saleService.Get(id);
+            return Ok(sales);
+        }
     }
 }

@@ -10,6 +10,25 @@ namespace Test.Controller;
 [TestClass]
 public class SaleControllerTest
 {
+    private static readonly ProductDTO ProductDto = new ProductDTO()
+    {
+        Name = "testProd",
+        Description = "test description",
+        Price = 10,
+        BrandName = "none",
+        CategoryName = "none",
+        Colors = new[] { "blue", "red" }
+    };
+
+    private readonly SaleDTO _newSale = new SaleDTO()
+    {
+        UserId = 1,
+        ProductDtos = new ProductDTO[]
+        {
+            ProductDto
+        },
+    };
+    
     [TestMethod]
     public void CanCreateController_Ok()
     {
@@ -24,30 +43,12 @@ public class SaleControllerTest
         var saleService = new Mock<ISaleService>();
         var saleController = new SaleController(saleService.Object);
         
-        var productDto = new ProductDTO()
-        {
-            Name = "testProd",
-            Description = "test description",
-            Price = 10,
-            BrandName = "none",
-            CategoryName = "none",
-            Colors = new[] { "blue", "red" }
-        };
-                
-        var newSale = new SaleDTO()
-        {
-            UserId = 1,
-            ProductDtos = new ProductDTO[]
-            {
-                productDto
-            },
-        };
-        
-        var result = saleController.Create(newSale) as OkResult;
+        var result = saleController.Create(_newSale) as OkResult;
 
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
+    
 }
 
     
