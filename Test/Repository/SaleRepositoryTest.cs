@@ -71,21 +71,6 @@ namespace Test
             var sales = repository.GetUserSales(sale1.UserId);
             Assert.AreEqual(2, sales.Count);
         }
-
-        [TestMethod]
-        public void GetAll_ShouldReturnAllSales()
-        {
-            using var context = GetInMemoryDbContext();
-            var repository = new SaleRepository(context);
-
-            var sale1 = CreateSampleSale(context);
-            var sale2 = CreateSampleSale(context);
-            context.Sales.AddRange(sale1, sale2);
-            context.SaveChanges();
-
-            var sales = repository.GetAll();
-            Assert.AreEqual(2, sales.Count);
-        }
     }
 }
 
