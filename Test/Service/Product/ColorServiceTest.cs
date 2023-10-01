@@ -1,12 +1,18 @@
 ﻿using System;
+using Moq;
+using Service.Product;
+
 namespace Test.Service.Product
 {
     [TestClass]
     public class ColorServiceTest
 	{
         [TestMethod]
-        public void EmptyMethodColorService()
+        public void CanCreateColorService_Ok()
         {
+            var colorRepository = new Mock<IColorRepository>().Object;
+            IColorService service = new ColorService(colorRepository);
+            Assert.IsNotNull(service);
         }
     }
 }
