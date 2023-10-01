@@ -26,7 +26,7 @@ public class ExceptionFilterTest
             Exception = e
         };
 
-        var filter = new ExceptionMiddleware.ExceptionFilter();
+        var filter = new ExceptionMiddleware();
 
         filter.OnException(context);
 
