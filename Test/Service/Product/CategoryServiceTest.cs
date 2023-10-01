@@ -32,7 +32,7 @@ namespace Test
             categoryRepository.Setup(repo => repo.GetAll()).Returns(categoriesList);
             ICategoryService service = new CategoryService(categoryRepository.Object);
 
-            List<Brand> categories = service.GetAll();
+            List<Category> categories = service.GetAll();
 
             Assert.AreEqual(categories.Count, 3);
             CollectionAssert.Contains(categories, categoriesList[0]);

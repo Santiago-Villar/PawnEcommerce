@@ -9,6 +9,12 @@ namespace Service.Product
         {
             _categoryRepository = repo;
         }
+
+        public List<Category> GetAll()
+        {
+            return _categoryRepository.GetAll();
+        }
     }
+
 }
 
