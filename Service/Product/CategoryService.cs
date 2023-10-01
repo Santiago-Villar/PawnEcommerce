@@ -1,4 +1,6 @@
 ﻿using System;
+using Service.Exception;
+
 namespace Service.Product
 {
 	public class CategoryService : ICategoryService
@@ -17,7 +19,15 @@ namespace Service.Product
 
         public Category Get(int id)
         {
-            return _categoryRepository.GetById(id);
+            try
+            {
+                var category = _categoryRepository.GetById(id) ?? throw new ModelException($"Category with ID {id} not found.");
+                return category;
+            }
+            catch (RepositoryException ex)
+            {
+                throw new ModelException($"Error retrieving category with ID {id}. Message: {ex.Message}");
+            }
         }
     }
 
