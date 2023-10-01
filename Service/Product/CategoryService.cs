@@ -14,6 +14,11 @@ namespace Service.Product
         {
             return _categoryRepository.GetAll();
         }
+
+        public Category Get(int id)
+        {
+            return _categoryRepository.GetById(id);
+        }
     }
 
 }

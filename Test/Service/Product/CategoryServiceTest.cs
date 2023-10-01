@@ -49,19 +49,19 @@ namespace Test
                 new Category(3) { Name = "Brand3" }
             };
             categoryRepository.Setup(repo => repo.GetById(It.IsAny<int>()))
-                   .Returns<int>(id => brandsList.FirstOrDefault(b => b.Id == id));
+                   .Returns<int>(id => categoriesList.FirstOrDefault(b => b.Id == id));
 
 
             ICategoryService service = new CategoryService(categoryRepository.Object);
 
-            Brand brand1 = service.Get(1);
-            Brand brand2 = service.Get(2);
+            Category category1 = service.Get(1);
+            Category category2 = service.Get(2);
 
-            Assert.AreEqual(brand1.Name, categoriesList[0].Name);
-            Assert.AreEqual(brand1.Id, categoriesList[0].Id);
+            Assert.AreEqual(category1.Name, categoriesList[0].Name);
+            Assert.AreEqual(category1.Id, categoriesList[0].Id);
 
-            Assert.AreEqual(brand2.Name, categoriesList[1].Name);
-            Assert.AreEqual(brand2.Id, categoriesList[1].Id);
+            Assert.AreEqual(category2.Name, categoriesList[1].Name);
+            Assert.AreEqual(category2.Id, categoriesList[1].Id);
         }
     }
 }
