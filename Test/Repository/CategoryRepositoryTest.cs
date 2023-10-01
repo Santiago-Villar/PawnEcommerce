@@ -24,6 +24,7 @@ namespace Test
         {
             var category = new Category
             {
+                Id=1,
                 Name = "Sample Category"
             };
             context.Categories.Add(category);
@@ -42,6 +43,7 @@ namespace Test
 
             var category2 = new Category
             {
+                Id=2,
                 Name = "Another Sample Category"
             };
             context.Categories.Add(category2);
@@ -59,7 +61,7 @@ namespace Test
 
             var category = CreateSampleCategory(context);
 
-            var fetchedCategory = repository.GetById(category.Id);
+            var fetchedCategory = repository.GetById(category.Id.Value);
             Assert.IsNotNull(fetchedCategory);
             Assert.AreEqual("Sample Category", fetchedCategory.Name);
         }
