@@ -14,7 +14,7 @@ public class PromotionTestHelper
         var color = new Color { Name = colorName };
         var colors = Enumerable.Repeat(color, 3).ToList();
 
-        var category = new Category { Name = categoryName };
+        var category = new Category(2) { Name = categoryName };
         var brand = new Brand(2) { Name = brandName };
 
         return new Product
@@ -41,7 +41,7 @@ public class PromotionTestHelper
 
     public static Category CreateCategory(string name)
     {
-        return new Category { Name = name };
+        return new Category(9) { Name = name };
     }
 
     public static Brand CreateBrand(string name)

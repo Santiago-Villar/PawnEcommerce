@@ -17,7 +17,7 @@ public class ProductTest
     {
         Name = "Kova"
     };
-    public static Category aCategory = new Category()
+    public static Category aCategory = new Category(2)
     {
         Name= "Retro"
     };
@@ -88,7 +88,7 @@ public class ProductTest
     [TestMethod]
     public void ProductHasCategory()
     {
-        aProduct.Category = new Category()
+        aProduct.Category = new Category(4)
         {
             Name = "Casual"
         };

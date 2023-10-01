@@ -25,9 +25,9 @@ namespace Test
             var categoryRepository = new Mock<ICategoryRepository>();
             var categoriesList = new List<Category>
             {
-                new Category() { Name = "Kova" },
-                new Category() { Name = "Brand2" },
-                new Category() { Name = "Brand3" }
+                new Category(1) { Name = "Kova" },
+                new Category(2) { Name = "Brand2" },
+                new Category(3) { Name = "Brand3" }
             };
             categoryRepository.Setup(repo => repo.GetAll()).Returns(categoriesList);
             ICategoryService service = new CategoryService(categoryRepository.Object);

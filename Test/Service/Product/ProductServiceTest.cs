@@ -22,7 +22,7 @@ public class ProductServiceTest
     {
         Name = "Kova"
     };
-    public static Category aCategory = new Category()
+    public static Category aCategory = new Category(1)
     {
         Name = "Retro"
     };
@@ -57,7 +57,7 @@ public class ProductServiceTest
         _productService = new ProductService(_productRepositoryMock.Object);
 
         aBrand = new Brand(3) { Name = "Kova" };
-        aCategory = new Category() { Name = "Retro" };
+        aCategory = new Category(3) { Name = "Retro" };
 
         aProduct = new Product()
         {
