@@ -19,7 +19,7 @@ namespace Repository
         public int Add(Sale sale)
         {
             if (sale == null)
-                throw new ArgumentNullException(nameof(sale));
+                throw new ServiceException("can not read Sale");
 
             _context.Sales.Add(sale);
             _context.SaveChanges();
