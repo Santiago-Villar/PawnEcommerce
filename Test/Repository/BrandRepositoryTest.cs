@@ -24,7 +24,7 @@ namespace Test
         {
             var brand = new Brand()
             {
-
+                Id=1,
                 Name = "Sample Brand"
             };
             context.Brands.Add(brand);
@@ -39,13 +39,22 @@ namespace Test
             using var context = GetInMemoryDbContext();
             var repository = new BrandRepository(context);
 
-            var brand1 = CreateSampleBrand(context);
-            var brand2 = CreateSampleBrand(context);
-            brand2.Name = "Another Sample Brand";
+            var brand1 = CreateSampleBrand(context); // This will have the name "Sample Brand"
+
+            // To ensure a unique name, you can update the name of the brand
+            // or create a new method for creating a brand with a different name.
+            var brand2 = new Brand
+            {
+                Id = 2,
+                Name = "Another Sample Brand"
+            };
+            context.Brands.Add(brand2);
+            context.SaveChanges();
 
             var brands = repository.GetAll();
             Assert.AreEqual(2, brands.Count);
         }
+
 
         [TestMethod]
         public void GetById_ShouldReturnCorrectBrand()

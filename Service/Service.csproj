@@ -18,7 +18,6 @@
     <ItemGroup>
       <Folder Include="User\" />
       <Folder Include="Sale\" />
-      <Folder Include="Product\" />
       <Folder Include="Session\" />
     </ItemGroup>
 </Project>
