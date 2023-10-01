@@ -1,5 +1,6 @@
 ﻿using System;
 using Moq;
+using Service.Exception;
 using Service.Product;
 
 namespace Test
@@ -59,6 +60,17 @@ namespace Test
             Assert.AreEqual(color2.Name, colorsList[1].Name);
             Assert.AreEqual(color2.Id, colorsList[1].Id);
 
+        }
+
+        [ExpectedException(typeof(ModelException))]
+        [TestMethod]
+        public void GetWithWrongId_Throw()
+        {
+            var colorsRepository = new Mock<IColorRepository>();
+            colorsRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Color)null);
+
+            IColorService service = new ColorService(colorsRepository.Object);
+            Color b = service.Get(999);
         }
     }
 }
