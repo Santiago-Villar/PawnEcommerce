@@ -54,7 +54,18 @@ namespace Test
         }
 
 
+        [TestMethod]
+        public void GetById_ShouldReturnCorrectBrand()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new BrandRepository(context);
 
+            var brand = CreateSampleBrand(context);
+
+            var fetchedBrand = repository.GetById(brand.Id.Value);
+            Assert.IsNotNull(fetchedBrand);
+            Assert.AreEqual("Sample Brand", fetchedBrand.Name);
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
