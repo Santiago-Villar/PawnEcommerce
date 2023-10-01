@@ -17,6 +17,11 @@ namespace PawnEcommerce.Controllers
             return _brandService.GetAll();
         }
 
+        public Brand Get(int id)
+        {
+            return _brandService.Get(id);
+        }
+
     }
 }
 

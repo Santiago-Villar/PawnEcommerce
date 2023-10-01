@@ -49,7 +49,7 @@ namespace Test.Controller
                 new Brand(2) { Name = "Brand2" },
                 new Brand(3) { Name = "Brand3" }
             };
-            userServiceMock.Setup(service => service.GetById(It.IsAny<int>()))
+            userServiceMock.Setup(service => service.Get(It.IsAny<int>()))
                    .Returns<int>(id => brandsList.FirstOrDefault(b => b.Id == id));
 
             var brandController = new BrandController(userServiceMock.Object);
