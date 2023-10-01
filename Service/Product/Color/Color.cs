@@ -13,6 +13,11 @@ namespace Service.Product
         public int ProductId { get; set; }  
         public Product Product { get; set; } 
 
+        public Color(int id)
+        {
+            Id = id;
+        }
+
         private string _name;
         public string Name
         {
