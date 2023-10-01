@@ -6,6 +6,13 @@ namespace Service.Product
 {
     public class Category : IFilterCriteria,ICategory
     {
+        public int? Id { get; set; }
+        public Category(int id)
+        {
+            Id = id;
+        }
+
+        public Category() { }
         private string _name;
         [Key]
         public string Name { get => _name;
