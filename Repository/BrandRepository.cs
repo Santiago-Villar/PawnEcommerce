@@ -5,6 +5,7 @@ using System;
 
 namespace Repository
 {
+
     public class BrandRepository : IBrandRepository
     {
         private readonly EcommerceContext _context;
