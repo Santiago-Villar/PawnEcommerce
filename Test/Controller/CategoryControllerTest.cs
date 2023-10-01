@@ -37,6 +37,34 @@ namespace Test.Controller
             Assert.AreEqual(categories.Count, 3);
             CollectionAssert.Contains(categories, categoriesList[0]);
         }
+
+        [TestMethod]
+        public void CanGetBrandById_Ok()
+        {
+            var categoryServiceMock = new Mock<ICategoryService>();
+            var categoryController = new CategoryController(categoryServiceMock.Object);
+            var categoriesList = new List<Category>
+            {
+                new Category(1) { Name = "Kova" },
+                new Category(2) { Name = "Category2" },
+                new Category(3) { Name = "Category3" }
+            };
+
+            categoryServiceMock.Setup(service => service.Get(It.IsAny<int>()))
+                   .Returns<int>(id => categoriesList.FirstOrDefault(b => b.Id == id));
+
+            var result1 = categoryController.Get(1) as OkObjectResult;
+            var category1 = result1.Value as Brand;
+
+            var result2 = categoryController.Get(2) as OkObjectResult;
+            var category2 = result2.Value as Brand;
+
+            Assert.AreEqual(category1.Name, categoriesList[0].Name);
+            Assert.AreEqual(category1.Id, categoriesList[0].Id);
+
+            Assert.AreEqual(category2.Name, categoriesList[1].Name);
+            Assert.AreEqual(category2.Id, categoriesList[1].Id);
+        }
     }
 }
 
