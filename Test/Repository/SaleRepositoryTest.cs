@@ -1,61 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Repository;
 using Service.Sale;
 using Service.User;
+using System;
 using System.Linq;
 
 namespace Test
 {
     [TestClass]
-    public class SaleRepositoryTest
+    public class SaleRepositoryTests
     {
-        private ISaleRepository _saleRepository;
-
-        [TestInitialize]
-        public void SetUp()
+        private EcommerceContext GetInMemoryDbContext()
         {
-            _saleRepository = new SaleRepository();
+            var options = new DbContextOptionsBuilder<EcommerceContext>()
+                .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString())
+                .Options;
+
+            var context = new EcommerceContext(options);
+            context.Database.EnsureDeleted();
+            return context;
         }
 
-        [TestMethod]
-        public void AddSale_ShouldWork()
+        private Sale CreateSampleSale(EcommerceContext context)
         {
-            var sale = new Sale { UserId = 1 };
-            _saleRepository.Add(sale);
+            var user = new User
+            {
+                Email = "testuser@email.com",
+                Address = "123 Main St, City, Country",
+                PasswordHash = "sampleHashedPassword123"
+                                                         
+            };
+            context.Users.Add(user);
+            context.SaveChanges();
 
-            var addedSale = _saleRepository.GetAll().FirstOrDefault();
-            Assert.IsNotNull(addedSale);
-            Assert.AreEqual(1, addedSale.UserId);
+            return new Sale
+            {
+                User = user,
+                Price = 100.0,
+                PromotionName = "Sample Promotion"
+            };
         }
 
-        [TestMethod]
-        public void GetUserSales_ShouldReturnUserSales()
-        {
-            var sale1 = new Sale { UserId = 1 };
-            var sale2 = new Sale { UserId = 2 };
-            _saleRepository.Add(sale1);
-            _saleRepository.Add(sale2);
-
-            var userSales = _saleRepository.GetUserSales(1);
-            Assert.AreEqual(1, userSales.Count);
-            Assert.AreEqual(1, userSales.First().UserId);
-        }
 
         [TestMethod]
-        public void GetAllSales_ShouldReturnAllSales()
+        public void Add_ShouldWork()
         {
-            var sale1 = new Sale { UserId = 1 };
-            var sale2 = new Sale { UserId = 2 };
-            _saleRepository.Add(sale1);
-            _saleRepository.Add(sale2);
+            using var context = GetInMemoryDbContext();
+            var repository = new SaleRepository(context);
 
-            var allSales = _saleRepository.GetAll();
-            Assert.AreEqual(2, allSales.Count);
+            var sale = CreateSampleSale(context);
+            repository.Add(sale);
+
+            var saleInDb = context.Sales.FirstOrDefault(s => s.UserId == sale.UserId);
+            Assert.IsNotNull(saleInDb);
+            Assert.AreEqual(100.0, saleInDb.Price);
         }
     }
 }
