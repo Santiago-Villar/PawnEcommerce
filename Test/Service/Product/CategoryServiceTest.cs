@@ -1,5 +1,6 @@
 ﻿using System;
 using Moq;
+using Service.Exception;
 using Service.Product;
 
 namespace Test
@@ -62,6 +63,17 @@ namespace Test
 
             Assert.AreEqual(category2.Name, categoriesList[1].Name);
             Assert.AreEqual(category2.Id, categoriesList[1].Id);
+        }
+
+        [ExpectedException(typeof(ModelException))]
+        [TestMethod]
+        public void GetWithWrongId_Throw()
+        {
+            var categoryRepository = new Mock<ICategoryRepository>();
+            categoryRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Category)null);
+
+            ICategoryService service = new CategoryService(categoryRepository.Object);
+            Category c = service.Get(999);
         }
     }
 }
