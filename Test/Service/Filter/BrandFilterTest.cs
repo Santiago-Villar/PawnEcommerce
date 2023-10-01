@@ -16,7 +16,7 @@ public class BrandFilterTest
     [TestMethod]
     public void MatchBrand_Ok()
     {
-        var brand = new Brand()
+        var brand = new Brand(4)
         {
             Name = "Tuber",
         };
@@ -34,12 +34,12 @@ public class BrandFilterTest
     [TestMethod]
     public void MatchBrand_DifferentBrand_Ok()
     {
-        var brand = new Brand()
+        var brand = new Brand(2)
         {
             Name = "Tuber",
         };
         
-        var toCheckBrand = new Brand()
+        var toCheckBrand = new Brand(1)
         {
             Name = "Vegetable",
         };

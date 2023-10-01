@@ -18,7 +18,7 @@ public class ProductServiceTest
         _productService = new ProductService(_productRepositoryMock.Object);
     }
 
-    public static Brand aBrand = new Brand()
+    public static Brand aBrand = new Brand(1)
     {
         Name = "Kova"
     };
@@ -56,7 +56,7 @@ public class ProductServiceTest
         _productRepositoryMock = new Mock<IProductRepository>();
         _productService = new ProductService(_productRepositoryMock.Object);
 
-        aBrand = new Brand() { Name = "Kova" };
+        aBrand = new Brand(3) { Name = "Kova" };
         aCategory = new Category() { Name = "Retro" };
 
         aProduct = new Product()

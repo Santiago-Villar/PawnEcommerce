@@ -13,7 +13,7 @@ namespace Test;
 [TestClass]
 public class ProductTest
 {
-    public static Brand aBrand = new Brand()
+    public static Brand aBrand = new Brand(2)
     {
         Name = "Kova"
     };
