@@ -74,7 +74,7 @@ namespace Test
             using var context = GetInMemoryDbContext();
             var repository = new BrandRepository(context);
 
-            repository.GetById(999);  // We are assuming that this ID doesn't exist
+            repository.GetById(999);  
         }
     }
 }
