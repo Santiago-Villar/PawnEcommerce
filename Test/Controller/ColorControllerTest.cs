@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
+using Service.Exception;
 using Service.Product;
 
 namespace Test.Controller
@@ -62,6 +63,14 @@ namespace Test.Controller
 
             Assert.AreEqual(color2.Name, _colorsList[1].Name);
             Assert.AreEqual(color2.Id, _colorsList[1].Id);
+        }
+
+        [ExpectedException(typeof(ModelException))]
+        [TestMethod]
+        public void GetBrandByNonExistentId_ThrowsModelException()
+        {
+            _colorServiceMock.Setup(service => service.Get(It.IsAny<int>())).Throws(new ModelException("Color not found"));
+            var result = _colorController.Get(999) as NotFoundObjectResult;
         }
     }
 
