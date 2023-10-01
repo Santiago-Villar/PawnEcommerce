@@ -59,8 +59,6 @@ namespace Repository
 
         public Product GetProductByName(string productName)
         {
-            if (string.IsNullOrEmpty(productName))
-                throw new ArgumentException("Product name should not be null or empty.", nameof(productName));
 
             return _context.Products
                            .Include(p => p.Brand)
@@ -83,8 +81,6 @@ namespace Repository
 
         public void UpdateProduct(Product newProductVersion)
         {
-            if (newProductVersion == null)
-                throw new ArgumentNullException(nameof(newProductVersion));
 
             _context.Products.Update(newProductVersion);
             _context.SaveChanges();

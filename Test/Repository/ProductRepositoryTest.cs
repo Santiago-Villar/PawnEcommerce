@@ -116,7 +116,7 @@ namespace Test
 
             var product1 = CreateSampleProduct(context);
             var product2 = CreateSampleProduct(context);
-            product2.Name = "Another Sample Product";  // Make sure the second product has a different name
+            product2.Name = "Another Sample Product";  
 
             context.Products.AddRange(product1, product2);
             context.SaveChanges();
