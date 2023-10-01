@@ -24,15 +24,7 @@ namespace PawnEcommerce.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            try
-            {
-                var category = _categoryService.Get(id);
-                return Ok(category);
-            }
-            catch (ModelException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return Ok(_categoryService.Get(id));
         }
     }
 }
