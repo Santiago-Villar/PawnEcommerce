@@ -17,5 +17,12 @@ namespace PawnEcommerce.Controllers
         {
             _saleService = saleService;
         }
+        
+        [HttpPost]
+        public IActionResult Create([FromBody] SaleDTO newSale)
+        {
+            _saleService.Create(newSale.ToEntity());
+            return Ok();
+        }
     }
 }
