@@ -28,7 +28,6 @@ namespace Test
             };
             colorsRepository.Setup(repo => repo.GetAll()).Returns(colorsList);
 
-
             IColorService service = new ColorService(colorsRepository.Object);
             List<Color> colors = service.GetAll();
             Assert.AreEqual(colors.Count, 3);
@@ -47,7 +46,6 @@ namespace Test
             };
             colorsRepository.Setup(repo => repo.GetById(It.IsAny<int>()))
                    .Returns<int>(id => colorsList.FirstOrDefault(b => b.Id == id));
-
 
             IColorService service = new ColorService(colorsRepository.Object);
 
