@@ -13,6 +13,12 @@ namespace PawnEcommerce.Controllers
         {
             _colorService = service;
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_colorService.GetAll());
+        }
     }
 }
 
