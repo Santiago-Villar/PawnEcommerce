@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
+using Service.Exception;
 using Service.Product;
 
 namespace Test.Controller
@@ -62,6 +63,17 @@ namespace Test.Controller
 
             Assert.AreEqual(category2.Name, _categoriesList[1].Name);
             Assert.AreEqual(category2.Id, _categoriesList[1].Id);
+        }
+
+        [TestMethod]
+        public void GetBrandByNonExistentId_ReturnsNotFound()
+        {
+            _categoryServiceMock.Setup(service => service.Get(It.IsAny<int>())).Throws(new ModelException("Category not found"));
+
+            var result = _categoryController.Get(999) as NotFoundObjectResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(404, result.StatusCode);
         }
     }
 }
