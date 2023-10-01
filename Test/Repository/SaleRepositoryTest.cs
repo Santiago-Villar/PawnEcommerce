@@ -41,6 +41,16 @@ namespace Test
                 PromotionName = "Sample Promotion"
             };
         }
+        private Sale CreateAnotherSampleSale(EcommerceContext context, User user)
+        {
+            return new Sale
+            {
+                User = user,
+                Price = 200.0,
+                PromotionName = "Another Sample Promotion"
+            };
+        }
+
 
 
         [TestMethod]
@@ -64,7 +74,7 @@ namespace Test
             var repository = new SaleRepository(context);
 
             var sale1 = CreateSampleSale(context);
-            var sale2 = CreateSampleSale(context);
+            var sale2 = CreateAnotherSampleSale(context,sale1.User);
             context.Sales.AddRange(sale1, sale2);
             context.SaveChanges();
 
@@ -80,8 +90,9 @@ namespace Test
             var repository = new SaleRepository(context);
 
             var sale1 = CreateSampleSale(context);
-            var sale2 = CreateSampleSale(context);
-            context.Sales.AddRange(sale1, sale2);
+            var sale2 = CreateAnotherSampleSale(context,sale1.User);
+            context.Sales.Add(sale1);
+            context.Sales.Add(sale2);
             context.SaveChanges();
 
             var sales = repository.GetAll();
