@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Service.Exception;
 using Service.Product;
 
 namespace PawnEcommerce.Controllers
@@ -18,6 +19,12 @@ namespace PawnEcommerce.Controllers
         public IActionResult GetAll()
         {
             return Ok(_colorService.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+           return Ok(_colorService.Get(id));
         }
     }
 }
