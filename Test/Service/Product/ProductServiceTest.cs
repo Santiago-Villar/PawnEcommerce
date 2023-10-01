@@ -37,15 +37,15 @@ public class ProductServiceTest
         Colors = new List<Color>(),
         
     };
-    Color firstColor = new Color()
+    Color firstColor = new Color(1)
     {
         Name = "Red"
     };
-    Color secondColor = new Color()
+    Color secondColor = new Color(2)
     {
         Name = "Green"
     };
-    Color thirdColor = new Color()
+    Color thirdColor = new Color(3)
     {
         Name = "Blue"
     };
@@ -69,9 +69,9 @@ public class ProductServiceTest
             Colors = new List<Color>()
         };
 
-        firstColor = new Color() { Name = "Red" };
-        secondColor = new Color() { Name = "Green" };
-        thirdColor = new Color() { Name = "Blue" };
+        firstColor = new Color(4) { Name = "Red" };
+        secondColor = new Color(5) { Name = "Green" };
+        thirdColor = new Color(6) { Name = "Blue" };
     }
 
 

@@ -6,7 +6,7 @@ namespace Test;
 [TestClass]
 public class ColorTest
 {
-    Color aColor = new Color()
+    Color aColor = new Color(4)
     {
         Name = "Green",
         Code = 	"#008000"
@@ -22,7 +22,7 @@ public class ColorTest
     [ExpectedException(typeof(ModelException))]
     public void CreateEmptyColor()
     {
-        Color color = new Color()
+        Color color = new Color(1)
         {
             Name=""
         };
@@ -31,7 +31,7 @@ public class ColorTest
 
     [TestMethod]
     public void ColorEqualsOk() {
-        Color anotherColor = new Color()
+        Color anotherColor = new Color(2)
         {
             Name = "Green",
             Code = "#008000"
@@ -44,7 +44,7 @@ public class ColorTest
     [TestMethod]
     public void ColorEqualsFails()
     {
-        Color anotherColor = new Color()
+        Color anotherColor = new Color(3)
         {
             Name = "Blue"
         };

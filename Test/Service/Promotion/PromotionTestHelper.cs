@@ -11,7 +11,7 @@ public class PromotionTestHelper
         const string colorName = "Blue";
         const string brandName = "Zara";
 
-        var color = new Color { Name = colorName };
+        var color = new Color(2) { Name = colorName };
         var colors = Enumerable.Repeat(color, 3).ToList();
 
         var category = new Category(2) { Name = categoryName };
@@ -51,7 +51,7 @@ public class PromotionTestHelper
 
     public static Color CreateColor(string name)
     {
-        return new Color { Name = name };
+        return new Color(9) { Name = name };
     }
 }
 
