@@ -44,6 +44,25 @@ namespace Test.Controller
             Assert.AreEqual(colors.Count, 3);
             CollectionAssert.Contains(colors, _colorsList[0]);
         }
+
+        [TestMethod]
+        public void CanGetColorById_Ok()
+        {
+            _colorServiceMock.Setup(service => service.Get(It.IsAny<int>()))
+                   .Returns<int>(id => _colorsList.FirstOrDefault(b => b.Id == id));
+
+            var result1 = _colorController.Get(1) as OkObjectResult;
+            var color1 = result1.Value as Color;
+
+            var result2 = _colorController.Get(2) as OkObjectResult;
+            var color2 = result2.Value as Color;
+
+            Assert.AreEqual(color1.Name, _colorsList[0].Name);
+            Assert.AreEqual(color1.Id, _colorsList[0].Id);
+
+            Assert.AreEqual(color2.Name, _colorsList[1].Name);
+            Assert.AreEqual(color2.Id, _colorsList[1].Id);
+        }
     }
 
 }
