@@ -59,11 +59,16 @@ namespace Repository
 
         public Product[] GetAllProducts(FilterQuery filter)
         {
-            return _context.Products
-                           .Include(p => p.Brand)
-                           .Include(p => p.Category)
-                           .Include(p => p.Colors)
-                           .ToArray();
+            var query = _context.Products
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .Include(p => p.Colors)
+                .Where(p =>
+                    filter.Name == null || p.Name.Contains(filter.Name.Value!)
+                )
+                .ToArray();
+
+            return query;
         }
 
 

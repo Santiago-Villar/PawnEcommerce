@@ -26,7 +26,6 @@ namespace PawnEcommerce.Controllers
                 Name = new StringFilterCriteria() { Value = name },
                 BrandId = new IdFilterCriteria() { Value = brandId },
                 CategoryId = new IdFilterCriteria() { Value = categoryId }
-
             };
             
             var products = _productService.GetAllProducts(filter);

@@ -10,7 +10,6 @@ namespace Service.Product
         public void DeleteProduct(int id);
         public Product Get(int id);
         public Product GetProductByName(string productName);
-
         public Product[] GetAllProducts(FilterQuery filter);
         public void UpdateProduct(Product mockProduct);
         public void Reset();
