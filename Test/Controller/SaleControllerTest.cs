@@ -13,8 +13,9 @@ namespace Test.Controller;
 [TestClass]
 public class SaleControllerTest
 {
-    private static readonly ProductCreationModel ProductDto = new ProductCreationModel()
+    private static readonly ProductDTO ProductDto = new ProductDTO()
     {
+        Id = 1,
         Name = "testProd",
         Description = "test description",
         Price = 10,
@@ -30,7 +31,7 @@ public class SaleControllerTest
     private readonly SaleDTO _newSale = new SaleDTO()
     {
         UserId = 1,
-        ProductDtos = new ProductCreationModel[]
+        ProductDtos = new ProductDTO[]
         {
             ProductDto
         },
@@ -98,7 +99,7 @@ public class SaleControllerTest
         var saleController = new SaleController(saleService.Object);
         var result = saleController.GetDiscount(products.ToList()) as OkObjectResult;
         
-        double expected = 10;
+        const double expected = 10;
         Assert.IsNotNull(result);
         Assert.AreEqual(expected, result.Value);
     }

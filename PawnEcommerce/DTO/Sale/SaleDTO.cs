@@ -7,15 +7,28 @@ namespace PawnEcommerce.DTO.Sale;
 public class SaleDTO
 {
     public int UserId { get; set; }
-    public ProductCreationModel[] ProductDtos { get; set; }
+    public ProductDTO[] ProductDtos { get; set; }
     
     public Service.Sale.Sale ToEntity()
     {
         return new Service.Sale.Sale
         {
             UserId = UserId,
-            Products = ProductDtos.Select(pDto => 
-                new SaleProduct { Product = pDto.ToEntity() }).ToList()
         };
+    }
+
+    public List<SaleProduct> CreateSaleProducts(Service.Sale.Sale sale)
+    {
+        var saleProducts = ProductDtos
+            .Select(pDto =>
+                new SaleProduct
+                {
+                    Product = pDto.ToEntity(),
+                    SaleId = sale.Id, 
+                    Sale = sale, 
+                    ProductId = pDto.Id
+                });
+
+        return saleProducts.ToList();
     }
 }

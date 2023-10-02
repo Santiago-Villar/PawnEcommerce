@@ -60,6 +60,12 @@ namespace Repository
 
             return sale;
         }
+
+        public void Update(Sale newSale)
+        {
+            _context.Sales.Update(newSale);
+            _context.SaveChanges();
+        }
     }
 }
 

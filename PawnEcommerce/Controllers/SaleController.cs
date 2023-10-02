@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using PawnEcommerce.DTO;
 using PawnEcommerce.DTO.Product;
 using PawnEcommerce.DTO.Sale;
-using PawnEcommerce.Middlewares;
-using Service.Filter;
-using Service.Filter.ConcreteFilter;
 using Service.Sale;
-using Service.User;
 
 namespace PawnEcommerce.Controllers
 {
@@ -24,7 +19,11 @@ namespace PawnEcommerce.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] SaleDTO newSale)
         {
-            _saleService.Create(newSale.ToEntity());
+            var sale = newSale.ToEntity();
+            sale.Id = _saleService.Create(sale);
+            sale.Products = newSale.CreateSaleProducts(sale);
+            _saleService.Update(sale);
+            
             return Ok();
         }
 
@@ -43,7 +42,7 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpPost]
-        public IActionResult GetDiscount([FromBody] List<ProductCreationModel> products)
+        public IActionResult GetDiscount([FromBody] List<ProductDTO> products)
         {
             var newPrice = _saleService.GetDiscount(products.Select(product => product.ToEntity()).ToList());
             return Ok(newPrice);

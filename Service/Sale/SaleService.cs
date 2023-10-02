@@ -43,7 +43,12 @@ public class SaleService : ISaleService
 
         return newPrice;
     }
-    
+
+    public void Update(Sale sale)
+    {
+        _saleRepository.Update(sale);
+    }
+
     public List<Sale> GetAll()
     {
         return _saleRepository.GetAll();
