@@ -24,7 +24,7 @@ namespace Repository
             if (newProduct == null)
                 throw new ArgumentNullException(nameof(newProduct));
 
-            if(NameExists(newProduct.Name))
+            if(Exists(newProduct))
             {
                 throw new ServiceException($"There is already a product with name {newProduct.Name}");
             }
@@ -49,6 +49,10 @@ namespace Repository
         public Boolean Exists(int id)
         {
             return _context.Products.Any(p => p.Id == id);
+        }
+        public Boolean Exists(Product product)
+        {
+            return NameExists(product.Name);
         }
 
 

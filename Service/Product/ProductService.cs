@@ -18,7 +18,10 @@ namespace Service.Product
 
         public int AddProduct(Product Product)
         {
-            return _productRepository.AddProduct(Product);
+            if(_productRepository.Exists(Product)) {
+                throw new ServiceException("Product " + Product.Name + " already exists.");
+            }
+            else return _productRepository.AddProduct(Product);
         }
 
         public void DeleteProduct(int id)

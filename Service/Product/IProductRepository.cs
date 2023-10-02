@@ -19,6 +19,7 @@ namespace Service.Product
         void DeleteProduct(int id);
         Product[] GetAllProducts();
         Boolean Exists(int id);
+        Boolean Exists(Product product);
         void Reset();
     }
 }
