@@ -23,31 +23,31 @@ namespace PawnEcommerce.Controllers
             return Ok(products);
         }
         
-        [HttpGet("{name}")]
-        public IActionResult Get([FromRoute] string name)
+        [HttpGet("{id:int}")]
+        public IActionResult Get([FromRoute] int id)
         {
-            var products = _productService.GetProductByName(name);
+            var products = _productService.Get(id);
             return Ok(products);
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] ProductDTO newProduct)
+        public IActionResult Create([FromBody] ProductCreationModel newProduct)
         {
             _productService.AddProduct(newProduct.ToEntity());
             return Ok();
         }
                 
         [HttpPut]
-        public IActionResult Update([FromBody] ProductDTO updateProduct)
+        public IActionResult Update([FromBody] ProductCreationModel updateProduct)
         {
             _productService.UpdateProduct(updateProduct.ToEntity());
             return Ok();
         }
         
-        [HttpDelete]
-        public IActionResult Delete([FromBody] ProductDTO deleteProduct)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete([FromRoute] int id)
         {
-            _productService.DeleteProduct(deleteProduct.ToEntity());
+            _productService.DeleteProduct(id);
             return Ok();
         }
     }

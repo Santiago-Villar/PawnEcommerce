@@ -10,14 +10,17 @@ namespace Test.Controller;
 [TestClass]
 public class ProductControllerTest
 {
-    private readonly  ProductDTO _productDto = new()
+    private readonly  ProductCreationModel _productCreationModel = new()
     {
         Name = "testProd",
         Description = "test description",
         Price = 10,
         BrandName = "none",
         CategoryName = "none",
-        Colors = new[] { "blue", "red" }
+        Colors = new ColorDTO[] { 
+            new ColorDTO(){Id = 1, Name = "blue"},
+            new ColorDTO(){Id = 2, Name = "red"}, 
+        }
     };
 
     private readonly Product _product1 = new() { Name = "product1" };
@@ -49,10 +52,10 @@ public class ProductControllerTest
     public void GetByName_Ok()
     {
         var productService = new Mock<IProductService>();
-        productService.Setup(ps => ps.GetProductByName("product1")).Returns(_product1);
+        productService.Setup(ps => ps.Get(1)).Returns(_product1);
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Get("product1") as OkObjectResult;
+        var result = productController.Get(1) as OkObjectResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(_product1, result.Value);
@@ -64,7 +67,7 @@ public class ProductControllerTest
         var productService = new Mock<IProductService>();
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Create(_productDto) as OkResult;
+        var result = productController.Create(_productCreationModel) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
@@ -76,7 +79,7 @@ public class ProductControllerTest
         var productService = new Mock<IProductService>();
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Update(_productDto) as OkResult;
+        var result = productController.Update(_productCreationModel) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
@@ -88,7 +91,7 @@ public class ProductControllerTest
         var productService = new Mock<IProductService>();
        
         var productController = new ProductController(productService.Object);
-        var result = productController.Delete(_productDto) as OkResult;
+        var result = productController.Delete(1) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
