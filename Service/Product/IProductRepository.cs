@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Service;
+using Service.Filter.ConcreteFilter;
 using Service.Product;
 using Service.User;
 
@@ -17,7 +18,7 @@ namespace Service.Product
         Product Get(int id);
         void UpdateProduct(Product newProductVersion);
         void DeleteProduct(int id);
-        Product[] GetAllProducts();
+        Product[] GetAllProducts(FilterQuery filter);
         Boolean Exists(int id);
         Boolean Exists(Product product);
         void Reset();

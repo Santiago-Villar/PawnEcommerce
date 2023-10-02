@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Product;
 using PawnEcommerce.DTO.Product;
+using Service.Filter;
+using Service.Filter.ConcreteFilter;
 
 namespace PawnEcommerce.Controllers
 {
@@ -17,9 +19,17 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string? name, [FromQuery] int? categoryId, [FromQuery] int? brandId)
         {
-            var products = _productService.GetAllProducts();
+            var filter = new FilterQuery()
+            {
+                Name = new StringFilterCriteria() { Value = name },
+                BrandId = new IdFilterCriteria() { Value = brandId },
+                CategoryId = new IdFilterCriteria() { Value = categoryId }
+
+            };
+            
+            var products = _productService.GetAllProducts(filter);
             return Ok(products);
         }
         

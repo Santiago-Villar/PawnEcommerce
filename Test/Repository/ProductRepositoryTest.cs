@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository;
 using Service.Product;
 using System.Linq;
+using Service.Filter.ConcreteFilter;
 
 namespace Test
 {
@@ -122,7 +123,7 @@ namespace Test
             context.Products.Add(product2);
             context.SaveChanges();
 
-            var products = repository.GetAllProducts();
+            var products = repository.GetAllProducts(new FilterQuery());
             Assert.AreEqual(2, products.Length);
         }
 

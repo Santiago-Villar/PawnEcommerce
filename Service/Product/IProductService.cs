@@ -1,4 +1,5 @@
-﻿using Service.User;
+﻿using Service.Filter.ConcreteFilter;
+using Service.User;
 
 namespace Service.Product
 {
@@ -10,7 +11,7 @@ namespace Service.Product
         public Product Get(int id);
         public Product GetProductByName(string productName);
 
-        public Product[] GetAllProducts();
+        public Product[] GetAllProducts(FilterQuery filter);
         public void UpdateProduct(Product mockProduct);
         public void Reset();
     }

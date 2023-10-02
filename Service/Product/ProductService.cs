@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Service.Exception;
 using System.Threading.Tasks;
+using Service.Filter.ConcreteFilter;
 
 namespace Service.Product
 {
@@ -58,9 +59,9 @@ namespace Service.Product
 
             return product;
         }
-        public Product[] GetAllProducts()
+        public Product[] GetAllProducts(FilterQuery filter)
         {
-            return _productRepository.GetAllProducts();
+            return _productRepository.GetAllProducts(filter);
         }
         public bool NewNameIsValid(string newName, Product Product)
         {

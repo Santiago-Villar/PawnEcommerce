@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Service.Exception;
+using Service.Filter.ConcreteFilter;
 
 
 namespace Repository
@@ -56,7 +57,7 @@ namespace Repository
         }
 
 
-        public Product[] GetAllProducts()
+        public Product[] GetAllProducts(FilterQuery filter)
         {
             return _context.Products
                            .Include(p => p.Brand)

@@ -1,8 +1,10 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Any;
 using Moq;
 using PawnEcommerce.Controllers;
 using PawnEcommerce.DTO.Product;
+using Service.Filter.ConcreteFilter;
 using Service.Product;
 
 namespace Test.Controller;
@@ -39,10 +41,10 @@ public class ProductControllerTest
         var products = Enumerable.Repeat(_product1, 3).ToArray();
        
         var productService = new Mock<IProductService>();
-        productService.Setup(ps => ps.GetAllProducts()).Returns(products);
+        productService.Setup(ps => ps.GetAllProducts(It.IsAny<FilterQuery>())).Returns(products);
        
         var productController = new ProductController(productService.Object);
-        var result = productController.GetAll() as OkObjectResult;
+        var result = productController.GetAll(null, null, null) as OkObjectResult;
         
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(products, result.Value as Array);
