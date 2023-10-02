@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Middlewares\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Service\Service.csproj">

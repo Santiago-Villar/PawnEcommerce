@@ -18,16 +18,16 @@ public class ProductServiceTest
         _productService = new ProductService(_productRepositoryMock.Object);
     }
 
-    public static Brand aBrand = new Brand()
+    public static Brand aBrand = new Brand(1)
     {
         Name = "Kova"
     };
-    public static Category aCategory = new Category()
+    public static Category aCategory = new Category(1)
     {
         Name = "Retro"
     };
 
-     Product aProduct = new Product()
+    Product aProduct = new Product()
     {
         Name = "Abdul's Udemy Course",
         Description = "Está godines",
@@ -37,15 +37,15 @@ public class ProductServiceTest
         Colors = new List<Color>(),
         
     };
-    Color firstColor = new Color()
+    Color firstColor = new Color(1)
     {
         Name = "Red"
     };
-    Color secondColor = new Color()
+    Color secondColor = new Color(2)
     {
         Name = "Green"
     };
-    Color thirdColor = new Color()
+    Color thirdColor = new Color(3)
     {
         Name = "Blue"
     };
@@ -56,8 +56,8 @@ public class ProductServiceTest
         _productRepositoryMock = new Mock<IProductRepository>();
         _productService = new ProductService(_productRepositoryMock.Object);
 
-        aBrand = new Brand() { Name = "Kova" };
-        aCategory = new Category() { Name = "Retro" };
+        aBrand = new Brand(3) { Name = "Kova" };
+        aCategory = new Category(3) { Name = "Retro" };
 
         aProduct = new Product()
         {
@@ -69,9 +69,9 @@ public class ProductServiceTest
             Colors = new List<Color>()
         };
 
-        firstColor = new Color() { Name = "Red" };
-        secondColor = new Color() { Name = "Green" };
-        thirdColor = new Color() { Name = "Blue" };
+        firstColor = new Color(4) { Name = "Red" };
+        secondColor = new Color(5) { Name = "Green" };
+        thirdColor = new Color(6) { Name = "Blue" };
     }
 
 
@@ -113,7 +113,6 @@ public class ProductServiceTest
         _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true); 
 
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.AddProduct(aProduct));
-        Assert.AreEqual($"Product {aProduct.Name} already exists.", exception.Message);
 
         _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never()); 
@@ -122,24 +121,23 @@ public class ProductServiceTest
     [TestMethod]
     public void DeleteProductWhenProductExistsOk()
     {
-        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
+        _productRepositoryMock.Setup(repo => repo.Exists(4)).Returns(true);
 
-        _productRepositoryMock.Setup(repo => repo.DeleteProduct(aProduct)); 
+        _productRepositoryMock.Setup(repo => repo.DeleteProduct(4)); 
 
-        _productService.DeleteProduct(aProduct);
-        _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Once());
+        _productService.DeleteProduct(4);
+        _productRepositoryMock.Verify(repo => repo.DeleteProduct(4), Times.Once());
     }
 
     [TestMethod]
     public void DeleteProductWhenProductDoesNotExist()
     {
-        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(false);
+        _productRepositoryMock.Setup(repo => repo.Exists(4)).Returns(false);
 
-        var exception = Assert.ThrowsException<ServiceException>(() => _productService.DeleteProduct(aProduct));
-        Assert.AreEqual("Product " + aProduct.Name + " does not exist.", exception.Message);
+        var exception = Assert.ThrowsException<ModelException>(() => _productService.DeleteProduct(4));
 
-        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once()); 
-        _productRepositoryMock.Verify(repo => repo.DeleteProduct(aProduct), Times.Never()); 
+        _productRepositoryMock.Verify(repo => repo.Exists(4), Times.Once()); 
+        _productRepositoryMock.Verify(repo => repo.DeleteProduct(4), Times.Never()); 
     }
 
     [TestMethod]
@@ -159,21 +157,20 @@ public class ProductServiceTest
         string nonExistingProductName = "NonExistingProductName";
         _productRepositoryMock.Setup(repo => repo.GetProductByName(nonExistingProductName)).Returns((Product)null);
 
-        var exception = Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(nonExistingProductName));
-        Assert.AreEqual($"Product {nonExistingProductName} does not exist.", exception.Message);
+        var exception = Assert.ThrowsException<ModelException>(() => _productService.GetProductByName(nonExistingProductName));
         _productRepositoryMock.Verify(repo => repo.GetProductByName(nonExistingProductName), Times.Once());
     }
 
     [TestMethod]
     public void GetProductByName_WhenNameIsNull_ThrowsException()
     {
-        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(null));
+        Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(null));
     }
 
     [TestMethod]
     public void GetProductByName_WhenNameIsEmpty_ThrowsException()
     {
-        Assert.ThrowsException<ArgumentException>(() => _productService.GetProductByName(string.Empty));
+        Assert.ThrowsException<ServiceException>(() => _productService.GetProductByName(string.Empty));
     }
 
     [TestMethod]

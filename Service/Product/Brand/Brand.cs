@@ -6,6 +6,15 @@ namespace Service.Product
 {
     public class Brand : IFilterCriteria,IBrand
     {
+        public int? Id { get; set; }
+
+        public Brand(int id)
+        {
+            Id = id;
+        }
+
+        public Brand() { }
+
         private string _name;
         [Key]
         public string Name
