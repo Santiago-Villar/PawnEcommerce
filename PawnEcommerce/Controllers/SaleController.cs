@@ -17,7 +17,7 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] SaleDTO newSale)
+        public IActionResult Create([FromBody] SaleCreationModel newSale)
         {
             var sale = newSale.ToEntity();
             sale.Id = _saleService.Create(sale);

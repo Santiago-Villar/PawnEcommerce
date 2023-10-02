@@ -28,7 +28,7 @@ public class SaleControllerTest
         }
     };
 
-    private readonly SaleDTO _newSale = new SaleDTO()
+    private readonly SaleCreationModel _newSale = new SaleCreationModel()
     {
         UserId = 1,
         ProductDtos = new ProductDTO[]

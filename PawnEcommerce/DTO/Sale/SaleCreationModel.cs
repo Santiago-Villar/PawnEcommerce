@@ -4,7 +4,7 @@ using Service.Sale;
 
 namespace PawnEcommerce.DTO.Sale;
 
-public class SaleDTO
+public class SaleCreationModel
 {
     public int UserId { get; set; }
     public ProductDTO[] ProductDtos { get; set; }
