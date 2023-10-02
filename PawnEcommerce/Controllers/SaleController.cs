@@ -45,7 +45,8 @@ namespace PawnEcommerce.Controllers
         [HttpPost]
         public IActionResult GetDiscount([FromBody] List<ProductCreationModel> products)
         {
-            return Ok();
+            var newPrice = _saleService.GetDiscount(products.Select(product => product.ToEntity()).ToList());
+            return Ok(newPrice);
         }
 
     }

@@ -19,8 +19,9 @@ public class SaleService : ISaleService
     {
         try
         {
-            var (promotion, newPrice) = GetDiscount(sale.Products.Select(sp => sp.Product).ToList());
-            
+            var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
+            var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
+
             if (!newPrice.Equals(sale.Price))
             {
                 sale.PromotionName = promotion.Name;
@@ -35,12 +36,12 @@ public class SaleService : ISaleService
         }
     }
 
-    public (IPromotionStrategy, double) GetDiscount(List<Product.Product> products)
+    public double GetDiscount(List<Product.Product> products)
     {
         var promotion = _promotionService.GetPromotion(products);
         var newPrice = promotion.GetDiscountPrice(products);
 
-        return (promotion, newPrice);
+        return newPrice;
     }
     
     public List<Sale> GetAll()
