@@ -47,7 +47,7 @@ namespace Test
                 Description = "Sample Description",
                 Price = 10,
                 BrandName = brand.Name,
-                CategoryName = category.Name
+                CategoryName = category.Name,
             };
         }
 
@@ -75,10 +75,10 @@ namespace Test
             var product = CreateSampleProduct(context);
             context.Products.Add(product);
             context.SaveChanges();
+            int id = product.Id;
+            repository.DeleteProduct(id);
 
-            repository.DeleteProduct(product);
-
-            var productInDb = context.Products.FirstOrDefault(p => p.Name == "Sample Product");
+            var productInDb = context.Products.FirstOrDefault(p => p.Id == id);
             Assert.IsNull(productInDb);
         }
 
@@ -118,7 +118,8 @@ namespace Test
             var product2 = CreateSampleProduct(context);
             product2.Name = "Another Sample Product";  
 
-            context.Products.AddRange(product1, product2);
+            context.Products.Add(product1);
+            context.Products.Add(product2);
             context.SaveChanges();
 
             var products = repository.GetAllProducts();

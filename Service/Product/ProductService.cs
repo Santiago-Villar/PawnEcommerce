@@ -16,34 +16,44 @@ namespace Service.Product
             _productRepository = repo;
         }
 
-        public void AddProduct(Product Product)
+        public int AddProduct(Product Product)
         {
             if(_productRepository.Exists(Product)) {
                 throw new ServiceException("Product " + Product.Name + " already exists.");
             }
-            else _productRepository.AddProduct(Product);
+            else return _productRepository.AddProduct(Product);
         }
 
-        public void DeleteProduct(Product product)
+        public void DeleteProduct(int id)
         {
-            if (_productRepository.Exists(product))
+            if (_productRepository.Exists(id))
             {
-                _productRepository.DeleteProduct(product);
+                _productRepository.DeleteProduct(id);
             }
-            else throw new ServiceException("Product " + product.Name + " does not exist.");
+            else throw new ModelException("Product with id:" + id + " does not exist.");
         }
 
         public Product GetProductByName(string productName)
         {
             if (string.IsNullOrEmpty(productName))
             {
-                throw new ArgumentException("Product name cannot be null or empty.");
+                throw new ServiceException("Product name cannot be null or empty.");
             }
 
             var product = _productRepository.GetProductByName(productName);
             if (product == null)
             {
-                throw new ServiceException($"Product {productName} does not exist.");
+                throw new ModelException($"Product {productName} does not exist.");
+            }
+
+            return product;
+        }
+        public Product Get(int id)
+        {
+            var product = _productRepository.Get(id);
+            if (product == null)
+            {
+                throw new ModelException($"Product with id:{id} does not exist.");
             }
 
             return product;
