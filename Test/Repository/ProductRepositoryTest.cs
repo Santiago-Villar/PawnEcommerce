@@ -179,6 +179,34 @@ namespace Test
         }
 
         [TestMethod]
+        public void GetAllProducts_FilterByBrand_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            
+            var brand = new Brand { Name = "secondaryBrand", Id = 2 };
+            context.Brands.Add(brand);
+            product2.Name = "Another Sample Product";
+            product2.Brand = brand;            
+            
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                BrandId = new IdFilterCriteria()
+                {
+                    Value = 1
+                }});
+            Assert.AreEqual(1, products.Length);
+        }
+
+        
+        [TestMethod]
         public void GetProductByName_ShouldReturnCorrectProduct()
         {
             using var context = GetInMemoryDbContext();
