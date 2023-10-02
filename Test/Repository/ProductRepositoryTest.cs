@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository;
 using Service.Product;
 using System.Linq;
+using Service.Filter;
 using Service.Filter.ConcreteFilter;
 
 namespace Test
@@ -108,7 +109,7 @@ namespace Test
             var exists = repository.Exists(product);
             Assert.IsFalse(exists);
         }
-
+        
         [TestMethod]
         public void GetAllProducts_ShouldReturnAllProducts()
         {
@@ -125,6 +126,29 @@ namespace Test
 
             var products = repository.GetAllProducts(new FilterQuery());
             Assert.AreEqual(2, products.Length);
+        }
+        
+        [TestMethod]
+        public void GetAllProducts_FilterByName_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            product2.Name = "Another Sample Product";  
+
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                Name = new StringFilterCriteria()
+                {
+                    Value = "Another Sample Product"
+                }});
+            Assert.AreEqual(1, products.Length);
         }
 
         [TestMethod]
