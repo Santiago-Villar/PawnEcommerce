@@ -7,10 +7,10 @@ namespace Test.Service.Filter;
 [TestClass]
 public class FilterTemplateTest
 {
-    private static readonly Brand FilterBrand = new Brand(){ Name = "Vegetable" };
-    private static readonly Brand OtherBrand = new Brand(){ Name = "Tuber" };
-    private static readonly Category FilterCategory = new Category(){ Name = "Vegetable" };
-    private static readonly Category OtherCategory = new Category(){ Name = "Tuber" };
+    private static readonly Brand FilterBrand = new Brand(1){ Name = "Vegetable" };
+    private static readonly Brand OtherBrand = new Brand(2){ Name = "Tuber" };
+    private static readonly Category FilterCategory = new Category(1){ Name = "Vegetable" };
+    private static readonly Category OtherCategory = new Category(2){ Name = "Tuber" };
     
     private static readonly Product Potato = new Product()
     {
