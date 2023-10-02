@@ -30,14 +30,14 @@ namespace Test
             var brand = context.Brands.SingleOrDefault(b => b.Name == brandName);
             if (brand == null)
             {
-                brand = new Brand { Name = brandName };
+                brand = new Brand { Name = brandName, Id = 1 };
                 context.Brands.Add(brand);
             }
 
             var category = context.Categories.SingleOrDefault(c => c.Name == categoryName);
             if (category == null)
             {
-                category = new Category { Name = categoryName };
+                category = new Category { Name = categoryName, Id = 1 };
                 context.Categories.Add(category);
             }
 
@@ -147,6 +147,33 @@ namespace Test
                 Name = new StringFilterCriteria()
                 {
                     Value = "Another Sample Product"
+                }});
+            Assert.AreEqual(1, products.Length);
+        }
+        
+        [TestMethod]
+        public void GetAllProducts_FilterByCategory_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            
+            var cat = new Category { Name = "secondaryCat", Id = 2 };
+            context.Categories.Add(cat);
+            product2.Name = "Another Sample Product";
+            product2.Category = cat;            
+            
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                CategoryId = new IdFilterCriteria()
+                {
+                    Value = 1
                 }});
             Assert.AreEqual(1, products.Length);
         }
