@@ -7,7 +7,7 @@ namespace PawnEcommerce.DTO.Sale;
 public class SaleDTO
 {
     public int UserId { get; set; }
-    public ProductDTO[] ProductDtos { get; set; }
+    public ProductCreationModel[] ProductDtos { get; set; }
     
     public Service.Sale.Sale ToEntity()
     {

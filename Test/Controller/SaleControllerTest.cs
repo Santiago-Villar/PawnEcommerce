@@ -10,20 +10,24 @@ namespace Test.Controller;
 [TestClass]
 public class SaleControllerTest
 {
-    private static readonly ProductDTO ProductDto = new ProductDTO()
+    private static readonly ProductCreationModel ProductDto = new ProductCreationModel()
     {
         Name = "testProd",
         Description = "test description",
         Price = 10,
         BrandName = "none",
         CategoryName = "none",
-        Colors = new[] { "blue", "red" }
+        Colors = new ColorDTO[] 
+        { 
+            new ColorDTO(){Name = "blue", Id = 1},
+            new ColorDTO(){Name = "red", Id = 2}
+        }
     };
 
     private readonly SaleDTO _newSale = new SaleDTO()
     {
         UserId = 1,
-        ProductDtos = new ProductDTO[]
+        ProductDtos = new ProductCreationModel[]
         {
             ProductDto
         },
@@ -68,16 +72,16 @@ public class SaleControllerTest
     public void GetById_Ok()
     {
         var sales = Enumerable.Repeat(_newSale, 3).Select(sale => sale.ToEntity()).ToList();
-        var filteredSales = sales.GetRange(0, sales.Count - 1);
+        var foundSaleWithId = sales[0];
 
         var saleService = new Mock<ISaleService>();
-        saleService.Setup(ps => ps.Get(1)).Returns(filteredSales);
+        saleService.Setup(ps => ps.Get(1)).Returns(foundSaleWithId);
 
         var saleController = new SaleController(saleService.Object);
         var result = saleController.Get(1) as OkObjectResult;
 
         Assert.IsNotNull(result);
-        CollectionAssert.AreEqual(filteredSales, result.Value as List<Sale>);
+        Assert.AreEqual(foundSaleWithId, result.Value);
     }
     
 }
