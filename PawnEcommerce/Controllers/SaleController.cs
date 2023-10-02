@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PawnEcommerce.DTO;
+using PawnEcommerce.DTO.Product;
 using PawnEcommerce.DTO.Sale;
 using PawnEcommerce.Middlewares;
 using Service.Filter;
@@ -40,5 +41,12 @@ namespace PawnEcommerce.Controllers
             var sales = _saleService.Get(id);
             return Ok(sales);
         }
+        
+        [HttpPost]
+        public IActionResult GetDiscount([FromBody] List<ProductCreationModel> products)
+        {
+            return Ok();
+        }
+
     }
 }
