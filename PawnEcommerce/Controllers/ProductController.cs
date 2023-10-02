@@ -26,8 +26,8 @@ namespace PawnEcommerce.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get([FromRoute] int id)
         {
-            var products = _productService.Get(id);
-            return Ok(products);
+            var product = _productService.Get(id);
+            return Ok(product);
         }
         
         [HttpPost]
