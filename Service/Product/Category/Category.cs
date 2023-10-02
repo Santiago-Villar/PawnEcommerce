@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Service.Product
 {
-    public class Category : IFilterCriteria,ICategory
+    public class Category : ICategory
     {
         public int? Id { get; set; }
         

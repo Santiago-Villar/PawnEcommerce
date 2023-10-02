@@ -74,7 +74,7 @@ public class FilterTemplateTest
     public void CanFilter_BrandFilter_Ok()
     {
         FilterTemplate brandFilter = new BrandFilter();
-        var filteredProducts = brandFilter.Filter(Products, FilterBrand);
+        var filteredProducts = brandFilter.Filter(Products, new IdFilterCriteria(){ Value = FilterBrand.Id });
 
         var toCheckList = new List<Product>()
         {
@@ -89,7 +89,7 @@ public class FilterTemplateTest
     public void CanFilter_CategoryFilter_Ok()
     {
         FilterTemplate categoryFilter = new CategoryFilter();
-        var filteredProducts = categoryFilter.Filter(Products, FilterCategory);
+        var filteredProducts = categoryFilter.Filter(Products, new IdFilterCriteria(){ Value = FilterCategory.Id });
 
         var toCheckList = new List<Product>()
         {

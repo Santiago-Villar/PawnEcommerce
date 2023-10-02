@@ -21,7 +21,7 @@ public class SaleService : ISaleService
         {
             var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
             var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
-            
+
             if (!newPrice.Equals(sale.Price))
             {
                 sale.PromotionName = promotion.Name;
@@ -35,7 +35,20 @@ public class SaleService : ISaleService
             throw new ServiceException(ex.Message);
         }
     }
-    
+
+    public double GetDiscount(List<Product.Product> products)
+    {
+        var promotion = _promotionService.GetPromotion(products);
+        var newPrice = promotion.GetDiscountPrice(products);
+
+        return newPrice;
+    }
+
+    public void Update(Sale sale)
+    {
+        _saleRepository.Update(sale);
+    }
+
     public List<Sale> GetAll()
     {
         return _saleRepository.GetAll();
