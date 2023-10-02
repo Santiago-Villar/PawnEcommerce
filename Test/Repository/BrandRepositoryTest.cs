@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository;
+using Service.Exception;
 using Service.Product;
 using System.Linq;
 
@@ -68,7 +69,7 @@ namespace Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ModelException))]
         public void GetById_ShouldThrowException_WhenBrandNotFound()
         {
             using var context = GetInMemoryDbContext();

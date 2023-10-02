@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Service.Exception;
 
 namespace Repository
 {
@@ -25,7 +26,7 @@ namespace Repository
             var brand = _context.Brands.FirstOrDefault(b => b.Id == id);
 
             if (brand == null)
-                throw new ArgumentException($"No Brand found with the ID: {id}", nameof(id));
+                throw new ModelException($"No Brand found with the ID: {id}");
 
             return brand;
         }

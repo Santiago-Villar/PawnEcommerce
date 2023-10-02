@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Service.Product;
 using Microsoft.EntityFrameworkCore;
+using Service.Exception;
 
 namespace Repository
 {
@@ -26,7 +27,7 @@ namespace Repository
 
             if (category == null)
             {
-                throw new ArgumentException($"No category found with ID {id}", nameof(id));
+                throw new ModelException($"No category found with ID {id}");
             }
 
             return category;
