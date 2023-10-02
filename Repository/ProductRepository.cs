@@ -64,12 +64,12 @@ namespace Repository
                 .Include(p => p.Category)
                 .Include(p => p.Colors)
                 .Where(p =>
-                    filter.Name == null || p.Name.Contains(filter.Name.Value!)
+                    (filter.CategoryId == null || p.Category.Id == filter.CategoryId.Value) &&
+                    (filter.Name == null || p.Name.Contains(filter.Name.Value!))
                 )
                 .ToArray();
 
-            return query;
-        }
+            return query;        }
 
 
         public Product GetProductByName(string productName)
