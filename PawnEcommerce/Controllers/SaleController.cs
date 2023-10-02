@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using PawnEcommerce.DTO;
 using PawnEcommerce.DTO.Sale;
 using PawnEcommerce.Middlewares;
+using Service.Filter;
+using Service.Filter.ConcreteFilter;
 using Service.Sale;
 using Service.User;
 
@@ -26,7 +28,7 @@ namespace PawnEcommerce.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string nameId, [FromQuery] string categoryId, [FromQuery] string brandId)
+        public IActionResult GetAll()
         {
             var sales = _saleService.GetAll();
             return Ok(sales);

@@ -62,7 +62,7 @@ public class SaleControllerTest
         saleService.Setup(ps => ps.GetAll()).Returns(sales);
 
         var saleController = new SaleController(saleService.Object);
-        var result = saleController.GetAll(null, null, null) as OkObjectResult;
+        var result = saleController.GetAll() as OkObjectResult;
 
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(sales, result.Value as List<Sale>);

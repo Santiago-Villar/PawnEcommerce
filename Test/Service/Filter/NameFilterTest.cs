@@ -69,6 +69,6 @@ public class NameFilterTest
         };
         
         var nameFilter = new NameFilter();
-        var match = nameFilter.Match(product, filterCriteria);
+        var match = nameFilter.Match(product, new IdFilterCriteria(){ Value = filterCriteria.Id });
     }
 }
