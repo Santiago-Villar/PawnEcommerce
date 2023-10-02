@@ -15,8 +15,8 @@ public class SaleControllerTest
         Name = "testProd",
         Description = "test description",
         Price = 10,
-        BrandName = "none",
-        CategoryName = "none",
+        Brand = new BrandDTO() {Name = "none", Id = 1},
+        Category = new CategoryDTO() {Name = "none", Id = 1},
         Colors = new ColorDTO[] 
         { 
             new ColorDTO(){Name = "blue", Id = 1},
@@ -62,7 +62,7 @@ public class SaleControllerTest
         saleService.Setup(ps => ps.GetAll()).Returns(sales);
 
         var saleController = new SaleController(saleService.Object);
-        var result = saleController.GetAll() as OkObjectResult;
+        var result = saleController.GetAll(null, null, null) as OkObjectResult;
 
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(sales, result.Value as List<Sale>);

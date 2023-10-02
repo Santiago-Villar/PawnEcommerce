@@ -26,7 +26,7 @@ namespace PawnEcommerce.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string nameId, [FromQuery] string categoryId, [FromQuery] string brandId)
         {
             var sales = _saleService.GetAll();
             return Ok(sales);

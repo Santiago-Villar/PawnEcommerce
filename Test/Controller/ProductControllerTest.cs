@@ -15,8 +15,8 @@ public class ProductControllerTest
         Name = "testProd",
         Description = "test description",
         Price = 10,
-        BrandName = "none",
-        CategoryName = "none",
+        Brand = new BrandDTO() {Name = "none", Id = 1},
+        Category = new CategoryDTO() {Name = "none", Id = 1},
         Colors = new ColorDTO[] { 
             new ColorDTO(){Id = 1, Name = "blue"},
             new ColorDTO(){Id = 2, Name = "red"}, 
