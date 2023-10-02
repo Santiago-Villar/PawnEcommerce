@@ -3,6 +3,9 @@ using Moq;
 using PawnEcommerce.Controllers;
 using PawnEcommerce.DTO.Product;
 using PawnEcommerce.DTO.Sale;
+using Service.Product;
+using Service.Promotion;
+using Service.Promotion.ConcreteStrategies;
 using Service.Sale;
 
 namespace Test.Controller;
@@ -82,6 +85,22 @@ public class SaleControllerTest
 
         Assert.IsNotNull(result);
         Assert.AreEqual(foundSaleWithId, result.Value);
+    }
+    
+    [TestMethod]
+    public void GetDiscount_Ok()
+    {
+        var products = Enumerable.Repeat(ProductDto, 3);
+
+        var saleService = new Mock<ISaleService>();
+        saleService.Setup(ps => ps.GetDiscount(It.IsAny<List<Product>>())).Returns(10);
+
+        var saleController = new SaleController(saleService.Object);
+        var result = saleController.GetDiscount(products.ToList()) as OkObjectResult;
+        
+        double expected = 10;
+        Assert.IsNotNull(result);
+        Assert.AreEqual(expected, result.Value);
     }
     
 }
