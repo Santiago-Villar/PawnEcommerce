@@ -16,8 +16,13 @@ namespace Repository
 
         public void Add(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
         }
+
 
         public void Delete(User user)
         {
