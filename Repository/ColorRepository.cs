@@ -1,4 +1,5 @@
-﻿using Service.Product;
+﻿using Service.Exception;
+using Service.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,10 @@ namespace Repository
         public Color GetById(int id)
         {
             var color = _context.Colors.FirstOrDefault(c => c.Id == id);
+            if (color == null)
+            {
+                throw new ModelException($"No color found with ID {id}");
+            }
             return color;
         }
     }

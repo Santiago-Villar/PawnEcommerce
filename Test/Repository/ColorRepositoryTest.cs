@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository;
+using Service.Exception;
 using Service.Product;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,16 @@ namespace Test.Repository
 
             Assert.IsNotNull(fetchedColor);
             Assert.AreEqual("Sample Color", fetchedColor.Name);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ModelException))]
+        public void GetById_NoColorFound_Throw()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ColorRepository(context);
+
+            repository.GetById(999);
         }
     }
 }
