@@ -15,6 +15,7 @@ namespace Service.Product
 
         public Brand() { }
 
+
         private string _name;
         [Key]
         public string Name
