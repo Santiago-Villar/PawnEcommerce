@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using PawnEcommerce.DTO.Product;
+using Service.Product;
 using Service.Sale;
 
 namespace PawnEcommerce.DTO.Sale;
@@ -7,7 +8,7 @@ namespace PawnEcommerce.DTO.Sale;
 public class SaleCreationModel
 {
     public int UserId { get; set; }
-    public ProductDTO[] ProductDtos { get; set; }
+    public int[] ProductDtosId { get; set; }
     
     public Service.Sale.Sale ToEntity()
     {
@@ -17,16 +18,18 @@ public class SaleCreationModel
         };
     }
 
-    public List<SaleProduct> CreateSaleProducts(Service.Sale.Sale sale)
+    public List<SaleProduct> CreateSaleProducts(Service.Sale.Sale sale, IProductService productService)
     {
-        var saleProducts = ProductDtos
-            .Select(pDto =>
+        var productDtos = ProductDtosId.Select(id => productService.Get(id)).ToList();
+
+        var saleProducts = productDtos
+            .Select(prod =>
                 new SaleProduct
                 {
-                    Product = pDto.ToEntity(),
+                    Product = prod,
                     SaleId = sale.Id, 
                     Sale = sale, 
-                    ProductId = pDto.Id
+                    ProductId = prod.Id
                 });
 
         return saleProducts.ToList();

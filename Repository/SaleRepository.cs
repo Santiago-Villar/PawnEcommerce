@@ -61,9 +61,23 @@ namespace Repository
             return sale;
         }
 
-        public void Update(Sale newSale)
+        public void Update(Sale updateSale)
         {
-            _context.Sales.Update(newSale);
+            var existingSale = _context.Sales
+                             .Include(s => s.Products)
+                             .FirstOrDefault(s => s.Id == updateSale.Id);
+
+            if (existingSale == null)
+                throw new ServiceException($"Sale with ID {updateSale.Id} not found");
+
+            _context.SaleProducts.RemoveRange(existingSale.Products);
+
+            foreach (var sp in updateSale.Products)
+            {
+                _context.SaleProducts.Add(sp);
+            }
+
+            _context.Entry(existingSale).CurrentValues.SetValues(updateSale);
             _context.SaveChanges();
         }
     }
