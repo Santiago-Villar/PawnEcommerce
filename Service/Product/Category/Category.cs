@@ -6,7 +6,9 @@ namespace Service.Product
 {
     public class Category : ICategory
     {
-        public int? Id { get; set; }
+        [Key]
+
+        public int Id { get; set; }
 
         public Category(int id)
         {
@@ -14,7 +16,6 @@ namespace Service.Product
         }
         public Category() { }
         private string _name;
-        [Key]
         public string Name { get => _name;
             set
             {

@@ -62,7 +62,7 @@ namespace Test
 
             var category = CreateSampleCategory(context);
 
-            var fetchedCategory = repository.GetById(category.Id.Value);
+            var fetchedCategory = repository.GetById(category.Id);
             Assert.IsNotNull(fetchedCategory);
             Assert.AreEqual("Sample Category", fetchedCategory.Name);
         }

@@ -12,10 +12,10 @@ public interface IProduct
     
     int Price { get; set; }
 
-    string BrandName { get; set; }
+    int BrandId { get; set; }
     Brand Brand { get; set; }
 
-    string CategoryName { get; set; }
+    int CategoryId { get; set; }
     Category Category { get; set; }
 
     ICollection<Color> Colors { get; set; }

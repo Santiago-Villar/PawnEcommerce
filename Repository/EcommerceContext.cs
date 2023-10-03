@@ -23,17 +23,14 @@ namespace Repository
         {
 
             modelBuilder.Entity<Brand>()
-                .HasIndex(b => b.Name)
-                .IsUnique();
+                .HasKey(b => b.Id);
 
             modelBuilder.Entity<Category>()
-                .HasIndex(c => c.Name)
-                .IsUnique();
+                .HasKey(c => c.Id);
 
             modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Name)
                 .IsUnique();  
-
 
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.Colors)
@@ -44,12 +41,12 @@ namespace Repository
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Brand)
                 .WithMany(b => b.Products)
-                .HasForeignKey(p => p.BrandName);
+                .HasForeignKey(p => p.BrandId);
 
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
-                .HasForeignKey(p => p.CategoryName);
+                .HasForeignKey(p => p.CategoryId);
 
 
             modelBuilder.Entity<User>()
