@@ -36,7 +36,6 @@ namespace Repository
                 .HasMany(p => p.Colors)
                 .WithOne(c => c.Product)
                 .HasForeignKey(c => c.ProductId); 
-
             
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Brand)
@@ -48,7 +47,6 @@ namespace Repository
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
 
-
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);  
             modelBuilder.Entity<User>()
@@ -58,11 +56,10 @@ namespace Repository
             modelBuilder.Entity<User>()
                 .Property(u => u.Roles)
                 .HasConversion(
-                                roles => string.Join(",", roles.Select(r => r.ToString())),
-                                rolesString => rolesString.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                                                            .Select(r => Enum.Parse<RoleType>(r))
-                                                            .ToList()
-                               );
+                    roles => string.Join(",", roles.Select(r => r.ToString())),
+                    rolesString => rolesString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(r => Enum.Parse<RoleType>(r))
+                .ToList());
 
             modelBuilder.Entity<Sale>()
                 .HasKey(s => s.Id);  
