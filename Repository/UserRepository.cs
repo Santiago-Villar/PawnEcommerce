@@ -44,8 +44,14 @@ namespace Repository
 
         public User? Get(string email)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentException("Email cannot be null or empty.");
+
+            return _context.Users
+                           .Include(u => u.Sales) 
+                           .FirstOrDefault(u => u.Email == email);
         }
+
 
         public void Update(User user)
         {
