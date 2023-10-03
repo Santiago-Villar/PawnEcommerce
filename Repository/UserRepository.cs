@@ -1,4 +1,5 @@
 ﻿using Service.User;
+using Service.Exception;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace Repository
         public void Add(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user));
+                throw new RepositoryException("User cannot be null or empty.");
 
             _context.Users.Add(user);
             _context.SaveChanges();
@@ -27,7 +28,7 @@ namespace Repository
         public void Delete(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user));
+                throw new RepositoryException("User cannot be null or empty.");
 
             _context.Users.Remove(user);
             _context.SaveChanges();
@@ -45,7 +46,7 @@ namespace Repository
         public User? Get(string email)
         {
             if (string.IsNullOrEmpty(email))
-                throw new ArgumentException("Email cannot be null or empty.");
+                throw new RepositoryException("Email cannot be null or empty.");
 
             return _context.Users
                            .Include(u => u.Sales) 
@@ -56,7 +57,7 @@ namespace Repository
         public void Update(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user));
+                throw new RepositoryException("User cannot be null or empty.");
 
             _context.Users.Update(user);
             _context.SaveChanges();
