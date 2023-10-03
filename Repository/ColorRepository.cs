@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ColorRepository
+    public class ColorRepository : IColorRepository
     {
         private readonly EcommerceContext _context;
 
