@@ -55,7 +55,12 @@ namespace Repository
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            _context.Users.Update(user);
+            _context.SaveChanges();
         }
+
     }
 }
