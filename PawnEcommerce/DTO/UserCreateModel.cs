@@ -7,6 +7,7 @@ public class UserCreateModel
 {
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Adress { get; set; }
 
     public User ToEntity()
     {
@@ -14,6 +15,7 @@ public class UserCreateModel
         {
             Email = Email,
             PasswordHash = this.Password,
+            Address = Adress,
             Roles = { RoleType.User }
         };
     }
