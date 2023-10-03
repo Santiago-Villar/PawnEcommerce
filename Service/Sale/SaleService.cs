@@ -15,34 +15,53 @@ public class SaleService : ISaleService
         _promotionService = new PromotionService();
     }
 
-    public void Create(Sale sale)
+    public int Create(Sale sale)
     {
         try
         {
             var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
             var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
-            
+
             if (!newPrice.Equals(sale.Price))
             {
                 sale.PromotionName = promotion.Name;
                 sale.Price = newPrice;
             }
             
-            _saleRepository.Add(sale);
+            return _saleRepository.Add(sale);
         }
         catch (ServiceException ex) 
         {
             throw new ServiceException(ex.Message);
         }
     }
-    
+
+    public double GetDiscount(List<Product.Product> products)
+    {
+        var promotion = _promotionService.GetPromotion(products);
+        var newPrice = promotion.GetDiscountPrice(products);
+
+        return newPrice;
+    }
+
+    public void Update(Sale sale)
+    {
+        _saleRepository.Update(sale);
+    }
+
     public List<Sale> GetAll()
     {
         return _saleRepository.GetAll();
     }
     
-    public List<Sale> Get(int id)
+    public List<Sale> GetByUser(int userId)
     {
-        return _saleRepository.GetUserSales(id);
+        return _saleRepository.GetUserSales(userId);
     }
+
+    public Sale Get(int id)
+    {
+        return _saleRepository.Get(id);
+    }
+
 }

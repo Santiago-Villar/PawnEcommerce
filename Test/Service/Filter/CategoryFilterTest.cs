@@ -1,3 +1,4 @@
+using Service.Filter;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
 
@@ -16,7 +17,7 @@ public class CategoryFilterTest
     [TestMethod]
     public void MatchCategory_Ok()
     {
-        var category = new Category()
+        var category = new Category(1)
         {
             Name = "Tuber",
         };
@@ -27,19 +28,19 @@ public class CategoryFilterTest
         };
         
         var categoryFilter = new CategoryFilter();
-        var match = categoryFilter.Match(product, category);
+        var match = categoryFilter.Match(product, new IdFilterCriteria(){ Value = category.Id });
         Assert.IsTrue(match);
     }
     
     [TestMethod]
     public void MatchCategory_DifferentCategory_Ok()
     {
-        var category = new Category()
+        var category = new Category(2)
         {
             Name = "Vegetable",
         };
         
-        var toCheckCategory = new Category()
+        var toCheckCategory = new Category(3)
         {
             Name = "Tuber",
         };
@@ -50,7 +51,7 @@ public class CategoryFilterTest
         };
         
         var categoryFilter = new CategoryFilter();
-        var match = categoryFilter.Match(product, toCheckCategory);
+        var match = categoryFilter.Match(product, new IdFilterCriteria(){ Value = toCheckCategory.Id });
         Assert.IsFalse(match);
     }
 }

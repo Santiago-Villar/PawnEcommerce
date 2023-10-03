@@ -1,3 +1,5 @@
+using Moq;
+using Service.Filter;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
 
@@ -27,7 +29,7 @@ public class BrandFilterTest
         };
         
         var brandFilter = new BrandFilter();
-        var match = brandFilter.Match(product, brand);
+        var match = brandFilter.Match(product, new IdFilterCriteria(){ Value = brand.Id });
         Assert.IsTrue(match);
     }
     
@@ -50,7 +52,7 @@ public class BrandFilterTest
         };
         
         var brandFilter = new BrandFilter();
-        var match = brandFilter.Match(product, toCheckBrand);
+        var match = brandFilter.Match(product, new IdFilterCriteria(){ Value = toCheckBrand.Id });
         Assert.IsFalse(match);
     }
 }

@@ -9,8 +9,8 @@ public class FilterTemplateTest
 {
     private static readonly Brand FilterBrand = new Brand(1){ Name = "Vegetable" };
     private static readonly Brand OtherBrand = new Brand(2){ Name = "Tuber" };
-    private static readonly Category FilterCategory = new Category(){ Name = "Vegetable" };
-    private static readonly Category OtherCategory = new Category(){ Name = "Tuber" };
+    private static readonly Category FilterCategory = new Category(1){ Name = "Vegetable" };
+    private static readonly Category OtherCategory = new Category(2){ Name = "Tuber" };
     
     private static readonly Product Potato = new Product()
     {
@@ -74,7 +74,7 @@ public class FilterTemplateTest
     public void CanFilter_BrandFilter_Ok()
     {
         FilterTemplate brandFilter = new BrandFilter();
-        var filteredProducts = brandFilter.Filter(Products, FilterBrand);
+        var filteredProducts = brandFilter.Filter(Products, new IdFilterCriteria(){ Value = FilterBrand.Id });
 
         var toCheckList = new List<Product>()
         {
@@ -89,7 +89,7 @@ public class FilterTemplateTest
     public void CanFilter_CategoryFilter_Ok()
     {
         FilterTemplate categoryFilter = new CategoryFilter();
-        var filteredProducts = categoryFilter.Filter(Products, FilterCategory);
+        var filteredProducts = categoryFilter.Filter(Products, new IdFilterCriteria(){ Value = FilterCategory.Id });
 
         var toCheckList = new List<Product>()
         {
