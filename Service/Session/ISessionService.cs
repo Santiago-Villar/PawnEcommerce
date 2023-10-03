@@ -8,7 +8,7 @@ namespace Service.Session
 
 		public string Authenticate(string email, string password);
 
-		public IUser? GetCurrentUser(string token);
+		public User.User? GetCurrentUser(string token);
 
     }
 }

@@ -8,7 +8,7 @@ public class UserCreateModel
     public string Email { get; set; }
     public string Password { get; set; }
 
-    public IUser ToEntity()
+    public User ToEntity()
     {
         return new User()
         {

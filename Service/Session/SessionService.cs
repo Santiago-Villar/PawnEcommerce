@@ -24,7 +24,7 @@ namespace Service.Session
 
         public string Authenticate(string email, string password)
         {
-            IUser user = _repository.Get(email) ?? throw new RepositoryException("User does not exists");
+            User.User user = _repository.Get(email) ?? throw new RepositoryException("User does not exists");
             if(!VerifyPassword(password,user.PasswordHash))
             {
                 throw new InvalidCredentialException("Invalid credentials");
@@ -32,7 +32,7 @@ namespace Service.Session
             return createToken(user);
         }
 
-        public IUser? GetCurrentUser(string token)
+        public User.User? GetCurrentUser(string token)
         {
             var userEmail = ExtractUserEmailFromToken(token);
             if (userEmail == null)
@@ -47,7 +47,7 @@ namespace Service.Session
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
 
-        private String createToken(IUser user)
+        private String createToken(User.User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(SecretKey);
