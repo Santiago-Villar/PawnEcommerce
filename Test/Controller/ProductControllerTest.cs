@@ -17,12 +17,9 @@ public class ProductControllerTest
         Name = "testProd",
         Description = "test description",
         Price = 10,
-        Brand = new BrandDTO() {Name = "none", Id = 1},
-        Category = new CategoryDTO() {Name = "none", Id = 1},
-        Colors = new ColorDTO[] { 
-            new ColorDTO(){Id = 1, Name = "blue"},
-            new ColorDTO(){Id = 2, Name = "red"}, 
-        }
+        BrandId = 1,
+        CategoryId = 1,
+        Colors = new int[] { 1, 2 }
     };
 
     private readonly Product _product1 = new() { Name = "product1" };
@@ -31,7 +28,11 @@ public class ProductControllerTest
     public void CanCreateController_Ok()
     {
         var productSerivce = new Mock<IProductService>();
-        var productController = new ProductController(productSerivce.Object);
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productSerivce.Object, categoryService.Object, brandService.Object, colorService.Object);
         Assert.IsNotNull(productController);
     }
     
@@ -42,8 +43,12 @@ public class ProductControllerTest
        
         var productService = new Mock<IProductService>();
         productService.Setup(ps => ps.GetAllProducts(It.IsAny<FilterQuery>())).Returns(products);
-       
-        var productController = new ProductController(productService.Object);
+
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
         var result = productController.GetAll(null, null, null) as OkObjectResult;
         
         Assert.IsNotNull(result);
@@ -55,8 +60,12 @@ public class ProductControllerTest
     {
         var productService = new Mock<IProductService>();
         productService.Setup(ps => ps.Get(1)).Returns(_product1);
-       
-        var productController = new ProductController(productService.Object);
+
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
         var result = productController.Get(1) as OkObjectResult;
         
         Assert.IsNotNull(result);
@@ -67,8 +76,11 @@ public class ProductControllerTest
     public void Create_Ok()
     {
         var productService = new Mock<IProductService>();
-       
-        var productController = new ProductController(productService.Object);
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
         var result = productController.Create(_productCreationModel) as OkResult;
         
         Assert.IsNotNull(result);
@@ -79,8 +91,11 @@ public class ProductControllerTest
     public void Update_Ok()
     {
         var productService = new Mock<IProductService>();
-       
-        var productController = new ProductController(productService.Object);
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
         var result = productController.Update(_productCreationModel) as OkResult;
         
         Assert.IsNotNull(result);
@@ -91,8 +106,11 @@ public class ProductControllerTest
     public void Delete_Ok()
     {
         var productService = new Mock<IProductService>();
-       
-        var productController = new ProductController(productService.Object);
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
         var result = productController.Delete(1) as OkResult;
         
         Assert.IsNotNull(result);

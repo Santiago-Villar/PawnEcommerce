@@ -18,8 +18,8 @@ namespace Service.Product
         }
 
         [ForeignKey("Brand")]
-        public int BrandId { get; set; } 
-        public Brand Brand { get; set; }  
+        public int BrandId { get; set; }
+        public Brand Brand { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; } 
