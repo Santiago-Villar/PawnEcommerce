@@ -27,7 +27,8 @@ namespace Test.Repository
         {
             var color = new Color(1)
             {
-                Name = "Sample Color"
+                Name = "Sample Color",
+                Code = "code"
             };
             context.Colors.Add(color);
             context.SaveChanges();
@@ -39,7 +40,8 @@ namespace Test.Repository
         {
             var color = new Color(2)
             {
-                Name = "Sample Color 2"
+                Name = "Sample Color 2",
+                Code = "code 2"
             };
             context.Colors.Add(color);
             context.SaveChanges();
@@ -58,8 +60,6 @@ namespace Test.Repository
 
             context.Colors.Add(color);
             context.Colors.Add(color2);
-
-            context.SaveChanges();
 
             var colors = repository.GetAll();
             Assert.AreEqual(2, colors.Count);

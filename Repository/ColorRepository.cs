@@ -1,0 +1,24 @@
+﻿using Service.Product;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Repository
+{
+    public class ColorRepository
+    {
+        private readonly EcommerceContext _context;
+
+        public ColorRepository(EcommerceContext context)
+        {
+            _context = context;
+        }
+
+        public List<Color> GetAll()
+        {
+            return _context.Colors.ToList();
+        }
+    }
+}
