@@ -41,7 +41,7 @@ namespace PawnEcommerce.Controllers
             return Ok(sales);
         }
         
-        [HttpPost]
+        [HttpPost("Discount")]
         public IActionResult GetDiscount([FromBody] List<ProductDTO> products)
         {
             var newPrice = _saleService.GetDiscount(products.Select(product => product.ToEntity()).ToList());

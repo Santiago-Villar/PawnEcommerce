@@ -17,7 +17,7 @@ namespace PawnEcommerce.Controllers
 			_sessionService = sessionService;
 		}
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             try
