@@ -26,8 +26,13 @@ namespace Repository
 
         public void Delete(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
         }
+
 
         public User? Get(int id)
         {
