@@ -36,8 +36,11 @@ namespace Repository
 
         public User? Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Users
+                           .Include(u => u.Sales) 
+                           .FirstOrDefault(u => u.Id == id);
         }
+
 
         public User? Get(string email)
         {
