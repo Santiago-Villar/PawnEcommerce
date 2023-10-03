@@ -20,5 +20,11 @@ namespace Repository
         {
             return _context.Colors.ToList();
         }
+
+        public Color GetById(int id)
+        {
+            var color = _context.Colors.FirstOrDefault(c => c.Id == id);
+            return color;
+        }
     }
 }

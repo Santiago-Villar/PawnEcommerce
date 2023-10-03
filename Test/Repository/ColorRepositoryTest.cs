@@ -64,6 +64,20 @@ namespace Test.Repository
             var colors = repository.GetAll();
             Assert.AreEqual(2, colors.Count);
         }
+
+        [TestMethod]
+        public void GetById_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ColorRepository(context);
+
+            var color = CreateSampleColor(context);
+
+            var fetchedColor = repository.GetById(color.Id);
+
+            Assert.IsNotNull(fetchedColor);
+            Assert.AreEqual("Sample Color", fetchedColor.Name);
+        }
     }
 }
 
