@@ -39,7 +39,7 @@ public class UserService : IUserService
     
     public void UpdateUser(User updatedUser)
     {
-        var toUpdateUser = Get(updatedUser.Id);
+        var toUpdateUser = FindUser(updatedUser.Email);
         toUpdateUser.Address = updatedUser.Address;
         _userRepository.Update(toUpdateUser);
     }
