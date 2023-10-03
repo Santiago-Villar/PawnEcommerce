@@ -31,9 +31,9 @@ public class UserService : IUserService
         return toCheckUser;
     }
 
-    public void DeleteUser(User user)
+    public void DeleteUser(int id)
     {
-        var toCheckUser = Get(user.Id);
+        var toCheckUser = Get(id);
         _userRepository.Delete(toCheckUser);
     }
     

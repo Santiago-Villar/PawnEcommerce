@@ -6,7 +6,7 @@ public interface IUserService
 
     public User LogIn(string email, string password);
 
-    public void DeleteUser(User user);
+    public void DeleteUser(int id);
 
     public void UpdateUser(User updatedUser);
 }

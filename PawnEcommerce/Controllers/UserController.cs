@@ -33,10 +33,10 @@ namespace PawnEcommerce.Controllers
         }
 
         // [Authorization("Admin")]
-        [HttpDelete]
-        public IActionResult Delete([FromBody] UserCreateModel deleteUser)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete([FromRoute] int id)
         {
-            _userService.DeleteUser(deleteUser.ToEntity());
+            _userService.DeleteUser(id);
             return Ok();
         }
         

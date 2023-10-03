@@ -127,7 +127,7 @@ public class UserServiceTest
         mockRepository.Setup(repo => repo.Get(1)).Returns(() => null);
 
         var userService = new UserService(mockRepository.Object);
-        userService.DeleteUser(mockUser);
+        userService.DeleteUser(mockUser.Id);
     }
     
     [TestMethod]
@@ -139,7 +139,7 @@ public class UserServiceTest
         mockRepository.Setup(repo => repo.Get(1)).Returns(mockUser);
 
         var userService = new UserService(mockRepository.Object);
-        userService.DeleteUser(mockUser);
+        userService.DeleteUser(mockUser.Id);
     }
     
     [ExpectedException(typeof(RepositoryException))]
