@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Session;
 
 using PawnEcommerce.DTO;
+using PawnEcommerce.Middlewares;
 
 namespace PawnEcommerce.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class SessionController : ControllerBase
 	{
 		private ISessionService _sessionService { get; set; }

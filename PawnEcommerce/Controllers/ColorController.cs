@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using PawnEcommerce.Middlewares;
 using Service.Exception;
 using Service.Product;
 
 namespace PawnEcommerce.Controllers
 {
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class ColorController : ControllerBase
     {
         private IColorService _colorService { get; set; }

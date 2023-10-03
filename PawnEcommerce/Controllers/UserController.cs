@@ -7,6 +7,7 @@ namespace PawnEcommerce.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

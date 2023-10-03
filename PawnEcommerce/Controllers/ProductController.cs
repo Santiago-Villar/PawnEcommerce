@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Product;
 using PawnEcommerce.DTO.Product;
+using PawnEcommerce.Middlewares;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;
 
@@ -9,6 +10,7 @@ namespace PawnEcommerce.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;

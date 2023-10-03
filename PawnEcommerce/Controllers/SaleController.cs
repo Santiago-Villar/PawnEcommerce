@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using PawnEcommerce.DTO.Product;
 using PawnEcommerce.DTO.Sale;
+using PawnEcommerce.Middlewares;
 using Service.Sale;
 
 namespace PawnEcommerce.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;
