@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Service.Product;
 using Service.Exception;
+using Service.Filter.ConcreteFilter;
 using Service.User;
 
 namespace Test;
@@ -182,10 +183,10 @@ public class ProductServiceTest
         new Product { Name = "Product2" }
     };
 
-        _productRepositoryMock.Setup(repo => repo.GetAllProducts()).Returns(productList.ToArray());
-        var result = _productService.GetAllProducts();
+        _productRepositoryMock.Setup(repo => repo.GetAllProducts(It.IsAny<FilterQuery>())).Returns(productList.ToArray());
+        var result = _productService.GetAllProducts(new FilterQuery());
         Assert.AreEqual(productList.Count, result.Length);
-        _productRepositoryMock.Verify(repo => repo.GetAllProducts(), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.GetAllProducts(It.IsAny<FilterQuery>()), Times.Once());
     }
 
     [TestMethod]

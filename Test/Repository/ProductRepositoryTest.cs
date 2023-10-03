@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository;
 using Service.Product;
 using System.Linq;
+using Service.Filter;
+using Service.Filter.ConcreteFilter;
 
 namespace Test
 {
@@ -28,14 +30,14 @@ namespace Test
             var brand = context.Brands.SingleOrDefault(b => b.Name == brandName);
             if (brand == null)
             {
-                brand = new Brand { Name = brandName };
+                brand = new Brand { Name = brandName, Id = 1 };
                 context.Brands.Add(brand);
             }
 
             var category = context.Categories.SingleOrDefault(c => c.Name == categoryName);
             if (category == null)
             {
-                category = new Category { Name = categoryName };
+                category = new Category { Name = categoryName, Id = 1 };
                 context.Categories.Add(category);
             }
 
@@ -107,7 +109,7 @@ namespace Test
             var exists = repository.Exists(product);
             Assert.IsFalse(exists);
         }
-
+        
         [TestMethod]
         public void GetAllProducts_ShouldReturnAllProducts()
         {
@@ -122,10 +124,123 @@ namespace Test
             context.Products.Add(product2);
             context.SaveChanges();
 
-            var products = repository.GetAllProducts();
+            var products = repository.GetAllProducts(new FilterQuery());
             Assert.AreEqual(2, products.Length);
         }
+        
+        [TestMethod]
+        public void GetAllProducts_FilterByName_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
 
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            product2.Name = "Another Sample Product";  
+
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                Name = new StringFilterCriteria()
+                {
+                    Value = "Another Sample Product"
+                }});
+            Assert.AreEqual(1, products.Length);
+        }
+        
+        [TestMethod]
+        public void GetAllProducts_FilterByCategory_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            
+            var cat = new Category { Name = "secondaryCat", Id = 2 };
+            context.Categories.Add(cat);
+            product2.Name = "Another Sample Product";
+            product2.Category = cat;            
+            
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                CategoryId = new IdFilterCriteria()
+                {
+                    Value = 1
+                }});
+            Assert.AreEqual(1, products.Length);
+        }
+
+        [TestMethod]
+        public void GetAllProducts_FilterByBrand_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            
+            var brand = new Brand { Name = "secondaryBrand", Id = 2 };
+            context.Brands.Add(brand);
+            product2.Name = "Another Sample Product";
+            product2.Brand = brand;            
+            
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                BrandId = new IdFilterCriteria()
+                {
+                    Value = 1
+                }});
+            Assert.AreEqual(1, products.Length);
+        }
+
+        [TestMethod]
+        public void GetAllProducts_FilterByBrand_Name_Category_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product1 = CreateSampleProduct(context);
+            var product2 = CreateSampleProduct(context);
+            
+            var brand = new Brand { Name = "secondaryBrand", Id = 2 };
+            context.Brands.Add(brand);
+            product2.Name = "Another Sample Product";
+            product2.Brand = brand;            
+            
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.SaveChanges();
+
+            var products = repository.GetAllProducts(new FilterQuery() 
+            {
+                CategoryId = new IdFilterCriteria()
+                {
+                    Value = 1
+                },
+                Name = new StringFilterCriteria()
+                {
+                    Value = "Sample Product"
+                },
+                BrandId = new IdFilterCriteria()
+                {
+                    Value = 1
+                }});
+            Assert.AreEqual(1, products.Length);
+        }
+
+        
         [TestMethod]
         public void GetProductByName_ShouldReturnCorrectProduct()
         {

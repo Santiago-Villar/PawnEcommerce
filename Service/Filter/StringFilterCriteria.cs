@@ -2,5 +2,5 @@ namespace Service.Filter;
 
 public class StringFilterCriteria : IFilterCriteria
 {
-    public string Value { get; set; }
+    public string? Value { get; set; }
 }
