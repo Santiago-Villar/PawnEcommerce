@@ -57,7 +57,7 @@ namespace PawnEcommerce.Middlewares
             await context.Response.WriteAsync(message);
         }
 
-        private bool UserHasNecessaryRole(HttpContext context, IUser user)
+        private bool UserHasNecessaryRole(HttpContext context, User user)
         {
             var endpoint = context.GetEndpoint();
             var attribute = endpoint?.Metadata.GetMetadata<AuthorizationAttribute>();

@@ -14,7 +14,7 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public void SignUp(IUser user)
+    public void SignUp(User user)
     {
         if (Exists(user.Email))
             throw new RepositoryException("User already exists");
@@ -22,7 +22,7 @@ public class UserService : IUserService
         _userRepository.Add(user);
     }
 
-    public IUser LogIn(string email, string password)
+    public User LogIn(string email, string password)
     {
         var toCheckUser = FindUser(email);
         if (!CheckPassword(toCheckUser, password))
@@ -31,20 +31,20 @@ public class UserService : IUserService
         return toCheckUser;
     }
 
-    public void DeleteUser(IUser user)
+    public void DeleteUser(User user)
     {
         var toCheckUser = Get(user.Id);
         _userRepository.Delete(toCheckUser);
     }
     
-    public void UpdateUser(IUser updatedUser)
+    public void UpdateUser(User updatedUser)
     {
         var toUpdateUser = Get(updatedUser.Id);
         toUpdateUser.Address = updatedUser.Address;
         _userRepository.Update(toUpdateUser);
     }
     
-    public IUser Get(int id)
+    public User Get(int id)
     {
         var foundUser = _userRepository.Get(id);
         if (foundUser == null)
@@ -53,7 +53,7 @@ public class UserService : IUserService
         return foundUser;
     }
 
-    private IUser FindUser(string email)
+    private User FindUser(string email)
     {
         var foundUser = _userRepository.Get(email);
         if (foundUser == null)
@@ -68,7 +68,7 @@ public class UserService : IUserService
         return toCheckUser != null;
     }
     
-    private bool CheckPassword(IUser user, string password)
+    private bool CheckPassword(User user, string password)
     {
         return BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
     }

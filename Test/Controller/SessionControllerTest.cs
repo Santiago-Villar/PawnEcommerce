@@ -20,14 +20,14 @@ namespace Test.Service.Session
         private const string ToUpdateAddress = "1234 Laughter Lane";
         private const string NewAddress = "101 Prankster Place";
 
-        private IUser GetMockUser()
+        private User GetMockUser()
         {
-            var mockUser = new Mock<IUser>();
-            mockUser.Setup(user => user.Email).Returns(Email);
-            mockUser.Setup(user => user.Address).Returns(ToUpdateAddress);
-            mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(Password));
-
-            return mockUser.Object;
+            return new User
+            {
+                Email = Email,
+                Address = ToUpdateAddress,
+                PasswordHash = Password
+            };
         }
 
         private string HashPassword(string Password)
@@ -43,7 +43,7 @@ namespace Test.Service.Session
         private readonly Mock<IUserRepository> _mockRepository;
         private readonly SessionService _sessionService;
         private readonly SessionController _sessionController;
-        private readonly IUser _mockUser;
+        private readonly User _mockUser;
 
         public SessionControllerTest()
         {

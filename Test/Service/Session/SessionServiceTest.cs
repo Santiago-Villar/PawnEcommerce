@@ -19,14 +19,14 @@ namespace Test.Service.Session
         private const string ToUpdateAddress = "1234 Laughter Lane";
         private const string NewAddress = "101 Prankster Place";
 
-        private IUser GetMockUser()
+        private User GetMockUser()
         {
-            var mockUser = new Mock<IUser>();
-            mockUser.Setup(user => user.Email).Returns(Email);
-            mockUser.Setup(user => user.Address).Returns(ToUpdateAddress);
-            mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(Password));
-
-            return mockUser.Object;
+            return new User()
+            {
+                Email = Email,
+                Address = ToUpdateAddress,
+                PasswordHash = Password
+            };
         }
 
         private string HashPassword(string Password)
@@ -83,7 +83,7 @@ namespace Test.Service.Session
             ISessionService sessionService = new SessionService(mockRepository.Object);
             string token = sessionService.Authenticate(Email, Password);
             Console.WriteLine(token);
-            IUser userGot = sessionService.GetCurrentUser(token);
+            User userGot = sessionService.GetCurrentUser(token);
 
 
             Assert.IsNotNull(userGot);
@@ -100,7 +100,7 @@ namespace Test.Service.Session
             string token = sessionService.Authenticate(Email, Password);
             string wrongToken = token + "asdasd";
 
-            IUser userGot = sessionService.GetCurrentUser(wrongToken);
+            User userGot = sessionService.GetCurrentUser(wrongToken);
             Assert.IsNull(userGot);
         }
 

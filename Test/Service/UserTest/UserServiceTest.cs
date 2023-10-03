@@ -14,26 +14,26 @@ public class UserServiceTest
     private const string ToUpdateAddress = "1234 Laughter Lane";
     private const string NewAddress = "101 Prankster Place";
 
-    private IUser GetMockUser()
+    private User GetMockUser()
     {
-        var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Id).Returns(1);
-        mockUser.Setup(user => user.Email).Returns(Email);
-        mockUser.Setup(user => user.Address).Returns(ToUpdateAddress);
-        mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(Password));
-        
-        return mockUser.Object;
+        return new User()
+        {
+            Id = 1,
+            Email = Email,
+            Address = ToUpdateAddress,
+            PasswordHash = Password
+        };
     }
     
-    private IUser GetSecondaryMockUser()
+    private User GetSecondaryMockUser()
     {
-        var mockUser = new Mock<IUser>();
-        mockUser.Setup(user => user.Id).Returns(2);
-        mockUser.Setup(user => user.Email).Returns(Email);
-        mockUser.Setup(user => user.Address).Returns(NewAddress);
-        mockUser.Setup(user => user.PasswordHash).Returns(HashPassword(DifferentPassword));
-        
-        return mockUser.Object;
+        return new User()
+        {
+            Id = 2,
+            Email = Email,
+            Address = NewAddress,
+            PasswordHash = DifferentPassword
+        };
     }
     
     [TestMethod]
