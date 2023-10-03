@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using PawnEcommerce.DTO.Product;
 using PawnEcommerce.DTO.Sale;
+using PawnEcommerce.Middlewares;
 using Service.Sale;
 
 namespace PawnEcommerce.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;
@@ -41,7 +43,7 @@ namespace PawnEcommerce.Controllers
             return Ok(sales);
         }
         
-        [HttpPost]
+        [HttpPost("Discount")]
         public IActionResult GetDiscount([FromBody] List<ProductDTO> products)
         {
             var newPrice = _saleService.GetDiscount(products.Select(product => product.ToEntity()).ToList());

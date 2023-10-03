@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Session;
 
 using PawnEcommerce.DTO;
+using PawnEcommerce.Middlewares;
 
 namespace PawnEcommerce.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class SessionController : ControllerBase
 	{
 		private ISessionService _sessionService { get; set; }
@@ -17,7 +19,7 @@ namespace PawnEcommerce.Controllers
 			_sessionService = sessionService;
 		}
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             try

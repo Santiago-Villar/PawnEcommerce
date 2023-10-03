@@ -64,8 +64,8 @@ namespace Repository
                 .Include(p => p.Category)
                 .Include(p => p.Colors)
                 .Where(p =>
-                    (filter.CategoryId == null || p.Category.Id == filter.CategoryId.Value) &&
-                    (filter.BrandId == null || p.Brand.Id == filter.BrandId.Value) &&
+                    (filter.CategoryId == null || p.CategoryId == filter.CategoryId.Value) &&
+                    (filter.BrandId == null || p.BrandId == filter.BrandId.Value) &&
                     (filter.Name == null || p.Name.Contains(filter.Name.Value!))
                 )
                 .ToArray();

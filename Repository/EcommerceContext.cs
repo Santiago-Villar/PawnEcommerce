@@ -23,34 +23,29 @@ namespace Repository
         {
 
             modelBuilder.Entity<Brand>()
-                .HasIndex(b => b.Name)
-                .IsUnique();
+                .HasKey(b => b.Id);
 
             modelBuilder.Entity<Category>()
-                .HasIndex(c => c.Name)
-                .IsUnique();
+                .HasKey(c => c.Id);
 
             modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Name)
                 .IsUnique();  
 
-
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.Colors)
                 .WithOne(c => c.Product)
                 .HasForeignKey(c => c.ProductId); 
-
             
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Brand)
                 .WithMany(b => b.Products)
-                .HasForeignKey(p => p.BrandName);
+                .HasForeignKey(p => p.BrandId);
 
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
-                .HasForeignKey(p => p.CategoryName);
-
+                .HasForeignKey(p => p.CategoryId);
 
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);  
@@ -61,11 +56,10 @@ namespace Repository
             modelBuilder.Entity<User>()
                 .Property(u => u.Roles)
                 .HasConversion(
-                                roles => string.Join(",", roles.Select(r => r.ToString())),
-                                rolesString => rolesString.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                                                            .Select(r => Enum.Parse<RoleType>(r))
-                                                            .ToList()
-                               );
+                    roles => string.Join(",", roles.Select(r => r.ToString())),
+                    rolesString => rolesString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(r => Enum.Parse<RoleType>(r))
+                .ToList());
 
             modelBuilder.Entity<Sale>()
                 .HasKey(s => s.Id);  

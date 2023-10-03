@@ -19,7 +19,9 @@ public class ProductCreationModel
             Description = Description,
             Price = Price,
             Brand = Brand.ToEntity(),
+            BrandId = Brand.Id,
             Category = Category.ToEntity(),
+            CategoryId = Category.Id,
             Colors = Colors.Select(color => color.ToEntity()).ToList()
         };
     }

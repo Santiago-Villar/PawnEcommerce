@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Service.Product
 {
-    public class Product:IProduct
+    public class Product : IProduct
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,11 +18,11 @@ namespace Service.Product
         }
 
         [ForeignKey("Brand")]
-        public string BrandName { get; set; } 
+        public int BrandId { get; set; } 
         public Brand Brand { get; set; }  
 
         [ForeignKey("Category")]
-        public string CategoryName { get; set; } 
+        public int CategoryId { get; set; } 
         public Category Category { get; set; }  
 
         public ICollection<Color> Colors { get; set; }

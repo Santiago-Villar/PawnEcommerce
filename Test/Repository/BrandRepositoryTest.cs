@@ -63,7 +63,7 @@ namespace Test
 
             var brand = CreateSampleBrand(context);
 
-            var fetchedBrand = repository.GetById(brand.Id.Value);
+            var fetchedBrand = repository.GetById(brand.Id);
             Assert.IsNotNull(fetchedBrand);
             Assert.AreEqual("Sample Brand", fetchedBrand.Name);
         }

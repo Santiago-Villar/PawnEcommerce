@@ -7,6 +7,7 @@ namespace PawnEcommerce.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [ExceptionMiddleware]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -32,10 +33,10 @@ namespace PawnEcommerce.Controllers
         }
 
         // [Authorization("Admin")]
-        [HttpDelete]
-        public IActionResult Delete([FromBody] UserCreateModel deleteUser)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete([FromRoute] int id)
         {
-            _userService.DeleteUser(deleteUser.ToEntity());
+            _userService.DeleteUser(id);
             return Ok();
         }
         

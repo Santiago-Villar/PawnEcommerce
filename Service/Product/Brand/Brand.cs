@@ -6,7 +6,8 @@ namespace Service.Product
 {
     public class Brand : IBrand
     {
-        public int? Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
         public Brand(int id)
         {
@@ -17,7 +18,6 @@ namespace Service.Product
 
 
         private string _name;
-        [Key]
         public string Name
         {
             get => _name;

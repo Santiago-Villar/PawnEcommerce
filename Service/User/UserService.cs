@@ -31,15 +31,15 @@ public class UserService : IUserService
         return toCheckUser;
     }
 
-    public void DeleteUser(User user)
+    public void DeleteUser(int id)
     {
-        var toCheckUser = Get(user.Id);
+        var toCheckUser = Get(id);
         _userRepository.Delete(toCheckUser);
     }
     
     public void UpdateUser(User updatedUser)
     {
-        var toUpdateUser = Get(updatedUser.Id);
+        var toUpdateUser = FindUser(updatedUser.Email);
         toUpdateUser.Address = updatedUser.Address;
         _userRepository.Update(toUpdateUser);
     }

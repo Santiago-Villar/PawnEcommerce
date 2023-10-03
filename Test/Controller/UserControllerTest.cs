@@ -60,7 +60,7 @@ public class UserControllerTest
             Password = "secret",
         };
 
-        var result = userController.Delete(deleteUser) as OkResult;
+        var result = userController.Delete(1) as OkResult;
 
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);

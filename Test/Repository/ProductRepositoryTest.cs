@@ -48,8 +48,8 @@ namespace Test
                 Name = "Sample Product",
                 Description = "Sample Description",
                 Price = 10,
-                BrandName = brand.Name,
-                CategoryName = category.Name,
+                BrandId = brand.Id,
+                CategoryId = category.Id,
             };
         }
 

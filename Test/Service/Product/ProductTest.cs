@@ -29,8 +29,8 @@ public class ProductTest
         Price = 10,
         Category = aCategory,
         Brand = aBrand,
-        CategoryName = aCategory.Name,  // set foreign key property
-        BrandName = aBrand.Name,        // set foreign key property
+        CategoryId = aCategory.Id,
+        BrandId = aBrand.Id,   
         Colors = new List<Color>()
     };
     Color firstColor = new Color(1)
