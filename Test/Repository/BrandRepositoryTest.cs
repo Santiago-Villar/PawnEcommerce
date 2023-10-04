@@ -69,7 +69,7 @@ namespace Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ModelException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void GetById_ShouldThrowException_WhenBrandNotFound()
         {
             using var context = GetInMemoryDbContext();

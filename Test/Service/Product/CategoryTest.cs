@@ -22,7 +22,7 @@ public class CategoryTest
         Assert.IsNotNull(aCategory);
     }
     [TestMethod]
-    [ExpectedException(typeof(ModelException))]
+    [ExpectedException(typeof(ServiceException))]
     public void CategoryNameIsEmpty()
     {
         Category otherCategory = new Category(2)

@@ -17,7 +17,7 @@ public class UserService : IUserService
     public void SignUp(User user)
     {
         if (Exists(user.Email))
-            throw new RepositoryException("User already exists");
+            throw new ServiceException("User already exists");
         
         _userRepository.Add(user);
     }
