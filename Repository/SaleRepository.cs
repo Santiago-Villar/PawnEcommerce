@@ -29,9 +29,11 @@ namespace Repository
         public List<Sale> GetAll()
         {
             return _context.Sales
-                           .Include(s => s.Products)
-                               .ThenInclude(sp => sp.Product)
-                           .ToList();
+                        .Include(s => s.Products)
+                        .ThenInclude(sp => sp.Product)
+                        .ThenInclude(p => p.ProductColors)
+                        .ThenInclude(pc => pc.Color)
+                        .ToList();
         }
 
         public Sale Get(int id)
