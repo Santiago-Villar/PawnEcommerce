@@ -58,8 +58,6 @@ namespace Repository
             if (existingSale == null)
                 throw new ServiceException($"Sale with ID {updateSale.Id} not found");
 
-            _context.SaleProducts.RemoveRange(existingSale.Products);
-
             foreach (var sp in updateSale.Products)
             {
                 _context.SaleProducts.Add(sp);

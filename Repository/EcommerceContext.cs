@@ -94,7 +94,7 @@ namespace Repository
 
             // SaleProduct configurations
             modelBuilder.Entity<SaleProduct>()
-                .HasKey(sp => new { sp.SaleId, sp.ProductId });
+                .HasKey(sp => sp.Id);
 
             modelBuilder.Entity<SaleProduct>()
                 .HasOne(sp => sp.Sale)

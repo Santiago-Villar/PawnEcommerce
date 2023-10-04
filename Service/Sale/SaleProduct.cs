@@ -9,6 +9,7 @@ namespace Service.Sale
 {
     public class SaleProduct:ISaleProduct
     {
+        public int Id { get; set; }
         public int SaleId { get; set; }
         public Sale Sale { get; set; } // Navigation property
 

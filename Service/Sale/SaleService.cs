@@ -42,6 +42,15 @@ public class SaleService : ISaleService
 
     public void Update(Sale sale)
     {
+        var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
+        var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
+
+        if (!newPrice.Equals(sale.Price))
+        {
+            sale.PromotionName = promotion.Name;
+            sale.Price = newPrice;
+        }
+
         _saleRepository.Update(sale);
     }
 
