@@ -37,9 +37,11 @@ namespace Repository
         public Sale Get(int id)
         {
             var sale = _context.Sales
-                           .Include(s => s.Products)
-                               .ThenInclude(sp => sp.Product)
-                           .FirstOrDefault(s => s.Id == id);
+                         .Include(s => s.Products)
+                         .ThenInclude(sp => sp.Product)
+                         .ThenInclude(p => p.ProductColors)
+                         .ThenInclude(pc => pc.Color)
+                         .FirstOrDefault(s => s.Id == id);
 
             if (sale == null)
             {

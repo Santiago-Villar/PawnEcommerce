@@ -10,7 +10,10 @@ namespace Service.Sale
 {
     public class SaleProduct:ISaleProduct
     {
+        [JsonIgnore]
         public int Id { get; set; }
+        [JsonIgnore]
+
         public int SaleId { get; set; }
         [JsonIgnore]
         public Sale Sale { get; set; } // Navigation property
