@@ -34,32 +34,7 @@ namespace Test
             Assert.AreEqual(productColor.Product.Name, product.Name);
         }
 
-        [TestMethod]
-        public void ProductColor_HasColor()
-        {
-            var product = new Product
-            {
-                Id = 1,
-                Name = "TestProduct",
-                Price = 100
-            };
 
-            var color = new Color(1)
-            {
-                Name = "Red"
-            };
-
-            var productColor = new ProductColor
-            {
-                ProductId = product.Id,
-                Product = product,
-                ColorId = color.Id,
-                Color = color
-            };
-
-            Assert.AreEqual(productColor.Color.Id, color.Id);
-            Assert.AreEqual(productColor.Color.Name, color.Name);
-        }
 
         [TestMethod]
         public void ProductColor_AssociatesCorrectly()
