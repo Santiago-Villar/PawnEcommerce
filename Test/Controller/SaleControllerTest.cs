@@ -109,7 +109,7 @@ public class SaleControllerTest
         const double expected = 10;
         var discount = result.Value as SaleDiscountDTO;
         Assert.IsNotNull(result);
-        Assert.AreEqual(expected, discount.price);
+        Assert.AreEqual(expected, discount.discountPrice);
     }
     
 }

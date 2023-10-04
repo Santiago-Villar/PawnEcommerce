@@ -51,7 +51,7 @@ namespace PawnEcommerce.Controllers
         public IActionResult GetDiscount([FromBody] List<int> ids)
         {
             var newPrice = _saleService.GetDiscount(ids.Select(id => _productService.Get(id)).ToList());
-            var saleDiscountDto = new SaleDiscountDTO { price = newPrice };
+            var saleDiscountDto = new SaleDiscountDTO { discountPrice = newPrice };
             return Ok(saleDiscountDto);
         }
 

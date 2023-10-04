@@ -7,6 +7,6 @@ namespace PawnEcommerce.DTO.Sale;
 
 public class SaleDiscountDTO
 {
-    public double price { get; set; }
+    public double discountPrice { get; set; }
 
 }
