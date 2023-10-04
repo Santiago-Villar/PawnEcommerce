@@ -92,7 +92,6 @@ namespace Repository
                 .Property(s => s.Price)
                 .IsRequired(false);
 
-
             // SaleProduct configurations
             modelBuilder.Entity<SaleProduct>()
                 .HasKey(sp => new { sp.SaleId, sp.ProductId });
