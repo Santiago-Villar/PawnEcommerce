@@ -40,10 +40,6 @@ public class UserService : IUserService
     public void UpdateUser(User updatedUser)
     {
         var toUpdateUser = Get(updatedUser.Id);
-        if(toUpdateUser == null)
-        {
-            throw new ServiceException("User with ID " + updatedUser.Id + "does not exist");
-        }
         _userRepository.Update(updatedUser);
     }
     
