@@ -18,7 +18,8 @@ public interface IProduct
     int CategoryId { get; set; }
     Category Category { get; set; }
 
-    ICollection<Color> Colors { get; set; }
+    IEnumerable<Color> Colors { get; }
+    ICollection<ProductColor> ProductColors { get; set; }
 
     void AddColor(Color color);
 }

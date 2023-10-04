@@ -22,7 +22,8 @@ public class ProductCreationModel
             CategoryId = CategoryId,
             Brand = _brandService.Get(BrandId),
             Category = _categoryService.Get(CategoryId),
-            Colors = Colors.Select(c => _colorService.Get(c)).ToList(),
+            ProductColors = Colors.Select(c => new ProductColor { Color = _colorService.Get(c) }).ToList(),
         };
     }
+
 }
