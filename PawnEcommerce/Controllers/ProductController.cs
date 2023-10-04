@@ -14,10 +14,17 @@ namespace PawnEcommerce.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+        private readonly IBrandService _brandService;
+        private readonly IColorService _colorService;
 
-        public ProductController(IProductService productService)
+
+        public ProductController(IProductService productService, ICategoryService categoryService, IBrandService brandService, IColorService colorService)
         {
             _productService = productService;
+            _categoryService = categoryService;
+            _brandService = brandService;
+            _colorService = colorService;
         }
         
         [HttpGet]
@@ -44,14 +51,16 @@ namespace PawnEcommerce.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] ProductCreationModel newProduct)
         {
-            _productService.AddProduct(newProduct.ToEntity());
+            var product = newProduct.ToEntity(_brandService, _categoryService, _colorService);
+
+            _productService.AddProduct(product);
             return Ok();
         }
                 
         [HttpPut]
         public IActionResult Update([FromBody] ProductCreationModel updateProduct)
         {
-            _productService.UpdateProduct(updateProduct.ToEntity());
+            _productService.UpdateProduct(updateProduct.ToEntity(_brandService, _categoryService, _colorService));
             return Ok();
         }
         
