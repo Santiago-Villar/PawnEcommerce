@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,10 @@ using Repository;
 namespace PawnEcommerce.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20231004040957_priceAndPromotionNameCanBeNull")]
+    partial class priceAndPromotionNameCanBeNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,30 +150,27 @@ namespace PawnEcommerce.Migrations
                     b.Property<string>("PromotionName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("Service.Sale.SaleProduct", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("SaleId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SaleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("SaleId", "ProductId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("SaleId");
 
                     b.ToTable("SaleProducts");
                 });
@@ -246,6 +245,17 @@ namespace PawnEcommerce.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Service.Sale.Sale", b =>
+                {
+                    b.HasOne("Service.User.User", "User")
+                        .WithMany("Sales")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Service.Sale.SaleProduct", b =>
                 {
                     b.HasOne("Service.Product.Product", "Product")
@@ -288,6 +298,11 @@ namespace PawnEcommerce.Migrations
             modelBuilder.Entity("Service.Sale.Sale", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Service.User.User", b =>
+                {
+                    b.Navigation("Sales");
                 });
 #pragma warning restore 612, 618
         }

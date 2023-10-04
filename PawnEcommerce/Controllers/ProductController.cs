@@ -44,7 +44,8 @@ namespace PawnEcommerce.Controllers
             var products = _productService.GetAllProducts(filter);
             return Ok(products);
         }
-        
+
+        [HttpGet("{id:int}")]
         public IActionResult Get([FromRoute] int id)
         {
             var product = _productService.Get(id);

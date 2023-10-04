@@ -63,36 +63,6 @@ public class SaleServiceTest
         
     }
     
-    [ExpectedException(typeof(ServiceException))]
-    [TestMethod]
-    public void CreateSale_NoProducts_Throw()
-    {
-        var product1Mock = PromotionTestHelper.CreateProduct();
-        
-        var saleProduct = new SaleProduct
-        {
-            Product = product1Mock
-        };
-        
-        var user = new User
-        {
-            Id = 1
-        };
-        
-        var sale = new Sale
-        {
-            Products = Enumerable.Repeat(saleProduct, 0).ToList(),
-            User = user,
-        };
-
-        var saleList = new List<Sale>() { sale };
-        var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(user.Id)).Returns(saleList);
-        
-        var saleService = new SaleService(mockRepository.Object);
-        saleService.Create(sale);
-    }
-    
     [TestMethod]
     public void GetAllPromotions_Ok()
     {
@@ -112,25 +82,7 @@ public class SaleServiceTest
         Assert.AreEqual(saleList, saleService.GetAll());
     }
 
-    [TestMethod]
-    public void GetUserPromotions_Ok()
-    {
-        var product1Mock = PromotionTestHelper.CreateProduct();
-        var user = new User
-        {
-            Id = 1
-        };
-        
-        var saleList = CreateSales(user, product1Mock);
 
-        var mockRepository = new Mock<ISaleRepository>();
-        mockRepository.Setup(repo => repo.GetUserSales(user.Id)).Returns(saleList);
-        
-        var saleService = new SaleService(mockRepository.Object);
-        
-        Assert.AreEqual(saleList, saleService.GetByUser(user.Id));
-    }
-    
     private List<Sale> CreateSales(User user, Product product1Mock)
     {
 
@@ -141,13 +93,11 @@ public class SaleServiceTest
 
         var sale = new Sale
         {
-            User = user,
             Products = Enumerable.Repeat(saleProduct1Mock, 4).ToList()
         };
 
         var sale2 = new Sale
         {
-            User = user,
             Products = Enumerable.Repeat(saleProduct1Mock, 2).ToList()
         };
 

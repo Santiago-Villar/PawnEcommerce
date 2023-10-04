@@ -26,20 +26,9 @@ namespace Repository
             return sale.Id;
         }
 
-        public List<Sale> GetUserSales(int userId)
-        {
-            return _context.Sales
-                           .Include(s => s.User)
-                           .Include(s => s.Products)
-                               .ThenInclude(sp => sp.Product)
-                           .Where(s => s.UserId == userId)
-                           .ToList();
-        }
-
         public List<Sale> GetAll()
         {
             return _context.Sales
-                           .Include(s => s.User)
                            .Include(s => s.Products)
                                .ThenInclude(sp => sp.Product)
                            .ToList();
@@ -48,7 +37,6 @@ namespace Repository
         public Sale Get(int id)
         {
             var sale = _context.Sales
-                           .Include(s => s.User)
                            .Include(s => s.Products)
                                .ThenInclude(sp => sp.Product)
                            .FirstOrDefault(s => s.Id == id);
@@ -69,8 +57,6 @@ namespace Repository
 
             if (existingSale == null)
                 throw new ServiceException($"Sale with ID {updateSale.Id} not found");
-
-            _context.SaleProducts.RemoveRange(existingSale.Products);
 
             foreach (var sp in updateSale.Products)
             {

@@ -30,7 +30,6 @@ public class SaleControllerTest
 
     private readonly SaleCreationModel _newSale = new SaleCreationModel()
     {
-        UserId = 1,
         ProductDtosId = new int[]
         {
             1
@@ -105,7 +104,7 @@ public class SaleControllerTest
         var productService = new Mock<IProductService>();
 
         var saleController = new SaleController(saleService.Object, productService.Object);
-        var result = saleController.GetDiscount(products.ToList()) as OkObjectResult;
+        var result = saleController.GetDiscount(products.Select(p => p.Id).ToList()) as OkObjectResult;
         
         const double expected = 10;
         Assert.IsNotNull(result);

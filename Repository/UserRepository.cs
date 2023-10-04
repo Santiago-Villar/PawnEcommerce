@@ -38,7 +38,6 @@ namespace Repository
         public User? Get(int id)
         {
             return _context.Users
-                           .Include(u => u.Sales) 
                            .FirstOrDefault(u => u.Id == id);
         }
 
@@ -49,7 +48,6 @@ namespace Repository
                 throw new ServiceException("Email cannot be null or empty.");
 
             return _context.Users
-                           .Include(u => u.Sales) 
                            .FirstOrDefault(u => u.Email == email);
         }
 
