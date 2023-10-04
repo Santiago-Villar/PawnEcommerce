@@ -12,7 +12,7 @@ public class PromotionTestHelper
         const string brandName = "Zara";
 
         var color = new Color(2) { Name = colorName };
-        var colors = Enumerable.Repeat(color, 3).ToList();
+        var productColors = Enumerable.Repeat(new ProductColor { Color = color }, 3).ToList();
 
         var category = new Category(2) { Name = categoryName };
         var brand = new Brand(2) { Name = brandName };
@@ -21,23 +21,27 @@ public class PromotionTestHelper
         {
             Category = category,
             Price = price,
-            Colors = colors,
+            ProductColors = productColors, 
             Brand = brand
         };
     }
+
 
     public static Product CreateProduct(Category category, List<Color> colors, Brand brand)
     {
         const int price = 10;
 
+        var productColors = colors.Select(c => new ProductColor { Color = c }).ToList();
+
         return new Product
         {
             Category = category,
             Price = price,
-            Colors = colors,
+            ProductColors = productColors,  // This is the change
             Brand = brand
         };
     }
+
 
     public static Category CreateCategory(string name)
     {
