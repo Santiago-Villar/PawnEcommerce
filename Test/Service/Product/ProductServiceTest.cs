@@ -35,8 +35,8 @@ public class ProductServiceTest
         Price = 10,
         Category = aCategory,
         Brand = aBrand,
-        Colors = new List<Color>(),
-        
+        ProductColors = new List<ProductColor>()
+
     };
     Color firstColor = new Color(1)
     {
@@ -67,7 +67,7 @@ public class ProductServiceTest
             Price = 10,
             Category = aCategory,
             Brand = aBrand,
-            Colors = new List<Color>()
+            ProductColors = new List<ProductColor>()
         };
 
         firstColor = new Color(4) { Name = "Red" };
@@ -96,7 +96,7 @@ public class ProductServiceTest
             Price = 1000,
             Category = aCategory,
             Brand = aBrand,
-            Colors = new List<Color>()
+            ProductColors = new List<ProductColor>()
         };
 
         _productRepositoryMock.Setup(repo => repo.AddProduct(aNewProduct));

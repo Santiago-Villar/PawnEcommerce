@@ -24,6 +24,5 @@
       <Folder Include="Session\" />
       <Folder Include="Product\Brand\" />
       <Folder Include="Product\Category\" />
-      <Folder Include="Product\Color\" />
     </ItemGroup>
 </Project>

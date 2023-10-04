@@ -1,3 +1,5 @@
+using Service.Product;
+
 namespace PawnEcommerce.DTO.Product;
 
 public class ProductDTO
@@ -20,7 +22,8 @@ public class ProductDTO
             Price = Price,
             Brand = Brand.ToEntity(),
             Category = Category.ToEntity(),
-            Colors = Colors.Select(color => color.ToEntity()).ToList()
+            ProductColors = Colors.Select(color => new ProductColor { Color = color.ToEntity() }).ToList()
         };
     }
+
 }

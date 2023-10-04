@@ -30,8 +30,8 @@ public class ProductTest
         Category = aCategory,
         Brand = aBrand,
         CategoryId = aCategory.Id,
-        BrandId = aBrand.Id,   
-        Colors = new List<Color>()
+        BrandId = aBrand.Id,
+        ProductColors = new List<ProductColor>()
     };
     Color firstColor = new Color(1)
     {
@@ -132,14 +132,33 @@ public class ProductTest
 
         aProduct.AddColor(firstColor);
         aProduct.AddColor(secondColor);
-        Assert.AreEqual(aProduct.Colors.Count, 2);
+        Assert.AreEqual(aProduct.ProductColors.Count, 2);
     }
     [TestMethod]
     public void AddDuplicateColor()
     {
-        aProduct.AddColor(firstColor);
-        aProduct.AddColor(thirdColor);
-        Assert.AreEqual(aProduct.Colors.Count, 3);
+        // Create a new product
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+
+        // Create new color objects
+        var redColor = new Color(10) { Name = "Red" };
+        var blueColor = new Color(11) { Name = "Blue" };
+
+        // Add colors to product
+        freshProduct.AddColor(redColor);
+        freshProduct.AddColor(blueColor);
+        freshProduct.AddColor(redColor);  // Intentionally adding a duplicate color
+
+        // Check if the count of colors in the product is 2
+        Assert.AreEqual(freshProduct.ProductColors.Count, 2);  // We expect only 2 unique colors
     }
+
 
 }

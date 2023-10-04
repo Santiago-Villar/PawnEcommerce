@@ -22,7 +22,8 @@ public class ProductCreationModel
             BrandId = Brand.Id,
             Category = Category.ToEntity(),
             CategoryId = Category.Id,
-            Colors = Colors.Select(color => color.ToEntity()).ToList()
+            ProductColors = Colors.Select(color => new ProductColor { Color = color.ToEntity() }).ToList()
         };
     }
+
 }

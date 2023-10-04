@@ -23,11 +23,11 @@ namespace Repository
         public int AddProduct(Product newProduct)
         {
             if (newProduct == null)
-                throw new ArgumentNullException(nameof(newProduct));
+                throw new RepositoryException(nameof(newProduct));
 
             if(Exists(newProduct))
             {
-                throw new ServiceException($"There is already a product with name {newProduct.Name}");
+                throw new RepositoryException($"There is already a product with name {newProduct.Name}");
             }
 
             _context.Products.Add(newProduct);
@@ -62,7 +62,8 @@ namespace Repository
             var query = _context.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
-                .Include(p => p.Colors)
+                .Include(p => p.ProductColors)
+                .ThenInclude(pc => pc.Color)
                 .Where(p =>
                     (filter.CategoryId == null || p.CategoryId == filter.CategoryId.Value) &&
                     (filter.BrandId == null || p.BrandId == filter.BrandId.Value) &&
@@ -70,7 +71,9 @@ namespace Repository
                 )
                 .ToArray();
 
-            return query;        }
+            return query;
+        }
+
 
 
         public Product GetProductByName(string productName)
@@ -78,9 +81,11 @@ namespace Repository
             return _context.Products
                            .Include(p => p.Brand)
                            .Include(p => p.Category)
-                           .Include(p => p.Colors)
+                           .Include(p => p.ProductColors)
+                           .ThenInclude(pc => pc.Color)
                            .FirstOrDefault(p => p.Name == productName);
         }
+
 
         public Product Get(int id)
         {
@@ -103,10 +108,28 @@ namespace Repository
 
 
 
-        public void UpdateProduct(Product newProductVersion)
+        public void UpdateProduct(Product updatedProduct)
         {
+            if (updatedProduct == null)
+                throw new ModelException(nameof(updatedProduct));
 
-            _context.Products.Update(newProductVersion);
+            var existingProduct = _context.Products
+                                         .Include(p => p.ProductColors)
+                                         .FirstOrDefault(p => p.Id == updatedProduct.Id);
+
+            if (existingProduct == null)
+                throw new RepositoryException($"Product with ID {updatedProduct.Id} not found");
+
+            // Remove existing color associations
+            _context.ProductColors.RemoveRange(existingProduct.ProductColors);
+
+            // Add updated color associations
+            foreach (var color in updatedProduct.Colors)
+            {
+                _context.ProductColors.Add(new ProductColor { ProductId = updatedProduct.Id, ColorId = color.Id });
+            }
+
+            _context.Entry(existingProduct).CurrentValues.SetValues(updatedProduct);
             _context.SaveChanges();
         }
 
