@@ -44,7 +44,7 @@ public class UserControllerTest
             Password = "secret",
         };
 
-        var result = userController.Update(updateUser) as OkResult;
+        var result = userController.Update(1, updateUser) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
