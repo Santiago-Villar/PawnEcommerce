@@ -54,12 +54,15 @@ namespace Repository
         }
 
 
-        public void Update(User user)
+        public void Update(User updateUser)
         {
-            if (user == null)
-                throw new ServiceException("User cannot be null or empty.");
+            var existingUser = _context.Users.FirstOrDefault(u => u.Id == updateUser.Id);
 
-            _context.Users.Update(user);
+            if (existingUser == null)
+                throw new RepositoryException("User was not found.");
+
+            _context.Entry(existingUser).CurrentValues.SetValues(updateUser);
+
             _context.SaveChanges();
         }
 

@@ -96,7 +96,7 @@ public class ProductControllerTest
         var colorService = new Mock<IColorService>();
 
         var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
-        var result = productController.Update(_productCreationModel) as OkResult;
+        var result = productController.Update(1, _productCreationModel) as OkResult;
         
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);

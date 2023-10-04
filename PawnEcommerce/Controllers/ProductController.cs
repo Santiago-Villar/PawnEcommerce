@@ -60,10 +60,13 @@ namespace PawnEcommerce.Controllers
             return Ok();
         }
         [Authorization("Admin")]
-        [HttpPut]
-        public IActionResult Update([FromBody] ProductCreationModel updateProduct)
+        [HttpPut("{id:int}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] ProductCreationModel updateProduct)
         {
-            _productService.UpdateProduct(updateProduct.ToEntity(_brandService, _categoryService, _colorService));
+            var product = updateProduct.ToEntity(_brandService, _categoryService, _colorService);
+            product.Id = id;
+
+            _productService.UpdateProduct(product);
             return Ok();
         }
         [Authorization("Admin")]
