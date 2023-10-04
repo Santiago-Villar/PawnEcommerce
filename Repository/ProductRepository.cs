@@ -92,7 +92,8 @@ namespace Repository
             return _context.Products
                            .Include(p => p.Brand)
                            .Include(p => p.Category)
-                           .Include(p => p.Colors)
+                           .Include(p => p.ProductColors)
+                           .ThenInclude(pc => pc.Color)
                            .FirstOrDefault(p => p.Id == id);
         }
 
