@@ -21,7 +21,7 @@ namespace PawnEcommerce.Controllers
             _saleService = saleService;
             _productService = productService;
         }
-        
+        [Authorization("User")]
         [HttpPost]
         public IActionResult Create([FromBody] SaleCreationModel newSale)
         {
@@ -32,14 +32,14 @@ namespace PawnEcommerce.Controllers
             
             return Ok();
         }
-
+        [Authorization("Admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
             var sales = _saleService.GetAll();
             return Ok(sales);
         }
-
+        [Authorization("Admin")]
         [HttpGet("{id:int}")]
         public IActionResult Get([FromRoute] int id)
         {

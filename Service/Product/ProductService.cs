@@ -31,7 +31,7 @@ namespace Service.Product
             {
                 _productRepository.DeleteProduct(id);
             }
-            else throw new ModelException("Product with id:" + id + " does not exist.");
+            else throw new RepositoryException("Product with id:" + id + " does not exist.");
         }
 
         public Product GetProductByName(string productName)
@@ -44,7 +44,7 @@ namespace Service.Product
             var product = _productRepository.GetProductByName(productName);
             if (product == null)
             {
-                throw new ModelException($"Product {productName} does not exist.");
+                throw new RepositoryException($"Product {productName} does not exist.");
             }
 
             return product;
@@ -54,7 +54,7 @@ namespace Service.Product
             var product = _productRepository.Get(id);
             if (product == null)
             {
-                throw new ModelException($"Product with id:{id} does not exist.");
+                throw new RepositoryException($"Product with id:{id} does not exist.");
             }
 
             return product;
@@ -83,7 +83,7 @@ namespace Service.Product
             {
                 _productRepository.UpdateProduct(newProductVersion);
             }
-            else { throw new ServiceException($"Product {newProductVersion.Name} does not exist."); }
+            else { throw new RepositoryException($"Product {newProductVersion.Name} does not exist."); }
         }
 
     }

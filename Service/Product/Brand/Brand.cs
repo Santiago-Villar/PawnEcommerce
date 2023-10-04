@@ -26,7 +26,7 @@ namespace Service.Product
             {
                 if (value.Equals(""))
                 {
-                    throw new ModelException("Brand Name must not be empty");
+                    throw new RepositoryException("Brand Name must not be empty");
                 }
                 _name = value;
             }

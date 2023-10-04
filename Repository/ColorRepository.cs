@@ -27,7 +27,7 @@ namespace Repository
             var color = _context.Colors.FirstOrDefault(c => c.Id == id);
             if (color == null)
             {
-                throw new ModelException($"No color found with ID {id}");
+                throw new RepositoryException($"No color found with ID {id}");
             }
             return color;
         }

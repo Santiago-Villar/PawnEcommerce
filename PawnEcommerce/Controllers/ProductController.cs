@@ -45,13 +45,12 @@ namespace PawnEcommerce.Controllers
             return Ok(products);
         }
         
-        [HttpGet("{id:int}")]
         public IActionResult Get([FromRoute] int id)
         {
             var product = _productService.Get(id);
             return Ok(product);
         }
-        
+        [Authorization("Admin")]
         [HttpPost]
         public IActionResult Create([FromBody] ProductCreationModel newProduct)
         {
@@ -60,14 +59,14 @@ namespace PawnEcommerce.Controllers
             _productService.AddProduct(product);
             return Ok();
         }
-                
+        [Authorization("Admin")]
         [HttpPut]
         public IActionResult Update([FromBody] ProductCreationModel updateProduct)
         {
             _productService.UpdateProduct(updateProduct.ToEntity(_brandService, _categoryService, _colorService));
             return Ok();
         }
-        
+        [Authorization("Admin")]
         [HttpDelete("{id:int}")]
         public IActionResult Delete([FromRoute] int id)
         {

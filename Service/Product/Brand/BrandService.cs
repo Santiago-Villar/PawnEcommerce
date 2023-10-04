@@ -21,7 +21,7 @@ namespace Service.Product
         {
             try
             {
-                var brand = _brandRepository.GetById(id) ?? throw new ModelException($"Brand with ID {id} not found.");
+                var brand = _brandRepository.GetById(id) ?? throw new RepositoryException($"Brand with ID {id} not found.");
                 return brand;
             }
             catch (RepositoryException ex)

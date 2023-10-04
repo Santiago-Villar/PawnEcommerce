@@ -18,7 +18,7 @@ namespace Service.Product
             get => _name;
             set
             {
-                if (value.Equals("")) throw new ModelException("Color Name must not be empty");
+                if (value.Equals("")) throw new ServiceException("Color Name must not be empty");
                 _name = value;
             }
         }

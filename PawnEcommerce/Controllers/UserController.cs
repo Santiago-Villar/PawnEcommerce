@@ -24,7 +24,7 @@ namespace PawnEcommerce.Controllers
             return Ok();
         }
 
-        // [Authorization()]
+        [Authorization("Admin")]
         [HttpPut]
         public IActionResult Update([FromBody] UserCreateModel updateUser)
         {
@@ -32,7 +32,7 @@ namespace PawnEcommerce.Controllers
             return Ok();
         }
 
-        // [Authorization("Admin")]
+        [Authorization("Admin")]
         [HttpDelete("{id:int}")]
         public IActionResult Delete([FromRoute] int id)
         {

@@ -26,7 +26,7 @@ namespace Service.Product
             }
             catch (RepositoryException ex)
             {
-                throw new ModelException($"Error retrieving color with ID {id}. Message: {ex.Message}");
+                throw new ServiceException($"Error retrieving color with ID {id}. Message: {ex.Message}");
             }
         }
     }

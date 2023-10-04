@@ -59,7 +59,7 @@ namespace Test
             Assert.AreEqual(category2.Id, _categoriesList[1].Id);
         }
 
-        [ExpectedException(typeof(ModelException))]
+        [ExpectedException(typeof(ServiceException))]
         [TestMethod]
         public void GetWithWrongId_Throw()
         {

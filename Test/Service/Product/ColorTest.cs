@@ -19,7 +19,7 @@ public class ColorTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ModelException))]
+    [ExpectedException(typeof(ServiceException))]
     public void CreateEmptyColor()
     {
         Color color = new Color(1)

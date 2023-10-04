@@ -117,7 +117,7 @@ public class ProductTest
         Assert.IsNotNull(aProduct.Colors);
     }
     [TestMethod]
-    [ExpectedException(typeof(ModelException))]
+    [ExpectedException(typeof(ServiceException))]
     public void AddEmptyColor()
     {
         Color emptyColor=new Color(4)

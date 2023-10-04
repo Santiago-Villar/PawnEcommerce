@@ -24,7 +24,7 @@ public class BrandTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ModelException))]
+    [ExpectedException(typeof(RepositoryException))]
     public void BrandNameIsEmpty()
     {
         Brand otherBrand = new Brand(21)
