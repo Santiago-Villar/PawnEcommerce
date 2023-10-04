@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Service.Exception;
 
@@ -28,6 +29,7 @@ namespace Service.Product
             Id = id;
         }
 
+        [JsonIgnore]
         public ICollection<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
 
         public override bool Equals(object obj)

@@ -1,5 +1,6 @@
 ﻿using Service.Exception;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Service.Product
 {
@@ -29,6 +30,7 @@ namespace Service.Product
         public Category Category { get; set; }
 
         // This will handle the many-to-many relation
+        [JsonIgnore]
         public ICollection<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
 
         // Helper method to get Colors directly (optional and for convenience)

@@ -30,13 +30,17 @@ namespace PawnEcommerce.Controllers
         [HttpGet]
         public IActionResult GetAll([FromQuery] string? name, [FromQuery] int? categoryId, [FromQuery] int? brandId)
         {
-            var filter = new FilterQuery()
-            {
-                Name = new StringFilterCriteria() { Value = name },
-                BrandId = new IdFilterCriteria() { Value = brandId },
-                CategoryId = new IdFilterCriteria() { Value = categoryId }
-            };
+            var filter = new FilterQuery();
+
+            if(name != null)
+                filter.Name = new StringFilterCriteria() { Value = name };
+
+            if(categoryId != null)
+                filter.CategoryId = new IdFilterCriteria() { Value = categoryId };
             
+            if(brandId != null)
+                filter.BrandId = new IdFilterCriteria() { Value = brandId };
+
             var products = _productService.GetAllProducts(filter);
             return Ok(products);
         }
