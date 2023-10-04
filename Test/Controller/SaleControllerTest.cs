@@ -31,9 +31,9 @@ public class SaleControllerTest
     private readonly SaleCreationModel _newSale = new SaleCreationModel()
     {
         UserId = 1,
-        ProductDtos = new ProductDTO[]
+        ProductDtosId = new int[]
         {
-            ProductDto
+            1
         },
     };
     
@@ -41,7 +41,9 @@ public class SaleControllerTest
     public void CanCreateController_Ok()
     {
         var saleService = new Mock<ISaleService>();
-        var saleController = new SaleController(saleService.Object);
+        var productService = new Mock<IProductService>();
+
+        var saleController = new SaleController(saleService.Object, productService.Object);
         Assert.IsNotNull(saleController);
     }
     
@@ -49,8 +51,11 @@ public class SaleControllerTest
     public void Create_Ok()
     {
         var saleService = new Mock<ISaleService>();
-        var saleController = new SaleController(saleService.Object);
-        
+        var productService = new Mock<IProductService>();
+        productService.Setup(ps => ps.Get(It.IsAny<int>())).Returns(new Product());
+
+        var saleController = new SaleController(saleService.Object, productService.Object);
+
         var result = saleController.Create(_newSale) as OkResult;
 
         Assert.IsNotNull(result);
@@ -64,8 +69,9 @@ public class SaleControllerTest
 
         var saleService = new Mock<ISaleService>();
         saleService.Setup(ps => ps.GetAll()).Returns(sales);
+        var productService = new Mock<IProductService>();
 
-        var saleController = new SaleController(saleService.Object);
+        var saleController = new SaleController(saleService.Object, productService.Object);
         var result = saleController.GetAll() as OkObjectResult;
 
         Assert.IsNotNull(result);
@@ -80,8 +86,9 @@ public class SaleControllerTest
 
         var saleService = new Mock<ISaleService>();
         saleService.Setup(ps => ps.Get(1)).Returns(foundSaleWithId);
+        var productService = new Mock<IProductService>();
 
-        var saleController = new SaleController(saleService.Object);
+        var saleController = new SaleController(saleService.Object, productService.Object);
         var result = saleController.Get(1) as OkObjectResult;
 
         Assert.IsNotNull(result);
@@ -95,8 +102,9 @@ public class SaleControllerTest
 
         var saleService = new Mock<ISaleService>();
         saleService.Setup(ps => ps.GetDiscount(It.IsAny<List<Product>>())).Returns(10);
+        var productService = new Mock<IProductService>();
 
-        var saleController = new SaleController(saleService.Object);
+        var saleController = new SaleController(saleService.Object, productService.Object);
         var result = saleController.GetDiscount(products.ToList()) as OkObjectResult;
         
         const double expected = 10;
