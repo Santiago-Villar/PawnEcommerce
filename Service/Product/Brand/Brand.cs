@@ -1,6 +1,7 @@
 ﻿using Service.Exception;
 using Service.Filter;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Service.Product
 {
@@ -31,6 +32,8 @@ namespace Service.Product
             }
 
         }
+        [JsonIgnore]
+
         public ICollection<Product> Products { get; set; }
 
 
