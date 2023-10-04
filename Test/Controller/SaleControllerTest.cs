@@ -107,8 +107,9 @@ public class SaleControllerTest
         var result = saleController.GetDiscount(products.Select(p => p.Id).ToList()) as OkObjectResult;
         
         const double expected = 10;
+        var discount = result.Value as SaleDiscountDTO;
         Assert.IsNotNull(result);
-        Assert.AreEqual(expected, result.Value);
+        Assert.AreEqual(expected, discount.price);
     }
     
 }
