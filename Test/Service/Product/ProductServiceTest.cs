@@ -192,12 +192,14 @@ public class ProductServiceTest
     [TestMethod]
     public void UpdateProduct_UpdatesSuccessfully_WhenProductExists()
     {
-        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
+        _productRepositoryMock.Setup(repo => repo.Exists(1)).Returns(true);
         _productRepositoryMock.Setup(repo => repo.UpdateProduct(aProduct));
+
+        aProduct.Id = 1;
 
         _productService.UpdateProduct(aProduct);
 
-        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.Exists(1), Times.Once());
         _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Once());
     }
 
@@ -206,10 +208,9 @@ public class ProductServiceTest
     {
         _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(false);
 
-     
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.UpdateProduct(aProduct));
-        Assert.AreEqual($"Product {aProduct.Name} does not exist.", exception.Message);
-        _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
+        Assert.AreEqual($"Product {aProduct.Id} does not exist.", exception.Message);
+        _productRepositoryMock.Verify(repo => repo.Exists(aProduct.Id), Times.Once());
         _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Never());
     }
 

@@ -79,11 +79,11 @@ namespace Service.Product
             {
                 throw new ServiceException($"New version of a product cannot be null");
             }
-            if (_productRepository.Exists(newProductVersion))
+            if (_productRepository.Exists(newProductVersion.Id))
             {
                 _productRepository.UpdateProduct(newProductVersion);
             }
-            else { throw new ServiceException($"Product {newProductVersion.Name} does not exist."); }
+            else { throw new ServiceException($"Product {newProductVersion.Id} does not exist."); }
         }
 
     }
