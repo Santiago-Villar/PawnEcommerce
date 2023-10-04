@@ -19,15 +19,8 @@ namespace Service.Product
 
         public Color Get(int id)
         {
-            try
-            {
-                var color = _colorRepository.GetById(id) ?? throw new ModelException($"Color with ID {id} not found.");
-                return color;
-            }
-            catch (RepositoryException ex)
-            {
-                throw new ServiceException($"Error retrieving color with ID {id}. Message: {ex.Message}");
-            }
+            var color = _colorRepository.GetById(id) ?? throw new RepositoryException($"Color with ID {id} not found.");
+            return color;
         }
     }
 }

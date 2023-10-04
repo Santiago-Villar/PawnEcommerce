@@ -83,7 +83,7 @@ namespace Service.Product
             {
                 _productRepository.UpdateProduct(newProductVersion);
             }
-            else { throw new ServiceException($"Product {newProductVersion.Id} does not exist."); }
+            else { throw new RepositoryException($"Product {newProductVersion.Id} does not exist."); }
         }
 
     }

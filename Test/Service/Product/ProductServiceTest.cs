@@ -208,7 +208,7 @@ public class ProductServiceTest
     {
         _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(false);
 
-        var exception = Assert.ThrowsException<ServiceException>(() => _productService.UpdateProduct(aProduct));
+        var exception = Assert.ThrowsException<RepositoryException>(() => _productService.UpdateProduct(aProduct));
         Assert.AreEqual($"Product {aProduct.Id} does not exist.", exception.Message);
         _productRepositoryMock.Verify(repo => repo.Exists(aProduct.Id), Times.Once());
         _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Never());

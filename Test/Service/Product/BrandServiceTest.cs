@@ -65,7 +65,7 @@ namespace Test
 
         }
 
-        [ExpectedException(typeof(ModelException))]
+        [ExpectedException(typeof(RepositoryException))]
         [TestMethod]
         public void GetWithWrongId_Throw()
         {

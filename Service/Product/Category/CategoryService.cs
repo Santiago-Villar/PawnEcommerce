@@ -19,15 +19,8 @@ namespace Service.Product
 
         public Category Get(int id)
         {
-            try
-            {
-                var category = _categoryRepository.GetById(id) ?? throw new RepositoryException($"Category with ID {id} not found.");
-                return category;
-            }
-            catch (RepositoryException ex)
-            {
-                throw new ServiceException($"Error retrieving category with ID {id}. Message: {ex.Message}");
-            }
+            var category = _categoryRepository.GetById(id) ?? throw new RepositoryException($"Category with ID {id} not found.");
+            return category;
         }
     }
 
