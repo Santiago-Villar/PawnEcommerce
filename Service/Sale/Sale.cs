@@ -6,8 +6,6 @@ namespace Service.Sale
 	public class Sale
 	{
         public int Id { get; set; } 
-        public int UserId { get; set; } 
-        public Service.User.User User { get; set; }
         private ICollection<SaleProduct> products;
         public ICollection<SaleProduct> Products
         {
@@ -19,8 +17,8 @@ namespace Service.Sale
 	        }
         }
 
-        public double Price { get; set; }
-        public string PromotionName { get; set; }
+        public double? Price { get; set; }
+        public string? PromotionName { get; set; }
         public DateTime Date { get; set; }
         public Sale()
 		{

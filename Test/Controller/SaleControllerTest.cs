@@ -30,7 +30,6 @@ public class SaleControllerTest
 
     private readonly SaleCreationModel _newSale = new SaleCreationModel()
     {
-        UserId = 1,
         ProductDtosId = new int[]
         {
             1

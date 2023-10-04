@@ -21,21 +21,6 @@ public class SaleTest
         Assert.IsNotNull(s);
     }
 
-    [TestMethod]
-    public void SaleHasUser()
-    {
-
-        var plainUser = new User()
-        {
-            Id = 1
-        };
-        var s = new Sale()
-        {
-            User = plainUser,
-            UserId = plainUser.Id,
-        };
-        Assert.AreEqual(s.UserId, 1);
-    }
     
     [TestMethod]
     public void SaleContainsCorrectNumberOfAndSpecificProducts()

@@ -17,15 +17,18 @@ public class SaleService : ISaleService
 
     public int Create(Sale sale)
     {
-        var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
-        var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
-
-        if (!newPrice.Equals(sale.Price))
+        if(sale.Products != null) 
         {
-            sale.PromotionName = promotion.Name;
-            sale.Price = newPrice;
+            var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
+            var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
+
+            if (!newPrice.Equals(sale.Price))
+            {
+                sale.PromotionName = promotion.Name;
+                sale.Price = newPrice;
+            }
         }
-        
+
         return _saleRepository.Add(sale);
     }
 
@@ -47,11 +50,6 @@ public class SaleService : ISaleService
         return _saleRepository.GetAll();
     }
     
-    public List<Sale> GetByUser(int userId)
-    {
-        return _saleRepository.GetUserSales(userId);
-    }
-
     public Sale Get(int id)
     {
         return _saleRepository.Get(id);

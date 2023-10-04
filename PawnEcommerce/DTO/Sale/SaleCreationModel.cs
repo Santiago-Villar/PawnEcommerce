@@ -7,15 +7,11 @@ namespace PawnEcommerce.DTO.Sale;
 
 public class SaleCreationModel
 {
-    public int UserId { get; set; }
     public int[] ProductDtosId { get; set; }
     
     public Service.Sale.Sale ToEntity()
     {
-        return new Service.Sale.Sale
-        {
-            UserId = UserId,
-        };
+        return new Service.Sale.Sale();
     }
 
     public List<SaleProduct> CreateSaleProducts(Service.Sale.Sale sale, IProductService productService)

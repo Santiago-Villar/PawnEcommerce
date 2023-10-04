@@ -85,9 +85,13 @@ namespace Repository
                 .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<Sale>()
-                .HasOne(s => s.User)
-                .WithMany(u => u.Sales)
-                .HasForeignKey(s => s.UserId);
+                .Property(s => s.PromotionName)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Sale>()
+                .Property(s => s.Price)
+                .IsRequired(false);
+
 
             // SaleProduct configurations
             modelBuilder.Entity<SaleProduct>()

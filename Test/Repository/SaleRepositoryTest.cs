@@ -36,21 +36,18 @@ namespace Test
 
             return new Sale
             {
-                User = user,
                 Price = 100.0,
                 PromotionName = "Sample Promotion"
             };
         }
-        private Sale CreateAnotherSampleSale(EcommerceContext context, User user)
+        private Sale CreateAnotherSampleSale(EcommerceContext context)
         {
             return new Sale
             {
-                User = user,
                 Price = 200.0,
                 PromotionName = "Another Sample Promotion"
             };
         }
-
 
 
         [TestMethod]
@@ -62,26 +59,11 @@ namespace Test
             var sale = CreateSampleSale(context);
             repository.Add(sale);
 
-            var saleInDb = context.Sales.FirstOrDefault(s => s.UserId == sale.UserId);
+            var saleInDb = context.Sales.FirstOrDefault(s => s.Id == sale.Id);
             Assert.IsNotNull(saleInDb);
             Assert.AreEqual(100.0, saleInDb.Price);
         }
 
-        [TestMethod]
-        public void GetUserSales_ShouldReturnCorrectSales()
-        {
-            using var context = GetInMemoryDbContext();
-            var repository = new SaleRepository(context);
-
-            var sale1 = CreateSampleSale(context);
-            var sale2 = CreateAnotherSampleSale(context,sale1.User);
-            context.Sales.AddRange(sale1, sale2);
-            context.SaveChanges();
-
-            var userSales = repository.GetUserSales(sale1.UserId);
-
-            Assert.AreEqual(2, userSales.Count);
-        }
 
         [TestMethod]
         public void GetAll_ShouldReturnAllSales()
@@ -90,7 +72,7 @@ namespace Test
             var repository = new SaleRepository(context);
 
             var sale1 = CreateSampleSale(context);
-            var sale2 = CreateAnotherSampleSale(context,sale1.User);
+            var sale2 = CreateAnotherSampleSale(context);
             context.Sales.Add(sale1);
             context.Sales.Add(sale2);
             context.SaveChanges();
