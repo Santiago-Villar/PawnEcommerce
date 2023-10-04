@@ -23,7 +23,7 @@ namespace PawnEcommerce.Controllers
             return Ok(_categoryService.GetAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
             return Ok(_categoryService.Get(id));
