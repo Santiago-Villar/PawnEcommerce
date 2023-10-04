@@ -54,7 +54,7 @@ public class UserServiceTest
         userService.SignUp(mockUser);
     }
     
-    [ExpectedException(typeof(RepositoryException))]
+    [ExpectedException(typeof(ServiceException))]
     [TestMethod]
     public void CanSignUpUser_RepeatedUser_Throw()
     {

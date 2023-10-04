@@ -17,23 +17,16 @@ public class SaleService : ISaleService
 
     public int Create(Sale sale)
     {
-        try
-        {
-            var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
-            var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
+        var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
+        var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
 
-            if (!newPrice.Equals(sale.Price))
-            {
-                sale.PromotionName = promotion.Name;
-                sale.Price = newPrice;
-            }
-            
-            return _saleRepository.Add(sale);
-        }
-        catch (ServiceException ex) 
+        if (!newPrice.Equals(sale.Price))
         {
-            throw new ServiceException(ex.Message);
+            sale.PromotionName = promotion.Name;
+            sale.Price = newPrice;
         }
+        
+        return _saleRepository.Add(sale);
     }
 
     public double GetDiscount(List<Product.Product> products)

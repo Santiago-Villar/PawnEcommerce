@@ -21,12 +21,12 @@ namespace Service.Product
         {
             try
             {
-                var category = _categoryRepository.GetById(id) ?? throw new ModelException($"Category with ID {id} not found.");
+                var category = _categoryRepository.GetById(id) ?? throw new RepositoryException($"Category with ID {id} not found.");
                 return category;
             }
             catch (RepositoryException ex)
             {
-                throw new ModelException($"Error retrieving category with ID {id}. Message: {ex.Message}");
+                throw new ServiceException($"Error retrieving category with ID {id}. Message: {ex.Message}");
             }
         }
     }

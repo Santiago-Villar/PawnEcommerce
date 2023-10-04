@@ -55,7 +55,7 @@ namespace Repository
 
             if (sale == null)
             {
-                throw new ModelException($"Sale with ID {id} not found");
+                throw new RepositoryException($"Sale with ID {id} not found");
             }
 
             return sale;

@@ -27,7 +27,7 @@ namespace Repository
 
             if (category == null)
             {
-                throw new ModelException($"No category found with ID {id}");
+                throw new RepositoryException($"No category found with ID {id}");
             }
 
             return category;

@@ -68,7 +68,7 @@ namespace Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ModelException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void GetById_ShouldThrowException_WhenCategoryNotFound()
         {
             using var context = GetInMemoryDbContext();

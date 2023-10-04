@@ -21,7 +21,7 @@ namespace Service.Product
             set
             {
                 if(value.Equals("")) { 
-                    throw new ModelException("Category Name must not be empty");
+                    throw new ServiceException("Category Name must not be empty");
                 }
                 _name = value;
             }

@@ -81,7 +81,7 @@ namespace Test.Repository
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ModelException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void GetById_NoColorFound_Throw()
         {
             using var context = GetInMemoryDbContext();

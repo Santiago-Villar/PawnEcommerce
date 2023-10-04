@@ -23,11 +23,11 @@ namespace Repository
         public int AddProduct(Product newProduct)
         {
             if (newProduct == null)
-                throw new RepositoryException(nameof(newProduct));
+                throw new ServiceException(nameof(newProduct));
 
             if(Exists(newProduct))
             {
-                throw new RepositoryException($"There is already a product with name {newProduct.Name}");
+                throw new ServiceException($"There is already a product with name {newProduct.Name}");
             }
 
             _context.Products.Add(newProduct);
@@ -40,7 +40,7 @@ namespace Repository
         {
             var product = _context.Products.Find(productId);
             if (product == null)
-                throw new ModelException($"Product with ID {productId} not found");
+                throw new RepositoryException($"Product with ID {productId} not found");
 
             _context.Products.Remove(product);
             _context.SaveChanges();
