@@ -23,15 +23,12 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Brand configurations
             modelBuilder.Entity<Brand>()
                 .HasKey(b => b.Id);
 
-            // Category configurations
             modelBuilder.Entity<Category>()
                 .HasKey(c => c.Id);
 
-            // Product configurations
             modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Name)
                 .IsUnique();
@@ -46,7 +43,6 @@ namespace Repository
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
 
-            // Configuration for many-to-many between Product and Color
             modelBuilder.Entity<ProductColor>()
                 .HasKey(pc => new { pc.ProductId, pc.ColorId });
 
@@ -60,7 +56,6 @@ namespace Repository
                 .WithMany(c => c.ProductColors)
                 .HasForeignKey(pc => pc.ColorId);
 
-            // User configurations
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);
 
@@ -76,7 +71,6 @@ namespace Repository
                                               .Select(r => Enum.Parse<RoleType>(r))
                                               .ToList());
 
-            // Sale configurations
             modelBuilder.Entity<Sale>()
                 .HasKey(s => s.Id);
 
@@ -92,7 +86,6 @@ namespace Repository
                 .Property(s => s.Price)
                 .IsRequired(false);
 
-            // SaleProduct configurations
             modelBuilder.Entity<SaleProduct>()
                 .HasKey(sp => sp.Id);
 

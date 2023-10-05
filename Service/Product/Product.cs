@@ -29,20 +29,16 @@ namespace Service.Product
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        // This will handle the many-to-many relation
         [JsonIgnore]
         public ICollection<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
 
-        // Helper method to get Colors directly (optional and for convenience)
         [NotMapped]
         public IEnumerable<Color> Colors => ProductColors?.Select(pc => pc.Color);
 
-        // Refactored AddColor method for new structure
         public void AddColor(Color color)
         {
             if (color == null) throw new ModelException("Color must not be null");
 
-            // Check if the color is already associated with the product
             if (!ProductColors.Any(pc => pc.Color.Id == color.Id))
             {
                 var productColor = new ProductColor { Color = color, Product = this };
