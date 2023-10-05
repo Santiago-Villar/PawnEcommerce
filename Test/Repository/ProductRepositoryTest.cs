@@ -296,6 +296,23 @@ namespace Test
             Assert.AreEqual("Updated Description", updatedProduct.Description);
         }
 
+        [TestMethod]
+        public void GetProductById_ShouldReturnCorrectProduct()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            product.Id = 9;
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            var fetchedProduct = repository.Get(product.Id);
+            Assert.IsNotNull(fetchedProduct);
+            Assert.AreEqual("Sample Description", fetchedProduct.Description);
+        }
+
+
     }
 }
 
