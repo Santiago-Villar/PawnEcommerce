@@ -312,6 +312,19 @@ namespace Test
             Assert.AreEqual("Sample Description", fetchedProduct.Description);
         }
 
+        [TestMethod]
+        public void Exists_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            product.Id = 9;
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            Assert.IsTrue(repository.Exists(product.Id));
+        }
 
     }
 }
