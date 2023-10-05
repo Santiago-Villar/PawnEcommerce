@@ -1,7 +1,7 @@
-using Service.User;
+using Service;
 using Service.User.Role;
 
-namespace PawnEcommerce.DTO;
+namespace PawnEcommerce.DTO.User;
 
 public class UserCreateModel
 {
@@ -9,12 +9,12 @@ public class UserCreateModel
     public string Password { get; set; }
     public string Adress { get; set; }
 
-    public User ToEntity()
+    public Service.User.User ToEntity()
     {
-        return new User()
+        return new Service.User.User()
         {
             Email = Email,
-            PasswordHash = this.Password,
+            PasswordHash = Password,
             Address = Adress,
             Roles = { RoleType.User }
         };

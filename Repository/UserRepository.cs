@@ -41,6 +41,11 @@ namespace Repository
                            .FirstOrDefault(u => u.Id == id);
         }
 
+        public List<User> GetAll()
+        {
+            return _context.Users.ToList();
+        }
+
 
         public User? Get(string email)
         {

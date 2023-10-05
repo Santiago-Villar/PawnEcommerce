@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
-using PawnEcommerce.DTO;
 using Service.User;
+using PawnEcommerce.DTO.User;
+
 
 namespace Test.Controller;
 
