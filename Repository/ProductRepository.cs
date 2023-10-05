@@ -121,10 +121,8 @@ namespace Repository
             if (existingProduct == null)
                 throw new RepositoryException($"Product with ID {updatedProduct.Id} not found");
 
-            // Remove existing color associations
             _context.ProductColors.RemoveRange(existingProduct.ProductColors);
 
-            // Add updated color associations
             foreach (var color in updatedProduct.Colors)
             {
                 _context.ProductColors.Add(new ProductColor { ProductId = updatedProduct.Id, ColorId = color.Id });

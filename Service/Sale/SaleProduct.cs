@@ -16,10 +16,10 @@ namespace Service.Sale
 
         public int SaleId { get; set; }
         [JsonIgnore]
-        public Sale Sale { get; set; } // Navigation property
+        public Sale Sale { get; set; } 
 
         public int ProductId { get; set; }
-        public Service.Product.Product Product { get; set; } // Navigation property
+        public Service.Product.Product Product { get; set; } 
     }
 }
 
