@@ -6,8 +6,11 @@ using Service.Exception;
 using Service.Product;
 using Test.Service.Promotion;
 namespace Test.Service;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class SaleServiceTest
 {
     [TestMethod]

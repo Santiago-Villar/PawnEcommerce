@@ -5,10 +5,13 @@ using Service.Sale;
 using Service.User;
 using System;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SaleRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()

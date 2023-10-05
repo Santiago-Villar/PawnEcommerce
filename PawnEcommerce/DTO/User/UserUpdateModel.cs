@@ -1,7 +1,9 @@
 ﻿using Service.User.Role;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PawnEcommerce.DTO.User
 {
+    [ExcludeFromCodeCoverage]
     public class UserUpdateModel
     {
         public string Email { get; set; }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 #nullable disable
 
 namespace PawnEcommerce.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class removeuserfromsale : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

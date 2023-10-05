@@ -1,13 +1,17 @@
 using Service.Product;
 using Service.Promotion;
 using Service.Promotion.ConcreteStrategies;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Promotion.ConcretePromotions;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class TwentyPercentDiscountTest
 {
     [TestMethod]
+    [ExcludeFromCodeCoverage]
     public void TwentyPercentDiscount_Ok()
     {
         var twentyPercentDiscount = new TwentyPercentDiscount();

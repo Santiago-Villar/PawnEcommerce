@@ -3,10 +3,13 @@ using System.Security.Authentication;
 using Moq;
 using Service.User;
 using Service.Session;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Session
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SessionServiceTest
 	{
 		public SessionServiceTest()

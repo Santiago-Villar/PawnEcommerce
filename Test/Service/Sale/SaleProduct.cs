@@ -5,10 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Service.Product;
 using Service.Sale;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SaleProductTests
     {
         [TestMethod]

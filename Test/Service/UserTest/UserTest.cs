@@ -2,10 +2,13 @@
 using Service.User;
 using Service.User.Role;
 using Moq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class UserTest
 {
     [TestMethod]

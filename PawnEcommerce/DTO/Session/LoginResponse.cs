@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace PawnEcommerce.DTO
 {
-	public class LoginResponse
+    [ExcludeFromCodeCoverage]
+    public class LoginResponse
 	{
         public string Token { get; set; }
     }

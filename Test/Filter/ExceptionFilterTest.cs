@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using PawnEcommerce.Middlewares;
 using Service.Exception;
 using RouteData = Microsoft.AspNetCore.Routing.RouteData;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Filter;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class ExceptionFilterTest
 {
     public ObjectResult? TestHelper(Exception e)

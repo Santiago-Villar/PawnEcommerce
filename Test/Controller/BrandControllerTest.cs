@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PawnEcommerce.Controllers;
 using Service.Exception;
@@ -8,7 +10,8 @@ using Service.Product;
 namespace Test.Controller
 {
 	[TestClass]
-	public class BrandControllerTest
+    [ExcludeFromCodeCoverage]
+    public class BrandControllerTest
 	{
 
         private Mock<IBrandService> _brandServiceMock;

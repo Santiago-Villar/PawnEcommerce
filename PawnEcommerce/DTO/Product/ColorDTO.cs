@@ -1,7 +1,9 @@
 using Service.Product;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PawnEcommerce.DTO.Product;
 
+[ExcludeFromCodeCoverage]
 public class ColorDTO
 {
     public int Id { get; set; }

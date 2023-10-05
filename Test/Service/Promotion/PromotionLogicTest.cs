@@ -3,10 +3,13 @@ using Service.Exception;
 using Service.Product;
 using Service.Promotion;
 using Moq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Promotion
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class PromotionLogicTest
 	{
         IPromotionService Logic = new PromotionService();

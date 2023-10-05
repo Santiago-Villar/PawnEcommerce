@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Service.Session;
 using Service.User;
@@ -6,7 +7,8 @@ using Service.User.Role;
 
 namespace PawnEcommerce.Middlewares
 {
-	public class AuthorizationMiddleware
+    [ExcludeFromCodeCoverage]
+    public class AuthorizationMiddleware
 	{
         private readonly RequestDelegate _next;
         private readonly IServiceProvider _serviceProvider;

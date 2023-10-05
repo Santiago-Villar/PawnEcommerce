@@ -2,10 +2,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Service.Promotion;
 using Service.Promotion.ConcreteStrategies;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Promotion.ConcretePromotions
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ThreeForOneDiscountTest
     {
         [TestMethod]

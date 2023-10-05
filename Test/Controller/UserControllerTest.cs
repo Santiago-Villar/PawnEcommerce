@@ -3,14 +3,17 @@ using Moq;
 using PawnEcommerce.Controllers;
 using Service.User;
 using PawnEcommerce.DTO.User;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Controller;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class UserControllerTest
 {
     [TestMethod]
+    [ExcludeFromCodeCoverage]
     public void CanCreateController_Ok()
     {
         Mock<IUserService> userServiceMock = new Mock<IUserService>();

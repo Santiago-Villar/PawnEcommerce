@@ -6,10 +6,13 @@ using PawnEcommerce.Controllers;
 using PawnEcommerce.DTO.Product;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Controller;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class ProductControllerTest
 {
     private readonly  ProductCreationModel _productCreationModel = new()

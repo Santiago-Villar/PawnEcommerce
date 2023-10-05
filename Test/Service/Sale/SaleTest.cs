@@ -7,10 +7,13 @@ using System;
 using Service.Promotion;
 using Test.Service.Promotion;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class SaleTest
 {
 

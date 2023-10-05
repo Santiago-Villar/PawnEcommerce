@@ -2,10 +2,13 @@ using System.Security.Authentication;
 using Moq;
 using Service.User;
 using Service.Exception;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.UserTest;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class UserServiceTest
 {
     private const string Email = "TestEmail@gmail.com";

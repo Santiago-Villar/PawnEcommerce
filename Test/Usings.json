@@ -1,0 +1,131 @@
+﻿[ 
+  {
+    "id": 18,
+    "products": [
+      {
+        "productId": 2,
+        "product": {
+          "id": 2,
+          "name": "iPhone X",
+          "description": "great prod",
+          "price": 100,
+          "brandId": 4,
+          "brand": {
+            "id": 4,
+            "name": "Apple"
+          },
+          "categoryId": 3,
+          "category": {
+            "id": 3,
+            "name": "Electronics"
+          },
+          "colors": [
+            {
+              "id": 2,
+              "name": "RED",
+              "code": "#FF0000"
+            }
+          ]
+        }
+      },
+      {
+        "productId": 2,
+        "product": {
+          "id": 2,
+          "name": "iPhone X",
+          "description": "great prod",
+          "price": 100,
+          "brandId": 4,
+          "brand": {
+            "id": 4,
+            "name": "Apple"
+          },
+          "categoryId": 3,
+          "category": {
+            "id": 3,
+            "name": "Electronics"
+          },
+          "colors": [
+            {
+              "id": 2,
+              "name": "RED",
+              "code": "#FF0000"
+            }
+          ]
+        }
+      },
+      {
+        "productId": 2,
+        "product": {
+          "id": 2,
+          "name": "iPhone X",
+          "description": "Apple iPhone X 2017",
+          "price": 100,
+          "brandId": 4,
+          "brand": {
+            "id": 4,
+            "name": "Apple"
+          },
+          "categoryId": 3,
+          "category": {
+            "id": 3,
+            "name": "Electronics"
+          },
+          "colors": [
+            {
+              "id": 2,
+              "name": "RED",
+              "code": "#FF0000"
+            }
+          ]
+        }
+      }
+    ],
+    "price": 100,
+    "promotionName": "Thre For One",
+    "date": "2023-10-04T02:10:52.3703482"
+  },
+ {
+    "id": 20,
+    "products": [
+      {
+        "productId": 5,
+        "product": {
+          "id": 5,
+          "name": "iPhone 15",
+          "description": "Apple iPhone 15 2023",
+          "price": 1000,
+          "brandId": 4,
+          "brand": {
+            "id": 4,
+            "name": "Apple"
+          },
+          "categoryId": 6,
+          "category": {
+            "id": 6,
+            "name": "Electronics"
+          },
+          "colors": [
+            {
+              "id": 4,
+              "name": "GREEN",
+              "code": "#008000"
+            },
+            {
+              "id": 5,
+              "name": "YELLOW",
+              "code": "#FFFF00"
+            }
+          ]
+        }
+      }
+    ],
+    "price": 810,
+    "promotionName": null,
+    "date": "2023-10-04T16:14:23.000151"
+  }
+]
+
+
+
+

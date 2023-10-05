@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using PawnEcommerce.Controllers;
 using PawnEcommerce.DTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Session
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SessionControllerTest
 	{
 

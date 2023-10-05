@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository;
 using Service.User;
 using Service.User.Role;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class UserRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()

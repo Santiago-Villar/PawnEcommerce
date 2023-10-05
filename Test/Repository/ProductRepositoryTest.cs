@@ -5,10 +5,13 @@ using Service.Product;
 using System.Linq;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ProductRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()

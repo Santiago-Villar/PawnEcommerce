@@ -2,13 +2,17 @@ using Service.Product;
 using Service.Promotion.ConcreteStrategies;
 using Service.Promotion;
 using Test.Service.Promotion;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Promotion.ConcretePromotions;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class TotalLookDiscountTest
 {
     [TestMethod]
+    [ExcludeFromCodeCoverage]
     public void CanCreateTotalLook_Ok()
     {
         var totalLook = new TotalLook();

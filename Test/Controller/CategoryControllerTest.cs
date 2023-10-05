@@ -4,10 +4,13 @@ using Moq;
 using PawnEcommerce.Controllers;
 using Service.Exception;
 using Service.Product;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Controller
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CategoryControllerTest
     {
         private Mock<ICategoryService> _categoryServiceMock;

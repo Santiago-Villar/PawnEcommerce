@@ -4,10 +4,13 @@ using Repository;
 using Service.Exception;
 using Service.Product;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CategoryRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()
