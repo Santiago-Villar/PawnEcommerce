@@ -39,6 +39,7 @@ namespace Test
 
             return new Sale
             {
+                Id = 9,
                 Price = 100.0,
                 PromotionName = "Sample Promotion"
             };
@@ -82,6 +83,20 @@ namespace Test
 
             var sales = repository.GetAll();
             Assert.AreEqual(2, sales.Count);
+        }
+
+        [TestMethod]
+        public void GetById_ShouldReturnIdSale()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new SaleRepository(context);
+
+            var sale1 = CreateSampleSale(context);
+            context.Sales.Add(sale1);
+            context.SaveChanges();
+
+            var sale = repository.Get(sale1.Id);
+            Assert.AreEqual(sale1.Id, sale.Id);
         }
     }
 }
