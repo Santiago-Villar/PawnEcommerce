@@ -37,7 +37,8 @@ public class UserControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
-    
+
+    [TestMethod]
     public void Update_Ok()
     {
         var userServiceMock = new Mock<IUserService>();
@@ -53,7 +54,8 @@ public class UserControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
-    
+
+    [TestMethod]
     public void Delete_ReturnsOkResult()
     {
         var userServiceMock = new Mock<IUserService>();
