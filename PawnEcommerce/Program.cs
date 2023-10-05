@@ -14,7 +14,6 @@ class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         builder.Services.AddScoped<IBrandService, BrandService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IColorService, ColorService>();
@@ -23,7 +22,6 @@ class Program
         builder.Services.AddScoped<ISaleService, SaleService>();
         builder.Services.AddScoped<ISessionService, SessionService>();
 
-        //Add repositories
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IBrandRepository, BrandRepository>();
         builder.Services.AddScoped<IColorRepository, ColorRepository>();
@@ -36,7 +34,6 @@ class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("EcommerceContext"),
                 b => b.MigrationsAssembly("PawnEcommerce")));
 
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
@@ -55,7 +52,7 @@ class Program
         var app = builder.Build();
 
         app.UseCors("AllowAllOrigins");
-        // Configure the HTTP request pipeline.
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
