@@ -56,6 +56,11 @@ public class UserService : IUserService
         return foundUser;
     }
 
+    public List<User> GetAll()
+    {
+        return _userRepository.GetAll();
+    }
+
     private User FindUser(string email)
     {
         var foundUser = _userRepository.Get(email);

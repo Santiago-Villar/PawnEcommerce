@@ -31,6 +31,12 @@ namespace Repository
             return _context.Sales
                         .Include(s => s.Products)
                         .ThenInclude(sp => sp.Product)
+                        .ThenInclude(p => p.Brand)  
+                        .Include(s => s.Products)
+                        .ThenInclude(sp => sp.Product)
+                        .ThenInclude(p => p.Category)  
+                        .Include(s => s.Products)
+                        .ThenInclude(sp => sp.Product)
                         .ThenInclude(p => p.ProductColors)
                         .ThenInclude(pc => pc.Color)
                         .ToList();

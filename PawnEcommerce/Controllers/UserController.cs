@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PawnEcommerce.DTO;
+using PawnEcommerce.DTO.User;
 using PawnEcommerce.Middlewares;
 using Service.User;
 
@@ -22,6 +22,23 @@ namespace PawnEcommerce.Controllers
         {
             _userService.SignUp(newUser.ToEntity());
             return Ok();
+        }
+
+        [Authorization("Admin")]
+        [HttpGet]
+        public IActionResult Get()
+        {
+
+            var users = _userService.GetAll();
+            var userDTOs = users.Select(u => new UserDTO
+            {
+                Id = u.Id,
+                Address = u.Address,
+                Roles = u.Roles.Select(r => r.ToString()).ToList(),
+                Email = u.Email
+            }).ToList();
+
+            return Ok(userDTOs);
         }
 
         [Authorization("Admin")]

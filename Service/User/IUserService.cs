@@ -4,7 +4,7 @@ public interface IUserService
 {
     public void SignUp(User user);
 
-    public User LogIn(string email, string password);
+    public List<User> GetAll();
 
     public void DeleteUser(int id);
 

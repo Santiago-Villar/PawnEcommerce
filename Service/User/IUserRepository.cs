@@ -4,6 +4,7 @@ public interface IUserRepository
 {
     public void Add(User user);
     public User? Get(int id);
+    public List<User> GetAll();
     public User? Get(string email);
     public void Delete(User user);
     public void Update(User user);
