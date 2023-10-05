@@ -6,8 +6,11 @@ using Service.Exception;
 using Service.Product;
 using Test.Service.Promotion;
 namespace Test.Service;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class SaleServiceTest
 {
     [TestMethod]
@@ -103,5 +106,29 @@ public class SaleServiceTest
 
         var saleList = new List<Sale>() { sale, sale2 };
         return saleList;
+    }
+
+    [TestMethod]
+    public void GetById_Ok()
+    {
+        var product1Mock = PromotionTestHelper.CreateProduct();
+
+        var saleProduct = new SaleProduct
+        {
+            Product = product1Mock
+        };
+
+        var sale = new Sale
+        {
+            Products = Enumerable.Repeat(saleProduct, 1).ToList(),
+            Id = 9
+        };
+
+        var mockRepository = new Mock<ISaleRepository>();
+        mockRepository.Setup(repo => repo.Get(sale.Id)).Returns(sale);
+
+        var saleService = new SaleService(mockRepository.Object);
+
+        Assert.AreEqual(sale, saleService.Get(sale.Id));
     }
 }

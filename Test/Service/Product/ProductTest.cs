@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 using Service;
 using Service.Exception;
 using Service.Product;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class ProductTest
 {
     public static Brand aBrand = new Brand(2)

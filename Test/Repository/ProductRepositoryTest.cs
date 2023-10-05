@@ -5,10 +5,13 @@ using Service.Product;
 using System.Linq;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ProductRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()
@@ -291,6 +294,36 @@ namespace Test
             var updatedProduct = context.Products.FirstOrDefault(p => p.Name == "Sample Product");
             Assert.IsNotNull(updatedProduct);
             Assert.AreEqual("Updated Description", updatedProduct.Description);
+        }
+
+        [TestMethod]
+        public void GetProductById_ShouldReturnCorrectProduct()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            product.Id = 9;
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            var fetchedProduct = repository.Get(product.Id);
+            Assert.IsNotNull(fetchedProduct);
+            Assert.AreEqual("Sample Description", fetchedProduct.Description);
+        }
+
+        [TestMethod]
+        public void Exists_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new ProductRepository(context);
+
+            var product = CreateSampleProduct(context);
+            product.Id = 9;
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            Assert.IsTrue(repository.Exists(product.Id));
         }
 
     }

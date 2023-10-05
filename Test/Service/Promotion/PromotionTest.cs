@@ -3,10 +3,13 @@ using Service.Promotion.ConcreteStrategies;
 using Moq;
 using Service.Product;
 using Service.Promotion;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Promotion;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class PromotionTest
 {
     [TestMethod]

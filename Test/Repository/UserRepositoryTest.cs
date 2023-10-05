@@ -3,11 +3,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository;
 using Service.User;
 using Service.User.Role;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class UserRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()
@@ -110,5 +113,25 @@ namespace Test
             Assert.AreEqual("Updated Address", updatedUser.Address);
         }
 
+        [TestMethod]
+        public void GetUserByAll_ShouldReturnCorrectUsers()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new UserRepository(context);
+
+            var user = CreateSampleUser();
+            context.Users.Add(user);
+
+            var user2 = CreateSampleUser();
+            user2.Id = 9;
+            user2.Email = "testEmail@gmail.com";
+            context.Users.Add(user2);
+            context.SaveChanges();
+
+            var fetchedUsers = repository.GetAll();
+            
+            CollectionAssert.Contains(fetchedUsers.Select(u => u.Email).ToList(), user.Email);
+            CollectionAssert.Contains(fetchedUsers.Select(u => u.Email).ToList(), user2.Email);
+        }
     }
 }

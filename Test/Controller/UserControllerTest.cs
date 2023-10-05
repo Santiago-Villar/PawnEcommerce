@@ -3,14 +3,17 @@ using Moq;
 using PawnEcommerce.Controllers;
 using Service.User;
 using PawnEcommerce.DTO.User;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Controller;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class UserControllerTest
 {
     [TestMethod]
+    [ExcludeFromCodeCoverage]
     public void CanCreateController_Ok()
     {
         Mock<IUserService> userServiceMock = new Mock<IUserService>();
@@ -34,7 +37,8 @@ public class UserControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
-    
+
+    [TestMethod]
     public void Update_Ok()
     {
         var userServiceMock = new Mock<IUserService>();
@@ -50,7 +54,8 @@ public class UserControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
-    
+
+    [TestMethod]
     public void Delete_ReturnsOkResult()
     {
         var userServiceMock = new Mock<IUserService>();

@@ -6,10 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Service.Exception;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test;
 
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class CategoryTest
 {
     Category aCategory = new Category(1)

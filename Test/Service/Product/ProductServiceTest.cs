@@ -5,9 +5,12 @@ using Service.Product;
 using Service.Exception;
 using Service.Filter.ConcreteFilter;
 using Service.User;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test;
 [TestClass]
+[ExcludeFromCodeCoverage]
 public class ProductServiceTest
 {
     public IProductService _productService;

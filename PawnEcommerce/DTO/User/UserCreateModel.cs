@@ -1,8 +1,10 @@
 using Service;
 using Service.User.Role;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PawnEcommerce.DTO.User;
 
+[ExcludeFromCodeCoverage]
 public class UserCreateModel
 {
     public string Email { get; set; }

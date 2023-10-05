@@ -5,10 +5,13 @@ using Service.Sale;
 using Service.User;
 using System;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SaleRepositoryTests
     {
         private EcommerceContext GetInMemoryDbContext()
@@ -36,6 +39,7 @@ namespace Test
 
             return new Sale
             {
+                Id = 9,
                 Price = 100.0,
                 PromotionName = "Sample Promotion"
             };
@@ -79,6 +83,36 @@ namespace Test
 
             var sales = repository.GetAll();
             Assert.AreEqual(2, sales.Count);
+        }
+
+        [TestMethod]
+        public void GetById_ShouldReturnIdSale()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new SaleRepository(context);
+
+            var sale1 = CreateSampleSale(context);
+            context.Sales.Add(sale1);
+            context.SaveChanges();
+
+            var sale = repository.Get(sale1.Id);
+            Assert.AreEqual(sale1.Id, sale.Id);
+        }
+
+        [TestMethod]
+        public void UpdateSale_Ok()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new SaleRepository(context);
+
+            var sale1 = CreateSampleSale(context);
+            context.Sales.Add(sale1);
+            context.SaveChanges();
+            sale1.Price = 9;
+            repository.Update(sale1);
+
+            var sale = repository.Get(sale1.Id);
+            Assert.AreEqual(9, sale.Price);
         }
     }
 }

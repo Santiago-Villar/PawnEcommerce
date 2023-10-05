@@ -1,7 +1,10 @@
 using Service.Product;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Service.Promotion;
 
+[ExcludeFromCodeCoverage]
 public class PromotionTestHelper
 {
     public static Product CreateProduct()
