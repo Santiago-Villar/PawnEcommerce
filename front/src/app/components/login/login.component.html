@@ -6,7 +6,10 @@
       <input name="email" class='field' type="email" [(ngModel)]="email" required />
       <p>Password</p>
       <input name="password" class='field' type="password" [(ngModel)]="password" required />
-      <button class="btn" type='submit'>Log In</button>
+      <button class="btn" type='submit' [disabled]="isLoading">
+        <span *ngIf="isLoading">Loading...</span>
+        <span *ngIf="!isLoading">Log In</span>
+      </button>
     </form>
   </div>
   <p class='end-line'>Don't have an account? <a href="/register" class="register-submit">Register!</a></p>

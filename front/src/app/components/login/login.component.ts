@@ -14,11 +14,20 @@ export class LoginComponent {
 
   email: string = '';
   password: string = '';
+  isLoading: boolean = false;
 
   login(): void{
+    this.isLoading = true;
+
     this.authService.login(this.email, this.password).subscribe({
-      next: (token) => console.log('token', token),
-      error: (err: any) => console.log('err', err)
+      next: (token) => {
+        console.log('token', token);
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        console.log('err', err);
+        this.isLoading = false;
+      }
     });
   }
 }
