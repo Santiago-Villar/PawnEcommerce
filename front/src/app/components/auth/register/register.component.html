@@ -1,1 +1,22 @@
-<p>register works!</p>
+<div class='container'>
+  <div class='auth'>
+    <div class='auth-main'>
+      <h2>Register</h2>
+      <form class='auth-form' (ngSubmit)="register()">
+        <p>Email</p>
+        <input name="email" class='field' type="email" [(ngModel)]="email" required />
+        <p>Password</p>
+        <input name="password" class='field' type="password" [(ngModel)]="password" required />
+        <p>Confirm Password</p>
+        <input name="confirmPassword" class='field' type="password" [(ngModel)]="confirmPassword" required />
+        <p>Address</p>
+        <input name="address" class='field' [(ngModel)]="address" required />
+        <button class="btn" type='submit' [disabled]="isLoading">
+          <span *ngIf="isLoading">Loading...</span>
+          <span *ngIf="!isLoading">Register</span>
+        </button>
+      </form>
+    </div>
+    <p class='end-line'>Already have an account? <span (click)="goToLogIn()" class="submit">Log In!</span></p>
+  </div>
+</div>
