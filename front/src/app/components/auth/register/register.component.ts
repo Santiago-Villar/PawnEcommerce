@@ -17,10 +17,17 @@ export class RegisterComponent {
   user: User = { email: '', password: '', adress: '' };
 
   confirmPassword: string = '';
-  address: string = '';
   isLoading: boolean = false;
 
   register() {
+    if (this.user.password !== this.confirmPassword) { 
+      this.toastrService.error('Passwords do not match', '', {
+        progressBar: true,
+        timeOut: 2000,
+      });
+      return;
+    }
+
     this.authService.register(this.user).subscribe({
       next: (token) => {
         this.isLoading = false;
