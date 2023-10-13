@@ -28,6 +28,8 @@ export class RegisterComponent {
       return;
     }
 
+    this.isLoading = true;
+    
     this.authService.register(this.user).subscribe({
       next: (token) => {
         this.isLoading = false;
