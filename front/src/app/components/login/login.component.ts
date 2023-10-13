@@ -16,9 +16,9 @@ export class LoginComponent {
   password: string = '';
 
   login(): void{
-    this.authService.login(this.email, this.password).subscribe(
-      (token) => {
-        console.log("Bearer " + token.token);
-      });
+    this.authService.login(this.email, this.password).subscribe({
+      next: (token) => console.log('token', token),
+      error: (err: any) => console.log('err', err)
+    });
   }
 }
