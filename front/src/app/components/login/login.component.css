@@ -1,3 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .login {
   width: 80%;
   max-width: 1100px;
