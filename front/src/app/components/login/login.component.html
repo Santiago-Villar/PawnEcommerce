@@ -1,0 +1,18 @@
+<div class='container'>
+  <div class='login'>
+    <div class='login-main'>
+      <h2>Log In</h2>
+      <form class='login-form' (ngSubmit)="login()">
+        <p>Email</p>
+        <input name="email" class='field' type="email" [(ngModel)]="email" required />
+        <p>Password</p>
+        <input name="password" class='field' type="password" [(ngModel)]="password" required />
+        <button class="btn" type='submit' [disabled]="isLoading">
+          <span *ngIf="isLoading">Loading...</span>
+          <span *ngIf="!isLoading">Log In</span>
+        </button>
+      </form>
+    </div>
+    <p class='end-line'>Don't have an account? <span (click)="goToRegister()" class="register-submit">Register!</span></p>
+  </div>
+</div>
