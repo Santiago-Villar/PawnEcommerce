@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -8,14 +11,30 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   router = inject(Router)
-  
-  email: string = '';
-  password: string = '';
+  toastrService = inject(ToastrService)
+  authService = inject(AuthService)
+
+  user: User = { email: '', password: '', adress: '' };
+
   confirmPassword: string = '';
   address: string = '';
   isLoading: boolean = false;
 
-  register() {}
+  register() {
+    this.authService.register(this.user).subscribe({
+      next: (token) => {
+        this.isLoading = false;
+        this.router.navigate(['/']);
+      },
+      error: (response: any) => {
+        this.toastrService.error(response?.error?.message, '', {
+          progressBar: true,
+          timeOut: 2000,
+        });
+        this.isLoading = false;
+      }
+    });
+  }
    
   goToLogIn() {
     this.router.navigate(['/login']);
