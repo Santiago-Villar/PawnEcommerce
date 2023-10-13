@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   
 export class LoginComponent {
   authService = inject(AuthService)
+  toastrService = inject(ToastrService)
 
   email: string = '';
   password: string = '';
@@ -19,11 +21,13 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (token) => {
-        console.log('token', token);
         this.isLoading = false;
       },
-      error: (err: any) => {
-        console.log('err', err);
+      error: (response: any) => {
+        this.toastrService.error(response?.error?.message, '', {
+          progressBar: true,
+          timeOut: 2000,
+        });
         this.isLoading = false;
       }
     });
