@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,7 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
   
 export class LoginComponent {
-  http = inject(HttpClient);
   authService = inject(AuthService)
 
   email: string = '';
