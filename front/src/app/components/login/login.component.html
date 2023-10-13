@@ -1,15 +1,13 @@
 <div class='login'>
   <div class='login-main'>
-    <h2>Sign Up</h2>
+    <h2>Log In</h2>
     <form class='login-form' (ngSubmit)="login()">
       <p>Email</p>
       <input name="email" class='field' type="email" [(ngModel)]="email" required />
       <p>Password</p>
       <input name="password" class='field' type="password" [(ngModel)]="password" required />
-      <p>Password Confirmation</p>
-      <input name="passwordConfirm" class='field' type="password" required />
-      <button class="btn" type='submit'>Sign Up</button>
+      <button class="btn" type='submit'>Log In</button>
     </form>
   </div>
-  <p class='end-line'>Already have an account? <a href="/register" class="register-submit">Register!</a></p>
+  <p class='end-line'>Don't have an account? <a href="/register" class="register-submit">Register!</a></p>
 </div>
