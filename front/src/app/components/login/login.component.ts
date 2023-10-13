@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   authService = inject(AuthService)
   toastrService = inject(ToastrService)
+  router = inject(Router)
 
   email: string = '';
   password: string = '';
@@ -22,6 +24,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (token) => {
         this.isLoading = false;
+        this.router.navigate(['/']);
       },
       error: (response: any) => {
         this.toastrService.error(response?.error?.message, '', {
