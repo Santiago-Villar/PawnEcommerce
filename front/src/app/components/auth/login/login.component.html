@@ -1,8 +1,8 @@
 <div class='container'>
-  <div class='login'>
-    <div class='login-main'>
+  <div class='auth'>
+    <div class='auth-main'>
       <h2>Log In</h2>
-      <form class='login-form' (ngSubmit)="login()">
+      <form class='auth-form' (ngSubmit)="login()">
         <p>Email</p>
         <input name="email" class='field' type="email" [(ngModel)]="email" required />
         <p>Password</p>
@@ -13,6 +13,6 @@
         </button>
       </form>
     </div>
-    <p class='end-line'>Don't have an account? <span (click)="goToRegister()" class="register-submit">Register!</span></p>
+    <p class='end-line'>Don't have an account? <span (click)="goToRegister()" class="submit">Register!</span></p>
   </div>
 </div>
