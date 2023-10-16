@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, switchMap, tap, throwError } from 'rxjs';
 import { Token } from '../models/token.model';
+import { User } from '../models/user.model';
+import { API_URL } from 'src/config';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +11,25 @@ import { Token } from '../models/token.model';
 export class AuthService {
   http = inject(HttpClient);
 
-  constructor() { }
-
   login(email: string, password: string): Observable<Token>{
-    const API_URL = 'https://localhost:7228/api/session/login';
-    return this.http.post<Token>(API_URL, { email: email, password: password }).pipe(
+    const BASE_URL = `${API_URL}/session/login`;
+
+    return this.http.post<Token>(BASE_URL, { email, password }).pipe(
       tap((token: Token) => this.saveToken(token)),
       catchError((error) => {
         return throwError(() => error);
       })
     );
+  }
+
+  register(user: User): Observable<Token> {
+    const BASE_URL = `${API_URL}/user`;
+  
+    return this.http.post<Token>(BASE_URL , user).pipe(
+      switchMap(() => this.login(user.email, user.password)),
+      catchError((error) => {
+        return throwError(() => error);
+      }));
   }
 
   getToken(): string | null {
