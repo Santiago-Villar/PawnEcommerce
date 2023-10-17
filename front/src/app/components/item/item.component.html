@@ -1,0 +1,12 @@
+<section class="item">
+  <a class="link" [routerLink]="['/item', product.id]">
+      <div class="img-container">
+          <!-- <div *ngIf="!product.stock" class="item-no-stock">Out of Stock</div> -->
+          <img [src]="defaultImageUrl" [alt]="product.description">
+      </div>
+      <div class="text">
+          <p class="title">{{product.name}}</p>
+          <p class="price">$ {{product.price}}</p>
+      </div>
+  </a>
+</section>
