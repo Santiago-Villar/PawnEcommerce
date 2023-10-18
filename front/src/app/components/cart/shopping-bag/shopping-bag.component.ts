@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PRODUCTS } from './TEST_PRODUCTS';
 
 @Component({
   selector: 'app-shopping-bag',
@@ -7,25 +8,26 @@ import { Component } from '@angular/core';
 })
 export class ShoppingBagComponent {
   defaultImageUrl : String = "https://montevista.greatheartsamerica.org/wp-content/uploads/sites/2/2016/11/default-placeholder.png";
-  quantity: number = 1;
-  price: number = 19.99;
-  total: number = this.price;
+  products = PRODUCTS;
+  
+  quantity: number[] = this.products.map(product => 1);
+  total: number[] = this.products.map(product => Number.parseInt(product.price));
 
-  updateTotal() {
-    this.total = Math.round(this.quantity * this.price * 100) / 100;
+  updateTotal(i: number) {
+    this.total[i] = Math.round(this.quantity[i] * Number.parseInt(this.products[i].price) * 100) / 100;
   }
 
-  addQuantity() { 
-    if (this.quantity < 9) {
-      this.quantity++;
-      this.updateTotal();
+  addQuantity(i: number) { 
+    if (this.quantity[i] < 9) {
+      this.quantity[i]++;
+      this.updateTotal(i);
     }
   }
 
-  subtractQuantity() { 
-    if (this.quantity > 1) {
-      this.quantity--;
-      this.updateTotal();
+  subtractQuantity(i: number) { 
+    if (this.quantity[i] > 1) {
+      this.quantity[i]--;
+      this.updateTotal(i);
     }
   }
 }
