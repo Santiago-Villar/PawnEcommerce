@@ -59,6 +59,16 @@ namespace Repository
             return sale;
         }
 
+        public List<Sale> GetSalesByUserId(int userId)
+        {
+            return _context.Sales
+                        .Where(s => s.UserId == userId)
+                        .Include(s => s.Products)
+                        .ThenInclude(sp => sp.Product)
+                        .ToList();
+        }
+
+
         public void Update(Sale updateSale)
         {
             var existingSale = _context.Sales
