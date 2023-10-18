@@ -131,4 +131,45 @@ public class SaleServiceTest
 
         Assert.AreEqual(sale, saleService.Get(sale.Id));
     }
+
+    [TestMethod]
+    public void GetSalesByUserId_ShouldReturnCorrectSales()
+    {
+        var productMock = PromotionTestHelper.CreateProduct();
+        var user = new User
+        {
+            Id = 1,
+            Email = "testuser@email.com"
+        };
+
+        var saleProductMock = new SaleProduct
+        {
+            Product = productMock
+        };
+
+        var sale1 = new Sale
+        {
+            UserId = user.Id,
+            Products = Enumerable.Repeat(saleProductMock, 3).ToList()
+        };
+
+        var sale2 = new Sale
+        {
+            UserId = user.Id,
+            Products = Enumerable.Repeat(saleProductMock, 2).ToList()
+        };
+
+        var salesForUser = new List<Sale> { sale1, sale2 };
+
+        var mockRepository = new Mock<ISaleRepository>();
+        mockRepository.Setup(repo => repo.GetSalesByUserId(user.Id)).Returns(salesForUser);
+
+        var saleService = new SaleService(mockRepository.Object);
+
+        var result = saleService.GetSalesByUserId(user.Id);
+
+        Assert.AreEqual(2, result.Count); // Expecting two sales for the user
+        Assert.IsTrue(result.Any(s => s.UserId == user.Id));
+    }
+
 }
