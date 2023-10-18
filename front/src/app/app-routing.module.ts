@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { ShoppingBagComponent } from './components/cart/shopping-bag/shopping-bag.component';
-import { SummaryComponent } from './components/cart/summary/summary.component';
+import { CartComponent } from './components/cart/cart.component';
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'cart', component: ShoppingBagComponent },
-  { path: 'summary', component: SummaryComponent },
+  { path: 'cart', component: CartComponent },
 ];
 
 @NgModule({

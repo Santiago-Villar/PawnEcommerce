@@ -35,5 +35,6 @@ export const PRODUCTS: Product[] = [
     brand: { id: "1", name: "Example Brand" },
     category: { id: "1", name: "Electronics" }
   },
+  
 ];
 

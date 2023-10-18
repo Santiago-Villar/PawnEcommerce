@@ -13,6 +13,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ShoppingBagComponent } from './components/cart/shopping-bag/shopping-bag.component';
 import { SummaryComponent } from './components/cart/summary/summary.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SummaryComponent } from './components/cart/summary/summary.component';
     LoginComponent,
     RegisterComponent,
     ShoppingBagComponent,
-    SummaryComponent
+    SummaryComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
