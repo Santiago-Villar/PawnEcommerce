@@ -2,28 +2,30 @@
   <div class="title">
     Shopping Bag
   </div>
-  <div *ngFor="let product of products; let i = index;">
-  <div class="item">
-    <div class="image">
-      <img [src]="defaultImageUrl" width="80px" height="80px" alt="" />
+  <div class ="items">
+    <div *ngFor="let product of products; let i = index;">
+      <div class="item">
+        <div class="image">
+          <img [src]="defaultImageUrl" width="80px" height="80px" alt="" />
+        </div>
+        <div class="description">
+          <span>{{ product.name }}</span>
+          <span>{{ getColors(product.color) }}</span>
+        </div>
+        <div class="quantity">
+          <button class="plus-btn" type="button" name="button" (click)="addQuantity(i)">
+            <img src="assets/plus.svg" alt="" />
+          </button>
+          <input type="text" name="name" value="1" [(ngModel)]="quantity[i]">
+          <button class="minus-btn" type="button" name="button" (click)="subtractQuantity(i)">
+            <img src="assets/minus.svg" alt="" />
+          </button>
+        </div>
+        <div class="total-price">${{ total[i] }}</div>
+        <div class="buttons" (click)="removeProduct(i)">
+          <span class="delete-btn"></span>
+        </div>
+      </div>
     </div>
-    <div class="description">
-      <span>{{ product.name }}</span>
-      <span>{{ getColors(product.color) }}</span>
-    </div>
-    <div class="quantity">
-      <button class="plus-btn" type="button" name="button" (click)="addQuantity(i)">
-        <img src="assets/plus.svg" alt="" />
-      </button>
-      <input type="text" name="name" value="1" [(ngModel)]="quantity[i]">
-      <button class="minus-btn" type="button" name="button" (click)="subtractQuantity(i)">
-        <img src="assets/minus.svg" alt="" />
-      </button>
-    </div>
-    <div class="total-price">${{ total[i] }}</div>
-    <div class="buttons" (click)="removeProduct(i)">
-      <span class="delete-btn"></span>
-    </div>
-  </div>
   </div>
 </div>

@@ -17,6 +17,11 @@
   font-weight: 400;
 }
 
+.items {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
 .item {
   padding: 20px 30px;
   height: 120px;
