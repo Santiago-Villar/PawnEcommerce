@@ -9,7 +9,7 @@
     </div>
     <div class="description">
       <span>{{ product.name }}</span>
-      <span>{{ product.color }}</span>
+      <span>{{ getColors(product.color) }}</span>
     </div>
     <div class="quantity">
       <button class="plus-btn" type="button" name="button" (click)="addQuantity(i)">

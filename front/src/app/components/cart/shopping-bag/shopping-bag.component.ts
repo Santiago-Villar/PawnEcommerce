@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Color } from '../../../models/product.model'
 import { PRODUCTS } from './TEST_PRODUCTS';
 
 @Component({
@@ -11,10 +12,10 @@ export class ShoppingBagComponent {
   products = PRODUCTS;
   
   quantity: number[] = this.products.map(product => 1);
-  total: number[] = this.products.map(product => Number.parseInt(product.price));
+  total: number[] = this.products.map(product => product.price);
 
   updateTotal(i: number) {
-    this.total[i] = Math.round(this.quantity[i] * Number.parseInt(this.products[i].price) * 100) / 100;
+    this.total[i] = Math.round(this.quantity[i] * this.products[i].price * 100) / 100;
   }
 
   addQuantity(i: number) { 
@@ -35,5 +36,9 @@ export class ShoppingBagComponent {
     this.products.splice(i, 1);
     this.quantity.splice(i, 1);
     this.total.splice(i, 1);
+  }
+
+  getColors(colors: Color[]) {
+    return colors.map(col => col.name).join(', ');
   }
 }
