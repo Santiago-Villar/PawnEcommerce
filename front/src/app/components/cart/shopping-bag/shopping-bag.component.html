@@ -21,7 +21,7 @@
       </button>
     </div>
     <div class="total-price">${{ total[i] }}</div>
-    <div class="buttons">
+    <div class="buttons" (click)="removeProduct(i)">
       <span class="delete-btn"></span>
     </div>
   </div>

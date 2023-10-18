@@ -30,4 +30,10 @@ export class ShoppingBagComponent {
       this.updateTotal(i);
     }
   }
+
+  removeProduct(i: number) { 
+    this.products.splice(i, 1);
+    this.quantity.splice(i, 1);
+    this.total.splice(i, 1);
+  }
 }
