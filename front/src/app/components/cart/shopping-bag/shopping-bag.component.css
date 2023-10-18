@@ -117,11 +117,14 @@ input:focus {
   font-weight: 300;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .shopping-cart {
-    width: 90%;
+    width: 100%;
     height: auto;
     overflow: hidden;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    margin-left: 12px;
   }
   .item {
     height: auto;
@@ -136,6 +139,5 @@ input:focus {
   .description {
     width: 100%;
     text-align: center;
-    margin: 6px 0;
   }
 }
