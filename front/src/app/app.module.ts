@@ -11,12 +11,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { ShoppingBagComponent } from './components/cart/shopping-bag/shopping-bag.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ShoppingBagComponent
   ],
   imports: [
     BrowserModule,

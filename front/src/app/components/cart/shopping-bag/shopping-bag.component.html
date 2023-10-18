@@ -1,0 +1,27 @@
+<div class="shopping-cart">
+  <div class="title">
+    Shopping Bag
+  </div>
+  <div class="item">
+    <div class="image">
+      <img [src]="defaultImageUrl" width="80px" height="80px" alt="" />
+    </div>
+    <div class="description">
+      <span>Pantalón Chino</span>
+      <span>White</span>
+    </div>
+    <div class="quantity">
+      <button class="plus-btn" type="button" name="button" (click)="addQuantity()">
+        <img src="assets/plus.svg" alt="" />
+      </button>
+      <input type="text" name="name" value="1" [(ngModel)]="quantity">
+      <button class="minus-btn" type="button" name="button" (click)="subtractQuantity()">
+        <img src="assets/minus.svg" alt="" />
+      </button>
+    </div>
+    <div class="total-price">{{ total }}</div>
+    <div class="buttons">
+      <span class="delete-btn"></span>
+    </div>
+  </div>
+</div>
