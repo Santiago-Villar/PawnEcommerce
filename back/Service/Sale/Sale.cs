@@ -16,7 +16,6 @@ namespace Service.Sale
 		        CalculateTotalPrice();
 	        }
         }
-
         public int UserId { get; set; }
         public Service.User.User User { get; set; }
 
