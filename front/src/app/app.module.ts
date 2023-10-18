@@ -8,18 +8,20 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { ProductListContainerComponent } from './components/itemList/item-list-container.component';
 import { ItemComponent } from './components/item/item.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ProductListContainerComponent,
-    ItemComponent
+    ItemComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
