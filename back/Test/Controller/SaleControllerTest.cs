@@ -114,7 +114,27 @@ public class SaleControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(expected, discount.discountPrice);
     }
-    
+
+
+    [TestMethod]
+    public void GetSalesByUserId_ReturnsSales_Ok()
+    {
+        var userId = 1;
+        var salesForUser = Enumerable.Repeat(_newSale, 3).Select(sale => sale.ToEntity()).ToList();
+
+        var saleService = new Mock<ISaleService>();
+        saleService.Setup(ss => ss.GetSalesByUserId(userId)).Returns(salesForUser);
+        var productService = new Mock<IProductService>();
+
+        var saleController = new SaleController(saleService.Object, productService.Object);
+
+        var result = saleController.GetSalesByUserId(userId) as OkObjectResult;
+
+        Assert.IsNotNull(result);
+        CollectionAssert.AreEqual(salesForUser, result.Value as List<Sale>);
+    }
+
+
 }
 
-    
+
