@@ -27,7 +27,7 @@ export class LoginComponent {
         this.router.navigate(['/']);
       },
       error: (response: any) => {
-        this.toastrService.error(response?.error?.message, '', {
+        this.toastrService.error(response?.error?.message ?? "Unexpected Error", '', {
           progressBar: true,
           timeOut: 2000,
         });
