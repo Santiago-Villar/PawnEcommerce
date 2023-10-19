@@ -4,7 +4,7 @@
   </div>
   <div class="item">
     <span>Order Summary</span>
-    <span class="price">$ {{ total }}</span>
+    <span class="price">$ {{ getTotal() }}</span>
   </div>
   <div class="item">
     <span>Discount</span>
@@ -12,7 +12,7 @@
   </div>
   <div class="item">
     <span>Subtotal</span>
-    <span class="price">$ {{ total }}</span>
+    <span class="price">$ {{ getSubtotal() }}</span>
   </div>
   <div class="btn">
     <button class="button" type='submit'>Checkout</button>

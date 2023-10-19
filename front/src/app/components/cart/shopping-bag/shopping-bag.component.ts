@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { Color } from '../../../models/product.model'
-import { PRODUCTS } from './TEST_PRODUCTS';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Color, Product } from '../../../models/product.model'
 
 @Component({
   selector: 'app-shopping-bag',
@@ -9,10 +8,18 @@ import { PRODUCTS } from './TEST_PRODUCTS';
 })
 export class ShoppingBagComponent {
   defaultImageUrl : String = "https://montevista.greatheartsamerica.org/wp-content/uploads/sites/2/2016/11/default-placeholder.png";
-  products = PRODUCTS;
-  
-  quantity: number[] = this.products.map(product => 1);
-  total: number[] = this.products.map(product => product.price);
+
+  @Output() updateQuantity = new EventEmitter<{ index: number, quantity: number }>();
+  @Output() removeProduct = new EventEmitter<{ index: number }>();
+
+  @Input() products : Product[] = [];
+  @Input() quantity : number[] = [];
+
+  total: number[] = [];
+
+  ngOnInit() {
+    this.total = this.products.map(product => product.price);
+  }
 
   updateTotal(i: number) {
     this.total[i] = Math.round(this.quantity[i] * this.products[i].price * 100) / 100;
@@ -20,21 +27,20 @@ export class ShoppingBagComponent {
 
   addQuantity(i: number) { 
     if (this.quantity[i] < 9) {
-      this.quantity[i]++;
+      this.updateQuantity.emit({ index: i, quantity: 1 });
       this.updateTotal(i);
     }
   }
 
   subtractQuantity(i: number) { 
     if (this.quantity[i] > 1) {
-      this.quantity[i]--;
+      this.updateQuantity.emit({ index: i, quantity: -1 });
       this.updateTotal(i);
     }
   }
 
-  removeProduct(i: number) { 
-    this.products.splice(i, 1);
-    this.quantity.splice(i, 1);
+  spliceProducts(i: number) { 
+    this.removeProduct.emit({ index: i });
     this.total.splice(i, 1);
   }
 

@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, SimpleChanges, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-summary',
@@ -8,12 +9,22 @@ import { Router } from '@angular/router';
 })
 export class SummaryComponent {
   router = inject(Router)
-
-  total: number = 150;
-  discount: number = 0;
-  subtotal: number = this.total;
   
+  @Input() products : Product[] = [];
+  @Input() quantity : number[] = [];
+
+  discount: number = 0;
+
   goToHome() {
     this.router.navigate(['']);
   }
+
+  getSubtotal() {
+    return this.getTotal() - this.discount;
+  }
+
+  getTotal() {
+    return this.products.reduce((total, product, index) => total + (product.price * this.quantity[index]), 0);
+  }
+
 }

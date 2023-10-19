@@ -1,8 +1,8 @@
 <div class="cart-container">
   <div class="shopping-bag">
-    <app-shopping-bag></app-shopping-bag>
+    <app-shopping-bag [products]="products" [quantity]="quantity" (updateQuantity)="handleUpdateQuantity($event)" (removeProduct)="handleRemoveProducts($event)">></app-shopping-bag>
   </div>
   <div class="summary">
-    <app-summary></app-summary>
+    <app-summary [products]="products" [quantity]="quantity"></app-summary>
   </div>
 </div>
