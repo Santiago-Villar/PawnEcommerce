@@ -55,6 +55,13 @@ namespace PawnEcommerce.Controllers
             return Ok(saleDiscountDto);
         }
 
+        [Authorization("User")]
+        [HttpGet("user/{userId:int}")]
+        public IActionResult GetSalesByUserId([FromRoute] int userId)
+        {
+            var sales = _saleService.GetSalesByUserId(userId);
+            return Ok(sales);
+        }
 
     }
 }
