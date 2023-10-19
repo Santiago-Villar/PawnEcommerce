@@ -35,6 +35,18 @@ export const PRODUCTS: Product[] = [
     brand: { id: "1", name: "Example Brand" },
     category: { id: "1", name: "Electronics" }
   },
+  {
+    id: "3",
+    name: "smartphone",
+    description: "A feature-packed smartphone with advanced technology.",
+    price: 800,
+    color: [
+      { id: "3", name: "black", code: "#000000" }
+    ],
+    brand: { id: "1", name: "Example Brand" },
+    category: { id: "1", name: "Electronics" }
+  },
+  
   
 ];
 
