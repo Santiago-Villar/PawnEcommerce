@@ -15,7 +15,10 @@
     <span class="price">$ {{ getSubtotal() }}</span>
   </div>
   <div class="btn">
-    <button class="button" type='submit'>Checkout</button>
+    <button class="button" type='submit' (click)="createSale()" [disabled]="isLoading">
+      <span *ngIf="isLoading">Loading...</span>
+      <span *ngIf="!isLoading">Checkout</span>
+    </button>
   </div>
   <p class="continue"> or <span class="link-to-home" (click)="goToHome()">continue shopping</span></p>
 </div>

@@ -53,6 +53,11 @@
   outline: none;
 }
 
+.button[disabled] {
+  opacity: 0.7;
+  cursor: default !important;
+}
+
 .continue {
   font-size: 14px;
   margin-top: 16px;

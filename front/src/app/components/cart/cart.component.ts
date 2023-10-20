@@ -16,10 +16,16 @@ export class CartComponent {
   
   handleUpdateQuantity(eventData: { index: number, quantity: number }) {
     this.quantity[eventData.index] += eventData.quantity;
+    this.quantity = [...this.quantity];
+  }
+  
+  handleRemoveProducts(eventData: { index: number }) {
+    this.products = [...this.products.slice(0, eventData.index), ...this.products.slice(eventData.index + 1)];
+    this.quantity = [...this.quantity.slice(0, eventData.index), ...this.quantity.slice(eventData.index + 1)];
   }
 
-  handleRemoveProducts(eventData: { index: number }) {
-    this.products.splice(eventData.index, 1);
+  resetProducts() {
+    this.products = [];
   }
 
 }

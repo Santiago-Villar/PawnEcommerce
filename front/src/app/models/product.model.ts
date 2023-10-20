@@ -1,7 +1,7 @@
 export interface Product{
-  id: String,
-  name: String,
-  description: String,
+  id: string,
+  name: string,
+  description: string,
   price: number,
   color: Color[],
   brand: Brand,
@@ -9,17 +9,17 @@ export interface Product{
 }
 
 export interface Color {
-  id: String,
-  name: String,
-  code: String
+  id: string,
+  name: string,
+  code: string
 }
 
 export interface Brand {
-  id: String,
-  name: String,
+  id: string,
+  name: string,
 }
 
 export interface Category {
-  id: String,
-  name: String,
+  id: string,
+  name: string,
 }
