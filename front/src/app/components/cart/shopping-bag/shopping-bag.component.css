@@ -11,9 +11,9 @@
 
 .title {
   height: 60px;
-  border-bottom: 1px solid #e1e8ee;
+  border-bottom: 1px solid var(--almostWhite);
   padding: 20px 30px;
-  color: #5e6977;
+  color: var(--grayTitle);
   font-size: 18px;
   font-weight: 400;
 }
@@ -61,7 +61,6 @@
 .description span {
   display: block;
   font-size: 14px;
-  color: #43484d;
   font-weight: 400;
 }
 
@@ -71,7 +70,7 @@
 .description span:last-child {
   font-weight: 300;
   margin-top: 8px;
-  color: #86939e;
+  color: var(--almostWhiteGray);
 }
 
 .quantity {
@@ -83,14 +82,14 @@
   text-align: center;
   width: 32px;
   font-size: 16px;
-  color: #43484d;
+  color: var(--gray);
   font-weight: 300;
 }
 
 button[class*="btn"] {
   width: 30px;
   height: 30px;
-  background-color: #e1e8ee;
+  background-color: var(--almostWhite);
   border-radius: 6px;
   border: none;
   cursor: pointer;
@@ -114,7 +113,7 @@ input:focus {
   padding-top: 27px;
   text-align: center;
   font-size: 16px;
-  color: #43484d;
+  color: var(--gray);
   font-weight: 300;
 }
 
