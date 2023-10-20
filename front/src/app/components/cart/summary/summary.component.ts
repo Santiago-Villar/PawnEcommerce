@@ -40,6 +40,8 @@ export class SummaryComponent {
   }
 
   setDiscount() {
+    if(this.products.length == 0)
+      return;
 
     const productsId = Array.from(this.products).flatMap((product, i) => {
       const productId = Number.parseInt(product.id);
@@ -47,7 +49,6 @@ export class SummaryComponent {
       return Array.from({ length: occurrences }, () => productId);
     });
 
-    console.log(productsId);
 
     this.cartService.getDiscount(productsId).subscribe({
       next: (discount) => {
@@ -76,6 +77,7 @@ export class SummaryComponent {
         });
 
         this.resetProducts.emit();
+        this.discount = 0;
       },
       error: (response: any) => {
         this.toastrService.error(response?.error?.message ?? "Please log in before checkout", '', {
