@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@800&display=swap");
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.025) 0px 1px 2px 0px;
+}
+
+.navbar {
+  transition: all 0.4s;
+  height: 70px;
+  display: flex;
+}
+
+.items {
+  flex: 0.6;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+a:hover {
+  color: #fff;
+  box-shadow: inset 200px 0 0 0 #54b3d6;
+}
+
+a {
+  color: var(--color3);
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 0 var(--color3);
+  color: var(--color3);
+  padding: 0 0.25rem;
+  margin: 0 -0.25rem;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.logo {
+  display: flex;
+  flex: 0.4;
+  padding-right: 25%;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 28px;
+  letter-spacing: 1px;
+  font-family: "Heebo", sans-serif;
+  color: var(--color3);
+}

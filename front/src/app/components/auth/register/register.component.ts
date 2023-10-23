@@ -44,8 +44,4 @@ export class RegisterComponent {
       }
     });
   }
-   
-  goToLogIn() {
-    this.router.navigate(['/login']);
-  }
 }

@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { ProductListContainerComponent } from './components/itemList/item-list-container.component';
 import { ItemComponent } from './components/item/item.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { RegisterComponent } from './components/auth/register/register.component
     LoginComponent,
     ProductListContainerComponent,
     ItemComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
