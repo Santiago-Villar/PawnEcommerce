@@ -15,6 +15,7 @@ import { ProductListContainerComponent } from './components/itemList/item-list-c
 import { ItemComponent } from './components/item/item.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HeaderComponent } from './components/header/header.component';
     ProductListContainerComponent,
     ItemComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
