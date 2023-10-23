@@ -1,0 +1,13 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="logo">
+      PAWN
+    </div>
+    <div class="items">
+      <a href="#" data-replace="Home"><span>Home</span></a>
+      <a href="/cart" data-replace="Cart"><span>Cart</span></a>
+      <a *ngIf="!authService.isLoggedIn()" href="/login" data-replace="Log In"><span>Log In</span></a>
+      <a *ngIf="authService.isLoggedIn()" href="/profile" data-replace="Profile"><span>Profile</span></a>
+    </div>
+  </nav>
+</header>
