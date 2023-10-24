@@ -10,6 +10,9 @@ namespace Service.Session
 
 		public User.User? GetCurrentUser(string token);
 
+		public int? ExtractUserIdFromToken(string token);
+
+
     }
 }
 

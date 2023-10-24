@@ -55,7 +55,8 @@ namespace Service.Session
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(1), // El token expira en 1 día
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -98,6 +99,37 @@ namespace Service.Session
                 return null;
             }
         }
+
+        public int? ExtractUserIdFromToken(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+                return null;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(SecretKey);
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var userIdClaim = jwtToken.Claims.First(c => c.Type == ClaimTypes.NameIdentifier);
+                return int.Parse(userIdClaim.Value);
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("exception next:");
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
+
     }
 }
 
