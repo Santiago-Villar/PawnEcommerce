@@ -7,6 +7,7 @@ using Service.Filter.ConcreteFilter;
 using Service.User;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using PawnEcommerce.DTO.Product;
 
 namespace Test;
 [TestClass]
@@ -223,7 +224,21 @@ public class ProductServiceTest
         Assert.ThrowsException<ServiceException>(() => _productService.UpdateProduct(null));
     }
 
+    [TestMethod]
+    public void UpdateProductNameUsingDTO_Ok()
+    {
+        var updatedProductName = "Updated Product Name";
+        var partialDTO = new ProductCreationModel { Name = updatedProductName };
 
+        _productRepositoryMock.Setup(repo => repo.Exists(1)).Returns(true);
+        _productRepositoryMock.Setup(repo => repo.Get(1)).Returns(aProduct);
+        _productRepositoryMock.Setup(repo => repo.UpdateProduct(It.IsAny<Product>()));
+
+        _productService.UpdateProductUsingDTO(1, partialDTO);
+
+        _productRepositoryMock.Verify(repo => repo.Get(1), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.UpdateProduct(It.Is<Product>(p => p.Name == updatedProductName)), Times.Once());
+    }
 
 }
 
