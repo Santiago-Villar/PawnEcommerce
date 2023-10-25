@@ -8,6 +8,8 @@ using PawnEcommerce.DTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace Test.Service.Session
 {
@@ -53,7 +55,7 @@ namespace Test.Service.Session
             _mockUser = GetMockUser();
             _mockRepository = new Mock<IUserRepository>();
             _mockRepository.Setup(repo => repo.Get(It.IsAny<string>())).Returns((string email) => email == Email ? _mockUser : null);
-            _sessionService = new SessionService(_mockRepository.Object);
+            _sessionService = new SessionService(_mockRepository.Object,GetMockHttpContextAccessor("").Object);
             _sessionController = new SessionController(_sessionService);
         }
 
@@ -103,6 +105,21 @@ namespace Test.Service.Session
 
             Assert.IsNotNull(objectResult);
             Assert.AreEqual(401, objectResult.StatusCode);
+        }
+        private Mock<IHttpContextAccessor> GetMockHttpContextAccessor(string authorizationHeader)
+        {
+            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockHttpRequest = new Mock<HttpRequest>();
+
+            mockHttpRequest.SetupGet(req => req.Headers).Returns(new HeaderDictionary {
+                { "Authorization", new StringValues("Bearer " + authorizationHeader) }
+            });
+
+            mockHttpContext.SetupGet(ctx => ctx.Request).Returns(mockHttpRequest.Object);
+            mockHttpContextAccessor.SetupGet(accessor => accessor.HttpContext).Returns(mockHttpContext.Object);
+
+            return mockHttpContextAccessor;
         }
     }
 }

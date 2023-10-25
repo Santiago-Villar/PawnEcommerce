@@ -7,6 +7,8 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
 using Microsoft.IdentityModel.Tokens;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Service.Session
@@ -15,11 +17,12 @@ namespace Service.Session
 	{
         private string SecretKey = "asldasdkLDKSALKD32DK2O3KDASKDslakDLSAKF";
         public IUserRepository _repository { get; set; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public SessionService(IUserRepository repository)
+		public SessionService(IUserRepository repository, IHttpContextAccessor httpContextAccessor)
 		{
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
-
 		}
 
         public string Authenticate(string email, string password)
@@ -32,8 +35,9 @@ namespace Service.Session
             return createToken(user);
         }
 
-        public User.User? GetCurrentUser(string token)
+        public User.User? GetCurrentUser()
         {
+            var token = ExtractTokenFromHeader(_httpContextAccessor.HttpContext);
             var userEmail = ExtractUserEmailFromToken(token);
             if (userEmail == null)
                 return null;
@@ -128,6 +132,10 @@ namespace Service.Session
                 Console.WriteLine(ex);
                 return null;
             }
+        }
+        private string ExtractTokenFromHeader(HttpContext context)
+        {
+            return context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         }
 
     }

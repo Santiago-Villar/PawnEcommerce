@@ -15,32 +15,37 @@ namespace PawnEcommerce.Controllers
     {
         private readonly ISaleService _saleService;
         private readonly IProductService _productService;
-        private readonly ISessionService _sessionService;
+        private readonly IServiceProvider _serviceProvider;
 
 
-        public SaleController(ISaleService saleService, IProductService productService, ISessionService sessionService)
+        public SaleController(ISaleService saleService, IProductService productService, IServiceProvider serviceProvider)
         {
             _saleService = saleService;
             _productService = productService;
-            _sessionService = sessionService;
+            _serviceProvider = serviceProvider;
         }
 
         [Authorization("User")]
         [HttpPost]
         public IActionResult Create([FromBody] SaleCreationModel newSale)
         {
-            var userId = _sessionService.ExtractUserIdFromToken(Request.Headers["Authorization"].ToString().Split(' ')[1]); // Extracts the Bearer token and gets the userId
-            if (!userId.HasValue)
-                return Unauthorized("Invalid token."); // Handle the error appropriately 
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
 
-            var sale = newSale.ToEntity();
-            sale.UserId = userId.Value; // Assign the userId to the sale
+                var userId = sessionService.ExtractUserIdFromToken(Request.Headers["Authorization"].ToString().Split(' ')[1]);
+                if (!userId.HasValue)
+                    return Unauthorized("Invalid token.");
 
-            sale.Id = _saleService.Create(sale);
-            sale.Products = newSale.CreateSaleProducts(sale, _productService);
-            _saleService.Update(sale);
+                var sale = newSale.ToEntity();
+                sale.UserId = userId.Value;
 
-            return Ok();
+                sale.Id = _saleService.Create(sale);
+                sale.Products = newSale.CreateSaleProducts(sale, _productService);
+                _saleService.Update(sale);
+
+                return Ok();
+            }
         }
 
         [Authorization("Admin")]
@@ -70,8 +75,13 @@ namespace PawnEcommerce.Controllers
         [HttpGet("user/{userId:int}")]
         public IActionResult GetSalesByUserId([FromRoute] int userId)
         {
-            var sales = _saleService.GetSalesByUserId(userId);
-            return Ok(sales);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+
+                var sales = _saleService.GetSalesByUserId(userId);
+                return Ok(sales);
+            }
         }
 
     }
