@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PawnEcommerce.DTO.User;
+using Service.DTO.User;
 using PawnEcommerce.Middlewares;
 using Service.User;
 

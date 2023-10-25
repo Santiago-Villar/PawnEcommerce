@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Product;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 using PawnEcommerce.Middlewares;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;

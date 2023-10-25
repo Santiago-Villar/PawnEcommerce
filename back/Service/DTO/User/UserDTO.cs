@@ -1,7 +1,7 @@
 ﻿using Service.User.Role;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PawnEcommerce.DTO.User
+namespace Service.DTO.User
 {
     [ExcludeFromCodeCoverage]
     public class UserDTO

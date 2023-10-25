@@ -12,6 +12,7 @@ namespace Service.Product
         public Product GetProductByName(string productName);
         public Product[] GetAllProducts(FilterQuery filter);
         public void UpdateProduct(Product product);
+        public void UpdateProductUsingDTO(int id, ProductCreationModel productDTO);
         public void Reset();
     }
 }

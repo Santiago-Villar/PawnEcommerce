@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
 using Service.User;
-using PawnEcommerce.DTO.User;
+using Service.DTO.User;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using Moq;
 using PawnEcommerce.Controllers;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
