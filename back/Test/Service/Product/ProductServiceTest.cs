@@ -7,7 +7,7 @@ using Service.Filter.ConcreteFilter;
 using Service.User;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 
 namespace Test;
 [TestClass]

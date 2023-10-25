@@ -6,6 +6,7 @@ using System.Text;
 using Service.Exception;
 using System.Threading.Tasks;
 using Service.Filter.ConcreteFilter;
+using Service.DTO.Product;
 
 namespace Service.Product
 {
@@ -84,6 +85,19 @@ namespace Service.Product
                 _productRepository.UpdateProduct(newProductVersion);
             }
             else { throw new RepositoryException($"Product {newProductVersion.Id} does not exist."); }
+        }
+
+        public void UpdateProductUsingDTO(int id, ProductCreationModel productDto)
+        {
+            var existingProduct = _productRepository.Get(id);
+
+            existingProduct.Name = productDto.Name;
+            existingProduct.Description = productDto.Description;
+            existingProduct.Price = productDto.Price;
+            existingProduct.BrandId = productDto.BrandId;
+            existingProduct.CategoryId = productDto.CategoryId;
+
+            _productRepository.UpdateProduct(existingProduct);
         }
 
     }

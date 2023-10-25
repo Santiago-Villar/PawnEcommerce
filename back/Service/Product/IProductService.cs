@@ -1,5 +1,6 @@
 ﻿using Service.Filter.ConcreteFilter;
 using Service.User;
+using Service.DTO.Product;
 
 namespace Service.Product
 {
