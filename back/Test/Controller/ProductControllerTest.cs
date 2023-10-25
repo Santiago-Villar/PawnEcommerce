@@ -94,6 +94,23 @@ public class ProductControllerTest
     }
 
     [TestMethod]
+    public void Update_OnlyName_Ok()
+    {
+        _productService.Setup(ps => ps.Get(1)).Returns(_product1);
+
+        var updatedProductModel = new ProductCreationModel
+        {
+            Name = "UpdatedName"
+        };
+
+        var result = _productController.Update(1, updatedProductModel) as OkResult;
+
+        _productService.Verify(ps => ps.UpdateProduct(It.Is<Product>(p => p.Name == "UpdatedName")), Times.Once);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(200, result.StatusCode);
+    }
+
+    [TestMethod]
     public void Delete_Ok()
     {
         var result = _productController.Delete(1) as OkResult;
