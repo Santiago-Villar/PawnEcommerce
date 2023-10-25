@@ -92,7 +92,6 @@ public class ProductControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
-
     [TestMethod]
     public void Update_OnlyName_Ok()
     {
@@ -104,8 +103,7 @@ public class ProductControllerTest
         };
 
         var result = _productController.Update(1, updatedProductModel) as OkResult;
-
-        _productService.Verify(ps => ps.UpdateProduct(It.Is<Product>(p => p.Name == "UpdatedName")), Times.Once);
+        _productService.Verify(ps => ps.UpdateProductUsingDTO(1, It.Is<ProductCreationModel>(p => p.Name == "UpdatedName")));
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
