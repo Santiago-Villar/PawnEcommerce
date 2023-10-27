@@ -170,22 +170,29 @@ public class SaleControllerTest
 
 
     [TestMethod]
-    public void GetSalesByUserId_ReturnsSales_Ok()
+    public void GetCurrentUserSales_ReturnsSales_Ok()
     {
-        var userId = 1;
+        var userIdFromToken = 1;
         var salesForUser = Enumerable.Repeat(_newSale, 3).Select(sale => sale.ToEntity()).ToList();
 
         var saleService = new Mock<ISaleService>();
-        saleService.Setup(ss => ss.GetSalesByUserId(userId)).Returns(salesForUser);
+        saleService.Setup(ss => ss.GetSalesByUserId(userIdFromToken)).Returns(salesForUser);
         var productService = new Mock<IProductService>();
 
         var saleController = new SaleController(saleService.Object, productService.Object, serviceProviderMock.Object);
 
-        var result = saleController.GetSalesByUserId(userId) as OkObjectResult;
+        saleController.ControllerContext = new ControllerContext
+        {
+            HttpContext = httpContextMock.Object
+        };
+
+        var result = saleController.GetUserPurchaseHistory() as OkObjectResult;
 
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(salesForUser, result.Value as List<Sale>);
     }
+
+
 
 
 }

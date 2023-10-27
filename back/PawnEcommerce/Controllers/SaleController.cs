@@ -72,17 +72,22 @@ namespace PawnEcommerce.Controllers
         }
 
         [Authorization("User")]
-        [HttpGet("user/{userId:int}")]
-        public IActionResult GetSalesByUserId([FromRoute] int userId)
+        [HttpGet("purchase-history")] 
+        public IActionResult GetUserPurchaseHistory() 
         {
             using (var scope = _serviceProvider.CreateScope())
             {
                 var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
 
-                var sales = _saleService.GetSalesByUserId(userId);
+                var userId = sessionService.ExtractUserIdFromToken(Request.Headers["Authorization"].ToString().Split(' ')[1]);
+                if (!userId.HasValue)
+                    return Unauthorized("Invalid token.");
+
+                var sales = _saleService.GetSalesByUserId(userId.Value);
                 return Ok(sales);
             }
         }
+
 
     }
 }
