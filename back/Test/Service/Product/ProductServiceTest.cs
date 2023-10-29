@@ -15,12 +15,14 @@ namespace Test;
 public class ProductServiceTest
 {
     public IProductService _productService;
-   public  Mock<IProductRepository> _productRepositoryMock;
+    public  Mock<IProductRepository> _productRepositoryMock;
+    public IColorService _colorServiceMock;
 
     public ProductServiceTest()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
-        _productService = new ProductService(_productRepositoryMock.Object);
+        _colorServiceMock = new Mock<IColorService>().Object;
+        _productService = new ProductService(_productRepositoryMock.Object, _colorServiceMock);
     }
 
     public static Brand aBrand = new Brand(1)
@@ -59,7 +61,7 @@ public class ProductServiceTest
     public void SetUp()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
-        _productService = new ProductService(_productRepositoryMock.Object);
+        _productService = new ProductService(_productRepositoryMock.Object, _colorServiceMock);
 
         aBrand = new Brand(3) { Name = "Kova" };
         aCategory = new Category(3) { Name = "Retro" };
@@ -228,7 +230,7 @@ public class ProductServiceTest
     public void UpdateProductNameUsingDTO_Ok()
     {
         var updatedProductName = "Updated Product Name";
-        var partialDTO = new ProductCreationModel { Name = updatedProductName };
+        var partialDTO = new ProductUpdateModel { Name = updatedProductName };
 
         _productRepositoryMock.Setup(repo => repo.Exists(1)).Returns(true);
         _productRepositoryMock.Setup(repo => repo.Get(1)).Returns(aProduct);

@@ -16,6 +16,7 @@ namespace Test.Controller;
 public class ProductControllerTest
 {
     private ProductCreationModel _productCreationModel;
+    private ProductUpdateModel _productUpdateModel;
     private Product _product1;
     private Mock<IProductService> _productService;
     private Mock<ICategoryService> _categoryService;
@@ -27,6 +28,16 @@ public class ProductControllerTest
     public void Setup()
     {
         _productCreationModel = new ProductCreationModel
+        {
+            Name = "testProd",
+            Description = "test description",
+            Price = 10,
+            BrandId = 1,
+            CategoryId = 1,
+            Colors = new[] { 1, 2 }
+        };
+
+        _productUpdateModel = new ProductUpdateModel
         {
             Name = "testProd",
             Description = "test description",
@@ -85,27 +96,30 @@ public class ProductControllerTest
     }
 
     [TestMethod]
-    public void Update_Ok()
-    {
-        var result = _productController.Update(1, _productCreationModel) as OkResult;
-
-        Assert.IsNotNull(result);
-        Assert.AreEqual(200, result.StatusCode);
-    }
-    [TestMethod]
     public void Update_OnlyName_Ok()
     {
-        _productService.Setup(ps => ps.Get(1)).Returns(_product1);
+        var expectedProduct = new Product
+        {
+            Id = _product1.Id,
+            Name = "UpdatedName",
+            Description = _product1.Description,
+            Price = _product1.Price,
+            BrandId = _product1.BrandId,
+            CategoryId = _product1.CategoryId,
+        };
+        _productService.Setup(ps => ps.UpdateProductUsingDTO(It.IsAny<int>(), It.IsAny<ProductUpdateModel>()))
+                       .Returns(expectedProduct);
 
-        var updatedProductModel = new ProductCreationModel
+        var updatedProductModel = new ProductUpdateModel
         {
             Name = "UpdatedName"
         };
 
-        var result = _productController.Update(1, updatedProductModel) as OkResult;
-        _productService.Verify(ps => ps.UpdateProductUsingDTO(1, It.Is<ProductCreationModel>(p => p.Name == "UpdatedName")));
+        var result = _productController.Update(1, updatedProductModel) as OkObjectResult;
+        _productService.Verify(ps => ps.UpdateProductUsingDTO(1, It.Is<ProductUpdateModel>(p => p.Name == "UpdatedName")));
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
+        Assert.IsInstanceOfType(result.Value, typeof(Product));
     }
 
     [TestMethod]

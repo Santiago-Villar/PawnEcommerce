@@ -109,28 +109,61 @@ namespace Repository
 
 
 
-        public void UpdateProduct(Product updatedProduct)
+        public Product UpdateProduct(Product updatedProduct)
         {
             if (updatedProduct == null)
                 throw new ModelException(nameof(updatedProduct));
 
             var existingProduct = _context.Products
-                                         .Include(p => p.ProductColors)
-                                         .FirstOrDefault(p => p.Id == updatedProduct.Id);
+                                        .Include(p => p.ProductColors)
+                                        .FirstOrDefault(p => p.Id == updatedProduct.Id);
 
             if (existingProduct == null)
                 throw new RepositoryException($"Product with ID {updatedProduct.Id} not found");
 
-            _context.ProductColors.RemoveRange(existingProduct.ProductColors);
+            UpdateProductEntity(existingProduct, updatedProduct);
 
-            foreach (var color in updatedProduct.Colors)
+            UpdateProductColors(existingProduct, updatedProduct);
+
+            _context.SaveChanges();
+
+            return updatedProduct;
+        }
+
+        private void UpdateProductEntity(Product existingProduct, Product updatedProduct)
+        {
+            _context.Entry(existingProduct).CurrentValues.SetValues(updatedProduct);
+        }
+
+
+        private void UpdateProductColors(Product existingProduct, Product updatedProduct)
+        {
+            var currentColorIds = existingProduct.ProductColors.Select(pc => pc.ColorId).ToList();
+            var newColorIds = updatedProduct.Colors.Select(c => c.Id).ToList();
+
+            var colorsToDelete = existingProduct.ProductColors
+                .Where(pc => !newColorIds.Contains(pc.ColorId)).ToList();
+
+            var colorIdsToAdd = newColorIds
+                .Where(id => !currentColorIds.Contains(id)).ToList();
+
+            foreach (var colorId in colorIdsToAdd)
             {
-                _context.ProductColors.Add(new ProductColor { ProductId = updatedProduct.Id, ColorId = color.Id });
+                var newProductColor = new ProductColor
+                {
+                    ProductId = updatedProduct.Id,
+                    ColorId = colorId
+                };
+                existingProduct.ProductColors.Add(newProductColor);
             }
 
-            _context.Entry(existingProduct).CurrentValues.SetValues(updatedProduct);
-            _context.SaveChanges();
+            if (colorsToDelete.Any())
+            {
+                _context.ProductColors.RemoveRange(colorsToDelete);
+            }
         }
+
+
 
         private Boolean NameExists(string name)
         {

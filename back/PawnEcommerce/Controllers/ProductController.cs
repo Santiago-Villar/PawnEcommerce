@@ -62,10 +62,10 @@ namespace PawnEcommerce.Controllers
         }
         [Authorization("Admin")]
         [HttpPut("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] ProductCreationModel updateProduct)
+        public IActionResult Update([FromRoute] int id, [FromBody] ProductUpdateModel updateProduct)
         {
-            _productService.UpdateProductUsingDTO(id,updateProduct);
-            return Ok();
+            Product product = _productService.UpdateProductUsingDTO(id,updateProduct);
+            return Ok(product);
         }
         [Authorization("Admin")]
         [HttpDelete("{id:int}")]
