@@ -95,6 +95,15 @@ public class ProductTest
         Assert.IsTrue(aProduct.Stock > 0);
         Assert.AreEqual(aProduct.Stock, 5);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(ModelException))]
+    public void ProductHasNegativeStock()
+    {
+        aProduct.Stock = -5;
+    }
+
+    [TestMethod]
     public void ProductHasCategory()
     {
         aProduct.Category = new Category(4)
