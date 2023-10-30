@@ -126,8 +126,13 @@ namespace Repository
             UpdateProductColors(existingProduct, updatedProduct);
 
             _context.SaveChanges();
+            var updatedProductWithRelations = _context.Products
+                  .Include(p => p.Brand)
+                  .Include(p => p.Category)
+                  .Include(p => p.ProductColors)
+                  .FirstOrDefault(p => p.Id == updatedProduct.Id);
 
-            return updatedProduct;
+            return updatedProductWithRelations;
         }
 
         private void UpdateProductEntity(Product existingProduct, Product updatedProduct)
