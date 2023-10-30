@@ -90,9 +90,6 @@ public class ProductTest
     }
 
     [TestMethod]
-
-
-    [TestMethod]
     public void ProductHasStock()
     {
         Assert.IsTrue(aProduct.Stock > 0);

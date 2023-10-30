@@ -21,6 +21,8 @@ namespace Service.Product
             }
         }
 
+        public int Stock { get;set; }
+
         [ForeignKey("Brand")]
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
