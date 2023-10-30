@@ -13,11 +13,9 @@ namespace Service.Sale
         [JsonIgnore]
         public int Id { get; set; }
         [JsonIgnore]
-
         public int SaleId { get; set; }
         [JsonIgnore]
         public Sale Sale { get; set; } 
-
         public int ProductId { get; set; }
         public Service.Product.Product Product { get; set; } 
     }

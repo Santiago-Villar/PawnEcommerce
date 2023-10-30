@@ -255,7 +255,7 @@ public class ProductTest
             Brand = new Brand(3) { Name = "Fresh Brand" },
             ProductColors = new List<ProductColor>()
         };
-        Assert.IsTrue(freshProduct.HasEnoughStock(20));
+        Assert.IsTrue(freshProduct.IsStockAvailable(20));
     }
 
     [TestMethod]
@@ -270,7 +270,7 @@ public class ProductTest
             Brand = new Brand(3) { Name = "Fresh Brand" },
             ProductColors = new List<ProductColor>()
         };
-        Assert.IsFalse(freshProduct.HasEnoughStock(21));
+        Assert.IsFalse(freshProduct.IsStockAvailable(21));
     }
 
 
