@@ -28,6 +28,8 @@ class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<ISaleRepository, SaleRepository>();
+        builder.Services.AddHttpContextAccessor();
+
 
         builder.Services.AddControllers();
         builder.Services.AddDbContext<EcommerceContext>(options =>

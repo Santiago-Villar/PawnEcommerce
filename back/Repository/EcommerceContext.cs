@@ -75,6 +75,12 @@ namespace Repository
                 .HasKey(s => s.Id);
 
             modelBuilder.Entity<Sale>()
+                  .HasOne(s => s.User)
+                  .WithMany(u => u.Sales)
+                  .HasForeignKey(s => s.UserId);
+
+
+            modelBuilder.Entity<Sale>()
                 .Property(s => s.Date)
                 .HasDefaultValueSql("getdate()");
 

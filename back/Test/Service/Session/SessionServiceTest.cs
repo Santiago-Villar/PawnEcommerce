@@ -5,6 +5,8 @@ using Service.User;
 using Service.Session;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace Test.Service.Session
 {
@@ -46,7 +48,8 @@ namespace Test.Service.Session
         public void CanCreateSessionService_Ok()
         {
             var mockRepository = new Mock<IUserRepository>();
-            ISessionService sessionService = new SessionService(mockRepository.Object);
+            var mockHttpContextAccessor = GetMockHttpContextAccessor("");
+            ISessionService sessionService = new SessionService(mockRepository.Object, mockHttpContextAccessor.Object);
             Assert.IsNotNull(sessionService);
         }
 
@@ -57,7 +60,8 @@ namespace Test.Service.Session
             var mockRepository = new Mock<IUserRepository>();
             mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
 
-            ISessionService sessionService = new SessionService(mockRepository.Object);
+            var mockHttpContextAccessor = GetMockHttpContextAccessor(""); 
+            ISessionService sessionService = new SessionService(mockRepository.Object, mockHttpContextAccessor.Object);
             string token = sessionService.Authenticate(Email, Password);
 
             Assert.IsNotNull(token);
@@ -68,11 +72,11 @@ namespace Test.Service.Session
         public void AuthenticateWithWrongPassword_Throws()
         {
             var mockUser = GetMockUser();
-
             var mockRepository = new Mock<IUserRepository>();
             mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
 
-            var sessionService = new SessionService(mockRepository.Object);
+            var mockHttpContextAccessor = GetMockHttpContextAccessor(""); 
+            var sessionService = new SessionService(mockRepository.Object, mockHttpContextAccessor.Object);
             string token = sessionService.Authenticate(Email, DifferentPassword);
         }
 
@@ -83,11 +87,12 @@ namespace Test.Service.Session
             var mockRepository = new Mock<IUserRepository>();
             mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
 
-            ISessionService sessionService = new SessionService(mockRepository.Object);
-            string token = sessionService.Authenticate(Email, Password);
-            Console.WriteLine(token);
-            User userGot = sessionService.GetCurrentUser(token);
+            var token = new SessionService(mockRepository.Object, GetMockHttpContextAccessor("").Object).Authenticate(Email, Password);  
 
+            var mockHttpContextAccessor = GetMockHttpContextAccessor(token); 
+            ISessionService sessionService = new SessionService(mockRepository.Object, mockHttpContextAccessor.Object); 
+
+            User userGot = sessionService.GetCurrentUser();
 
             Assert.IsNotNull(userGot);
         }
@@ -99,12 +104,39 @@ namespace Test.Service.Session
             var mockRepository = new Mock<IUserRepository>();
             mockRepository.Setup(repo => repo.Get(Email)).Returns(mockUser);
 
-            ISessionService sessionService = new SessionService(mockRepository.Object);
+            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockHttpRequest = new Mock<HttpRequest>();
+
+            mockHttpRequest.SetupGet(req => req.Headers).Returns(new HeaderDictionary {
+                { "Authorization", new StringValues("Bearer " + "YourFakeTokenHere") }
+            });
+
+            mockHttpContext.SetupGet(ctx => ctx.Request).Returns(mockHttpRequest.Object);
+            mockHttpContextAccessor.SetupGet(accessor => accessor.HttpContext).Returns(mockHttpContext.Object);
+
+            ISessionService sessionService = new SessionService(mockRepository.Object, mockHttpContextAccessor.Object);
             string token = sessionService.Authenticate(Email, Password);
             string wrongToken = token + "asdasd";
 
-            User userGot = sessionService.GetCurrentUser(wrongToken);
+            User userGot = sessionService.GetCurrentUser();
             Assert.IsNull(userGot);
+        }
+
+        private Mock<IHttpContextAccessor> GetMockHttpContextAccessor(string authorizationHeader)
+        {
+            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockHttpRequest = new Mock<HttpRequest>();
+
+            mockHttpRequest.SetupGet(req => req.Headers).Returns(new HeaderDictionary {
+                { "Authorization", new StringValues("Bearer " + authorizationHeader) }
+            });
+
+            mockHttpContext.SetupGet(ctx => ctx.Request).Returns(mockHttpRequest.Object);
+            mockHttpContextAccessor.SetupGet(accessor => accessor.HttpContext).Returns(mockHttpContext.Object);
+
+            return mockHttpContextAccessor;
         }
 
 

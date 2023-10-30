@@ -9,4 +9,6 @@ public interface ISaleRepository
     public List<Sale> GetAll();
     public void Update(Sale sale);
     public Sale Get(int id);
+
+    public List<Sale> GetSalesByUserId(int userId);
 }

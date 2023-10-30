@@ -4,6 +4,7 @@ using PawnEcommerce.DTO.Sale;
 using PawnEcommerce.Middlewares;
 using Service.Product;
 using Service.Sale;
+using Service.Session;
 
 namespace PawnEcommerce.Controllers
 {
@@ -14,24 +15,39 @@ namespace PawnEcommerce.Controllers
     {
         private readonly ISaleService _saleService;
         private readonly IProductService _productService;
+        private readonly IServiceProvider _serviceProvider;
 
 
-        public SaleController(ISaleService saleService, IProductService productService)
+        public SaleController(ISaleService saleService, IProductService productService, IServiceProvider serviceProvider)
         {
             _saleService = saleService;
             _productService = productService;
+            _serviceProvider = serviceProvider;
         }
+
         [Authorization("User")]
         [HttpPost]
         public IActionResult Create([FromBody] SaleCreationModel newSale)
         {
-            var sale = newSale.ToEntity();
-            sale.Id = _saleService.Create(sale);
-            sale.Products = newSale.CreateSaleProducts(sale, _productService);
-            _saleService.Update(sale);
-            
-            return Ok();
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+
+                var userId = sessionService.ExtractUserIdFromToken(Request.Headers["Authorization"].ToString().Split(' ')[1]);
+                if (!userId.HasValue)
+                    return Unauthorized("Invalid token.");
+
+                var sale = newSale.ToEntity();
+                sale.UserId = userId.Value;
+
+                sale.Id = _saleService.Create(sale);
+                sale.Products = newSale.CreateSaleProducts(sale, _productService);
+                _saleService.Update(sale);
+
+                return Ok();
+            }
         }
+
         [Authorization("Admin")]
         [HttpGet]
         public IActionResult GetAll()
@@ -54,6 +70,24 @@ namespace PawnEcommerce.Controllers
             var saleDiscountDto = new SaleDiscountDTO { discountPrice = newPrice };
             return Ok(saleDiscountDto);
         }
+
+        [Authorization("User")]
+        [HttpGet("purchase-history")] 
+        public IActionResult GetUserPurchaseHistory() 
+        {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+
+                var userId = sessionService.ExtractUserIdFromToken(Request.Headers["Authorization"].ToString().Split(' ')[1]);
+                if (!userId.HasValue)
+                    return Unauthorized("Invalid token.");
+
+                var sales = _saleService.GetSalesByUserId(userId.Value);
+                return Ok(sales);
+            }
+        }
+
 
     }
 }

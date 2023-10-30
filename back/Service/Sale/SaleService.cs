@@ -64,4 +64,10 @@ public class SaleService : ISaleService
         return _saleRepository.Get(id);
     }
 
+    public List<Sale> GetSalesByUserId(int userId)
+    {
+        return _saleRepository.GetSalesByUserId(userId);
+    }
+
+
 }

@@ -46,6 +46,9 @@ public class User : IUser
         }
     }
 
+    public ICollection<Service.Sale.Sale> Sales { get; set; }
+
+
     public void AddRole(RoleType role)
     {
         Roles.Add(role);

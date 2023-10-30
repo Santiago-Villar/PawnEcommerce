@@ -36,7 +36,7 @@ namespace PawnEcommerce.Middlewares
                         await RespondUnauthorized(context, "Unauthorized - Token is missing");
                         return;
                     }
-                    var user = sessionService.GetCurrentUser(token);
+                    var user = sessionService.GetCurrentUser();
 
                     if (user == null)
                     {

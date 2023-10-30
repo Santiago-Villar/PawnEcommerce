@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div class="cart-container">
   <div class="shopping-bag">
     <app-shopping-bag [products]="products" [quantity]="quantity" (updateQuantity)="handleUpdateQuantity($event)" (removeProduct)="handleRemoveProducts($event)">></app-shopping-bag>
