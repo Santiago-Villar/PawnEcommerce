@@ -58,6 +58,11 @@ namespace Service.Product
             }
         }
 
+        public void AddStock(int stockToBeAdded)
+        {
+            this.Stock += stockToBeAdded;
+        }
+
 
     }
 }
