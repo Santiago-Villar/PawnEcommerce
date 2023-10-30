@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Service.DTO.Product;
 using Service.Product;
+using Service.DTO.User;
 
 namespace Test.Controller;
 
@@ -63,7 +64,7 @@ public class UserControllerTest
         var result = userController.Update(1, updateUser) as OkObjectResult;
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
-        Assert.IsInstanceOfType(result.Value, typeof(User));
+        Assert.IsInstanceOfType(result.Value, typeof(UserDTO));
 
     }
 
