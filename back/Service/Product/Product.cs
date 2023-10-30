@@ -21,7 +21,17 @@ namespace Service.Product
             }
         }
 
-        public int Stock { get;set; }
+        private int _stock;
+
+        public int Stock
+        {
+            get => _stock;
+            set
+            {
+                if (value < 0) throw new ModelException("Stock must be a positive integer.");
+                _stock = value;
+            }
+        }
 
         [ForeignKey("Brand")]
         public int BrandId { get; set; }
