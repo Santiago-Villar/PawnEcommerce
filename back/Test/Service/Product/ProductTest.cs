@@ -194,5 +194,21 @@ public class ProductTest
         Assert.AreEqual(freshProduct.Stock, 40);
     }
 
+    [TestMethod]
+    [ExpectedException(typeof(ModelException))]
+    public void AddNegativeStock()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.AddStock(-20);
+    }
+
 
 }
