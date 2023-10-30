@@ -10,4 +10,6 @@ public interface ISaleService
     public double GetDiscount(List<Product.Product> products);
     public void Update(Sale sale);
     public Sale Get(int id);
+
+    public List<Sale> GetSalesByUserId(int userId);
 }

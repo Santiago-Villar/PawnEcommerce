@@ -100,6 +100,43 @@ namespace Test
         }
 
         [TestMethod]
+        public void GetSalesByUserId_ShouldReturnCorrectSales()
+        {
+            using var context = GetInMemoryDbContext();
+            var repository = new SaleRepository(context);
+
+            var user = new User
+            {
+                Email = "testuser@email.com",
+                Address = "123 Main St, City, Country",
+                PasswordHash = "sampleHashedPassword123"
+            };
+            context.Users.Add(user);
+            context.SaveChanges();
+
+            var sale1 = new Sale
+            {
+                UserId = user.Id,
+                Price = 100.0,
+                PromotionName = "Sample Promotion"
+            };
+            var sale2 = new Sale
+            {
+                UserId = user.Id,
+                Price = 150.0,
+                PromotionName = "Another Promotion"
+            };
+            context.Sales.AddRange(sale1, sale2);
+            context.SaveChanges();
+
+            var sales = repository.GetSalesByUserId(user.Id);
+            Assert.AreEqual(2, sales.Count);
+            Assert.IsTrue(sales.Any(s => s.PromotionName == "Sample Promotion"));
+            Assert.IsTrue(sales.Any(s => s.PromotionName == "Another Promotion"));
+        }
+
+
+        [TestMethod]
         public void UpdateSale_Ok()
         {
             using var context = GetInMemoryDbContext();

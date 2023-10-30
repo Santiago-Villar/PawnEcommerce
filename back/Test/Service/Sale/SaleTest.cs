@@ -58,6 +58,22 @@ public class SaleTest
         var s = new Sale();
         Assert.IsTrue((DateTime.Now - s.Date).TotalSeconds < 1);
     }
+
+    [TestMethod]
+    public void SaleHasUser()
+    {
+        var user = new User()
+        {
+            Id = 1,
+            Email = "juan@gmail.com",
+        };
+        var s = new Sale() {
+            UserId = user.Id,
+            User= user,
+        };
+        Assert.AreEqual(user, s.User);
+        Assert.AreEqual(user.Id, s.User.Id);
+    }
     [TestMethod]
     public void SaleHasPrice()
     {
