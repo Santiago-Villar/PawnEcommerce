@@ -14,4 +14,7 @@
   .cart-container {
     flex-direction: column;
   }
+  .shopping-bag {
+    margin-top: 60px;
+  }
 }
