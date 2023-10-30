@@ -222,7 +222,7 @@ public class ProductTest
             Brand = new Brand(3) { Name = "Fresh Brand" },
             ProductColors = new List<ProductColor>()
         };
-        freshProduct.DecreaseStock(-20);
+        freshProduct.DecreaseStock(20);
         Assert.AreEqual(freshProduct.Stock, 0);
     }
 
