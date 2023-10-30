@@ -258,6 +258,21 @@ public class ProductTest
         Assert.IsTrue(freshProduct.HasEnoughStock(20));
     }
 
+    [TestMethod]
+    public void ProductDoesNotHaveEnoughStock()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        Assert.IsFalse(freshProduct.HasEnoughStock(21));
+    }
+
 
 
 }
