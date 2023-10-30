@@ -1,7 +1,10 @@
 using System.ComponentModel.Design;
 using System.Security.Authentication;
 using BCrypt.Net;
+using Service.DTO.Product;
+using Service.DTO.User;
 using Service.Exception;
+using Service.Product;
 
 namespace Service.User;
 
@@ -42,7 +45,22 @@ public class UserService : IUserService
         var toUpdateUser = Get(updatedUser.Id);
         _userRepository.Update(updatedUser);
     }
-    
+
+    public User UpdateUserUsingDTO(int id, UserUpdateModel userDto)
+    {
+        var existingUser = _userRepository.Get(id);
+        if (userDto.Password != null)
+        {
+            throw new ServiceException("Password cannot be updated");
+        }
+
+        if (userDto.Email != null) existingUser.Email = userDto.Email;
+        if (userDto.Address != null) existingUser.Address = userDto.Address;
+
+        return _userRepository.Update(existingUser);
+    }
+
+
     public User Get(int id)
     {
         var foundUser = _userRepository.Get(id);

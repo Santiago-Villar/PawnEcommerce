@@ -1,21 +1,19 @@
 using Service.Product;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PawnEcommerce.DTO.Product;
+namespace Service.DTO.Product;
 
 [ExcludeFromCodeCoverage]
-public class ColorDTO
+public class CategoryDTO
 {
     public int Id { get; set; }
     public String Name { get; set; }
-    public String Code { get; set; }
     
-    public Color ToEntity()
+    public Category ToEntity()
     {
-        return new Color(Id)
+        return new Category(Id)
         {
             Name = Name,
-            Code = Code
         };
     }
 }

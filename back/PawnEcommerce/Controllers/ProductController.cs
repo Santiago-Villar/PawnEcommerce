@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Product;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 using PawnEcommerce.Middlewares;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;
@@ -62,13 +62,10 @@ namespace PawnEcommerce.Controllers
         }
         [Authorization("Admin")]
         [HttpPut("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] ProductCreationModel updateProduct)
+        public IActionResult Update([FromRoute] int id, [FromBody] ProductUpdateModel updateProduct)
         {
-            var product = updateProduct.ToEntity(_brandService, _categoryService, _colorService);
-            product.Id = id;
-
-            _productService.UpdateProduct(product);
-            return Ok();
+            Product product = _productService.UpdateProductUsingDTO(id,updateProduct);
+            return Ok(product);
         }
         [Authorization("Admin")]
         [HttpDelete("{id:int}")]

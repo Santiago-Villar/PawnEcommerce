@@ -16,7 +16,7 @@ namespace Service.Product
         int AddProduct(Product newProduct);
         Product GetProductByName(string productName);
         Product Get(int id);
-        void UpdateProduct(Product newProductVersion);
+        Product UpdateProduct(Product newProductVersion);
         void DeleteProduct(int id);
         Product[] GetAllProducts(FilterQuery filter);
         Boolean Exists(int id);

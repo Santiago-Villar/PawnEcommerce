@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
-using PawnEcommerce.DTO.Product;
-using PawnEcommerce.DTO.Sale;
+using Service.DTO.Product;
+using Service.DTO.Sale;
 using Service.Product;
 using Service.Promotion;
 using Service.Promotion.ConcreteStrategies;

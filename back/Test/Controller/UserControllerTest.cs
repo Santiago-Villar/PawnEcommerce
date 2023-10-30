@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PawnEcommerce.Controllers;
 using Service.User;
-using PawnEcommerce.DTO.User;
+using Service.DTO.User;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using Service.DTO.Product;
+using Service.Product;
+using Service.DTO.User;
 
 namespace Test.Controller;
 
@@ -43,16 +46,26 @@ public class UserControllerTest
     {
         var userServiceMock = new Mock<IUserService>();
         var userController = new UserController(userServiceMock.Object);
-        var updateUser = new UserCreateModel()
+        
+
+        var expectedUser = new User
+        {
+            Id = 1,
+            Email = "testEmail@gmail.com"
+        };
+        userServiceMock.Setup(ps => ps.UpdateUserUsingDTO(It.IsAny<int>(), It.IsAny<UserUpdateModel>()))
+                       .Returns(expectedUser);
+
+        var updateUser = new UserUpdateModel()
         {
             Email = "testEmail@gmail.com",
-            Password = "secret",
         };
 
-        var result = userController.Update(1, updateUser) as OkResult;
-        
+        var result = userController.Update(1, updateUser) as OkObjectResult;
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
+        Assert.IsInstanceOfType(result.Value, typeof(UserDTO));
+
     }
 
     [TestMethod]

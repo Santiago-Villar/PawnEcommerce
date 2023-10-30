@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 using Service.Product;
 using Service.Sale;
 
-namespace PawnEcommerce.DTO.Sale;
+namespace Service.DTO.Sale;
 
 [ExcludeFromCodeCoverage]
 public class SaleDiscountDTO

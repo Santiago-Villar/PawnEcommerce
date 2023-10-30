@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using PawnEcommerce.DTO.Product;
-using PawnEcommerce.DTO.Sale;
+using Service.DTO.Product;
+using Service.DTO.Sale;
 using PawnEcommerce.Middlewares;
 using Service.Product;
 using Service.Sale;

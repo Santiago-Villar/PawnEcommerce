@@ -6,15 +6,18 @@ using System.Text;
 using Service.Exception;
 using System.Threading.Tasks;
 using Service.Filter.ConcreteFilter;
+using Service.DTO.Product;
 
 namespace Service.Product
 {
     public class ProductService : IProductService
     {
         public IProductRepository _productRepository { get; set; }
-        public ProductService(IProductRepository repo) 
-        {   
+        public IColorService _colorService { get; set; }
+        public ProductService(IProductRepository repo, IColorService colorService)
+        {
             _productRepository = repo;
+            _colorService = colorService;
         }
 
         public int AddProduct(Product Product)
@@ -84,6 +87,28 @@ namespace Service.Product
                 _productRepository.UpdateProduct(newProductVersion);
             }
             else { throw new RepositoryException($"Product {newProductVersion.Id} does not exist."); }
+        }
+
+        public Product UpdateProductUsingDTO(int id, ProductUpdateModel productDto)
+        {
+            var existingProduct = _productRepository.Get(id);
+
+            if (productDto.Name != null) existingProduct.Name = productDto.Name;
+            if (productDto.Description != null) existingProduct.Description = productDto.Description;
+            if (productDto.Price.HasValue) existingProduct.Price = productDto.Price.Value;
+            if (productDto.BrandId.HasValue) existingProduct.BrandId = productDto.BrandId.Value;
+            if (productDto.CategoryId.HasValue) existingProduct.CategoryId = productDto.CategoryId.Value;
+            if (productDto.Colors != null)
+            {
+                existingProduct.ProductColors.Clear();
+                foreach (var colorId in productDto.Colors.Distinct())
+                {
+                    var color = _colorService.Get(colorId);
+                    existingProduct.AddColor(color);
+                }
+            }
+
+            return _productRepository.UpdateProduct(existingProduct);
         }
 
     }

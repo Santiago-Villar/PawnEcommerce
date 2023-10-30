@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using Moq;
 using PawnEcommerce.Controllers;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 using Service.Filter.ConcreteFilter;
 using Service.Product;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,107 +15,118 @@ namespace Test.Controller;
 [ExcludeFromCodeCoverage]
 public class ProductControllerTest
 {
-    private readonly  ProductCreationModel _productCreationModel = new()
-    {
-        Name = "testProd",
-        Description = "test description",
-        Price = 10,
-        BrandId = 1,
-        CategoryId = 1,
-        Colors = new int[] { 1, 2 }
-    };
+    private ProductCreationModel _productCreationModel;
+    private ProductUpdateModel _productUpdateModel;
+    private Product _product1;
+    private Mock<IProductService> _productService;
+    private Mock<ICategoryService> _categoryService;
+    private Mock<IBrandService> _brandService;
+    private Mock<IColorService> _colorService;
+    private ProductController _productController;
 
-    private readonly Product _product1 = new() { Name = "product1" };
-    
+    [TestInitialize]
+    public void Setup()
+    {
+        _productCreationModel = new ProductCreationModel
+        {
+            Name = "testProd",
+            Description = "test description",
+            Price = 10,
+            BrandId = 1,
+            CategoryId = 1,
+            Colors = new[] { 1, 2 }
+        };
+
+        _productUpdateModel = new ProductUpdateModel
+        {
+            Name = "testProd",
+            Description = "test description",
+            Price = 10,
+            BrandId = 1,
+            CategoryId = 1,
+            Colors = new[] { 1, 2 }
+        };
+
+        _product1 = new Product { Name = "product1" };
+
+        _productService = new Mock<IProductService>();
+        _categoryService = new Mock<ICategoryService>();
+        _brandService = new Mock<IBrandService>();
+        _colorService = new Mock<IColorService>();
+
+        _productController = new ProductController(_productService.Object, _categoryService.Object, _brandService.Object, _colorService.Object);
+    }
+
     [TestMethod]
     public void CanCreateController_Ok()
     {
-        var productSerivce = new Mock<IProductService>();
-        var categoryService = new Mock<ICategoryService>();
-        var brandService = new Mock<IBrandService>();
-        var colorService = new Mock<IColorService>();
-
-        var productController = new ProductController(productSerivce.Object, categoryService.Object, brandService.Object, colorService.Object);
-        Assert.IsNotNull(productController);
+        Assert.IsNotNull(_productController);
     }
-    
+
     [TestMethod]
     public void GetAll_Ok()
     {
         var products = Enumerable.Repeat(_product1, 3).ToArray();
-       
-        var productService = new Mock<IProductService>();
-        productService.Setup(ps => ps.GetAllProducts(It.IsAny<FilterQuery>())).Returns(products);
+        _productService.Setup(ps => ps.GetAllProducts(It.IsAny<FilterQuery>())).Returns(products);
 
-        var categoryService = new Mock<ICategoryService>();
-        var brandService = new Mock<IBrandService>();
-        var colorService = new Mock<IColorService>();
+        var result = _productController.GetAll(null, null, null) as OkObjectResult;
 
-        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
-        var result = productController.GetAll(null, null, null) as OkObjectResult;
-        
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(products, result.Value as Array);
     }
-    
+
     [TestMethod]
     public void GetByName_Ok()
     {
-        var productService = new Mock<IProductService>();
-        productService.Setup(ps => ps.Get(1)).Returns(_product1);
+        _productService.Setup(ps => ps.Get(1)).Returns(_product1);
 
-        var categoryService = new Mock<ICategoryService>();
-        var brandService = new Mock<IBrandService>();
-        var colorService = new Mock<IColorService>();
+        var result = _productController.Get(1) as OkObjectResult;
 
-        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
-        var result = productController.Get(1) as OkObjectResult;
-        
         Assert.IsNotNull(result);
         Assert.AreEqual(_product1, result.Value);
     }
-    
+
     [TestMethod]
     public void Create_Ok()
     {
-        var productService = new Mock<IProductService>();
-        var categoryService = new Mock<ICategoryService>();
-        var brandService = new Mock<IBrandService>();
-        var colorService = new Mock<IColorService>();
+        var result = _productController.Create(_productCreationModel) as OkResult;
 
-        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
-        var result = productController.Create(_productCreationModel) as OkResult;
-        
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
-    
+
     [TestMethod]
-    public void Update_Ok()
+    public void Update_OnlyName_Ok()
     {
-        var productService = new Mock<IProductService>();
-        var categoryService = new Mock<ICategoryService>();
-        var brandService = new Mock<IBrandService>();
-        var colorService = new Mock<IColorService>();
+        var expectedProduct = new Product
+        {
+            Id = _product1.Id,
+            Name = "UpdatedName",
+            Description = _product1.Description,
+            Price = _product1.Price,
+            BrandId = _product1.BrandId,
+            CategoryId = _product1.CategoryId,
+        };
+        _productService.Setup(ps => ps.UpdateProductUsingDTO(It.IsAny<int>(), It.IsAny<ProductUpdateModel>()))
+                       .Returns(expectedProduct);
 
-        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
-        var result = productController.Update(1, _productCreationModel) as OkResult;
-        
+        var updatedProductModel = new ProductUpdateModel
+        {
+            Name = "UpdatedName"
+        };
+
+        var result = _productController.Update(1, updatedProductModel) as OkObjectResult;
+        _productService.Verify(ps => ps.UpdateProductUsingDTO(1, It.Is<ProductUpdateModel>(p => p.Name == "UpdatedName")));
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
+        Assert.IsInstanceOfType(result.Value, typeof(Product));
     }
-    
+
     [TestMethod]
     public void Delete_Ok()
     {
-        var productService = new Mock<IProductService>();
-        var categoryService = new Mock<ICategoryService>();
-        var brandService = new Mock<IBrandService>();
-        var colorService = new Mock<IColorService>();
+        var result = _productController.Delete(1) as OkResult;
 
-        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
-        var result = productController.Delete(1) as OkResult;
-        
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }

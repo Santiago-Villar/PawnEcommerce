@@ -57,7 +57,7 @@ namespace Repository
         }
 
 
-        public void Update(User updateUser)
+        public User Update(User updateUser)
         {
             var existingUser = _context.Users.FirstOrDefault(u => u.Id == updateUser.Id);
 
@@ -67,6 +67,7 @@ namespace Repository
             _context.Entry(existingUser).CurrentValues.SetValues(updateUser);
 
             _context.SaveChanges();
+            return existingUser;
         }
 
     }
