@@ -1,0 +1,31 @@
+<div class="shopping-cart">
+  <div class="title">
+    Shopping Bag
+  </div>
+  <div class ="items">
+    <div *ngFor="let product of products; let i = index;">
+      <div class="item">
+        <div class="image">
+          <img [src]="defaultImageUrl" width="80px" height="80px" alt="" />
+        </div>
+        <div class="description">
+          <span>{{ product.name }}</span>
+          <span>{{ getColors(product.color) }}</span>
+        </div>
+        <div class="quantity">
+          <button class="plus-btn" type="button" name="button" (click)="addQuantity(i)">
+            <img src="assets/plus.svg" alt="" />
+          </button>
+          <input type="number" name="name" value="1" [(ngModel)]="quantity[i]" min="1" max="9">
+          <button class="minus-btn" type="button" name="button" (click)="subtractQuantity(i)">
+            <img src="assets/minus.svg" alt="" />
+          </button>
+        </div>
+        <div class="total-price">${{ total[i] }}</div>
+        <div class="buttons" (click)="spliceProducts(i)">
+          <span class="delete-btn"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

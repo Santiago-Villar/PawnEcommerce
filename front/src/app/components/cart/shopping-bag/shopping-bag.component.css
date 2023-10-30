@@ -1,0 +1,149 @@
+.shopping-cart {
+  width: 650px;
+  min-height: 420px;
+  background: #ffffff;
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 60px;
+  border-bottom: 1px solid var(--almostWhite);
+  padding: 20px 30px;
+  color: var(--grayTitle);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.items {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.item {
+  padding: 20px 30px;
+  height: 120px;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 0.5px solid #e1e8ee;
+}
+
+.item:nth-child(3) {
+  border-top: 1px solid #e1e8ee;
+  border-bottom: 1px solid #e1e8ee;
+}
+
+.buttons {
+  position: relative;
+  padding-top: 30px;
+}
+
+.delete-btn {
+  display: inline-block;
+  cursor: pointer;
+  width: 18px;
+  height: 17px;
+  background: url("../../../../assets/delete.svg") no-repeat center;
+}
+
+.image img {
+  border-radius: 7px;
+}
+
+.description {
+  padding-top: 10px;
+  width: 115px;
+}
+
+.description span {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.description span:first-child {
+  margin-bottom: 5px;
+}
+.description span:last-child {
+  font-weight: 300;
+  margin-top: 8px;
+  color: var(--almostWhiteGray);
+}
+
+.quantity {
+  padding-top: 20px;
+}
+.quantity input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 32px;
+  font-size: 16px;
+  color: var(--gray);
+  font-weight: 300;
+}
+
+button[class*="btn"] {
+  width: 30px;
+  height: 30px;
+  background-color: var(--almostWhite);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.minus-btn img {
+  margin-bottom: 3px;
+}
+
+.plus-btn img {
+  margin-top: 2px;
+}
+
+button:focus,
+input:focus {
+  outline: 0;
+}
+
+.total-price {
+  width: 83px;
+  padding-top: 27px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--gray);
+  font-weight: 300;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; 
+}
+
+@media (max-width: 1000px) {
+  .shopping-cart {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    margin-left: 12px;
+  }
+  .item {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .image img {
+    display: none;
+  }
+  .image,
+  .quantity,
+  .description {
+    width: 100%;
+    text-align: center;
+  }
+}

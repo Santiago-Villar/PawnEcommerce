@@ -14,14 +14,20 @@ import { CommonModule } from '@angular/common';
 import { ProductListContainerComponent } from './components/itemList/item-list-container.component';
 import { ItemComponent } from './components/item/item.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { ShoppingBagComponent } from './components/cart/shopping-bag/shopping-bag.component';
+import { SummaryComponent } from './components/cart/summary/summary.component';
+import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
-import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
+    ShoppingBagComponent,
+    SummaryComponent,
+    CartComponent,
     ProductListContainerComponent,
     ItemComponent,
     RegisterComponent,
