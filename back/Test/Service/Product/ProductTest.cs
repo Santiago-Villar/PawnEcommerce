@@ -178,5 +178,21 @@ public class ProductTest
         Assert.AreEqual(freshProduct.ProductColors.Count, 2);  // We expect only 2 unique colors
     }
 
+    [TestMethod]
+    public void AddStock_Ok()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.AddStock(20);
+        Assert.AreEqual(freshProduct.Stock, 40);
+    }
+
 
 }
