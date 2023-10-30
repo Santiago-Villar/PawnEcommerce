@@ -70,6 +70,9 @@ namespace Service.Product
             this.Stock -= stockToBeRemoved;
         }
 
-        public bool HasEnoughSotck(int samplesToBeBought) { }
+        public bool HasEnoughStock(int samplesToBeBought) 
+        {
+            return samplesToBeBought <= this.Stock;    
+        }
     }
 }
