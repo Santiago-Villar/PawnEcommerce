@@ -32,6 +32,7 @@ public class ProductTest
         Price = 10,
         Category = aCategory,
         Brand = aBrand,
+        Stock = 5,
         CategoryId = aCategory.Id,
         BrandId = aBrand.Id,
         ProductColors = new List<ProductColor>()
@@ -89,6 +90,14 @@ public class ProductTest
     }
 
     [TestMethod]
+
+
+    [TestMethod]
+    public void ProductHasStock()
+    {
+        Assert.IsTrue(aProduct.Stock > 0);
+        Assert.AreEqual(aProduct.Stock, 5);
+    }
     public void ProductHasCategory()
     {
         aProduct.Category = new Category(4)
