@@ -65,7 +65,8 @@ namespace Service.Product
         }
 
         public void DecreaseStock(int stockToBeRemoved)
-        { 
+        {
+            if (stockToBeRemoved < 0) throw new ModelException("Cannot remove negative stock");
             this.Stock -= stockToBeRemoved;
         }
     }
