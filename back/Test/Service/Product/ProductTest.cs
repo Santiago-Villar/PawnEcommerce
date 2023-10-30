@@ -210,5 +210,23 @@ public class ProductTest
         freshProduct.IncreaseStock(-20);
     }
 
+    [TestMethod]
+    public void DecreaseStock_Ok()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.DecreaseStock(-20);
+        Assert.AreEqual(freshProduct.Stock, 0);
+    }
+
+
+
 
 }
