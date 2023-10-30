@@ -58,7 +58,7 @@ namespace Service.Product
             }
         }
 
-        public void AddStock(int stockToBeAdded)
+        public void IncreaseStock(int stockToBeAdded)
         {
             if (stockToBeAdded < 0) throw new ModelException("Cannot add negative stock");
             this.Stock += stockToBeAdded;

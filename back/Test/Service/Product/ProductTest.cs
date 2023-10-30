@@ -179,7 +179,7 @@ public class ProductTest
     }
 
     [TestMethod]
-    public void AddStock_Ok()
+    public void IncreaseStock_Ok()
     {
         var freshProduct = new Product
         {
@@ -190,13 +190,13 @@ public class ProductTest
             Brand = new Brand(3) { Name = "Fresh Brand" },
             ProductColors = new List<ProductColor>()
         };
-        freshProduct.AddStock(20);
+        freshProduct.IncreaseStock(20);
         Assert.AreEqual(freshProduct.Stock, 40);
     }
 
     [TestMethod]
     [ExpectedException(typeof(ModelException))]
-    public void AddNegativeStock()
+    public void IncreaseNegativeStock()
     {
         var freshProduct = new Product
         {
@@ -207,7 +207,7 @@ public class ProductTest
             Brand = new Brand(3) { Name = "Fresh Brand" },
             ProductColors = new List<ProductColor>()
         };
-        freshProduct.AddStock(-20);
+        freshProduct.IncreaseStock(-20);
     }
 
 
