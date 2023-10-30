@@ -7,5 +7,5 @@ public interface IUserRepository
     public List<User> GetAll();
     public User? Get(string email);
     public void Delete(User user);
-    public void Update(User user);
+    public User Update(User user);
 }

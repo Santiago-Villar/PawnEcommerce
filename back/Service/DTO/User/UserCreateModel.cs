@@ -9,7 +9,7 @@ public class UserCreateModel
 {
     public string Email { get; set; }
     public string Password { get; set; }
-    public string Adress { get; set; }
+    public string Address { get; set; }
 
     public Service.User.User ToEntity()
     {
@@ -17,7 +17,7 @@ public class UserCreateModel
         {
             Email = Email,
             PasswordHash = Password,
-            Address = Adress,
+            Address = Address,
             Roles = { RoleType.User }
         };
     }

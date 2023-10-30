@@ -43,12 +43,10 @@ namespace PawnEcommerce.Controllers
 
         [Authorization("Admin")]
         [HttpPut("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UserCreateModel updateUser)
+        public IActionResult Update([FromRoute] int id, [FromBody] UserUpdateModel updateUser)
         {
-            var user = updateUser.ToEntity();
-            user.Id = id;
-            _userService.UpdateUser(user);
-            return Ok();
+            User user = _userService.UpdateUserUsingDTO(id, updateUser);
+            return Ok(user);
         }
 
         [Authorization("Admin")]
