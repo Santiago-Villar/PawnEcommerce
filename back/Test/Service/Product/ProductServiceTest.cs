@@ -261,7 +261,7 @@ public class ProductServiceTest
     [TestMethod]
     public void IncreaseStock_WhenProductExists()
     {
-        aProduct.Stock = 2;
+        aProduct.Stock = 3;
         _productRepositoryMock.Setup(repo => repo.Get(aProduct.Id)).Returns(aProduct);
 
         _productService.IncreaseStock(aProduct.Id, 5);
