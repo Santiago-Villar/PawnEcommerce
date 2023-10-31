@@ -12,5 +12,11 @@ namespace Test.Service.Filter;
 public class IdsFilterTest
 {
     [TestMethod]
+    public void CanCreateIdsFilter_Ok()
+    {
+        var idsFilter = new IdsFilter();
+        Assert.IsNotNull(idsFilter);
+    }
+
 
 }
