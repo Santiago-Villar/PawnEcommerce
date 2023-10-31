@@ -33,6 +33,19 @@ namespace Test.Utilities
 
         [TestMethod]
         public void VerifyAndUpdateCart_SufficientStock_UpdatesCartWithLatestProductDetails()
+        {
+            var cartProduct = new Product { Id = 1 };
+            var latestProduct = new Product { Id = 1 }; // mock latest product details from the database
+            latestProduct.Stock=5; // Assume this method sets the stock for the product
+
+            _mockProductService.Setup(s => s.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
+
+            var result = CartUtils.VerifyAndUpdateCart(new[] { cartProduct });
+
+            Assert.AreEqual(1, result.Length);
+            Assert.AreSame(latestProduct, result[0]);  // Make sure it's the latest product version
+        }
+
 
     }
 }
