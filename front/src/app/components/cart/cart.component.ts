@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PRODUCTS } from './TEST_PRODUCTS';
 
 @Component({
@@ -13,7 +13,7 @@ export class CartComponent {
 
   products = PRODUCTS;
   quantity = Array(this.products.length).fill(1);
-  
+
   handleUpdateQuantity(eventData: { index: number, quantity: number }) {
     this.quantity[eventData.index] += eventData.quantity;
     this.quantity = [...this.quantity];
