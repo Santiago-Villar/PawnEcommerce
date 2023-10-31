@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Service.Filter.ConcreteFilter;
 
-namespace Test.Utilities
+namespace Test
 {
     [TestClass]
     public class CartUtilsTest
@@ -26,24 +26,26 @@ namespace Test.Utilities
             var cartProduct = new Product { Id = 1 };
             _mockProductService.Setup(s => s.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new Product[] { });
 
-            var result = CartUtils.VerifyAndUpdateCart(new[] { cartProduct });
+            var (updatedCart, removedProducts) = _cartUtils.VerifyAndUpdateCart(new[] { cartProduct });
 
-            Assert.IsFalse(result.Any());  // Cart should be empty.
+            Assert.IsFalse(updatedCart.Any());  // Cart should be empty.
+            Assert.IsTrue(removedProducts.Contains(cartProduct));  // Product should be in the removed list.
         }
 
         [TestMethod]
         public void VerifyAndUpdateCart_SufficientStock_UpdatesCartWithLatestProductDetails()
         {
             var cartProduct = new Product { Id = 1 };
-            var latestProduct = new Product { Id = 1 }; // mock latest product details from the database
-            latestProduct.Stock=5; // Assume this method sets the stock for the product
+            var latestProduct = new Product { Id = 1 };
+            latestProduct.Stock = 5;
 
             _mockProductService.Setup(s => s.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
 
-            var result = CartUtils.VerifyAndUpdateCart(new[] { cartProduct });
+            var (updatedCart, removedProducts) = _cartUtils.VerifyAndUpdateCart(new[] { cartProduct });
 
-            Assert.AreEqual(1, result.Length);
-            Assert.AreSame(latestProduct, result[0]);  // Make sure it's the latest product version
+            Assert.AreEqual(1, updatedCart.Length);
+            Assert.AreSame(latestProduct, updatedCart[0]);  // Make sure it's the latest product version
+            Assert.IsFalse(removedProducts.Any());  // Ensure no products were removed
         }
 
         [TestMethod]
@@ -55,10 +57,12 @@ namespace Test.Utilities
 
             _mockProductService.Setup(s => s.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
 
-            var result = CartUtils.VerifyAndUpdateCart(new[] { cartProduct });
+            var (updatedCart, removedProducts) = _cartUtils.VerifyAndUpdateCart(new[] { cartProduct });
 
-            Assert.IsFalse(result.Any());  // Product should be removed from the cart
+            Assert.IsFalse(updatedCart.Any());  // Product should be removed from the cart
+            Assert.IsTrue(removedProducts.Contains(cartProduct));  // Product should be in the removed list.
         }
     }
 }
+
 
