@@ -12,6 +12,10 @@ namespace Service.Product
         public Product GetProductByName(string productName);
         public Product[] GetAllProducts(FilterQuery filter);
         public void UpdateProduct(Product product);
+
+        public void IncreaseStock(int productId, int quantity);
+
+        public void DecreaseStock(int productId, int quantity);
         public void Reset();
     }
 }

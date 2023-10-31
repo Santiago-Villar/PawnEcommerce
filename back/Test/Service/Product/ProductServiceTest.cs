@@ -223,6 +223,18 @@ public class ProductServiceTest
         Assert.ThrowsException<ServiceException>(() => _productService.UpdateProduct(null));
     }
 
+    [TestMethod]
+    public void DecreaseStock_WhenProductExistsAndStockAvailable()
+    {
+        aProduct.Stock = 10;
+        _productRepositoryMock.Setup(repo => repo.Get(aProduct.Id)).Returns(aProduct);
+
+        _productService.DecreaseStock(aProduct.Id, 5);
+
+        Assert.AreEqual(5, aProduct.Stock);
+        _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Once());
+    }
+
 
 
 }
