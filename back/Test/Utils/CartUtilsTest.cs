@@ -46,6 +46,8 @@ namespace Test.Utilities
             Assert.AreSame(latestProduct, result[0]);  // Make sure it's the latest product version
         }
 
+        [TestMethod]
+        public void VerifyAndUpdateCart_InsufficientStock_RemovesProductFromCart()
 
     }
 }
