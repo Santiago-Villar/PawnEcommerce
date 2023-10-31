@@ -31,6 +31,9 @@ namespace Test.Utilities
             Assert.IsFalse(result.Any());  // Cart should be empty.
         }
 
+        [TestMethod]
+        public void VerifyAndUpdateCart_SufficientStock_UpdatesCartWithLatestProductDetails()
+
     }
 }
 
