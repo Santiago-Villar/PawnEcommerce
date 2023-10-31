@@ -22,14 +22,20 @@ public class SaleCreationModel
 
         var saleProducts = productDtos
             .Select(prod =>
-                new SaleProduct
+            {
+                // Decrease stock by one for each product in the sale
+                productService.DecreaseStock(prod.Id, 1);
+
+                return new SaleProduct
                 {
                     Product = prod,
-                    SaleId = sale.Id, 
-                    Sale = sale, 
+                    SaleId = sale.Id,
+                    Sale = sale,
                     ProductId = prod.Id
-                });
+                };
+            });
 
         return saleProducts.ToList();
     }
+
 }
