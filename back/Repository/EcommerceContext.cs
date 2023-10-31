@@ -39,6 +39,11 @@ namespace Repository
                 .HasForeignKey(p => p.BrandId);
 
             modelBuilder.Entity<Product>()
+                 .Property(p => p.Stock)
+                 .HasDefaultValue(0);
+
+
+            modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
