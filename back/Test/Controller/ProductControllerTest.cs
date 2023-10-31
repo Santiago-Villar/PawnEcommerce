@@ -138,5 +138,22 @@ public class ProductControllerTest
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);
     }
+    [TestMethod]
+    public void DecreaseStock_Ok()
+    {
+        var productService = new Mock<IProductService>();
+        productService.Setup(ps => ps.DecreaseStock(1, 3)).Verifiable(); // Verifiable ensures that the method is called
 
+        var categoryService = new Mock<ICategoryService>();
+        var brandService = new Mock<IBrandService>();
+        var colorService = new Mock<IColorService>();
+
+        var productController = new ProductController(productService.Object, categoryService.Object, brandService.Object, colorService.Object);
+        var result = productController.DecreaseStock(1, 3) as OkResult;
+
+        productService.Verify(); // Verify that the productService.DecreaseStock method was called
+
+        Assert.IsNotNull(result);
+        Assert.AreEqual(200, result.StatusCode);
+    }
 }
