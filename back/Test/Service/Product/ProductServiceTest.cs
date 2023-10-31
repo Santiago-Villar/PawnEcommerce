@@ -277,7 +277,7 @@ public class ProductServiceTest
 
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.IncreaseStock(aProduct.Id, 5));
 
-        Assert.AreEqual($"Product with id:{aProduct.d} does not exist.", exception.Message);
+        Assert.AreEqual($"Product with id:{aProduct.Id} does not exist.", exception.Message);
     }
 
 
