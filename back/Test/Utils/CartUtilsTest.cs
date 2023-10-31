@@ -48,7 +48,17 @@ namespace Test.Utilities
 
         [TestMethod]
         public void VerifyAndUpdateCart_InsufficientStock_RemovesProductFromCart()
+        {
+            var cartProduct = new Product { Id = 1 };
+            var latestProduct = new Product { Id = 1 };
+            latestProduct.Stock = 0;  // No stock available
 
+            _mockProductService.Setup(s => s.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
+
+            var result = CartUtils.VerifyAndUpdateCart(new[] { cartProduct });
+
+            Assert.IsFalse(result.Any());  // Product should be removed from the cart
+        }
     }
 }
 
