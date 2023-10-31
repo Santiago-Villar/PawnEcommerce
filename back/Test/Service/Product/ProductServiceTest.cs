@@ -258,6 +258,18 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Never());
     }
 
+    [TestMethod]
+    public void IncreaseStock_WhenProductExists()
+    {
+        aProduct.Stock = 2;
+        _productRepositoryMock.Setup(repo => repo.Get(aProduct.Id)).Returns(aProduct);
+
+        _productService.IncreaseStock(aProduct.Id, 5);
+
+        Assert.AreEqual(8, aProduct.Stock);
+        _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Once());
+    }
+
 
 
 }
