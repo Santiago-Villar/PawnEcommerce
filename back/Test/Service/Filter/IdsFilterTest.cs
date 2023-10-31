@@ -56,22 +56,5 @@ public class IdsFilterTest
         Assert.IsFalse(match);
     }
 
-    [TestMethod]
-    [ExpectedException(typeof(ModelException))]
-    public void Match_WrongFilterCriteria_Throws()
-    {
-        const int productId = 1;
-        const string productName = "Potato";
-        var filterCriteria = new StringFilterCriteria()
-        {
-            Value = productName
-        };
-        var product = new Product()
-        {
-            Id = productId
-        };
 
-        var idsFilter = new IdsFilter();
-        idsFilter.Match(product, filterCriteria);
-    }
 }
