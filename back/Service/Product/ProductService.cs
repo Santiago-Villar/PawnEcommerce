@@ -86,5 +86,35 @@ namespace Service.Product
             else { throw new RepositoryException($"Product {newProductVersion.Id} does not exist."); }
         }
 
+        public void DecreaseStock(int productId, int quantity)
+        {
+            var product = _productRepository.Get(productId);
+            if (product == null)
+            {
+                throw new ServiceException($"Product with id:{productId} does not exist.");
+            }
+
+            if (!product.IsStockAvailable(quantity))
+            {
+                throw new ServiceException($"Not enough stock for product with id:{productId}.");
+            }
+
+            product.DecreaseStock(quantity);
+            _productRepository.UpdateProduct(product);
+        }
+
+        public void IncreaseStock(int productId, int quantity)
+        {
+            var product = _productRepository.Get(productId);
+            if (product == null)
+            {
+                throw new ServiceException($"Product with id:{productId} does not exist.");
+            }
+
+            product.IncreaseStock(quantity);
+            _productRepository.UpdateProduct(product);
+        }
+
+
     }
 }

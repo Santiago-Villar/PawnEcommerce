@@ -34,6 +34,7 @@ namespace Service.Product
                 _stock = value;
             }
         }
+
         [ForeignKey("Brand")]
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
