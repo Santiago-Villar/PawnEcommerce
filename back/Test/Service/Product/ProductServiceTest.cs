@@ -270,6 +270,16 @@ public class ProductServiceTest
         _productRepositoryMock.Verify(repo => repo.UpdateProduct(aProduct), Times.Once());
     }
 
+    [TestMethod]
+    public void IncreaseStock_WhenProductDoesNotExist()
+    {
+        _productRepositoryMock.Setup(repo => repo.Get(aProduct.Id)).Returns((Product)null);
+
+        var exception = Assert.ThrowsException<ServiceException>(() => _productService.IncreaseStock(aProduct.Id, 5));
+
+        Assert.AreEqual($"Product with id:{aProduct.d} does not exist.", exception.Message);
+    }
+
 
 
 }
