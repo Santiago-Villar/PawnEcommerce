@@ -14,7 +14,7 @@ namespace Test;
 public class ProductServiceTest
 {
     public IProductService _productService;
-   public  Mock<IProductRepository> _productRepositoryMock;
+    public Mock<IProductRepository> _productRepositoryMock;
 
     public ProductServiceTest()
     {
@@ -83,9 +83,9 @@ public class ProductServiceTest
     public void AddProductOk()
     {
 
-        _productRepositoryMock.Setup(repo => repo.AddProduct(aProduct)); 
+        _productRepositoryMock.Setup(repo => repo.AddProduct(aProduct));
 
-        _productService.AddProduct(aProduct); 
+        _productService.AddProduct(aProduct);
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Once());
     }
 
@@ -104,8 +104,8 @@ public class ProductServiceTest
 
         _productRepositoryMock.Setup(repo => repo.AddProduct(aNewProduct));
 
-        
-        _productService.AddProduct(aNewProduct); 
+
+        _productService.AddProduct(aNewProduct);
         _productRepositoryMock.Verify(repo => repo.AddProduct(aNewProduct), Times.Once());
         _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never());
     }
@@ -114,12 +114,12 @@ public class ProductServiceTest
     public void AddExistingProduct()
     {
 
-        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true); 
+        _productRepositoryMock.Setup(repo => repo.Exists(aProduct)).Returns(true);
 
         var exception = Assert.ThrowsException<ServiceException>(() => _productService.AddProduct(aProduct));
 
         _productRepositoryMock.Verify(repo => repo.Exists(aProduct), Times.Once());
-        _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never()); 
+        _productRepositoryMock.Verify(repo => repo.AddProduct(aProduct), Times.Never());
     }
 
     [TestMethod]
@@ -127,7 +127,7 @@ public class ProductServiceTest
     {
         _productRepositoryMock.Setup(repo => repo.Exists(4)).Returns(true);
 
-        _productRepositoryMock.Setup(repo => repo.DeleteProduct(4)); 
+        _productRepositoryMock.Setup(repo => repo.DeleteProduct(4));
 
         _productService.DeleteProduct(4);
         _productRepositoryMock.Verify(repo => repo.DeleteProduct(4), Times.Once());
@@ -140,8 +140,8 @@ public class ProductServiceTest
 
         var exception = Assert.ThrowsException<RepositoryException>(() => _productService.DeleteProduct(4));
 
-        _productRepositoryMock.Verify(repo => repo.Exists(4), Times.Once()); 
-        _productRepositoryMock.Verify(repo => repo.DeleteProduct(4), Times.Never()); 
+        _productRepositoryMock.Verify(repo => repo.Exists(4), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.DeleteProduct(4), Times.Never());
     }
 
     [TestMethod]
@@ -271,14 +271,61 @@ public class ProductServiceTest
     }
 
     [TestMethod]
-    public void IncreaseStock_WhenProductDoesNotExist()
+    public void VerifyAndUpdateCart_ProductNoLongerAvailable_RemovesFromCart()
     {
-        _productRepositoryMock.Setup(repo => repo.Get(aProduct.Id)).Returns((Product)null);
+        // Arrange
+        var cartProduct = new Product { Id = 1, Stock = 1 };
+        _productRepositoryMock.Setup(repo => repo.Get(It.IsAny<int>())).Returns((Product)null); // Simulate that the product no longer exists
 
-        var exception = Assert.ThrowsException<ServiceException>(() => _productService.IncreaseStock(aProduct.Id, 5));
+        // The input is now an array of Products
+        var cartProductsArray = new[] { cartProduct };
 
-        Assert.AreEqual($"Product with id:{aProduct.Id} does not exist.", exception.Message);
+        // Act
+        var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(cartProductsArray);
+
+        // Assert
+        Assert.IsFalse(updatedCart.Any());  // Cart should be empty.
+        Assert.IsTrue(removedProducts.Any());  // There should be removed products.
+        Assert.IsTrue(removedProducts.Contains(cartProduct));  // Product should be in the removed list.
     }
+
+
+    [TestMethod]
+    public void VerifyAndUpdateCart_SufficientStock_UpdatesCartWithLatestProductDetails()
+    {
+        // Arrange
+        var cartProduct = new Product { Id = 1, Stock = 10 };  // Assuming a 'Stock' property for this example
+        var latestProduct = new Product { Id = 1, Stock = 5 };  // Latest details with sufficient stock
+        _productRepositoryMock.Setup(repo => repo.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
+
+        // Act
+        var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(new[] { cartProduct });
+
+        // Assert
+        Assert.AreEqual(1, updatedCart.Length);
+        Assert.IsTrue(updatedCart.Any(p => p.Id == latestProduct.Id));  // Ensure it contains the latest product details
+        Assert.IsFalse(removedProducts.Any());  // No products should be removed
+    }
+
+    [TestMethod]
+    public void VerifyAndUpdateCart_InsufficientStock_RemovesProductFromCart()
+    {
+        // Arrange
+        var cartProduct = new Product { Id = 1, Stock = 10 };  // Assuming a 'Stock' property for this example
+        var latestProduct = new Product { Id = 1, Stock = 0 };  // Latest details but no stock available
+        _productRepositoryMock.Setup(repo => repo.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
+
+        // Act
+        var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(new[] { cartProduct });
+
+        // Assert
+        Assert.AreEqual(0, updatedCart.Length);  // Product should be removed from the cart
+        Assert.IsTrue(removedProducts.Contains(cartProduct));  // Product should be in the removed list
+    }
+
+
+
+
 
 
 

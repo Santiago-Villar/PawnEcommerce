@@ -16,6 +16,11 @@ namespace Service.Product
         public void IncreaseStock(int productId, int quantity);
 
         public void DecreaseStock(int productId, int quantity);
+
+        public (Product[] UpdatedCart, List<Product> RemovedProducts) VerifyAndUpdateCart(Product[] cartProducts);
+
+        public string GenerateRemovalNotification(List<Product> removedProducts);
+
         public void Reset();
     }
 }
