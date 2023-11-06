@@ -20,7 +20,7 @@ namespace Service.Product
             _colorService = colorService;
         }
 
-        public int AddProduct(Product Product)
+        public Product AddProduct(Product Product)
         {
             if(_productRepository.Exists(Product)) {
                 throw new ServiceException("Product " + Product.Name + " already exists.");

@@ -57,8 +57,8 @@ namespace PawnEcommerce.Controllers
         {
             var product = newProduct.ToEntity(_brandService, _categoryService, _colorService);
 
-            _productService.AddProduct(product);
-            return Ok();
+            var productCreated = _productService.AddProduct(product);
+            return Ok(productCreated);
         }
         [Authorization("Admin")]
         [HttpPut("{id:int}")]

@@ -1,0 +1,78 @@
+<app-header></app-header>
+
+<div *ngIf="product" class="centered-div">
+  <div class="product-card">
+    <div class="header-div">
+      <a routerLink="/admin/products" class="back-button">
+        ← <span class="back-text">Volver</span>
+      </a>
+    </div>
+    <h2>Editar Producto</h2>
+    
+    <form *ngIf="updatedProduct" (submit)="saveChanges(updatedProduct)">
+      <div class="attribute-line">
+        <p class="label">Nombre:</p>
+        <mat-form-field appearance="fill">
+            <input matInput [(ngModel)]="updatedProduct.name" name="name" />
+        </mat-form-field>
+      </div>
+    
+
+    <div class="attribute-line">
+      <p class="label">Descripcion:</p>
+      <mat-form-field appearance="fill">
+          <textarea matInput rows="5" [(ngModel)]="updatedProduct.description" name="description"></textarea>
+      </mat-form-field>
+    </div>
+  
+      
+    <div class="attribute-line">
+      <p class="label">Precio ($):</p>
+      <mat-form-field appearance="fill">
+          <input matInput [(ngModel)]="updatedProduct.price" name="price" type="number" />
+      </mat-form-field>
+  </div>
+  
+
+      <div class="attribute-line">
+        <p class="label">Stock:</p>
+        <mat-form-field appearance="fill">
+            <input matInput value="0" name="stock" type="number" min="0" />
+        </mat-form-field>
+    </div>
+    
+      <div class="attribute-line">
+        <p class="label">Marca:</p>
+        <mat-form-field appearance="fill">
+            <mat-select class="brands-select" [(value)]="updatedProduct.brand" name="brand" placeholder="Seleccionar Marca" [compareWith]="compareProductObj">
+                <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    
+
+      <div class="attribute-line">
+        <p class="label">Categoria:</p>
+        <mat-form-field appearance="fill">
+            <mat-select [(value)]="updatedProduct.category" name="category" placeholder="Seleccionar Categoria" [compareWith]="compareProductObj">
+                <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    
+
+      <div class="attribute-line">
+        <p class="label">Colores:</p>
+        <mat-form-field appearance="fill">
+            <mat-select multiple [(value)]="updatedProduct.colors" name="colors" placeholder="Seleccionar Color/es" [compareWith]="compareProductObj">
+                <mat-option *ngFor="let color of colors" [value]="color">{{ color.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    
+
+      <button class="button-margin" mat-raised-button type="submit" color="primary">Guardar Cambios</button>
+
+    </form>
+  </div>
+</div>

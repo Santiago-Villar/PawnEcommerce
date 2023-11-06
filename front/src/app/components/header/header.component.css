@@ -14,14 +14,17 @@
   transition: all 0.4s;
   height: 70px;
   display: flex;
+  max-width: 1400px;
+  margin: auto;
 }
 
 .items {
   flex: 0.6;
   display: flex;
-  justify-content: space-around;
   align-items: center;
   height: 100%;
+  gap: 60px;
+  justify-content: flex-end;
 }
 
 a:hover {
@@ -46,14 +49,13 @@ a {
 .logo {
   display: flex;
   flex: 0.4;
-  padding-right: 25%;
   align-items: center;
-  justify-content: center;
   font-weight: bold;
   font-size: 28px;
   letter-spacing: 1px;
   font-family: "Heebo", sans-serif;
   color: var(--color3);
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {

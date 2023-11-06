@@ -8,7 +8,7 @@ namespace Service.Product
     {
         IProductRepository _productRepository { get; set; }
         IColorService _colorService { get; set; }
-        public int AddProduct(Product Product);
+        public Product AddProduct(Product Product);
         public void DeleteProduct(int id);
         public Product Get(int id);
         public Product GetProductByName(string productName);

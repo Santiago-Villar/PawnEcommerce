@@ -13,7 +13,7 @@ namespace Service.Product
 {
     public interface IProductRepository
     {
-        int AddProduct(Product newProduct);
+        Product AddProduct(Product newProduct);
         Product GetProductByName(string productName);
         Product Get(int id);
         Product UpdateProduct(Product newProductVersion);

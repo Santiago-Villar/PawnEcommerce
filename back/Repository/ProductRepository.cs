@@ -20,7 +20,7 @@ namespace Repository
             _context = context;
         }
 
-        public int AddProduct(Product newProduct)
+        public Product AddProduct(Product newProduct)
         {
             if (newProduct == null)
                 throw new ServiceException(nameof(newProduct));
@@ -32,7 +32,7 @@ namespace Repository
 
             _context.Products.Add(newProduct);
             _context.SaveChanges();
-            return newProduct.Id;
+            return newProduct;
         }
 
 

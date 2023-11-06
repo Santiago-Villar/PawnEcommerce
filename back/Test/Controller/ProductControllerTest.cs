@@ -89,7 +89,7 @@ public class ProductControllerTest
     [TestMethod]
     public void Create_Ok()
     {
-        var result = _productController.Create(_productCreationModel) as OkResult;
+        var result = _productController.Create(_productCreationModel) as OkObjectResult;
 
         Assert.IsNotNull(result);
         Assert.AreEqual(200, result.StatusCode);

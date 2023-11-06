@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,4 +9,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent {
   authService = inject(AuthService);
+  // TODO: check if is admin
+  isAdmin: boolean = true;
+  constructor(
+    private router: Router
+  ) {}
+
+  goBack(): void {
+    this.router.navigate(['/']);
+  }
 }

@@ -3,7 +3,7 @@ export interface Product{
   name: string,
   description: string,
   price: number,
-  color: Color[],
+  colors: Color[],
   brand: Brand,
   category: Category
 }

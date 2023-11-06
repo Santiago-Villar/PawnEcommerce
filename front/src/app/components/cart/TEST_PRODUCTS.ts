@@ -6,7 +6,7 @@ export const PRODUCTS: Product[] = [
     name: "laptop",
     description: "A powerful laptop for all your computing needs.",
     price: 3200,
-    color: [
+    colors: [
       { id: "1", name: "silver", code: "#C0C0C0" },
       { id: "2", name: "white", code: "#FFFFFF" }
     ],
@@ -18,7 +18,7 @@ export const PRODUCTS: Product[] = [
     name: "sneakers",
     description: "Comfortable sneakers for everyday wear.",
     price: 4400,
-    color: [
+    colors: [
       { id: "2", name: "white", code: "#FFFFFF" }
     ],
     brand: { id: "2", name: "Footwear Co." },
@@ -29,7 +29,7 @@ export const PRODUCTS: Product[] = [
     name: "smartphone",
     description: "A feature-packed smartphone with advanced technology.",
     price: 800,
-    color: [
+    colors: [
       { id: "3", name: "black", code: "#000000" }
     ],
     brand: { id: "1", name: "Example Brand" },
@@ -40,7 +40,7 @@ export const PRODUCTS: Product[] = [
     name: "smartphone",
     description: "A feature-packed smartphone with advanced technology.",
     price: 5600,
-    color: [
+    colors: [
       { id: "3", name: "black", code: "#000000" }
     ],
     brand: { id: "1", name: "Example Brand" },
