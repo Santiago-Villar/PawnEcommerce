@@ -37,14 +37,36 @@ namespace PawnEcommerce.Controllers
                 if (!userId.HasValue)
                     return Unauthorized("Invalid token.");
 
-                var sale = newSale.ToEntity();
-                sale.UserId = userId.Value;
+                var cartProducts = newSale.ProductDtosId.Select(id => _productService.Get(id)).ToArray();
 
-                sale.Id = _saleService.Create(sale);
-                sale.Products = newSale.CreateSaleProducts(sale, _productService);
-                _saleService.Update(sale);
+                var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(cartProducts);
 
-                return Ok();
+                if (removedProducts.Any())//Si no hay stock para todos los productos
+                {
+                    var removalNotification = _productService.GenerateRemovalNotification(removedProducts);
+                    return BadRequest(new {updatedCart, Message = removalNotification });
+                }
+
+                if (updatedCart.Any())//Si hay para todos y el carrito NO está vacío
+                {
+                    var sale = newSale.ToEntity();
+                    sale.UserId = userId.Value;
+
+                    sale.Products = newSale.CreateSaleProducts(sale, updatedCart, _productService);
+
+                    sale.Id = _saleService.Create(sale);
+
+                    _saleService.Update(sale);
+
+                    int[] emptyCart = new int[] { }; 
+
+                    return Ok(new {emptyCart, Message = "Sale created successfully" });
+                }
+                else //Se hizo una Sale con el carrito vacío
+                {
+                    int[] emptyCart = new int[] { };
+                    return BadRequest(new {emptyCart, Message = "There are no products available for sale in your cart." });
+                }
             }
         }
 
@@ -55,6 +77,7 @@ namespace PawnEcommerce.Controllers
             var sales = _saleService.GetAll();
             return Ok(sales);
         }
+
         [Authorization("Admin")]
         [HttpGet("{id:int}")]
         public IActionResult Get([FromRoute] int id)

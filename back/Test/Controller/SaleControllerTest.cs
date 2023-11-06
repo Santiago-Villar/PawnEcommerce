@@ -35,6 +35,39 @@ public class SaleControllerTest
         }
     };
 
+    public static Brand aBrand = new Brand(1)
+    {
+        Name = "Kova"
+    };
+    public static Category aCategory = new Category(1)
+    {
+        Name = "Retro"
+    };
+
+    Product aProduct = new Product()
+    {
+        Name = "Abdul's Udemy Course",
+        Description = "Está godines",
+        Price = 10,
+        Stock = 100,
+        Category = aCategory,
+        Brand = aBrand,
+        ProductColors = new List<ProductColor>()
+
+    };
+    Color firstColor = new Color(1)
+    {
+        Name = "Red"
+    };
+    Color secondColor = new Color(2)
+    {
+        Name = "Green"
+    };
+    Color thirdColor = new Color(3)
+    {
+        Name = "Blue"
+    };
+
     private readonly SaleCreationModel _newSale = new SaleCreationModel()
     {
         ProductDtosId = new int[]
@@ -95,24 +128,58 @@ public class SaleControllerTest
     }
 
     [TestMethod]
-    public void Create_Ok()
+    public void CreateSale_Successful_ReturnsOkWithEmptyCartMessage()
     {
-        var saleService = new Mock<ISaleService>();
-        var productService = new Mock<IProductService>();
-        productService.Setup(ps => ps.Get(It.IsAny<int>())).Returns(new Product());
+        // Arrange
+        var userId = 1;
+        var fakeToken = "Bearer fake_token";
 
-        var saleController = new SaleController(saleService.Object, productService.Object, serviceProviderMock.Object);
+        // Mocking product service to simulate database operations
+        var productServiceMock = new Mock<IProductService>();
+        productServiceMock.Setup(ps => ps.Get(It.IsAny<int>())).Returns(aProduct);
+        productServiceMock.Setup(ps => ps.VerifyAndUpdateCart(It.IsAny<Product[]>()))
+            .Returns((new Product[] { aProduct }, new List<Product>()));
 
+        // Mocking sale service
+        var saleServiceMock = new Mock<ISaleService>();
+        saleServiceMock.Setup(ss => ss.Create(It.IsAny<Sale>())).Returns(1); // Assuming the sale ID returned is 1
+
+        var saleController = new SaleController(saleServiceMock.Object, productServiceMock.Object, serviceProviderMock.Object);
+
+        // Set up the HTTP context to include an authorization header
         saleController.ControllerContext = new ControllerContext
         {
             HttpContext = httpContextMock.Object
         };
 
-        var result = saleController.Create(_newSale) as OkResult;
+        // Act
+        var actionResult = saleController.Create(_newSale);
 
-        Assert.IsNotNull(result);
-        Assert.AreEqual(200, result.StatusCode);
+        // Assert
+        Assert.IsNotNull(actionResult, "No action result returned");
+
+        // Check the actual type of the actionResult
+        Assert.IsInstanceOfType(actionResult, typeof(OkObjectResult), $"Unexpected action result type: {actionResult.GetType().Name}");
+
+        var okResult = actionResult as OkObjectResult;
+        Assert.IsNotNull(okResult, "Expected OkObjectResult");
+        Assert.IsNotNull(okResult.Value, "Ok result has no value");
+
+        // Now let's use reflection to check the Value
+        var valueType = okResult.Value.GetType();
+        var messageProperty = valueType.GetProperty("Message");
+        Assert.IsNotNull(messageProperty, "The 'Message' property is not found on the result value");
+
+        var messageValue = messageProperty.GetValue(okResult.Value);
+        Assert.IsNotNull(messageValue, "The 'Message' property should not be null");
+        Assert.IsInstanceOfType(messageValue, typeof(string), "The 'Message' property should be a string");
+
+        // If you want to assert the message string
+        Assert.AreEqual("Sale created successfully", messageValue.ToString(), "Unexpected message content");
+
+
     }
+
 
 
     [TestMethod]
