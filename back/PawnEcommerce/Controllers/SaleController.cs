@@ -44,7 +44,7 @@ namespace PawnEcommerce.Controllers
                 if (removedProducts.Any())//Si no hay stock para todos los productos
                 {
                     var removalNotification = _productService.GenerateRemovalNotification(removedProducts);
-                    return BadRequest(new {updatedCart, Message = removalNotification });
+                    return StatusCode(StatusCodes.Status409Conflict, new { updatedCart, Message = removalNotification });
                 }
 
                 if (updatedCart.Any())//Si hay para todos y el carrito NO está vacío
