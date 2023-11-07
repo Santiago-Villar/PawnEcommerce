@@ -33,9 +33,7 @@ namespace PawnEcommerce.Controllers
             {
                 var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
 
-                var userId = sessionService.ExtractUserIdFromToken(Request.Headers["Authorization"].ToString().Split(' ')[1]);
-                if (!userId.HasValue)
-                    return Unauthorized("Invalid token.");
+                var userId = sessionService.GetCurrentUser().Id;
 
                 var cartProducts = newSale.ProductDtosId.Select(id => _productService.Get(id)).ToArray();
 
@@ -50,11 +48,11 @@ namespace PawnEcommerce.Controllers
                 if (updatedCart.Any())//Si hay para todos y el carrito NO está vacío
                 {
                     var sale = newSale.ToEntity();
-                    sale.UserId = userId.Value;
-
-                    sale.Products = newSale.CreateSaleProducts(sale, updatedCart, _productService);
+                    sale.UserId = userId;
 
                     sale.Id = _saleService.Create(sale);
+
+                    sale.Products = newSale.CreateSaleProducts(sale, updatedCart, _productService);
 
                     _saleService.Update(sale);
 
@@ -95,7 +93,7 @@ namespace PawnEcommerce.Controllers
         }
 
         [Authorization("User")]
-        [HttpGet("purchase-history")] 
+        [HttpGet("History")] 
         public IActionResult GetUserPurchaseHistory() 
         {
             using (var scope = _serviceProvider.CreateScope())
