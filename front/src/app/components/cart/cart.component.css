@@ -1,0 +1,20 @@
+.cart-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.shopping-bag {
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .cart-container {
+    flex-direction: column;
+  }
+  .shopping-bag {
+    margin-top: 60px;
+  }
+}

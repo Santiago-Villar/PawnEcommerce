@@ -7,18 +7,23 @@ using Service.Exception;
 using System.Threading.Tasks;
 using Service.Filter.ConcreteFilter;
 using Service.Filter;
+using Service.DTO.Product;
 
 namespace Service.Product
 {
     public class ProductService : IProductService
     {
         public IProductRepository _productRepository { get; set; }
-        public ProductService(IProductRepository repo)
+
+
+        public IColorService _colorService { get; set; }
+        public ProductService(IProductRepository repo, IColorService colorService)
         {
             _productRepository = repo;
+            _colorService = colorService;
         }
 
-        public int AddProduct(Product Product)
+        public Product AddProduct(Product Product)
         {
             if (_productRepository.Exists(Product)) {
                 throw new ServiceException("Product " + Product.Name + " already exists.");
@@ -86,6 +91,7 @@ namespace Service.Product
             }
             else { throw new RepositoryException($"Product {newProductVersion.Id} does not exist."); }
         }
+
 
         public void DecreaseStock(int productId, int quantity)
         {
@@ -162,10 +168,33 @@ namespace Service.Product
             var productNames = string.Join(", ", removedProducts.Select(p => p.Name));
             return $"The following products were removed from your cart due to insufficient stock or being no longer available: {productNames}.";
         }
-    } 
+     
 
 
 
 
+        public Product UpdateProductUsingDTO(int id, ProductUpdateModel productDto)
+        {
+            var existingProduct = _productRepository.Get(id);
+
+            if (productDto.Name != null) existingProduct.Name = productDto.Name;
+            if (productDto.Description != null) existingProduct.Description = productDto.Description;
+            if (productDto.Price.HasValue) existingProduct.Price = productDto.Price.Value;
+            if (productDto.BrandId.HasValue) existingProduct.BrandId = productDto.BrandId.Value;
+            if (productDto.CategoryId.HasValue) existingProduct.CategoryId = productDto.CategoryId.Value;
+            if (productDto.Colors != null)
+            {
+                existingProduct.ProductColors.Clear();
+                foreach (var colorId in productDto.Colors.Distinct())
+                {
+                    var color = _colorService.Get(colorId);
+                    existingProduct.AddColor(color);
+                }
+            }
+
+            return _productRepository.UpdateProduct(existingProduct);
+        }
+
+    }
 }
 

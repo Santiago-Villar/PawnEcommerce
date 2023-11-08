@@ -1,0 +1,24 @@
+<div class="shopping-cart">
+  <div class="title">
+    Summary
+  </div>
+  <div class="item">
+    <span>Order Summary</span>
+    <span class="price">$ {{ getTotal() }}</span>
+  </div>
+  <div class="item">
+    <span>Discount</span>
+    <span class="price">$ {{ discount }}</span>
+  </div>
+  <div class="item">
+    <span>Subtotal</span>
+    <span class="price">$ {{ getSubtotal() }}</span>
+  </div>
+  <div class="btn">
+    <button class="button" type='submit' (click)="createSale()" [disabled]="isLoading">
+      <span *ngIf="isLoading">Loading...</span>
+      <span *ngIf="!isLoading">Checkout</span>
+    </button>
+  </div>
+  <p class="continue"> or <span class="link-to-home" (click)="goToHome()">continue shopping</span></p>
+</div>

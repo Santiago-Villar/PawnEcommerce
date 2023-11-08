@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PawnEcommerce.DTO.User;
+using Service.DTO.User;
 using PawnEcommerce.Middlewares;
 using Service.User;
 
@@ -30,25 +30,16 @@ namespace PawnEcommerce.Controllers
         {
 
             var users = _userService.GetAll();
-            var userDTOs = users.Select(u => new UserDTO
-            {
-                Id = u.Id,
-                Address = u.Address,
-                Roles = u.Roles.Select(r => r.ToString()).ToList(),
-                Email = u.Email
-            }).ToList();
-
+            var userDTOs = users.Select(u => ToUserDTO(u)).ToList();
             return Ok(userDTOs);
         }
 
         [Authorization("Admin")]
         [HttpPut("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UserCreateModel updateUser)
+        public IActionResult Update([FromRoute] int id, [FromBody] UserUpdateModel updateUser)
         {
-            var user = updateUser.ToEntity();
-            user.Id = id;
-            _userService.UpdateUser(user);
-            return Ok();
+            User user = _userService.UpdateUserUsingDTO(id, updateUser);
+            return Ok(ToUserDTO(user));
         }
 
         [Authorization("Admin")]
@@ -57,6 +48,17 @@ namespace PawnEcommerce.Controllers
         {
             _userService.DeleteUser(id);
             return Ok();
+        }
+
+        private UserDTO ToUserDTO(User user)
+        {
+            return new UserDTO
+            {
+                Id = user.Id,
+                Address = user.Address,
+                Roles = user.Roles.Select(r => r.ToString()).ToList(),
+                Email = user.Email
+            };
         }
         
         

@@ -7,6 +7,7 @@ using Service.Filter.ConcreteFilter;
 using Service.User;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using Service.DTO.Product;
 
 namespace Test;
 [TestClass]
@@ -14,12 +15,17 @@ namespace Test;
 public class ProductServiceTest
 {
     public IProductService _productService;
+
     public Mock<IProductRepository> _productRepositoryMock;
+
+    public IColorService _colorServiceMock;
+
 
     public ProductServiceTest()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
-        _productService = new ProductService(_productRepositoryMock.Object);
+        _colorServiceMock = new Mock<IColorService>().Object;
+        _productService = new ProductService(_productRepositoryMock.Object, _colorServiceMock);
     }
 
     public static Brand aBrand = new Brand(1)
@@ -58,7 +64,7 @@ public class ProductServiceTest
     public void SetUp()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
-        _productService = new ProductService(_productRepositoryMock.Object);
+        _productService = new ProductService(_productRepositoryMock.Object, _colorServiceMock);
 
         aBrand = new Brand(3) { Name = "Kova" };
         aCategory = new Category(3) { Name = "Retro" };
@@ -224,6 +230,7 @@ public class ProductServiceTest
     }
 
     [TestMethod]
+
     public void DecreaseStock_WhenProductExistsAndStockAvailable()
     {
         aProduct.Stock = 10;
@@ -328,6 +335,21 @@ public class ProductServiceTest
 
 
 
+    public void UpdateProductNameUsingDTO_Ok()
+    {
+        var updatedProductName = "Updated Product Name";
+        var partialDTO = new ProductUpdateModel { Name = updatedProductName };
+
+        _productRepositoryMock.Setup(repo => repo.Exists(1)).Returns(true);
+        _productRepositoryMock.Setup(repo => repo.Get(1)).Returns(aProduct);
+        _productRepositoryMock.Setup(repo => repo.UpdateProduct(It.IsAny<Product>()));
+
+        _productService.UpdateProductUsingDTO(1, partialDTO);
+
+
+        _productRepositoryMock.Verify(repo => repo.Get(1), Times.Once());
+        _productRepositoryMock.Verify(repo => repo.UpdateProduct(It.Is<Product>(p => p.Name == updatedProductName)), Times.Once());
+    }
 
 }
 
