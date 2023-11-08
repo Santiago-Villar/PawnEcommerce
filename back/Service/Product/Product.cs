@@ -21,6 +21,20 @@ namespace Service.Product
             }
         }
 
+        private int _stock;
+
+        private readonly object _stockLock = new object();
+
+        public int Stock
+        {
+            get => _stock;
+            set
+            {
+                ValidateStock(value);
+                _stock = value;
+            }
+        }
+
         [ForeignKey("Brand")]
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
@@ -46,6 +60,44 @@ namespace Service.Product
             }
         }
 
+        public void IncreaseStock(int stockToBeAdded)
+        {
+            ValidateStockChange(stockToBeAdded);
 
+            lock (_stockLock)
+            {
+                this.Stock += stockToBeAdded;
+            }
+        }
+
+        public void DecreaseStock(int stockToBeRemoved)
+        {
+            ValidateStockChange(stockToBeRemoved);
+
+            lock (_stockLock)
+            {
+                if (stockToBeRemoved > this.Stock)
+                {
+                    throw new ModelException("Not enough stock to remove.");
+                }
+
+                this.Stock -= stockToBeRemoved;
+            }
+        }
+
+        public bool IsStockAvailable(int samplesToBeBought)
+        {
+            return samplesToBeBought <= this.Stock;
+        }
+
+        private void ValidateStockChange(int stockChange)
+        {
+            if (stockChange < 0) throw new ModelException("Cannot add or remove negative stock");
+        }
+
+        private void ValidateStock(int stock)
+        {
+            if (stock < 0) throw new ModelException("Stock must be a positive integer.");
+        }
     }
 }

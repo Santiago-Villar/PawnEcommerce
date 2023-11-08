@@ -14,6 +14,17 @@ namespace Service.Product
         public Product GetProductByName(string productName);
         public Product[] GetAllProducts(FilterQuery filter);
         public void UpdateProduct(Product product);
+
+
+        public void IncreaseStock(int productId, int quantity);
+
+        public void DecreaseStock(int productId, int quantity);
+
+        public (Product[] UpdatedCart, List<Product> RemovedProducts) VerifyAndUpdateCart(Product[] cartProducts);
+
+        public string GenerateRemovalNotification(List<Product> removedProducts);
+
+
         public Product UpdateProductUsingDTO(int id, ProductUpdateModel productDTO);
         public void Reset();
     }

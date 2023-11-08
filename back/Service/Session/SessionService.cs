@@ -123,7 +123,7 @@ namespace Service.Session
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userIdClaim = jwtToken.Claims.First(c => c.Type == ClaimTypes.NameIdentifier);
+                var userIdClaim = jwtToken.Claims.First(c => c.Type == "nameid");
                 return int.Parse(userIdClaim.Value);
             }
             catch (System.Exception ex)

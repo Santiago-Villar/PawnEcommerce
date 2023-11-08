@@ -16,20 +16,23 @@ public class SaleCreationModel
         return new Service.Sale.Sale();
     }
 
-    public List<SaleProduct> CreateSaleProducts(Service.Sale.Sale sale, IProductService productService)
+    public List<SaleProduct> CreateSaleProducts(Service.Sale.Sale sale, Service.Product.Product[] updatedCart, IProductService productService)
     {
-        var productDtos = ProductDtosId.Select(id => productService.Get(id)).ToList();
-
-        var saleProducts = productDtos
+        var saleProducts = updatedCart
             .Select(prod =>
-                new SaleProduct
+            {
+                productService.DecreaseStock(prod.Id, 1);
+
+                return new SaleProduct
                 {
                     Product = prod,
-                    SaleId = sale.Id, 
-                    Sale = sale, 
+                    SaleId = sale.Id,
+                    Sale = sale,
                     ProductId = prod.Id
-                });
+                };
+            });
 
         return saleProducts.ToList();
     }
+
 }

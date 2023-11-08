@@ -32,6 +32,7 @@ public class ProductTest
         Price = 10,
         Category = aCategory,
         Brand = aBrand,
+        Stock = 5,
         CategoryId = aCategory.Id,
         BrandId = aBrand.Id,
         ProductColors = new List<ProductColor>()
@@ -86,6 +87,20 @@ public class ProductTest
     {
         aProduct.Price = 50;
         Assert.IsTrue(aProduct.Price > 0);
+    }
+
+    [TestMethod]
+    public void ProductHasStock()
+    {
+        Assert.IsTrue(aProduct.Stock > 0);
+        Assert.AreEqual(aProduct.Stock, 5);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ModelException))]
+    public void ProductHasNegativeStock()
+    {
+        aProduct.Stock = -5;
     }
 
     [TestMethod]
@@ -162,6 +177,102 @@ public class ProductTest
         // Check if the count of colors in the product is 2
         Assert.AreEqual(freshProduct.ProductColors.Count, 2);  // We expect only 2 unique colors
     }
+
+    [TestMethod]
+    public void IncreaseStock_Ok()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.IncreaseStock(20);
+        Assert.AreEqual(freshProduct.Stock, 40);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ModelException))]
+    public void IncreaseNegativeStock()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.IncreaseStock(-20);
+    }
+
+    [TestMethod]
+    public void DecreaseStock_Ok()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.DecreaseStock(20);
+        Assert.AreEqual(freshProduct.Stock, 0);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ModelException))]
+    public void DecreaseNegativeStock()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        freshProduct.DecreaseStock(-20);
+    }
+
+
+    [TestMethod]
+    public void ProductHasEnoughStock_Ok()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        Assert.IsTrue(freshProduct.IsStockAvailable(20));
+    }
+
+    [TestMethod]
+    public void ProductDoesNotHaveEnoughStock()
+    {
+        var freshProduct = new Product
+        {
+            Name = "Fresh Test Product",
+            Price = 150,
+            Stock = 20,
+            Category = new Category(3) { Name = "Fresh Category" },
+            Brand = new Brand(3) { Name = "Fresh Brand" },
+            ProductColors = new List<ProductColor>()
+        };
+        Assert.IsFalse(freshProduct.IsStockAvailable(21));
+    }
+
 
 
 }
