@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Service.Session;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using Service.User;
 
 namespace Test.Controller;
 
@@ -133,6 +134,9 @@ public class SaleControllerTest
         // Arrange
         var userId = 1;
         var fakeToken = "Bearer fake_token";
+
+        var user = new User { Id = userId }; // Replace with your actual User entity
+        sessionServiceMock.Setup(ss => ss.GetCurrentUser()).Returns(user);
 
         // Mocking product service to simulate database operations
         var productServiceMock = new Mock<IProductService>();
