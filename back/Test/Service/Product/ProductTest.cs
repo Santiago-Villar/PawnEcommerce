@@ -77,13 +77,6 @@ public class ProductTest
     }
 
     [TestMethod]
-    public void ProductHasPaymentMethod()
-    {
-        aProduct.PaymentMethod="Paganza";
-        Assert.AreEqual("Paganza", aProduct.PaymentMethod);
-    }
-
-    [TestMethod]
     [ExpectedException(typeof(ModelException))]
     public void ProductHasNegativePrice()
     {
