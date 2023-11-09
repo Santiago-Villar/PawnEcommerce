@@ -33,6 +33,7 @@ public class ProductTest
         Category = aCategory,
         Brand = aBrand,
         Stock = 5,
+        PaymentMethod = "Mastercard",
         CategoryId = aCategory.Id,
         BrandId = aBrand.Id,
         ProductColors = new List<ProductColor>()
@@ -73,6 +74,13 @@ public class ProductTest
     {
         aProduct.Price = 500;
         Assert.AreEqual(500, aProduct.Price);
+    }
+
+    [TestMethod]
+    public void ProductHasPaymentMethod()
+    {
+        aProduct.PaymentMethod="Paganza";
+        Assert.AreEqual("Paganza", aProduct.PaymentMethod);
     }
 
     [TestMethod]
@@ -272,6 +280,8 @@ public class ProductTest
         };
         Assert.IsFalse(freshProduct.IsStockAvailable(21));
     }
+
+
 
 
 
