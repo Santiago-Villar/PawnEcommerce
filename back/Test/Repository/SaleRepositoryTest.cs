@@ -41,7 +41,8 @@ namespace Test
             {
                 Id = 9,
                 Price = 100.0,
-                PromotionName = "Sample Promotion"
+                PromotionName = "Sample Promotion",
+                PaymentMethod = "Paganza"
             };
         }
         private Sale CreateAnotherSampleSale(EcommerceContext context)
@@ -49,7 +50,8 @@ namespace Test
             return new Sale
             {
                 Price = 200.0,
-                PromotionName = "Another Sample Promotion"
+                PromotionName = "Another Sample Promotion",
+                PaymentMethod = "Paypal"
             };
         }
 
@@ -118,13 +120,15 @@ namespace Test
             {
                 UserId = user.Id,
                 Price = 100.0,
-                PromotionName = "Sample Promotion"
+                PromotionName = "Sample Promotion",
+                PaymentMethod = "Paypal"
             };
             var sale2 = new Sale
             {
                 UserId = user.Id,
                 Price = 150.0,
-                PromotionName = "Another Promotion"
+                PromotionName = "Another Promotion",
+                PaymentMethod = "Paypal"
             };
             context.Sales.AddRange(sale1, sale2);
             context.SaveChanges();
