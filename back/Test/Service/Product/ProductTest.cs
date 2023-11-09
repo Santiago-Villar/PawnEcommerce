@@ -76,6 +76,7 @@ public class ProductTest
         Assert.AreEqual(500, aProduct.Price);
     }
 
+
     [TestMethod]
     [ExpectedException(typeof(ModelException))]
     public void ProductHasNegativePrice()

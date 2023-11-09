@@ -17,8 +17,6 @@ public interface IProduct
 
     int Stock {  get; set; }
 
-    string PaymentMethod {  get; set; }
-
     int CategoryId { get; set; }
     Category Category { get; set; }
 
