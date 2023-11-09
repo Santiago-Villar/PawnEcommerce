@@ -52,6 +52,7 @@ namespace Test
                 Description = "Sample Description",
                 Price = 10,
                 BrandId = brand.Id,
+                PaymentMethod = "BBVA",
                 CategoryId = category.Id,
             };
         }
