@@ -19,7 +19,15 @@ namespace Service.Sale
         public int UserId { get; set; }
         public Service.User.User User { get; set; }
 
-        public double? Price { get; set; }
+        private double? price { get; set; }
+
+        public double? Price { get=> price;
+            set
+            {
+                if (PaymentMethod.Equals("Paganza")) price = value * 0.9;
+                else price = value;
+            }
+        }
         public string? PromotionName { get; set; }
         public DateTime Date { get; set; }
         public string PaymentMethod { get; set; }
