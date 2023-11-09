@@ -10,8 +10,6 @@ namespace Service.Product
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public string PaymentMethod {  get; set; }
-
         private int _price;
         public int Price
         {
