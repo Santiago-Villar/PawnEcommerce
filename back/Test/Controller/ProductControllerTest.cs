@@ -69,7 +69,7 @@ public class ProductControllerTest
         var products = Enumerable.Repeat(_product1, 3).ToArray();
         _productService.Setup(ps => ps.GetAllProducts(It.IsAny<FilterQuery>())).Returns(products);
 
-        var result = _productController.GetAll(null, null, null) as OkObjectResult;
+        var result = _productController.GetAll(null, null, null,null,null) as OkObjectResult;
 
         Assert.IsNotNull(result);
         CollectionAssert.AreEqual(products, result.Value as Array);

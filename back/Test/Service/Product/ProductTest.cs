@@ -35,6 +35,7 @@ public class ProductTest
         Stock = 5,
         CategoryId = aCategory.Id,
         BrandId = aBrand.Id,
+        IsExcludedFromPromotions=true,
         ProductColors = new List<ProductColor>()
     };
     Color firstColor = new Color(1)
@@ -59,6 +60,12 @@ public class ProductTest
     {
         
         Assert.AreEqual("Abdul's Udemy Course", aProduct.Name);
+    }
+
+    [TestMethod] 
+    public void ProductIsExcludedFromPromotion()
+    {
+        Assert.IsTrue(aProduct.IsExcludedFromPromotions);
     }
 
     [TestMethod]
