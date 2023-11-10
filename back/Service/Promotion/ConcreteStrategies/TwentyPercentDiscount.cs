@@ -9,18 +9,19 @@ public class TwentyPercentDiscount : IPromotionStrategy
 
     private const double TwentyPercentConverter = 0.8;
     
+
     public double GetDiscountPrice(List<Service.Product.Product> products)
     {
-        var totalPrice = products.Sum(product => product.Price);
+        var eligibleProducts = products.Where(p => !p.IsExcludedFromPromotions).ToList();
 
-        if (products.Count < 2)
-            return totalPrice;
-        
-        var toReducePrice = products.Max(product => product.Price);
-        var reducedPrice = toReducePrice * TwentyPercentConverter;
-        
-        var discountPrice = totalPrice - toReducePrice + reducedPrice;
-    
-        return discountPrice;
+        if (eligibleProducts.Count < 2)
+            return eligibleProducts.Sum(product => product.Price);
+
+        var totalPrice = eligibleProducts.Sum(product => product.Price);
+        var mostExpensiveProductPrice = eligibleProducts.Max(product => product.Price);
+        var reducedPrice = mostExpensiveProductPrice * TwentyPercentConverter;
+
+        return totalPrice - mostExpensiveProductPrice + reducedPrice;
     }
+
 }

@@ -28,7 +28,7 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string? name, [FromQuery] int? categoryId, [FromQuery] int? brandId)
+        public IActionResult GetAll([FromQuery] string? name, [FromQuery] int? categoryId, [FromQuery] int? brandId, [FromQuery] int? minPrice, [FromQuery] int? maxPrice)
         {
             var filter = new FilterQuery();
 
@@ -40,6 +40,9 @@ namespace PawnEcommerce.Controllers
             
             if(brandId != null)
                 filter.BrandId = new IdFilterCriteria() { Value = brandId };
+
+            if (minPrice != null && maxPrice != null)
+                filter.PriceRange = new PriceFilterCriteria(minPrice.Value, maxPrice.Value);
 
             var products = _productService.GetAllProducts(filter);
             return Ok(products);

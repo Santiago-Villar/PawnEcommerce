@@ -10,13 +10,16 @@ public class ThreeForOne : IPromotionStrategy
     private const int MaxFreeItems = 2;
     public double GetDiscountPrice(List<Service.Product.Product> products)
     {
-        var totalPrice = products.Sum(product => product.Price);
-        var cheapestProduct = FindCheapestProductsInCommonBrands(products);
+        var eligibleProducts = products.Where(p => !p.IsExcludedFromPromotions).ToList();
+
+        var totalPrice = eligibleProducts.Sum(product => product.Price);
+        var cheapestProduct = FindCheapestProductsInCommonBrands(eligibleProducts);
         var discountPrice = cheapestProduct?.Sum(product => product.Price) ?? 0;
-        
+
         return totalPrice - discountPrice;
     }
-    
+
+
     private static List<Service.Product.Product>? FindCheapestProductsInCommonBrands(List<Service.Product.Product> products)
     {
         var brandCounts = FindBrandCount(products);

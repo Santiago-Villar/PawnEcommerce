@@ -23,6 +23,8 @@ public interface IProduct
     IEnumerable<Color> Colors { get; }
     ICollection<ProductColor> ProductColors { get; set; }
 
+    public bool IsExcludedFromPromotions { get; set; }
+
     void AddColor(Color color);
 }
 

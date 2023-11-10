@@ -11,12 +11,14 @@ public class TotalLook : IPromotionStrategy
 
     public double GetDiscountPrice(List<Service.Product.Product> products)
     {
-        var totalPrice = products.Sum(product => product.Price);
-        var mostExpensiveProduct = FindMostExpensiveProductWithSharedColor(products);
+        var eligibleProducts = products.Where(p => !p.IsExcludedFromPromotions).ToList();
+        var totalPrice = eligibleProducts.Sum(product => product.Price);
+        var mostExpensiveProduct = FindMostExpensiveProductWithSharedColor(eligibleProducts);
         var mostExpensivePrice = mostExpensiveProduct?.Price ?? 0;
 
         return totalPrice - mostExpensivePrice * FiftyPercentConverter;
     }
+
 
     private static Service.Product.Product? FindMostExpensiveProductWithSharedColor(List<Service.Product.Product> products)
     {
