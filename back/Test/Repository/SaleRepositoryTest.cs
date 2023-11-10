@@ -153,7 +153,7 @@ namespace Test
             repository.Update(sale1);
 
             var sale = repository.Get(sale1.Id);
-            Assert.AreEqual(9, sale.Price);
+            Assert.AreEqual(9*0.9, sale.Price);
         }
     }
 }
