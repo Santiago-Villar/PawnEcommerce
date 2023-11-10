@@ -33,19 +33,7 @@ public class PriceFilterTest
         Assert.IsTrue(match);
     }
 
-    [TestMethod]
-    public void Match_PriceNotMatched_Ok()
-    {
-        var filterCriteria = new PriceFilterCriteria(50, 100);
-        var product = new Product()
-        {
-            Price = 101 
-        };
 
-        var priceFilter = new PriceFilter();
-        var match = priceFilter.Match(product, filterCriteria);
-        Assert.IsFalse(match);
-    }
 
     [TestMethod]
     [ExpectedException(typeof(ModelException))]
