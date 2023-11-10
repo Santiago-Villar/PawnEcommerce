@@ -1,6 +1,8 @@
 ﻿using System;
 using Service.User;
 using Service.Product;
+using Microsoft.IdentityModel.Tokens;
+
 namespace Service.Sale
 {
 	public class Sale
@@ -24,7 +26,7 @@ namespace Service.Sale
         public double? Price { get=> price;
             set
             {
-                if (PaymentMethod.Equals("Paganza")) price = value * 0.9;
+                if (!PaymentMethod.IsNullOrEmpty() && PaymentMethod.Equals("Paganza")) price = value * 0.9;
                 else price = value;
             }
         }
