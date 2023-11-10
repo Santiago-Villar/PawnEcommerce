@@ -43,6 +43,8 @@ namespace Service.Product
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
+        public bool IsExcludedFromPromotions { get; set; }
+
         [JsonIgnore]
         public ICollection<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
 
