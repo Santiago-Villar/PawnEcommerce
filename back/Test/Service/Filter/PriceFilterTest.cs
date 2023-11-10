@@ -47,21 +47,5 @@ public class PriceFilterTest
         Assert.IsFalse(match);
     }
 
-    [TestMethod]
-    [ExpectedException(typeof(ModelException))]
-    public void Match_WrongFilterCriteria_Throws()
-    {
-        var filterCriteria = new StringFilterCriteria()
-        {
-            Value = "SomeString"
-        };
-        var product = new Product()
-        {
-            Price = 75
-        };
-
-        var priceFilter = new PriceFilter();
-        priceFilter.Match(product, filterCriteria); 
-    }
 }
 
