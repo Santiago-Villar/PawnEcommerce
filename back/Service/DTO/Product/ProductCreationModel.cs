@@ -13,6 +13,10 @@ public class ProductCreationModel
     public int CategoryId { get; set; }
     public int[] Colors { get; set; }
 
+    public int Stock { get; set; }
+
+    public bool IsExcludedFromPromotions { get; set; }
+
     public Service.Product.Product ToEntity(IBrandService _brandService, ICategoryService _categoryService, IColorService _colorService)
     {
         return new Service.Product.Product
@@ -25,6 +29,8 @@ public class ProductCreationModel
             Brand = _brandService.Get(BrandId),
             Category = _categoryService.Get(CategoryId),
             ProductColors = Colors.Distinct().Select(c => new ProductColor { Color = _colorService.Get(c) }).ToList(),
+            Stock = Stock,
+            IsExcludedFromPromotions = IsExcludedFromPromotions
         };
     }
 

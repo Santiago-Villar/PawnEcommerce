@@ -15,4 +15,6 @@ public class ProductUpdateModel
 
     public bool? IsExcludedFromPromotions { get; set; }
 
+    public int? Stock { get; set; }
+
 }
