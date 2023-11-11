@@ -50,6 +50,8 @@ namespace PawnEcommerce.Controllers
                     var sale = newSale.ToEntity();
                     sale.UserId = userId;
 
+                    sale.PaymentMethod = newSale.PaymentMethod;
+
                     sale.Id = _saleService.Create(sale);
 
                     sale.Products = newSale.CreateSaleProducts(sale, updatedCart, _productService);

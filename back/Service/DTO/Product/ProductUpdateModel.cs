@@ -13,4 +13,6 @@ public class ProductUpdateModel
     public int? CategoryId { get; set; }
     public int[]? Colors { get; set; }
 
+    public bool? IsExcludedFromPromotions { get; set; }
+
 }

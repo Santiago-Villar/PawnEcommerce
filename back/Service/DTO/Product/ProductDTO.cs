@@ -14,6 +14,8 @@ public class ProductDTO
     public CategoryDTO Category { get; set; }
     public ColorDTO[] Colors { get; set; }
 
+    public bool IsExcludedFromPromotions { get; set; }
+
     public Service.Product.Product ToEntity()
     {
         return new Service.Product.Product
@@ -24,7 +26,8 @@ public class ProductDTO
             Price = Price,
             Brand = Brand.ToEntity(),
             Category = Category.ToEntity(),
-            ProductColors = Colors.Select(color => new ProductColor { Color = color.ToEntity() }).ToList()
+            ProductColors = Colors.Select(color => new ProductColor { Color = color.ToEntity() }).ToList(),
+            IsExcludedFromPromotions = IsExcludedFromPromotions
         };
     }
 
