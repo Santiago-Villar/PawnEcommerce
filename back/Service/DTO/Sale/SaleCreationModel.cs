@@ -10,6 +10,7 @@ namespace Service.DTO.Sale;
 public class SaleCreationModel
 {
     public int[] ProductDtosId { get; set; }
+    public string PaymentMethod { get; set; }
     
     public Service.Sale.Sale ToEntity()
     {
