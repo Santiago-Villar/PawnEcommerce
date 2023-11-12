@@ -9,7 +9,7 @@ namespace Service.DTO.Sale;
 [ExcludeFromCodeCoverage]
 public class SaleCreationModel
 {
-    public int[] ProductDtosId { get; set; }
+    public int[] ProductIds { get; set; }
     public string PaymentMethod { get; set; }
     
     public Service.Sale.Sale ToEntity()

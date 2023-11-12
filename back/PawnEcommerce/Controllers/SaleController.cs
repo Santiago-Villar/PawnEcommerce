@@ -35,7 +35,7 @@ namespace PawnEcommerce.Controllers
 
                 var userId = sessionService.GetCurrentUser().Id;
 
-                var cartProducts = newSale.ProductDtosId.Select(id => _productService.Get(id)).ToArray();
+                var cartProducts = newSale.ProductIds.Select(id => _productService.Get(id)).ToArray();
 
                 var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(cartProducts);
 
@@ -45,7 +45,7 @@ namespace PawnEcommerce.Controllers
                     return StatusCode(StatusCodes.Status409Conflict, new { updatedCart, Message = removalNotification });
                 }
 
-                if (updatedCart.Any())//Si hay para todos y el carrito NO está vacío
+                if (updatedCart.Any())//Si hay para todos y el carrito NO estï¿½ vacï¿½o
                 {
                     var sale = newSale.ToEntity();
                     sale.UserId = userId;
@@ -62,7 +62,7 @@ namespace PawnEcommerce.Controllers
 
                     return Ok(new {emptyCart, Message = "Sale created successfully" });
                 }
-                else //Se hizo una Sale con el carrito vacío
+                else //Se hizo una Sale con el carrito vacï¿½o
                 {
                     int[] emptyCart = new int[] { };
                     return BadRequest(new {emptyCart, Message = "There are no products available for sale in your cart." });
@@ -87,11 +87,23 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpPost("Discount")]
-        public IActionResult GetDiscount([FromBody] List<int> ids)
+        public IActionResult GetDiscount([FromBody] SaleDiscountInput discountInfo)
         {
-            var newPrice = _saleService.GetDiscount(ids.Select(id => _productService.Get(id)).ToList());
-            var saleDiscountDto = new SaleDiscountDTO { discountPrice = newPrice };
-            return Ok(saleDiscountDto);
+            var products = discountInfo.ProductIds.Select(id => _productService.Get(id)).ToList();
+            var promotion = _saleService.GetPromotion(products);
+            
+            var result = new SaleDiscountDTO()
+            {
+                PromotionName = promotion.Name,
+                PromotionDescription = promotion.Description,
+                PaymentMethod = discountInfo.PaymentMethod,
+                TotalPrice = _saleService.GetTotalPrice(products),
+                PromotionDiscount = promotion.GetDiscount(products),
+                PaymentMethodDiscount = _saleService.GetPaymentMethodDiscount(products, discountInfo.PaymentMethod),
+                FinalPrice = _saleService.GetFinalPrice(products, discountInfo.PaymentMethod),
+            };
+
+            return Ok(result);
         }
 
         [Authorization("User")]

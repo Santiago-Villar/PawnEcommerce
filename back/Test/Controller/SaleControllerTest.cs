@@ -48,7 +48,7 @@ public class SaleControllerTest
     Product aProduct = new Product()
     {
         Name = "Abdul's Udemy Course",
-        Description = "Está godines",
+        Description = "Estï¿½ godines",
         Price = 10,
         Stock = 100,
         Category = aCategory,
@@ -71,7 +71,7 @@ public class SaleControllerTest
 
     private readonly SaleCreationModel _newSale = new SaleCreationModel()
     {
-        ProductDtosId = new int[]
+        ProductIds = new int[]
         {
             1
         },
@@ -218,25 +218,6 @@ public class SaleControllerTest
 
         Assert.IsNotNull(result);
         Assert.AreEqual(foundSaleWithId, result.Value);
-    }
-    
-    [TestMethod]
-    public void GetDiscount_Ok()
-    {
-        var products = Enumerable.Repeat(ProductDto, 3);
-
-        var saleService = new Mock<ISaleService>();
-        saleService.Setup(ps => ps.GetDiscount(It.IsAny<List<Product>>())).Returns(10);
-        var productService = new Mock<IProductService>();
-
-        var saleController = new SaleController(saleService.Object, productService.Object, serviceProviderMock.Object);
-
-        var result = saleController.GetDiscount(products.Select(p => p.Id).ToList()) as OkObjectResult;
-        
-        const double expected = 10;
-        var discount = result.Value as SaleDiscountDTO;
-        Assert.IsNotNull(result);
-        Assert.AreEqual(expected, discount.discountPrice);
     }
 
 
