@@ -27,9 +27,9 @@ public class PromotionTest
         var promotionsName = new List<string>()
         {
             "Total Look",
-             "Three For One",
-             "Three For Two",
-             "Twenty Percent Discount"
+             "3x1 Fidelidad",
+             "3x2",
+             "20% OFF"
         };
 
         var promotions = promotionsCollection.GetPromotions();
