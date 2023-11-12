@@ -182,6 +182,8 @@ namespace Service.Product
             if (productDto.Price.HasValue) existingProduct.Price = productDto.Price.Value;
             if (productDto.BrandId.HasValue) existingProduct.BrandId = productDto.BrandId.Value;
             if (productDto.CategoryId.HasValue) existingProduct.CategoryId = productDto.CategoryId.Value;
+            if (productDto.Stock.HasValue) existingProduct.Stock = productDto.Stock.Value;
+            if (productDto.IsExcludedFromPromotions.HasValue) existingProduct.IsExcludedFromPromotions = productDto.IsExcludedFromPromotions.Value;
             if (productDto.Colors != null)
             {
                 existingProduct.ProductColors.Clear();
