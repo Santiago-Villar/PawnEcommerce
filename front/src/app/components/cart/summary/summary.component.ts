@@ -25,6 +25,8 @@ export class SummaryComponent {
   total: number = 0;
   subtotal: number = 0;
   isLoading: boolean = false;
+  selectedPaymentMethod: string = '';
+  isPaymentMethodSet: boolean = false;
 
   ngOnChanges() {
     this.setDiscount();
@@ -49,9 +51,9 @@ export class SummaryComponent {
     });
 
 
-    this.cartService.getDiscount(productsId, "Paganza").subscribe({
+    this.cartService.getDiscount(productsId, this.selectedPaymentMethod).subscribe({
       next: (discount) => {
-        this.discount = discount.promotionDiscount;
+        this.discount = discount.promotionDiscount + discount.paymentMethodDiscount;
         this.total = discount.totalPrice;
         this.subtotal = discount.finalPrice;
       },
@@ -67,9 +69,17 @@ export class SummaryComponent {
   }
 
   createSale(){
+    if(!this.isPaymentMethodSet){
+      this.toastrService.error("No payment method was selected", '', {
+        progressBar: true,
+        timeOut: 2000,
+      });
+      return;
+    }
+
     this.isLoading = true;
 
-    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id)), "Paganza").subscribe({
+    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id)), this.selectedPaymentMethod).subscribe({
       next: () => {
         this.isLoading = false;
         this.toastrService.success("Succesful sale!", '', {
@@ -95,6 +105,15 @@ export class SummaryComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  updatePaymentMethodStatus() {
+    this.isPaymentMethodSet = this.selectedPaymentMethod !== '';
+    this.setDiscount();
+  }
+
+  shouldApply10Off() {
+    return this.selectedPaymentMethod !== '' && this.selectedPaymentMethod == "Paganza";
   }
 
 }

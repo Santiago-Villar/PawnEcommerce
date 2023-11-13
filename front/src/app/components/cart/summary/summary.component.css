@@ -16,7 +16,7 @@
   color: var(--grayTitle);
   font-size: 18px;
   font-weight: 400;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .item {
@@ -32,6 +32,42 @@
   color: black;
 }
 
+.payment {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray);
+  width: 90%;
+}
+
+.payment:hover {
+  cursor: pointer;
+}
+
+.payment-container{
+  position: relative;
+}
+
+.extra-discount {
+  position: absolute;
+  top: -7px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  color: #fff;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 0.25rem;
+  border-radius: 999px;
+}
+
 .btn {
   display: flex;
   justify-content: center;
@@ -44,7 +80,7 @@
   border: none;
   border-radius: 0.4rem;
   color: white;
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 1.1rem;
 }
 

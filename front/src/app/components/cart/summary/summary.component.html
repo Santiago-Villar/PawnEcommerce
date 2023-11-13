@@ -14,6 +14,21 @@
     <span>Subtotal</span>
     <span class="price">$ {{ subtotal }}</span>
   </div>
+  <div class="payment-container">
+    <span *ngIf="this.shouldApply10Off()" class="extra-discount">
+      -10%
+    </span>
+    <select class="payment" name="payment" id="payment" [(ngModel)]="selectedPaymentMethod" (ngModelChange)="updatePaymentMethodStatus()">
+      <option value="" disabled selected>Select Payment Method</option>
+      <option value="Visa">Visa</option>
+      <option value="MasterCard">MasterCard</option>
+      <option value="Banco Santander">Banco Santander</option>
+      <option value="Banco ITAU">Banco ITAU</option>
+      <option value="Banco BBVA">Banco BBVA</option>
+      <option value="Paypal">Paypal</option>
+      <option value="Paganza">Paganza </option>
+    </select>
+  </div>
   <div class="btn">
     <button class="button" type='submit' (click)="createSale()" [disabled]="isLoading">
       <span *ngIf="isLoading">Loading...</span>
