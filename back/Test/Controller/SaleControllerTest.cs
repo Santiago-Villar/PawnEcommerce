@@ -102,6 +102,7 @@ public class SaleControllerTest
         sessionServiceMock = new Mock<ISessionService>();
         sessionServiceMock.Setup(ss => ss.ExtractUserIdFromToken(It.IsAny<string>()))
             .Returns((string token) => 1);
+        sessionServiceMock.Setup(s => s.GetCurrentUser()).Returns(new User { Id = 123 });
 
         serviceScopeMock.Setup(scope => scope.ServiceProvider.GetService(typeof(ISessionService)))
             .Returns(sessionServiceMock.Object);
@@ -207,6 +208,7 @@ public class SaleControllerTest
     {
         var sales = Enumerable.Repeat(_newSale, 3).Select(sale => sale.ToEntity()).ToList();
         var foundSaleWithId = sales[0];
+        foundSaleWithId.UserId = 123;
 
         var saleService = new Mock<ISaleService>();
         saleService.Setup(ps => ps.Get(1)).Returns(foundSaleWithId);
