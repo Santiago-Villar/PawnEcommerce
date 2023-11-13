@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { PRODUCTS } from './TEST_PRODUCTS';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product.model';
 
@@ -13,16 +12,20 @@ export class CartComponent implements OnInit {
   discount: number = 0;
   subtotal: number = 0;
 
-  products : Product[] = PRODUCTS;
-  quantity = Array(this.products.length).fill(1);
-
   cartService = inject(CartService);
+
+  products : Product[] = this.cartService.getCart();
+  quantity : number[] = [];
 
   ngOnInit() {
     this.products  = this.cartService.getCart();
+    if(this.quantity.length == 0) {
+      this.quantity = this.products.map(p => p.quantity)
+    }
   }
 
   handleUpdateQuantity(eventData: { index: number, quantity: number }) {
+    this.cartService.updateQuantity(eventData);
     this.quantity[eventData.index] += eventData.quantity;
     this.quantity = [...this.quantity];
   }

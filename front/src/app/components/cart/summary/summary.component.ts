@@ -21,6 +21,8 @@ export class SummaryComponent {
   @Output() resetProducts = new EventEmitter();
 
   discount: number = 0;
+  total: number = 0;
+  subtotal: number = 0;
   isLoading: boolean = false;
 
   ngOnChanges() {
@@ -31,17 +33,11 @@ export class SummaryComponent {
     this.router.navigate(['']);
   }
 
-  getSubtotal() {
-    return this.getTotal() - this.discount;
-  }
-
-  getTotal() {
-    return this.products.reduce((total, product, index) => total + (product.price * this.quantity[index]), 0);
-  }
-
   setDiscount() {
     if(this.products.length == 0){
       this.discount = 0;
+      this.total = 0;
+      this.subtotal = 0;
       return;
     }
 
@@ -54,8 +50,9 @@ export class SummaryComponent {
 
     this.cartService.getDiscount(productsId).subscribe({
       next: (discount) => {
-        console.log(discount.discountPrice);
-        this.discount = this.getTotal() - discount.discountPrice;
+        this.discount = discount.promotionDiscount;
+        this.total = discount.totalPrice;
+        this.subtotal = discount.finalPrice;
       },
       error: (response: any) => {
         this.toastrService.error(response?.error?.message ?? "Unexpected Error", '', {

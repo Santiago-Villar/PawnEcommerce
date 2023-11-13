@@ -10,7 +10,7 @@ import { Product } from '../models/product.model';
 })
 export class CartService {
   http = inject(HttpClient);
-  
+
   getCart(): Product[] {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -22,10 +22,12 @@ export class CartService {
 
   addProduct(product: Product): void {
     const newCart = this.getCart();
-    if(!newCart.some(p => p.id === product.id)) {
-      newCart.push(product);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-    }
+    if(newCart.some(p => p.id === product.id))
+      return;
+    
+    product.quantity = 1;
+    newCart.push(product);
+    localStorage.setItem('cart', JSON.stringify(newCart));
   }
 
   removeProduct(index: number): void {
@@ -40,6 +42,12 @@ export class CartService {
     localStorage.removeItem('cart');
   }
 
+  updateQuantity(eventData: { index: number, quantity: number }): void {
+    const newCart = this.getCart();
+    newCart[eventData.index].quantity += eventData.quantity;
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  }
+
   createSale(products: number[]){
     const BASE_URL = `${API_URL}/sale`;
     return this.http.post(BASE_URL, { productDtosId: products});
@@ -48,7 +56,7 @@ export class CartService {
   getDiscount(products: number[]) : Observable<Discount> {
     const BASE_URL = `${API_URL}/sale/discount`;
 
-    return this.http.post<Discount>(BASE_URL, products).pipe(
+    return this.http.post<Discount>(BASE_URL, {"productIds": products}).pipe(
       catchError((error) => {
         return throwError(() => error);
       }));

@@ -6,6 +6,7 @@ export interface Product{
   colors: Color[],
   brand: Brand,
   category: Category
+  quantity: number,
 }
 
 export interface Color {
