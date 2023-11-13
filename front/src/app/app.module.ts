@@ -20,7 +20,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -47,7 +47,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     HomeComponent,
     CartComponent,
     AdminProductsComponent,
-    ProductDetailComponent,
+    AdminProductDetailComponent,
     ProductEditComponent,
     ProductCreateComponent,
     ConfirmDialogComponent

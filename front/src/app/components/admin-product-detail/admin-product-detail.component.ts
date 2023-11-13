@@ -5,10 +5,10 @@ import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  templateUrl: './admin-product-detail.component.html',
+  styleUrls: ['./admin-product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class AdminProductDetailComponent implements OnInit {
   product: Product | null = null;
   defaultImageUrl : String = "https://montevista.greatheartsamerica.org/wp-content/uploads/sites/2/2016/11/default-placeholder.png";
 

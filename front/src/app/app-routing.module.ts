@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'admin', children: [
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/create', component: ProductCreateComponent }, 
-      { path: 'products/:id', component: ProductDetailComponent }, 
+      { path: 'products/:id', component: AdminProductDetailComponent }, 
       { path: 'products/edit/:id', component: ProductEditComponent }, 
     ]
   }

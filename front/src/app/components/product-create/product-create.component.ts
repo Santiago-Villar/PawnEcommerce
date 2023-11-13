@@ -7,7 +7,7 @@ import { ProductsService } from 'src/app/services/products.service';
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html', 
-  styleUrls: ['../product-detail/product-detail.component.css']
+  styleUrls: ['../admin-product-detail/admin-product-detail.component.css']
 })
 export class ProductCreateComponent implements OnInit {
   colors: Color[]  = [];
