@@ -40,8 +40,10 @@ export class SummaryComponent {
   }
 
   setDiscount() {
-    if(this.products.length == 0)
+    if(this.products.length == 0){
+      this.discount = 0;
       return;
+    }
 
     const productsId = Array.from(this.products).flatMap((product, i) => {
       const productId = Number.parseInt(product.id);

@@ -9,7 +9,6 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./item-list-container.component.css']
 })
 export class ProductListContainerComponent implements OnInit {
-
   products : Product[] = [];
   cartProducts : Product[] = [];
   isLoading : boolean = false;
@@ -33,6 +32,7 @@ export class ProductListContainerComponent implements OnInit {
   }
 
   addToCart(product : Product) {
+    this.cartService.addProduct(product);
     if(!this.cartProducts.some(p => p.id === product.id)) {
       this.cartProducts.push(product);
     }
