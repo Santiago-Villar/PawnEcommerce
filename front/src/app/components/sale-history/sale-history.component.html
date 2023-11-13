@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="sale-history">
+    <h1>Sale History</h1>
+    <table class="custom-table">
+      <thead>
+        <tr class="table-row">
+          <th>Date</th>
+          <th>Promotion</th>
+          <th>Payment Method</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of this.sales" class="table-row" (click)="navigateToDetails(sale.id)">
+          <td>{{ sale.date | date:'MM/dd/yyyy' }}</td>
+          <td>{{ sale.promotionName }}</td>
+          <td>{{ sale.paymentMethod }}</td>
+          <td>{{ sale.price | currency:'USD':true }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
