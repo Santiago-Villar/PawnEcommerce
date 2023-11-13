@@ -4,18 +4,26 @@ namespace Service.Promotion.ConcreteStrategies;
 
 public class ThreeForTwo : IPromotionStrategy
 {
-    public string Name { get; init; } = "Three For Two";
+    public string Name { get; init; } = "3x2";
+    public string Description { get; init; } = "Al tener 3 productos de la misma categoría, el producto de menor valor es gratis.";
 
     private const int MinCategoryCount = 3;
+
     public double GetDiscountPrice(List<Service.Product.Product> products)
     {
         var totalPrice = products.Sum(product => product.Price);
-        var cheapestProduct = FindCheapestProductInCommonCategories(products);
-        var cheapestPrice = cheapestProduct?.Price ?? 0;
+        var discount = GetDiscount(products);
         
-        return totalPrice - cheapestPrice;
+        return totalPrice - discount;
     }
-    
+
+    public double GetDiscount(List<Service.Product.Product> products)
+    {
+        var eligibleProducts = products.Where(p => !p.IsExcludedFromPromotions).ToList();
+        var cheapestProduct = FindCheapestProductInCommonCategories(eligibleProducts);
+        return cheapestProduct?.Price ?? 0;
+    }
+
     private static Service.Product.Product? FindCheapestProductInCommonCategories(List<Service.Product.Product> products)
     {
         var categoryCounts = FindCategoryCount(products);

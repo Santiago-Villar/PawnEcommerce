@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Product;
-using PawnEcommerce.DTO.Product;
+using Service.DTO.Product;
 using PawnEcommerce.Middlewares;
 using Service.Filter;
 using Service.Filter.ConcreteFilter;
@@ -28,7 +28,7 @@ namespace PawnEcommerce.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string? name, [FromQuery] int? categoryId, [FromQuery] int? brandId)
+        public IActionResult GetAll([FromQuery] string? name, [FromQuery] int? categoryId, [FromQuery] int? brandId, [FromQuery] int? minPrice, [FromQuery] int? maxPrice)
         {
             var filter = new FilterQuery();
 
@@ -40,6 +40,9 @@ namespace PawnEcommerce.Controllers
             
             if(brandId != null)
                 filter.BrandId = new IdFilterCriteria() { Value = brandId };
+
+            if (minPrice != null && maxPrice != null)
+                filter.PriceRange = new PriceFilterCriteria(minPrice.Value, maxPrice.Value);
 
             var products = _productService.GetAllProducts(filter);
             return Ok(products);
@@ -57,18 +60,15 @@ namespace PawnEcommerce.Controllers
         {
             var product = newProduct.ToEntity(_brandService, _categoryService, _colorService);
 
-            _productService.AddProduct(product);
-            return Ok();
+            var productCreated = _productService.AddProduct(product);
+            return Ok(productCreated);
         }
         [Authorization("Admin")]
         [HttpPut("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] ProductCreationModel updateProduct)
+        public IActionResult Update([FromRoute] int id, [FromBody] ProductUpdateModel updateProduct)
         {
-            var product = updateProduct.ToEntity(_brandService, _categoryService, _colorService);
-            product.Id = id;
-
-            _productService.UpdateProduct(product);
-            return Ok();
+            Product product = _productService.UpdateProductUsingDTO(id,updateProduct);
+            return Ok(product);
         }
         [Authorization("Admin")]
         [HttpDelete("{id:int}")]
@@ -77,5 +77,22 @@ namespace PawnEcommerce.Controllers
             _productService.DeleteProduct(id);
             return Ok();
         }
+
+        [Authorization("Admin")]
+        [HttpPost("{id:int}/increase-stock")]
+        public IActionResult IncreaseStock([FromRoute] int id, [FromBody] int quantity)
+        {
+            _productService.IncreaseStock(id, quantity);
+            return Ok();
+        }
+
+        [Authorization("Admin")]
+        [HttpPost("{id:int}/decrease-stock")]
+        public IActionResult DecreaseStock([FromRoute] int id, [FromBody] int quantity)
+        {
+            _productService.DecreaseStock(id, quantity);
+            return Ok();
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using Service.User;
 using Service.Product;
+using Microsoft.IdentityModel.Tokens;
+
 namespace Service.Sale
 {
 	public class Sale
@@ -19,9 +21,19 @@ namespace Service.Sale
         public int UserId { get; set; }
         public Service.User.User User { get; set; }
 
-        public double? Price { get; set; }
+        private double? price { get; set; }
+
+        public double? Price { get=> price;
+            set
+            {
+                if (!PaymentMethod.IsNullOrEmpty() && PaymentMethod.Equals("Paganza")) price = value * 0.9;
+                else price = value;
+            }
+        }
         public string? PromotionName { get; set; }
         public DateTime Date { get; set; }
+        public string PaymentMethod { get; set; }
+
         public Sale()
 		{
 			Date = DateTime.Now;

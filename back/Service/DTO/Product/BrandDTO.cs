@@ -1,7 +1,7 @@
 using Service.Product;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PawnEcommerce.DTO.Product;
+namespace Service.DTO.Product;
 
 [ExcludeFromCodeCoverage]
 public class BrandDTO

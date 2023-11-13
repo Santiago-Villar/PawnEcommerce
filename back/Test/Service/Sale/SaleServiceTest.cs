@@ -40,7 +40,7 @@ public class SaleServiceTest
         var saleService = new SaleService(mockRepository.Object);
         saleService.Create(sale);
         
-        Assert.AreEqual("Three For One", sale.PromotionName);
+        Assert.AreEqual("3x1 Fidelidad", sale.PromotionName);
     }
     
     [TestMethod]

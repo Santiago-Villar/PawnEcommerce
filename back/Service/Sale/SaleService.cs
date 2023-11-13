@@ -32,13 +32,38 @@ public class SaleService : ISaleService
         return _saleRepository.Add(sale);
     }
 
-    public double GetDiscount(List<Product.Product> products)
+    public double GetFinalPrice(List<Product.Product> products, string paymentMethod)
     {
         var promotion = _promotionService.GetPromotion(products);
-        var newPrice = promotion.GetDiscountPrice(products);
+        var priceWithPromotion = promotion.GetDiscountPrice(products);
+        var paymentMethodDiscount = GetPaymentMethodDiscount(products, paymentMethod);
 
-        return newPrice;
+        return priceWithPromotion - paymentMethodDiscount;
     }
+
+    public double GetTotalPrice(List<Product.Product> products)
+    {
+        return products.Sum(product => product.Price);
+    }
+
+    public double GetPaymentMethodDiscount(List<Product.Product> products, string paymentMethod)
+    {
+        if(paymentMethod == null) return 0;
+
+        if(paymentMethod.Equals("Paganza")){
+          var total = GetTotalPrice(products);
+          return total * 0.1;
+        } 
+        return 0;
+    }
+
+    
+
+    public IPromotionStrategy GetPromotion(List<Product.Product> products)
+    {
+        return _promotionService.GetPromotion(products);
+    }
+
 
     public void Update(Sale sale)
     {

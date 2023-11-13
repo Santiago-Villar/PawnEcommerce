@@ -39,6 +39,11 @@ namespace Repository
                 .HasForeignKey(p => p.BrandId);
 
             modelBuilder.Entity<Product>()
+                 .Property(p => p.Stock)
+                 .HasDefaultValue(0);
+
+
+            modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
@@ -92,8 +97,16 @@ namespace Repository
                 .Property(s => s.Price)
                 .IsRequired(false);
 
+            modelBuilder.Entity<Sale>()
+                .Property(s => s.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<SaleProduct>()
                 .HasKey(sp => sp.Id);
+
+            modelBuilder.Entity<SaleProduct>()
+                .Property(sp => sp.Id)
+                .ValueGeneratedOnAdd(); // This ensures that the value is generated on add
 
             modelBuilder.Entity<SaleProduct>()
                 .HasOne(sp => sp.Sale)

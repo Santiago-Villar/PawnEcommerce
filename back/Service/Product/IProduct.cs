@@ -15,11 +15,15 @@ public interface IProduct
     int BrandId { get; set; }
     Brand Brand { get; set; }
 
+    int Stock {  get; set; }
+
     int CategoryId { get; set; }
     Category Category { get; set; }
 
     IEnumerable<Color> Colors { get; }
     ICollection<ProductColor> ProductColors { get; set; }
+
+    public bool IsExcludedFromPromotions { get; set; }
 
     void AddColor(Color color);
 }

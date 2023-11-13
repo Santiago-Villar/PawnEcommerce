@@ -5,6 +5,7 @@ namespace Service.Promotion.ConcreteStrategies;
 public class TotalLook : IPromotionStrategy
 {
     public string Name { get; init; } = "Total Look";
+    public string Description { get; init; } = "Al tener 3 productos del mismo color, obtienes 50% de descuento en el producto de mayor valor.";
 
     private const double FiftyPercentConverter = 0.5;
     private const int MinCategoryCount = 3;
@@ -12,11 +13,18 @@ public class TotalLook : IPromotionStrategy
     public double GetDiscountPrice(List<Service.Product.Product> products)
     {
         var totalPrice = products.Sum(product => product.Price);
-        var mostExpensiveProduct = FindMostExpensiveProductWithSharedColor(products);
-        var mostExpensivePrice = mostExpensiveProduct?.Price ?? 0;
+        var discount = GetDiscount(products);
 
-        return totalPrice - mostExpensivePrice * FiftyPercentConverter;
+        return totalPrice - discount;
     }
+    public double GetDiscount(List<Service.Product.Product> products)
+    {
+        var eligibleProducts = products.Where(p => !p.IsExcludedFromPromotions).ToList();
+        var mostExpensiveProduct = FindMostExpensiveProductWithSharedColor(eligibleProducts);
+        var mostExpensivePrice = mostExpensiveProduct?.Price ?? 0;
+        return mostExpensivePrice * FiftyPercentConverter;
+    }
+
 
     private static Service.Product.Product? FindMostExpensiveProductWithSharedColor(List<Service.Product.Product> products)
     {

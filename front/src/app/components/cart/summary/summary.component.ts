@@ -19,6 +19,7 @@ export class SummaryComponent {
   @Input() quantity : number[] = [];
 
   @Output() resetProducts = new EventEmitter();
+  @Output() updateProducts = new EventEmitter();
 
   discount: number = 0;
   total: number = 0;
@@ -48,13 +49,14 @@ export class SummaryComponent {
     });
 
 
-    this.cartService.getDiscount(productsId).subscribe({
+    this.cartService.getDiscount(productsId, "Paganza").subscribe({
       next: (discount) => {
         this.discount = discount.promotionDiscount;
         this.total = discount.totalPrice;
         this.subtotal = discount.finalPrice;
       },
       error: (response: any) => {
+        console.log(response)
         this.toastrService.error(response?.error?.message ?? "Unexpected Error", '', {
           progressBar: true,
           timeOut: 2000,
@@ -67,7 +69,7 @@ export class SummaryComponent {
   createSale(){
     this.isLoading = true;
 
-    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id))).subscribe({
+    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id)), "Paganza").subscribe({
       next: () => {
         this.isLoading = false;
         this.toastrService.success("Succesful sale!", '', {
@@ -81,8 +83,15 @@ export class SummaryComponent {
       error: (response: any) => {
         this.toastrService.error(response?.error?.message ?? "Please log in before checkout", '', {
           progressBar: true,
-          timeOut: 2000,
+          timeOut: 3000,
         });
+
+        const updatedCart : Product[] = response?.error?.updatedCart;
+        if (updatedCart){
+          const updatedCartStock = updatedCart.map(prod => ({ "stock": prod.stock, "id": prod.id }));
+          this.updateProducts.emit(updatedCartStock);
+        }
+
         this.isLoading = false;
       }
     });

@@ -7,6 +7,8 @@ export interface Product{
   brand: Brand,
   category: Category
   quantity: number,
+  stock: number,
+  isExcludedFromPromotions: boolean
 }
 
 export interface Color {

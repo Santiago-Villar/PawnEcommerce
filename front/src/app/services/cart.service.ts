@@ -4,13 +4,14 @@ import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { API_URL } from 'src/config';
 import { Discount } from '../models/discount.model';
 import { Product } from '../models/product.model';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  http = inject(HttpClient);
-
+  api = inject(ApiService);
+  
   getCart(): Product[] {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -28,6 +29,23 @@ export class CartService {
     product.quantity = 1;
     newCart.push(product);
     localStorage.setItem('cart', JSON.stringify(newCart));
+  }
+
+  updateCart(event : { "stock": number, "id": string }[]): void {
+    const newCart = this.getCart();
+
+    const filteredCart = newCart.filter(cartItem => {
+      return event.some(eventItem => eventItem.id === cartItem.id);
+    });
+
+    const updatedCart = filteredCart.map(cartItem => {
+      const matchingEventItem = event.find(eventItem => eventItem.id === cartItem.id);
+      const newQuantity = Math.min(cartItem.quantity, matchingEventItem?.stock || 0);
+  
+      return { ...cartItem, quantity: newQuantity };
+    });
+
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   }
 
   removeProduct(index: number): void {
@@ -48,15 +66,15 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(newCart));
   }
 
-  createSale(products: number[]){
-    const BASE_URL = `${API_URL}/sale`;
-    return this.http.post(BASE_URL, { productDtosId: products});
+  createSale(products: number[], paymentMethod: string){
+    const URI = "sale";
+    return this.api.post(URI, { "productIds": products, "paymentMethod": paymentMethod});
   }
 
-  getDiscount(products: number[]) : Observable<Discount> {
-    const BASE_URL = `${API_URL}/sale/discount`;
+  getDiscount(products: number[], paymentMethod: string) : Observable<Discount> {
+    const URI = "sale/discount";
 
-    return this.http.post<Discount>(BASE_URL, {"productIds": products}).pipe(
+    return this.api.post<Discount>(URI, {"productIds": products, "paymentMethod": paymentMethod }).pipe(
       catchError((error) => {
         return throwError(() => error);
       }));

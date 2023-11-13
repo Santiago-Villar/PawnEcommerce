@@ -41,4 +41,9 @@ export class CartComponent implements OnInit {
     this.products = [];
   }
 
+  updateProducts(event : { "stock": number, "id": string }[]) {
+    this.cartService.updateCart(event);
+    this.products = this.cartService.getCart();
+  }
+
 }

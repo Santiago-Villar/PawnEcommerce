@@ -14,7 +14,7 @@ export class RegisterComponent {
   toastrService = inject(ToastrService)
   authService = inject(AuthService)
 
-  user: User = { email: '', password: '', adress: '' };
+  user: User = { email: '', password: '', address: '' };
 
   confirmPassword: string = '';
   isLoading: boolean = false;

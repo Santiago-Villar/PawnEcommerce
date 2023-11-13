@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins&display=swap");
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "ngx-toastr/toastr";
 
 html {
@@ -55,3 +56,6 @@ Colors:
     font-size: 12px;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

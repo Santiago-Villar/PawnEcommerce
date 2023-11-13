@@ -145,4 +145,16 @@ public class SaleTest
         Assert.AreEqual(s.PromotionName, promotion.Name);
     }
 
+    [TestMethod]
+    public void SaleHasPaymentMethod()
+    {
+        var s = new Sale
+        {
+            PaymentMethod="Paganza"
+        };
+        Assert.AreEqual("Paganza",s.PaymentMethod);
+    }
+
+
+
 }
