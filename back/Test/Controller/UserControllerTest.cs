@@ -48,7 +48,7 @@ public class UserControllerTest
     public void Update_Ok()
     {
         var userServiceMock = new Mock<IUserService>();
-        Mock<IServiceProvider> serviceProviderMock = GetServiceProvider();
+        Mock<IServiceProvider> serviceProviderMock = GetServiceProvider(new User { Id = 1 });
 
         var userController = new UserController(userServiceMock.Object, serviceProviderMock.Object);
 

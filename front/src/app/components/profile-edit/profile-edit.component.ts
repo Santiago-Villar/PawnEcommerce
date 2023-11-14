@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -14,7 +15,9 @@ export class ProfileEditComponent {
   address: string = ""
 
   profileService = inject(ProfileService);
-  toastrService = inject(ToastrService)
+  toastrService = inject(ToastrService);
+  authService = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.profileService.getProfile().subscribe((data : any) => {
@@ -31,6 +34,9 @@ export class ProfileEditComponent {
       });
       this.email = "";
       this.address = "";
+
+      this.authService.logout();
+      this.router.navigate(['/login']);
     },
     error: (response: any) => {
       console.log(response);
