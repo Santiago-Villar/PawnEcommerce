@@ -19,7 +19,7 @@ namespace PawnEcommerce.Controllers
             _userService = userService;
             _serviceProvider = serviceProvider;
         }
-        
+
         [HttpPost]
         public IActionResult SignUp([FromBody] UserCreateModel newUser)
         {
@@ -43,8 +43,8 @@ namespace PawnEcommerce.Controllers
             using var scope = _serviceProvider.CreateScope();
             var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
             var user = sessionService.GetCurrentUser();
-            
-            if(user == null)
+
+            if (user == null)
             {
                 return BadRequest("User was not found");
             }
@@ -58,12 +58,20 @@ namespace PawnEcommerce.Controllers
             return Ok(response);
         }
 
-        [Authorization("Admin")]
         [HttpPut("{id:int}")]
         public IActionResult Update([FromRoute] int id, [FromBody] UserUpdateModel updateUser)
         {
-            User user = _userService.UpdateUserUsingDTO(id, updateUser);
-            return Ok(ToUserDTO(user));
+            using var scope = _serviceProvider.CreateScope();
+            var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+            var user = sessionService.GetCurrentUser();
+
+            if ((user == null || user.Id != id) && !user.Roles.Contains(Service.User.Role.RoleType.Admin))
+            {
+                return BadRequest("User has no access");
+            }
+
+            User response = _userService.UpdateUserUsingDTO(id, updateUser);
+            return Ok(ToUserDTO(response));
         }
 
         [Authorization("Admin")]
