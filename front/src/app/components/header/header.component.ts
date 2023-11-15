@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
   isLoading: boolean = false;
   isAdmin: boolean = false;
+  isUser: boolean = true;
   router = inject(Router);
   profileService = inject(ProfileService);
 
@@ -22,10 +23,12 @@ export class HeaderComponent implements OnInit {
       next: ((data : User) => {
         this.isLoading = false;
         this.isAdmin = data.isAdmin;
+        this.isUser = data.isUser;
       }),
       error: (err: any) => {
         this.isLoading = false;
         this.isAdmin = false;
+        this.isUser = true;
         this.authService.logout();
       }
     });

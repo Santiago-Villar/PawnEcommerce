@@ -54,7 +54,8 @@ namespace PawnEcommerce.Controllers
                 Id = user.Id,
                 Email = user.Email,
                 Address = user.Address,
-                IsAdmin = user.Roles.Contains(Service.User.Role.RoleType.Admin)
+                IsAdmin = user.Roles.Contains(Service.User.Role.RoleType.Admin),
+                IsUser = user.Roles.Contains(Service.User.Role.RoleType.User)
             };
             return Ok(response);
         }
