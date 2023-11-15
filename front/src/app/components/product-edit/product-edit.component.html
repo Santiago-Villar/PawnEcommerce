@@ -37,7 +37,7 @@
       <div class="attribute-line">
         <p class="label">Stock:</p>
         <mat-form-field appearance="fill">
-            <input matInput value="0" name="stock" type="number" min="0" />
+            <input matInput [(ngModel)]="updatedProduct.stock" name="stock" type="number" min="0" />
         </mat-form-field>
     </div>
     
@@ -69,7 +69,13 @@
             </mat-select>
         </mat-form-field>
       </div>
-    
+      
+      <div class="attribute-line">
+        <p class="label">Excluir de promociones:</p>
+        <div class="flex-container-input">
+          <input type="checkbox" [checked]="updatedProduct.isExcludedFromPromotions" (change)="onCheckboxChange($event)">
+        </div>
+      </div>
 
       <button class="button-margin" mat-raised-button type="submit" color="primary">Guardar Cambios</button>
 

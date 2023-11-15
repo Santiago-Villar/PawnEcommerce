@@ -78,12 +78,28 @@ namespace PawnEcommerce.Controllers
             return Ok(sales);
         }
 
-        [Authorization("Admin")]
+
         [HttpGet("{id:int}")]
         public IActionResult Get([FromRoute] int id)
         {
-            var sales = _saleService.Get(id);
-            return Ok(sales);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+
+                var user = sessionService.GetCurrentUser();  
+
+                if (user == null)
+                    return Unauthorized("User was not found");
+
+                var userId = user.Id;
+
+                var sale = _saleService.Get(id);
+
+                if (sale.UserId != userId && !user.Roles.Contains(Service.User.Role.RoleType.Admin))
+                    return Unauthorized("User has no access");
+
+                return Ok(sale);
+            }
         }
         
         [HttpPost("Discount")]

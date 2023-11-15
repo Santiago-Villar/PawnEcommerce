@@ -11,7 +11,9 @@ export const PRODUCTS: Product[] = [
       { id: "2", name: "white", code: "#FFFFFF" }
     ],
     brand: { id: "1", name: "Example Brand" },
-    category: { id: "1", name: "Electronics" }
+    category: { id: "1", name: "Electronics" },
+    stock: 10,
+    isExcludedFromPromotions: false,
   },
   {
     id: "5",
@@ -22,7 +24,9 @@ export const PRODUCTS: Product[] = [
       { id: "2", name: "white", code: "#FFFFFF" }
     ],
     brand: { id: "2", name: "Footwear Co." },
-    category: { id: "2", name: "Footwear" }
+    category: { id: "2", name: "Footwear" },
+    stock: 10,
+    isExcludedFromPromotions: false,
   },
   {
     id: "6",
@@ -33,7 +37,9 @@ export const PRODUCTS: Product[] = [
       { id: "3", name: "black", code: "#000000" }
     ],
     brand: { id: "1", name: "Example Brand" },
-    category: { id: "1", name: "Electronics" }
+    category: { id: "1", name: "Electronics" },
+    stock: 10,
+    isExcludedFromPromotions: false,
   },
   {
     id: "7",
@@ -44,7 +50,9 @@ export const PRODUCTS: Product[] = [
       { id: "3", name: "black", code: "#000000" }
     ],
     brand: { id: "1", name: "Example Brand" },
-    category: { id: "1", name: "Electronics" }
+    category: { id: "1", name: "Electronics" },
+    stock: 10,
+    isExcludedFromPromotions: false,
   },
   
   

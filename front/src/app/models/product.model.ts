@@ -6,6 +6,8 @@ export interface Product{
   colors: Color[],
   brand: Brand,
   category: Category
+  stock: number,
+  isExcludedFromPromotions: boolean,
 }
 
 export interface Color {
