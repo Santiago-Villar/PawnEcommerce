@@ -21,12 +21,14 @@ export class SummaryComponent {
   @Output() resetProducts = new EventEmitter();
   @Output() updateProducts = new EventEmitter();
 
-  discount: number = 0;
+  promotion: number = 0;
   total: number = 0;
   subtotal: number = 0;
+  paymentDiscount: number = 0;
   isLoading: boolean = false;
   selectedPaymentMethod: string = '';
   isPaymentMethodSet: boolean = false;
+  promotionDescription: string = '';
 
   ngOnChanges() {
     this.setDiscount();
@@ -38,9 +40,11 @@ export class SummaryComponent {
 
   setDiscount() {
     if(this.products.length == 0){
-      this.discount = 0;
+      this.promotion = 0;
       this.total = 0;
       this.subtotal = 0;
+      this.paymentDiscount = 0;
+      this.promotionDescription = '';
       return;
     }
 
@@ -53,9 +57,11 @@ export class SummaryComponent {
 
     this.cartService.getDiscount(productsId, this.selectedPaymentMethod).subscribe({
       next: (discount) => {
-        this.discount = discount.promotionDiscount + discount.paymentMethodDiscount;
-        this.total = discount.totalPrice;
-        this.subtotal = discount.finalPrice;
+        this.paymentDiscount =  discount.paymentMethodDiscount;
+        this.promotion = discount.promotionDiscount;
+        this.subtotal = discount.totalPrice;
+        this.total = discount.finalPrice;
+        this.promotionDescription = discount.promotionDescription;
       },
       error: (response: any) => {
         console.log(response)
@@ -88,7 +94,8 @@ export class SummaryComponent {
         });
 
         this.resetProducts.emit();
-        this.discount = 0;
+        this.promotion = 0;
+        this.paymentDiscount = 0;
       },
       error: (response: any) => {
         this.toastrService.error(response?.error?.message ?? "Please log in before checkout", '', {
