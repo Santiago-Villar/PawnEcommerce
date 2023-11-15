@@ -1,7 +1,6 @@
 .wrapper{
   padding: 100px 0;
   min-height: 1vh;
-
 }
 
 .admin-container {
@@ -126,14 +125,6 @@ button{
 .info-message{
   margin-top: 100px;
   font-size: 25px;
-}
-
-.back-button {
-  text-decoration: none;
-  color: inherit;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 20px;
 }
 
 @media only screen and (max-width: 650px) {

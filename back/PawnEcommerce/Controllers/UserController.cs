@@ -35,6 +35,16 @@ namespace PawnEcommerce.Controllers
         }
 
         [Authorization("Admin")]
+        [HttpGet("{id:int}")]
+        public IActionResult GetById([FromRoute] int id)
+        {
+            var user = _userService.Get(id);
+
+            return Ok(ToUserDTO(user));
+        }
+
+
+        [Authorization("Admin")]
         [HttpPut("{id:int}")]
         public IActionResult Update([FromRoute] int id, [FromBody] UserUpdateModel updateUser)
         {

@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<div class="centered-div">
+  <div class="product-card">
+    <div class="header-div">
+      <a routerLink="/admin/users" class="back-button">
+        ← <span class="back-text">Volver</span>
+      </a>
+    </div>
+    <h2>Crear Usuario</h2>
+    
+    <form (submit)="createUser(newUser)">
+      <div class="attribute-line">
+        <p class="label">Email:</p>
+        <mat-form-field appearance="fill">
+            <input matInput [(ngModel)]="newUser.email" name="email" required placeholder="Email"/>
+        </mat-form-field>
+      </div>
+
+      <div class="attribute-line">
+        <p class="label">Contraseña:</p>
+        <mat-form-field appearance="fill">
+            <input matInput [(ngModel)]="newUser.password" type="password" name="name" required placeholder="Contraseña"/>
+        </mat-form-field>
+      </div>
+
+      <div class="attribute-line">
+        <p class="label">Dirección:</p>
+        <mat-form-field appearance="fill">
+            <textarea matInput rows="5" [(ngModel)]="newUser.address" name="address" required placeholder="Dirección"></textarea>
+        </mat-form-field>
+      </div>
+
+      <button class="button-margin" mat-raised-button type="submit" color="primary">Crear Producto</button>
+
+    </form>
+  </div>
+</div>

@@ -8,7 +8,7 @@
       <a href="/cart" data-replace="Cart"><span>Cart</span></a>
       <a *ngIf="!authService.isLoggedIn()" href="/login" data-replace="Log In"><span>Log In</span></a>
       <a *ngIf="authService.isLoggedIn()" href="/profile" data-replace="Profile"><span>Profile</span></a>
-      <a *ngIf="isAdmin" href="/admin/products" data-replace="Profile"><span>Admin Dashboard</span></a>
+      <a *ngIf="isAdmin" href="/admin" data-replace="Profile"><span>Admin Dashboard</span></a>
     </div>
   </nav>
 </header>

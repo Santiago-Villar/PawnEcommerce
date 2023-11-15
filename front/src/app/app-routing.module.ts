@@ -9,7 +9,11 @@ import { AdminProductsComponent } from './components/admin-products/admin-produc
 import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
-
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminUserDetailComponent } from './components/admin-user-detail/admin-user-detail.component';
+import { AdminUserCreateComponent } from './components/admin-user-create/admin-user-create.component';
+import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,10 +21,15 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'cart', component: CartComponent },
   { path: 'admin', children: [
+      { path: '', component: AdminDashboardComponent, pathMatch: 'full' },
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/create', component: ProductCreateComponent }, 
       { path: 'products/:id', component: AdminProductDetailComponent }, 
       { path: 'products/edit/:id', component: ProductEditComponent }, 
+      { path: 'users', component: AdminUsersComponent}, 
+      { path: 'users/create', component: AdminUserCreateComponent},
+      { path: 'users/edit/:id', component: AdminUserEditComponent },
+      { path: 'users/:id', component: AdminUserDetailComponent},
     ]
   }
 ];
