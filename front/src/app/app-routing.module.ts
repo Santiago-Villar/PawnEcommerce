@@ -9,6 +9,10 @@ import { AdminProductsComponent } from './components/admin-products/admin-produc
 import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
+import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
 
 
 const routes: Routes = [
@@ -16,6 +20,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'profile-edit', component: ProfileEditComponent },
+  { path: 'history', component: SaleHistoryComponent },
+  { path: 'history/:id', component: HistoryDetailComponent },
   { path: 'admin', children: [
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/create', component: ProductCreateComponent }, 

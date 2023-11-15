@@ -30,6 +30,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
+import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +55,11 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     AdminProductDetailComponent,
     ProductEditComponent,
     ProductCreateComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ProfileComponent,
+    ProfileEditComponent,
+    SaleHistoryComponent,
+    HistoryDetailComponent
   ],
   imports: [
     CommonModule,

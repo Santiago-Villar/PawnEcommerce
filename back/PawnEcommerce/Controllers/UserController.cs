@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service.DTO.User;
 using PawnEcommerce.Middlewares;
 using Service.User;
+using Service.Session;
 
 namespace PawnEcommerce.Controllers
 {
@@ -11,12 +12,14 @@ namespace PawnEcommerce.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IServiceProvider _serviceProvider;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IServiceProvider serviceProvider)
         {
             _userService = userService;
+            _serviceProvider = serviceProvider;
         }
-        
+
         [HttpPost]
         public IActionResult SignUp([FromBody] UserCreateModel newUser)
         {
@@ -34,12 +37,41 @@ namespace PawnEcommerce.Controllers
             return Ok(userDTOs);
         }
 
-        [Authorization("Admin")]
+        [HttpGet("Profile")]
+        public IActionResult GetProfile()
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+            var user = sessionService.GetCurrentUser();
+
+            if (user == null)
+            {
+                return BadRequest("User was not found");
+            }
+
+            var response = new UserDTO()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Address = user.Address,
+            };
+            return Ok(response);
+        }
+
         [HttpPut("{id:int}")]
         public IActionResult Update([FromRoute] int id, [FromBody] UserUpdateModel updateUser)
         {
-            User user = _userService.UpdateUserUsingDTO(id, updateUser);
-            return Ok(ToUserDTO(user));
+            using var scope = _serviceProvider.CreateScope();
+            var sessionService = scope.ServiceProvider.GetRequiredService<ISessionService>();
+            var user = sessionService.GetCurrentUser();
+
+            if ((user == null || user.Id != id) && !user.Roles.Contains(Service.User.Role.RoleType.Admin))
+            {
+                return BadRequest("User has no access");
+            }
+
+            User response = _userService.UpdateUserUsingDTO(id, updateUser);
+            return Ok(ToUserDTO(response));
         }
 
         [Authorization("Admin")]

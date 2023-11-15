@@ -65,6 +65,13 @@
         </mat-form-field>
       </div>
 
+      <div class="attribute-line">
+        <p class="label">Excluir de promociones:</p>
+        <div class="flex-container-input">
+          <input type="checkbox" [(ngModel)]="newProduct.isExcludedFromPromotions" (change)="onCheckboxChange($event)">
+        </div>
+      </div>
+
       <button class="button-margin" mat-raised-button type="submit" color="primary">Crear Producto</button>
 
     </form>

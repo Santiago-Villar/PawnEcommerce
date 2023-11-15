@@ -1,0 +1,15 @@
+<app-header></app-header>
+<div class="wrapper">
+  <div *ngIf="isLoading==false" class="container">
+    <div class="flex-container">
+      <span class="avatar">
+        <span class="avatar-inner">{{getInitial()}}</span>
+      </span>
+      <div class="text-container">
+        <div class="username">{{email}}</div>
+        <div class="address">{{address}}</div>
+      </div>
+    </div>
+    <button class="edit-button" (click)="goToEdition()">Editar Perfil</button>
+  </div>
+</div>

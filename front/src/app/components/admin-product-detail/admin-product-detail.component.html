@@ -21,10 +21,9 @@
       <p class="label">Precio:</p>
       <p class="text">$ {{ product.price }}</p>
     </div>
-    <!-- TODO: usar stock del producto -->
     <div class="attribute-line">
       <p class="label">Stock:</p>
-      <p class="text">5</p>
+      <p class="text">{{ product.stock }}</p>
     </div>
 
     <div class="attribute-line">
@@ -44,6 +43,15 @@
         <div [style.background-color]="color.code" class="color-box"></div>
       </div>
     </div>
+
+    <div class="attribute-line">
+      <p class="label">Excluir de promociones:</p>
+      <div class="flex-container-input">
+        <input type="checkbox" [(ngModel)]="product.isExcludedFromPromotions" disabled>
+        <p>{{ product.isExcludedFromPromotions ? 'Sí' : 'No' }}</p>
+      </div>
+    </div>
+
     <button class="button" (click)="goBack()" mat-raised-button color="primary">OK</button>
 
   </div>
