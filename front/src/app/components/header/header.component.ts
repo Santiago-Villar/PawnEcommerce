@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.isAdmin = false;
     this.router.navigate(['/']);
   }
 }
