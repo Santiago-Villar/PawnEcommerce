@@ -14,13 +14,14 @@ export class RegisterComponent {
   toastrService = inject(ToastrService)
   authService = inject(AuthService)
 
-  user: User = { email: '', password: '', address: '' };
-
+  address: string = '';
+  email: string = '';
+  password: string = '';
   confirmPassword: string = '';
   isLoading: boolean = false;
 
   register() {
-    if (this.user.password !== this.confirmPassword) { 
+    if (this.password !== this.confirmPassword) { 
       this.toastrService.error('Passwords do not match', '', {
         progressBar: true,
         timeOut: 2000,
@@ -30,7 +31,7 @@ export class RegisterComponent {
 
     this.isLoading = true;
     
-    this.authService.register(this.user).subscribe({
+    this.authService.register({ email: this.email, password: this.password, address: this.address }).subscribe({
       next: (token) => {
         this.isLoading = false;
         this.router.navigate(['/']);

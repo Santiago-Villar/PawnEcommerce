@@ -4,13 +4,13 @@
       <h2>Sign Up</h2>
       <form class='auth-form' (ngSubmit)="register()">
         <p>Email</p>
-        <input name="email" class='field' type="email" [(ngModel)]="user.email" required />
+        <input name="email" class='field' type="email" [(ngModel)]="email" required />
         <p>Password</p>
-        <input name="password" class='field' type="password" [(ngModel)]="user.password" required />
+        <input name="password" class='field' type="password" [(ngModel)]="password" required />
         <p>Confirm Password</p>
         <input name="confirmPassword" class='field' type="password" [(ngModel)]="confirmPassword" required />
         <p>Address</p>
-        <input name="address" class='field' [(ngModel)]="user.address" required />
+        <input name="address" class='field' [(ngModel)]="address" required />
         <button class="btn" type='submit' [disabled]="isLoading">
           <span *ngIf="isLoading">Loading...</span>
           <span *ngIf="!isLoading">Register</span>

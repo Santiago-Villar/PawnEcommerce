@@ -10,6 +10,8 @@ namespace Service.DTO.User
         public string Address { get; set; }
         public List<string> Roles { get; set; } = new List<string>();
         public string Email { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 
 }
