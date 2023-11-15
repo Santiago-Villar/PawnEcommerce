@@ -19,6 +19,7 @@ import { SummaryComponent } from './components/cart/summary/summary.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
@@ -49,13 +50,14 @@ import { HistoryDetailComponent } from './components/history-detail/history-deta
     HeaderComponent,
     HomeComponent,
     CartComponent,
+    ProductDetailComponent,
     AdminProductsComponent,
     AdminProductDetailComponent,
     ProductEditComponent,
     ProductCreateComponent,
     ConfirmDialogComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
     SaleHistoryComponent,
     HistoryDetailComponent
   ],

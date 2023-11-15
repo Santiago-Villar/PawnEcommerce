@@ -4,7 +4,7 @@ export interface Sale {
   id: string;
   products: SaleProduct[];
   price: number;
-  promotionName: string;
+  promotionName: string | null;
   date: Date;
   paymentMethod: string;
 }

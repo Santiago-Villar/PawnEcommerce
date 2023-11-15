@@ -11,12 +11,15 @@ import { ProfileService } from 'src/app/services/profile.service';
 export class ProfileComponent implements OnInit {
   email: string = ""
   address: string = ""
+  isLoading: boolean = false;
 
   router = inject(Router)
   profileService = inject(ProfileService);
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.profileService.getProfile().subscribe((data : User) => {
+      this.isLoading = false;
       this.email = data.email;
       this.address = data.address;
     });

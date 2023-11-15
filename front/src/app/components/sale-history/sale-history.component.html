@@ -15,7 +15,7 @@
       <tbody>
         <tr *ngFor="let sale of this.sales" class="table-row" (click)="navigateToDetails(sale.id)">
           <td>{{ sale.date | date:'MM/dd/yyyy' }}</td>
-          <td>{{ sale.promotionName }}</td>
+          <td>{{ sale.promotionName ?? "No se aplicó una promoción"}}</td>
           <td>{{ sale.paymentMethod }}</td>
           <td>{{ sale.price | currency:'USD':true }}</td>
         </tr>

@@ -19,9 +19,16 @@ export class SummaryComponent {
   @Input() quantity : number[] = [];
 
   @Output() resetProducts = new EventEmitter();
+  @Output() updateProducts = new EventEmitter();
 
-  discount: number = 0;
+  promotion: number = 0;
+  total: number = 0;
+  subtotal: number = 0;
+  paymentDiscount: number = 0;
   isLoading: boolean = false;
+  selectedPaymentMethod: string = '';
+  isPaymentMethodSet: boolean = false;
+  promotionDescription: string = '';
 
   ngOnChanges() {
     this.setDiscount();
@@ -31,17 +38,15 @@ export class SummaryComponent {
     this.router.navigate(['']);
   }
 
-  getSubtotal() {
-    return this.getTotal() - this.discount;
-  }
-
-  getTotal() {
-    return this.products.reduce((total, product, index) => total + (product.price * this.quantity[index]), 0);
-  }
-
   setDiscount() {
-    if(this.products.length == 0)
+    if(this.products.length == 0){
+      this.promotion = 0;
+      this.total = 0;
+      this.subtotal = 0;
+      this.paymentDiscount = 0;
+      this.promotionDescription = '';
       return;
+    }
 
     const productsId = Array.from(this.products).flatMap((product, i) => {
       const productId = Number.parseInt(product.id);
@@ -50,12 +55,16 @@ export class SummaryComponent {
     });
 
 
-    this.cartService.getDiscount(productsId).subscribe({
+    this.cartService.getDiscount(productsId, this.selectedPaymentMethod).subscribe({
       next: (discount) => {
-        console.log(discount.discountPrice);
-        this.discount = this.getTotal() - discount.discountPrice;
+        this.paymentDiscount =  discount.paymentMethodDiscount;
+        this.promotion = discount.promotionDiscount;
+        this.subtotal = discount.totalPrice;
+        this.total = discount.finalPrice;
+        this.promotionDescription = discount.promotionDescription;
       },
       error: (response: any) => {
+        console.log(response)
         this.toastrService.error(response?.error?.message ?? "Unexpected Error", '', {
           progressBar: true,
           timeOut: 2000,
@@ -66,9 +75,17 @@ export class SummaryComponent {
   }
 
   createSale(){
+    if(!this.isPaymentMethodSet){
+      this.toastrService.error("No payment method was selected", '', {
+        progressBar: true,
+        timeOut: 2000,
+      });
+      return;
+    }
+
     this.isLoading = true;
 
-    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id))).subscribe({
+    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id)), this.selectedPaymentMethod).subscribe({
       next: () => {
         this.isLoading = false;
         this.toastrService.success("Succesful sale!", '', {
@@ -77,16 +94,33 @@ export class SummaryComponent {
         });
 
         this.resetProducts.emit();
-        this.discount = 0;
+        this.promotion = 0;
+        this.paymentDiscount = 0;
       },
       error: (response: any) => {
         this.toastrService.error(response?.error?.message ?? "Please log in before checkout", '', {
           progressBar: true,
-          timeOut: 2000,
+          timeOut: 3000,
         });
+
+        const updatedCart : Product[] = response?.error?.updatedCart;
+        if (updatedCart){
+          const updatedCartStock = updatedCart.map(prod => ({ "stock": prod.stock, "id": prod.id }));
+          this.updateProducts.emit(updatedCartStock);
+        }
+
         this.isLoading = false;
       }
     });
+  }
+
+  updatePaymentMethodStatus() {
+    this.isPaymentMethodSet = this.selectedPaymentMethod !== '';
+    this.setDiscount();
+  }
+
+  shouldApply10Off() {
+    return this.selectedPaymentMethod !== '' && this.selectedPaymentMethod == "Paganza";
   }
 
 }
