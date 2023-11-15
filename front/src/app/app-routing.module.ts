@@ -13,18 +13,21 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
 import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
+import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard';
+import { userGuard } from './guards/user.guard';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'profile-edit', component: ProfileEditComponent },
-  { path: 'history', component: SaleHistoryComponent },
-  { path: 'history/:id', component: HistoryDetailComponent },
-  { path: 'admin', children: [
+  { path: 'cart', component: CartComponent, canActivate: [userGuard()]  },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard()] },
+  { path: 'profile-edit', component: ProfileEditComponent, canActivate: [authGuard()] },
+  { path: 'history', component: SaleHistoryComponent, canActivate: [userGuard(), authGuard()] },
+  { path: 'history/:id', component: HistoryDetailComponent, canActivate: [userGuard(), authGuard()]  },
+  { path: 'admin', canActivate:[adminGuard(), authGuard()], children: [
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/create', component: ProductCreateComponent }, 
       { path: 'products/:id', component: AdminProductDetailComponent }, 
