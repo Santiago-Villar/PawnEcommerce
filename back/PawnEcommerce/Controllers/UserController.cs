@@ -47,7 +47,6 @@ namespace PawnEcommerce.Controllers
         }
 
 
-        [Authorization("Admin")]
         [HttpGet("Profile")]
         public IActionResult GetProfile()
         {
