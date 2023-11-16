@@ -58,6 +58,14 @@ a {
   cursor: pointer;
 }
 
+.icon {
+  margin-top: 2px;
+  padding-top: 5px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
   a {
     font-size: 18px;

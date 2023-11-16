@@ -39,6 +39,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
 import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
+import { LogoutIconComponent } from './components/icons/logout-icon/logout-icon.component';
+import { ProfileIconComponent } from './components/icons/profile-icon/profile-icon.component';
+import { LoginIconComponent } from './components/icons/login-icon/login-icon.component';
+import { CartIconComponent } from './components/icons/cart-icon/cart-icon.component';
+import { HomeIconComponent } from './components/icons/home-icon/home-icon.component';
+import { HistoryIconComponent } from './components/icons/history-icon/history-icon.component';
 
 
 @NgModule({
@@ -69,7 +75,13 @@ import { HistoryDetailComponent } from './components/history-detail/history-deta
     ProfileComponent,
     ProfileEditComponent,
     SaleHistoryComponent,
-    HistoryDetailComponent
+    HistoryDetailComponent,
+    LogoutIconComponent,
+    ProfileIconComponent,
+    LoginIconComponent,
+    CartIconComponent,
+    HomeIconComponent,
+    HistoryIconComponent
   ],
   imports: [
     CommonModule,

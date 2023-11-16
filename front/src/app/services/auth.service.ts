@@ -22,7 +22,7 @@ export class AuthService {
     );
   }
 
-  register(user: User): Observable<Token> {
+  register(user: { email: string, password: string, address: string }): Observable<Token> {
     const BASE_URL = `${API_URL}/user`;
   
     return this.http.post<Token>(BASE_URL , user).pipe(

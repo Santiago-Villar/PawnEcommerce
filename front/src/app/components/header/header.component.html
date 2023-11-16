@@ -3,13 +3,14 @@
     <div class="logo" (click)="goBack()">
       PAWN
     </div>
-    <div class="items">
-      <a href="#" data-replace="Home"><span>Home</span></a>
-      <a *ngIf="!authService.isLoggedIn()" href="/login" data-replace="Log In"><span>Log In</span></a>
-      <a *ngIf="authService.isLoggedIn()" href="/profile" data-replace="Profile"><span>Profile</span></a>
-      <a *ngIf="authService.isLoggedIn()" href="/history" data-replace="History"><span>History</span></a>
-      <a href="/cart" data-replace="Cart"><span>Cart</span></a>
-      <a *ngIf="isAdmin" href="/admin/products" data-replace="Profile"><span>Admin Dashboard</span></a>
+    <div class="items" *ngIf="!isLoading">
+      <a href="#" data-replace="Home"><span class="icon"><app-home-icon></app-home-icon></span></a>
+      <a *ngIf="authService.isLoggedIn()" href="/profile" data-replace="Profile"><span class="icon"><app-profile-icon></app-profile-icon></span></a>
+      <a *ngIf="authService.isLoggedIn() && profileService.isUser()" href="/history" data-replace="History"><span class="icon"><app-history-icon></app-history-icon></span></a>
+      <a href="/cart" *ngIf="profileService.isUser()" data-replace="Cart"><span class="icon"><app-cart-icon></app-cart-icon></span></a>
+      <a *ngIf="profileService.isAdmin()" href="/admin/products" data-replace="Profile"><span>Admin Dashboard</span></a>
+      <a *ngIf="!authService.isLoggedIn()" href="/login" data-replace="Log In"><span class="icon"><app-login-icon></app-login-icon></span></a>
+      <a *ngIf="authService.isLoggedIn()" data-replace="LogOut" (click)="logout()"><span class="icon"><app-logout-icon></app-logout-icon></span></a>
     </div>
   </nav>
 </header>
