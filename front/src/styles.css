@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins&display=swap");
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "ngx-toastr/toastr";
+
+html {
+  font-size: 16px;
+}
+
+/*
+Colors:
+#52489C purple 1
+#4062BB blue 2
+#59C3C3 green 3
+#EBEBEB soft white 4
+#F45B69 red 5
+*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+
+  --color1: #52489c;
+  --color2: #4062bb;
+  --color3: #3c8ed6;
+  --color4: #f2f0f0;
+  --color5: #f64b59;
+  --colorSale: #02a034;
+
+  --almostWhite: #e1e8ee;
+  --almostWhiteGray: #86939e;
+  --gray: #43484d;
+  --grayTitle: #5e6977;
+}
+
+.App {
+  text-align: center;
+  background-color: var(--color4);
+  min-height: 100vh;
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .fitted {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

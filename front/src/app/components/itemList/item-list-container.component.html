@@ -1,0 +1,48 @@
+<div class="item-list-container">
+  <div *ngIf="isLoading">Loading...</div>
+  <div *ngIf="!isLoading">
+    <div class="flex-container">
+
+        <div class="attribute-line">
+          <mat-form-field appearance="fill" class="text-input">
+                <input (ngModelBlur)="applyFilters()" matInput [(ngModel)]="filteredProduct.search" placeholder="Buscar Producto" name="name" />
+            </mat-form-field>
+        </div>
+
+        <div class="attribute-line">
+        <mat-form-field class="select-input" appearance="fill">
+          <mat-select  class="brands-select" [(value)]="filteredProduct.brand" name="brand" placeholder="Seleccionar Marca" [compareWith]="compareProductObj">
+            <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="attribute-line">
+        <mat-form-field class="select-input" appearance="fill">
+          <mat-select  [(value)]="filteredProduct.category" name="category" placeholder="Seleccionar Categoria" [compareWith]="compareProductObj">
+            <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="attribute-line">
+        <mat-form-field class="number-input" appearance="fill">
+          <input matInput  placeholder="min $" [(ngModel)]="filteredProduct.minPrice" name="min $" type="number" min="0" max="999999">
+        </mat-form-field>
+      </div>
+      <div class="attribute-line">
+        <mat-form-field class="number-input" appearance="fill">
+          <input matInput  placeholder="max $" [(ngModel)]="filteredProduct.maxPrice" name="max $" type="number" min="0" max="999999">
+        </mat-form-field>
+      </div>
+      <button class="button" (click)="resetFilters()" mat-raised-button color="primary">Reiniciar Filtros</button>
+      <button class="button" (click)="applyFilters()" mat-raised-button color="primary">Aplicar Filtros</button>
+    </div>
+
+      <app-product-detail [product]="selectedProduct" (addToCart)="addToCart(selectedProduct)" (clearSelectedProduct)="clearSelectedProduct()" *ngIf="selectedProduct != null" class="dialog"></app-product-detail>
+      <div [class.item-list]="selectedProduct == null" [class.item-list-blur]="selectedProduct != null">
+        <div *ngFor="let product of products">
+        <app-item [product]="product" (click)="selectProduct(product)"></app-item>
+      </div> 
+    </div>
+  </div>
+</div>

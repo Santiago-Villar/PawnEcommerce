@@ -1,0 +1,156 @@
+.wrapper{
+  padding: 100px 0;
+  min-height: 1vh;
+
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto; 
+  padding: 100px 0;
+  max-width: 1200px;
+  width: 80%;
+  font-size: 14px;
+}
+h3{
+  font-size: 16px;
+  margin-right: 0;
+}
+
+.line{
+  background-color: var(--grayTitle) ;
+  padding: 10px 30px;
+  color: #FFFFFF;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr; 
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 30px;
+}
+
+.product-card {
+  background-color: #FFFFFF;
+  padding: 15px 30px;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr; 
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 30px;
+}
+
+.middle-info{
+  display: flex;
+  grid-column: 2;
+}
+
+.actions {
+  display: flex;  
+  justify-content: flex-end;
+  align-items: center;
+  grid-column: 3;
+  gap:20px;
+}
+
+.flex-item{
+  width: 60px;
+}
+.flex-item-title{
+  text-align: start;
+  grid-column: 1;
+
+}
+button{
+  width: 180px;
+  background-color: var(--color3) !important;
+}
+.actions i {
+  margin-right: 10px; 
+  cursor: pointer; 
+  font-size: 20px;  
+}
+
+.titulo-main{
+  width: 100%;
+  margin-bottom: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.titulo-main h1{
+  text-align: start;
+  font-size: 48px;
+  line-height: 3rem;
+}
+.web-actions div{
+  padding: 6px 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 85px;
+}
+
+.red{
+  color: #FFFFFF;
+  background-color: var(--color5);
+  border: 2px solid var(--color5);
+  cursor: pointer;
+}
+.blue{
+  border: 2px solid var(--color3);
+  color: var(--color3);
+  cursor: pointer;
+}
+
+.red-mobile{
+  color: var(--color5);
+}
+.blue-mobile{
+  color: var(--color3);
+}
+.icon{
+  margin-left: 5px;
+  margin-right: 0 !important;
+}
+
+.info-message{
+  margin-top: 100px;
+  font-size: 25px;
+}
+
+.back-button {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 650px) {
+  .product-card {
+    grid-template-columns: 5fr 0fr 2fr; 
+    gap: 20px;
+    padding: 15px 15px;
+  }
+  .titulo-main h1{
+    font-size: 32px !important;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .titulo-main{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+  }
+}

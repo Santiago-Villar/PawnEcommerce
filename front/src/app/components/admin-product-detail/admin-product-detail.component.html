@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div *ngIf="product" class="centered-div">
+  <div class="product-card">
+    <div class="header-div">
+      <a routerLink="/admin/products" class="back-button">
+        ← <span class="back-text">Volver</span>
+      </a>
+    </div>
+    <h2>Inspeccionar Producto</h2>
+    <div class="attribute-line">
+      <p class="label">Nombre:</p>
+      <p class="text">{{ product.name }}</p>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Descripcion:</p>
+      <p class="text">{{ product.description }}</p>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Precio:</p>
+      <p class="text">$ {{ product.price }}</p>
+    </div>
+    <div class="attribute-line">
+      <p class="label">Stock:</p>
+      <p class="text">{{ product.stock }}</p>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Marca:</p>
+      <p class="text">{{ product.brand.name }}</p>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Categoria:</p>
+      <p class="text">{{ product.category.name }}</p>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Colores:</p>
+      <div *ngFor="let color of product.colors">
+        <p class="text">{{ color.name }} - {{color.code}}</p>
+        <div [style.background-color]="color.code" class="color-box"></div>
+      </div>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Excluir de promociones:</p>
+      <div class="flex-container-input">
+        <input type="checkbox" [(ngModel)]="product.isExcludedFromPromotions" disabled>
+        <p>{{ product.isExcludedFromPromotions ? 'Sí' : 'No' }}</p>
+      </div>
+    </div>
+
+    <button class="button" (click)="goBack()" mat-raised-button color="primary">OK</button>
+
+  </div>
+</div>

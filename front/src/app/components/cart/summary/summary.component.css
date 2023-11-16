@@ -1,0 +1,130 @@
+.shopping-cart {
+  width: 350px;
+  height: 420px;
+  background: #ffffff;
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 60px;
+  border-bottom: 1px solid var(--almostWhite);
+  padding: 20px 30px;
+  color: var(--grayTitle);
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.item {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray);
+}
+
+.price {
+  color: black;
+}
+
+.payment {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray);
+  width: 90%;
+}
+
+.payment:hover {
+  cursor: pointer;
+}
+
+.payment-container{
+  position: relative;
+}
+
+.extra-discount {
+  position: absolute;
+  top: -7px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  color: #fff;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 0.25rem;
+  border-radius: 999px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: 80%;
+  padding: 10px;
+  background-color: var(--color3);
+  border: none;
+  border-radius: 0.4rem;
+  color: white;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+.button[disabled] {
+  opacity: 0.7;
+  cursor: default !important;
+}
+
+.continue {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.link-to-home {
+  color: var(--color3);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.promotion {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltiptext {
+  text-align: start;
+  font-size: 13px;
+  visibility: hidden;
+  top: 100%;
+  left: 0;
+  margin: 0px 10px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background-color: var(--color3);
+  color: #fff;
+  position: absolute;
+  z-index: 1;
+}
+
+.promotion:hover .tooltiptext {
+  visibility: visible;
+}

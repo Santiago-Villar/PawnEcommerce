@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div *ngIf="user" class="centered-div">
+  <div class="product-card">
+    <div class="header-div">
+      <a routerLink="/admin/users" class="back-button">
+        ← <span class="back-text">Volver</span>
+      </a>
+    </div>
+    <h2>Inspeccionar Usuario</h2>
+    <div class="attribute-line">
+      <p class="label">Email:</p>
+      <p class="text">{{ user.email }}</p>
+    </div>
+
+    <div class="attribute-line">
+      <p class="label">Address:</p>
+      <p class="text">{{ user.address }}</p>
+    </div>
+
+    <button class="button" (click)="goBack()" mat-raised-button color="primary">OK</button>
+
+  </div>
+</div>

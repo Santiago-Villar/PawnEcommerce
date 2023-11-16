@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@800&display=swap");
+
+.container{
+  display: grid;
+  place-items: center;
+}
+
+.sale-history{
+  margin-top: 140px;
+  text-align: start;
+  width: 80%;
+}
+
+h1 {
+  font-family: "Heebo", sans-serif;
+  color: var(--color3);
+  font-size: 28px;
+  margin-left: 10px;
+}
+.custom-table {
+  width: 100%;
+  margin-top: 4px;
+  border-collapse: collapse;
+}
+
+.custom-table thead .table-row {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.custom-table tbody .table-row {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.custom-table tbody .table-row:hover {
+  background-color: #f7fafc;
+}
+
+.custom-table tbody .table-row[data-state="selected"] {
+  background-color: #edf2f7;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 500;
+  color: #718096;
+}
+
+.custom-table th[role="checkbox"],
+.custom-table td[role="checkbox"] {
+  padding-right: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .sale-history{
+    margin-top: 140px;
+    text-align: start;
+    width: 100%;
+  }
+}

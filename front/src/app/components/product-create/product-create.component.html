@@ -1,0 +1,79 @@
+<app-header></app-header>
+
+<div class="centered-div">
+  <div class="product-card">
+    <div class="header-div">
+      <a routerLink="/admin/products" class="back-button">
+        ← <span class="back-text">Volver</span>
+      </a>
+    </div>
+    <h2>Crear Producto</h2>
+    
+    <form (submit)="createProduct(newProduct)">
+      <div class="attribute-line">
+        <p class="label">Nombre:</p>
+        <mat-form-field appearance="fill">
+            <input matInput [(ngModel)]="newProduct.name" name="name" required placeholder="Nombre"/>
+        </mat-form-field>
+      </div>
+
+      <div class="attribute-line">
+        <p class="label">Descripcion:</p>
+        <mat-form-field appearance="fill">
+            <textarea matInput rows="5" [(ngModel)]="newProduct.description" name="description" required placeholder="Descripcion"></textarea>
+        </mat-form-field>
+      </div>
+    
+      <div class="attribute-line">
+        <p class="label">Precio ($):</p>
+        <mat-form-field appearance="fill">
+            <input matInput [(ngModel)]="newProduct.price" name="price" type="number" min="0" placeholder="Precio" required/>
+        </mat-form-field>
+      </div>
+  
+      <div class="attribute-line">
+        <p class="label">Stock:</p>
+        <mat-form-field appearance="fill">
+            <input matInput value="0" [(ngModel)]="newProduct.stock" name="stock" type="number" min="0" placeholder="Stock" required/>
+        </mat-form-field>
+      </div>
+    
+      <div class="attribute-line">
+        <p class="label">Marca:</p>
+        <mat-form-field appearance="fill">
+            <mat-select class="brands-select" [(value)]="newProduct.brand" name="brand" placeholder="Seleccionar Marca" [compareWith]="compareProductObj" required>
+                <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="attribute-line">
+        <p class="label">Categoria:</p>
+        <mat-form-field appearance="fill">
+            <mat-select [(value)]="newProduct.category" name="category" placeholder="Seleccionar Categoria" [compareWith]="compareProductObj" required>
+                <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="attribute-line">
+        <p class="label">Colores:</p>
+        <mat-form-field appearance="fill">
+            <mat-select multiple [(value)]="newProduct.colors" name="colors" placeholder="Seleccionar Color/es" [compareWith]="compareProductObj" required>
+                <mat-option *ngFor="let color of colors" [value]="color">{{ color.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="attribute-line">
+        <p class="label">Excluir de promociones:</p>
+        <div class="flex-container-input">
+          <input type="checkbox" [(ngModel)]="newProduct.isExcludedFromPromotions" (change)="onCheckboxChange($event)">
+        </div>
+      </div>
+
+      <button class="button-margin" mat-raised-button type="submit" color="primary">Crear Producto</button>
+
+    </form>
+  </div>
+</div>
