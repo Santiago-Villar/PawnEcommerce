@@ -85,7 +85,13 @@ export class SummaryComponent {
 
     this.isLoading = true;
 
-    this.cartService.createSale(this.products.map(product => Number.parseInt(product.id)), this.selectedPaymentMethod).subscribe({
+    const productIds = Array.from(this.products).flatMap((product, i) => {
+      const productId = Number.parseInt(product.id);
+      const occurrences = this.quantity[i] || 0;
+      return Array.from({ length: occurrences }, () => productId);
+    });
+
+    this.cartService.createSale(productIds, this.selectedPaymentMethod).subscribe({
       next: () => {
         this.isLoading = false;
         this.toastrService.success("Succesful sale!", '', {
