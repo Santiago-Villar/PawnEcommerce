@@ -83,21 +83,5 @@ namespace PawnEcommerce.Controllers
             return Ok();
         }
 
-        [Authorization("Admin")]
-        [HttpPost("{id:int}/increase-stock")]
-        public IActionResult IncreaseStock([FromRoute] int id, [FromBody] int quantity)
-        {
-            _productService.IncreaseStock(id, quantity);
-            return Ok();
-        }
-
-        [Authorization("Admin")]
-        [HttpPost("{id:int}/decrease-stock")]
-        public IActionResult DecreaseStock([FromRoute] int id, [FromBody] int quantity)
-        {
-            _productService.DecreaseStock(id, quantity);
-            return Ok();
-        }
-
     }
 }
