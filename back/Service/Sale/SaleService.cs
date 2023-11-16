@@ -20,12 +20,15 @@ public class SaleService : ISaleService
         if(sale.Products != null) 
         {
             var promotion = _promotionService.GetPromotion(sale.Products.Select(sp => sp.Product).ToList());
-            var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
-
-            if (!newPrice.Equals(sale.Price))
+            if(promotion != null)
             {
-                sale.PromotionName = promotion.Name;
-                sale.Price = newPrice;
+                var newPrice = promotion.GetDiscountPrice(sale.Products.Select(sp => sp.Product).ToList());
+
+                if (!newPrice.Equals(sale.Price))
+                {
+                    sale.PromotionName = promotion.Name;
+                    sale.Price = newPrice;
+                }
             }
         }
 
