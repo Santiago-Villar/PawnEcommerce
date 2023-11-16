@@ -30,6 +30,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminUserDetailComponent } from './components/admin-user-detail/admin-user-detail.component';
+import { AdminUserCreateComponent } from './components/admin-user-create/admin-user-create.component';
+import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
@@ -62,6 +67,11 @@ import { HistoryIconComponent } from './components/icons/history-icon/history-ic
     ProductEditComponent,
     ProductCreateComponent,
     ConfirmDialogComponent,
+    AdminUsersComponent,
+    AdminUserDetailComponent,
+    AdminUserCreateComponent,
+    AdminUserEditComponent,
+    AdminDashboardComponent,
     ProfileComponent,
     ProfileEditComponent,
     SaleHistoryComponent,

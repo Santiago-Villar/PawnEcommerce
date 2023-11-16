@@ -37,6 +37,17 @@ namespace PawnEcommerce.Controllers
             return Ok(userDTOs);
         }
 
+        [Authorization("Admin")]
+        [HttpGet("{id:int}")]
+        public IActionResult GetById([FromRoute] int id)
+        {
+            var user = _userService.Get(id);
+
+            return Ok(ToUserDTO(user));
+        }
+
+
+        [Authorization("Admin")]
         [HttpGet("Profile")]
         public IActionResult GetProfile()
         {

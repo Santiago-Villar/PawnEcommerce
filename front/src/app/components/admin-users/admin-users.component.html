@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="wrapper">
+  <div class="admin-container">
+    <div class="titulo-main">
+    <div class="header-div">
+      <a routerLink="/admin" class="back-button">
+        ← <span class="back-text">Volver</span>
+      </a>
+    </div>
+    <h1>Administracion de Usuarios</h1>
+    <button class="button" (click)="createUser()" mat-raised-button color="primary">Crear Usuario</button>
+
+    </div>
+    <div *ngIf="isLoading" class="info-message">Loading...</div>
+    <div *ngIf="!hasUsers && !isLoading" class="info-message">No tienes productos, crea alguno!</div>
+
+    <div *ngIf="hasUsers">
+    <div *ngIf="!isMobile" class="line">
+      <div class="flex-item-title"></div>
+      <div class="middle-info">
+      </div>
+      <div [ngClass]="{'actions': true, 'web-actions': !isSmallScreen, 'mobile-actions': isSmallScreen }">
+        <div></div><div></div><div></div>
+      </div>
+    </div>
+
+    <div class="product-card" *ngFor="let user of users">
+      <div class="flex-item-title"><h3>{{ user.email }}</h3></div>
+      <div *ngIf="!isMobile" class="middle-info">
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+      </div>
+      <div *ngIf="!isSmallScreen" class="actions web-actions">
+        <div class="blue" (click)="seeUser(user.id)" title="Inspeccionar">
+          Ver <i class="fa fa-eye icon"></i>
+        </div>
+        <div class="blue" (click)="editUser(user.id)" title="Editar">
+          Editar <i class="fa fa-pencil icon"></i>
+        </div>
+        <div class="red" (click)="deleteUser(user.id)" title="Eliminar">
+          Borrar <i class="fa fa-trash icon"></i>
+        </div>
+      </div>
+      <div *ngIf="isSmallScreen" class="actions mobile-actions">
+        <div class="blue-mobile" (click)="seeUser(user.id)" title="Inspeccionar">
+          <i class="fa fa-eye icon"></i>
+        </div>
+        <div class="blue-mobile" (click)="editUser(user.id)" title="Editar">
+          <i class="fa fa-pencil icon"></i>
+        </div>
+        <div class="red-mobile" (click)="deleteUser(user.id)" title="Eliminar">
+          <i class="fa fa-trash icon"></i>
+        </div>
+      </div>
+    </div>
+    </div> 
+    
+  </div>
+</div>

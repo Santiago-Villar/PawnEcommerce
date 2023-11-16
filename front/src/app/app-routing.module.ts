@@ -9,6 +9,11 @@ import { AdminProductsComponent } from './components/admin-products/admin-produc
 import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminUserDetailComponent } from './components/admin-user-detail/admin-user-detail.component';
+import { AdminUserCreateComponent } from './components/admin-user-create/admin-user-create.component';
+import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
@@ -28,10 +33,15 @@ const routes: Routes = [
   { path: 'history', component: SaleHistoryComponent, canActivate: [userGuard(), authGuard()] },
   { path: 'history/:id', component: HistoryDetailComponent, canActivate: [userGuard(), authGuard()]  },
   { path: 'admin', canActivate:[adminGuard(), authGuard()], children: [
+      { path: '', component: AdminDashboardComponent, pathMatch: 'full' },
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/create', component: ProductCreateComponent }, 
       { path: 'products/:id', component: AdminProductDetailComponent }, 
       { path: 'products/edit/:id', component: ProductEditComponent }, 
+      { path: 'users', component: AdminUsersComponent}, 
+      { path: 'users/create', component: AdminUserCreateComponent},
+      { path: 'users/edit/:id', component: AdminUserEditComponent },
+      { path: 'users/:id', component: AdminUserDetailComponent},
     ]
   }
 ];

@@ -1,0 +1,97 @@
+.centered-div {
+  display: flex;
+  padding: 180px 0px;
+  justify-content: center;
+  margin: auto; /* Esto centra el div con respecto a la página */
+  max-width: 90%;
+}
+.product-card{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 1100px;
+  padding: 80px 100px;
+  background-color: #ffffff;
+  border: 2px solid var(--almostWhiteGray);
+}
+.back-button {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+}
+.img-container{
+  position: relative;
+  width: 100%;
+}
+.img-container img{
+  width: 100%;
+}
+.attribute-line{
+  display: flex;
+  flex-direction: column;
+}
+.label{
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 8px;
+}
+.text{
+  text-align: left;
+}
+.color-box{
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.header-div{
+  display: flex;
+  gap: 80px;
+  align-items: baseline;
+}
+
+.back-text{
+  margin-left: 8px;
+}
+.button{
+  background-color: var(--color3);
+  width: 200px;
+  padding: 10px;
+  cursor: pointer;
+  margin: auto;
+  font-weight: 600;
+}
+h2{
+  font-size: 32px;
+}
+.input-line{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 24px;
+}
+
+.input-number{
+  width: 100px;
+  padding: 10px;
+  margin-bottom: 24px;
+}
+textarea {
+  resize: none;
+}
+.flex-container{
+  display: flex;
+}
+
+.button-margin{
+  margin-top: 40px;
+}
+
+@media only screen and (max-width: 650px) {
+  .product-card {
+    gap: 20px;
+    padding: 60px 40px;
+  }
+}
