@@ -5,6 +5,6 @@
     <app-shopping-bag [products]="products" [quantity]="quantity" (updateQuantity)="handleUpdateQuantity($event)" (removeProduct)="handleRemoveProducts($event)">></app-shopping-bag>
   </div>
   <div class="summary">
-    <app-summary [products]="products" [quantity]="quantity" (resetProducts)="resetProducts()"></app-summary>
+    <app-summary [products]="products" [quantity]="quantity" (resetProducts)="resetProducts()" (updateProducts)="updateProducts($event)"></app-summary>
   </div>
 </div>

@@ -1,10 +1,11 @@
 <div class="item-list-container">
   <div *ngIf="isLoading">Loading...</div>
   <div *ngIf="!isLoading">
-    <div class="item-list">
+    <app-product-detail [product]="selectedProduct" (addToCart)="addToCart(selectedProduct)" (clearSelectedProduct)="clearSelectedProduct()" *ngIf="selectedProduct != null" class="dialog"></app-product-detail>
+    <div [class.item-list]="selectedProduct == null" [class.item-list-blur]="selectedProduct != null">
       <div *ngFor="let product of products">
-        <app-item [product]="product"></app-item>
-      </div>
+        <app-item [product]="product" (click)="selectProduct(product)"></app-item>
+      </div> 
     </div>
   </div>
 </div>

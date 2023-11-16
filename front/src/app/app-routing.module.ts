@@ -14,12 +14,21 @@ import { AdminUserDetailComponent } from './components/admin-user-detail/admin-u
 import { AdminUserCreateComponent } from './components/admin-user-create/admin-user-create.component';
 import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
+import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'profile-edit', component: ProfileEditComponent },
+  { path: 'history', component: SaleHistoryComponent },
+  { path: 'history/:id', component: HistoryDetailComponent },
   { path: 'admin', children: [
       { path: '', component: AdminDashboardComponent, pathMatch: 'full' },
       { path: 'products', component: AdminProductsComponent },

@@ -1,3 +1,9 @@
 export interface Discount {
-  discountPrice: number;
+  promotionName: string,
+  promotionDescription: string,
+  paymentMethod: string,
+  totalPrice: number,
+  promotionDiscount: number,
+  paymentMethodDiscount: number,
+  finalPrice: number
 }

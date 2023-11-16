@@ -1,0 +1,19 @@
+<div class="wrapper">
+  <div class="button" (click)="clearProduct()">
+    <span class="delete-btn"></span>
+  </div>
+  <div class="product-img">
+    <img [src]="defaultImageUrl" [alt]="product?.description" height="420" width="400">
+  </div>
+  <div class="product-info">
+    <div class="product-text">
+      <h1>{{product?.name}}</h1>
+      <h2>{{product?.brand?.name}}, {{product?.category?.name}}</h2>
+      <p>{{product?.description}}</p>
+    </div>
+    <div class="product-price-btn">
+      <p>${{product?.price}}</p>
+      <button type="button" (click)="addProductToCart()">Add to Cart</button>
+    </div>
+  </div>
+</div>

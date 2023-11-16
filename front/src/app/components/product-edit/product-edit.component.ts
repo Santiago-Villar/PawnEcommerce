@@ -67,13 +67,16 @@ export class ProductEditComponent implements OnInit {
     return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
   }
 
+  onCheckboxChange(event: any) {
+    const isChecked = event.target.checked;
+    if (this.updatedProduct) this.updatedProduct.isExcludedFromPromotions = isChecked;
+  }
+
 
   saveChanges(formProduct: any): void {
     const colorIds = formProduct.colors.map((c : Color) => c.id);
-    const { id, name, description, price, brand, category } = formProduct;
-    // TODO: add stock to updated product
-    const updatedProduct = { name, description, price, brandId: brand.id, categoryId: category.id, colors: colorIds }
-
+    const { id, name, description, price, brand, category, stock, isExcludedFromPromotions } = formProduct;
+    const updatedProduct = { name, description, price, brandId: brand.id, categoryId: category.id, colors: colorIds, stock, isExcludedFromPromotions }
     this.productsService.updateProduct(id, updatedProduct)
     .subscribe({
       next: () => {

@@ -45,6 +45,9 @@ export class ShoppingBagComponent {
   }
 
   getColors(colors: Color[]) {
-    return colors.map(col => col.name).join(', ');
+    if(colors){
+      return colors.map(col => col.name).join(', ');
+    }
+    return []
   }
 }

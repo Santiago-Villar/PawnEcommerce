@@ -3,16 +3,37 @@
     Summary
   </div>
   <div class="item">
-    <span>Order Summary</span>
-    <span class="price">$ {{ getTotal() }}</span>
+    <span>Resumen</span>
+    <span class="price">$ {{ subtotal }}</span>
+  </div>
+  <div class="item promotion">
+    <span>Promoción
+      <span class="tooltiptext" *ngIf="promotionDescription != ''"> {{ promotionDescription }}</span>
+    </span>
+    <span class="price">$ {{ promotion }}</span>
   </div>
   <div class="item">
-    <span>Discount</span>
-    <span class="price">$ {{ discount }}</span>
+    <span>Descuento método de pago</span>
+    <span class="price">$ {{ paymentDiscount }}</span>
   </div>
   <div class="item">
-    <span>Subtotal</span>
-    <span class="price">$ {{ getSubtotal() }}</span>
+    <span>Total</span>
+    <span class="price">$ {{ total }}</span>
+  </div>
+  <div class="payment-container">
+    <span *ngIf="this.shouldApply10Off()" class="extra-discount">
+      -10%
+    </span>
+    <select class="payment" name="payment" id="payment" [(ngModel)]="selectedPaymentMethod" (ngModelChange)="updatePaymentMethodStatus()">
+      <option value="" disabled selected>Seleccionar método de pago</option>
+      <option value="Visa">Visa</option>
+      <option value="MasterCard">MasterCard</option>
+      <option value="Banco Santander">Banco Santander</option>
+      <option value="Banco ITAU">Banco ITAU</option>
+      <option value="Banco BBVA">Banco BBVA</option>
+      <option value="Paypal">Paypal</option>
+      <option value="Paganza">Paganza </option>
+    </select>
   </div>
   <div class="btn">
     <button class="button" type='submit' (click)="createSale()" [disabled]="isLoading">

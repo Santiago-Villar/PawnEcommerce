@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<div class="container">
+  <div *ngIf="this.saleProducts != []" class="sale-history">
+    <h1>Sale #{{this.id}}</h1>
+    <table class="custom-table">
+      <thead>
+        <tr class="table-row">
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of this.saleProducts" class="table-row">
+          <td>{{ product.product.name }}</td>
+          <td>{{ product.product.description }}</td>
+          <td>{{ product.product.price | currency:'USD':true }}</td>
+          <td>{{ this.ocurrences.get(product.productId) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="this.saleProducts == []">
+    <h1>Sale not found</h1>
+  </div>
+</div>

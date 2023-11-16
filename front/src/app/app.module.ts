@@ -19,6 +19,7 @@ import { SummaryComponent } from './components/cart/summary/summary.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { AdminProductDetailComponent } from './components/admin-product-detail/admin-product-detail.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
@@ -34,7 +35,10 @@ import { AdminUserDetailComponent } from './components/admin-user-detail/admin-u
 import { AdminUserCreateComponent } from './components/admin-user-create/admin-user-create.component';
 import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { SaleHistoryComponent } from './components/sale-history/sale-history.component';
+import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
 
 
 @NgModule({
@@ -51,6 +55,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     HeaderComponent,
     HomeComponent,
     CartComponent,
+    ProductDetailComponent,
     AdminProductsComponent,
     AdminProductDetailComponent,
     ProductEditComponent,
@@ -61,6 +66,10 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     AdminUserCreateComponent,
     AdminUserEditComponent,
     AdminDashboardComponent,
+    ProfileComponent,
+    ProfileEditComponent,
+    SaleHistoryComponent,
+    HistoryDetailComponent
   ],
   imports: [
     CommonModule,
