@@ -67,7 +67,9 @@ namespace Repository
                 .Where(p =>
                     (filter.CategoryId == null || p.CategoryId == filter.CategoryId.Value) &&
                     (filter.BrandId == null || p.BrandId == filter.BrandId.Value) &&
-                    (filter.Name == null || p.Name.Contains(filter.Name.Value!))
+                    (filter.Name == null || p.Name.Contains(filter.Name.Value!)) &&
+                    (filter.PriceRange == null ||
+                        (p.Price >= filter.PriceRange.MinPrice && p.Price <= filter.PriceRange.MaxPrice))
                 )
                 .ToArray();
 

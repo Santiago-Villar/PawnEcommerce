@@ -41,8 +41,13 @@ namespace PawnEcommerce.Controllers
             if(brandId != null)
                 filter.BrandId = new IdFilterCriteria() { Value = brandId };
 
-            if (minPrice != null && maxPrice != null)
-                filter.PriceRange = new PriceFilterCriteria(minPrice.Value, maxPrice.Value);
+            if (minPrice.HasValue || maxPrice.HasValue)
+            {
+                int actualMinPrice = minPrice ?? int.MinValue;
+                int actualMaxPrice = maxPrice ?? int.MaxValue;
+
+                filter.PriceRange = new PriceFilterCriteria(actualMinPrice, actualMaxPrice);
+            }
 
             var products = _productService.GetAllProducts(filter);
             return Ok(products);
