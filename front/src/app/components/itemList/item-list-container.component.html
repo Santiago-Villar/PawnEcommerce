@@ -26,12 +26,12 @@
       </div>
       <div class="attribute-line">
         <mat-form-field class="number-input" appearance="fill">
-          <input matInput  placeholder="min $" [(ngModel)]="filteredProduct.minPrice" name="min $" type="number">
+          <input matInput  placeholder="min $" [(ngModel)]="filteredProduct.minPrice" name="min $" type="number" min="0" max="999999">
         </mat-form-field>
       </div>
       <div class="attribute-line">
         <mat-form-field class="number-input" appearance="fill">
-          <input matInput  placeholder="max $" [(ngModel)]="filteredProduct.maxPrice" name="max $" type="number">
+          <input matInput  placeholder="max $" [(ngModel)]="filteredProduct.maxPrice" name="max $" type="number" min="0" max="999999">
         </mat-form-field>
       </div>
       <button class="button" (click)="resetFilters()" mat-raised-button color="primary">Reiniciar Filtros</button>
