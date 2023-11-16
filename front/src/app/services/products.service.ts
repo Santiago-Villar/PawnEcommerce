@@ -17,6 +17,11 @@ export class ProductsService {
     return this.api.get<Product[]>(url)
   }
 
+  getFilteredProducts(params : string){
+    const url = `product/${params}`
+    return this.api.get<Product[]>(url)
+  }
+
   getProduct(id : string){
     const url = `product/${id}`;
     return this.api.get<Product>(url);
