@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { API_URL } from 'src/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private baseURL = 'https://localhost:7228/api';
+  private baseURL = API_URL;
 
   constructor(
     private httpClient: HttpClient,
