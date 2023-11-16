@@ -37,7 +37,6 @@ export class AdminUserCreateComponent implements OnInit {
   createUser(formUser: any): void {
     const { email, address, password } = formUser;
     const newUserData = { email, address, password }
-    // TODO: isCurrentUser should be true if the user is editing himself
     const isCurrentUser = false;
     this.usersService.createUser(newUserData)
     .subscribe({

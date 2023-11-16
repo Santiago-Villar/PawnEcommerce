@@ -168,7 +168,7 @@ public class SaleServiceTest
 
         var result = saleService.GetSalesByUserId(user.Id);
 
-        Assert.AreEqual(2, result.Count); // Expecting two sales for the user
+        Assert.AreEqual(2, result.Count);
         Assert.IsTrue(result.Any(s => s.UserId == user.Id));
     }
 

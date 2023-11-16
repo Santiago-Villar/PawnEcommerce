@@ -106,7 +106,7 @@ namespace Repository
 
             modelBuilder.Entity<SaleProduct>()
                 .Property(sp => sp.Id)
-                .ValueGeneratedOnAdd(); // This ensures that the value is generated on add
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<SaleProduct>()
                 .HasOne(sp => sp.Sale)

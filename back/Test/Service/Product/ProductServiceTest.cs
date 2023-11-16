@@ -280,54 +280,44 @@ public class ProductServiceTest
     [TestMethod]
     public void VerifyAndUpdateCart_ProductNoLongerAvailable_RemovesFromCart()
     {
-        // Arrange
         var cartProduct = new Product { Id = 1, Stock = 1 };
-        _productRepositoryMock.Setup(repo => repo.Get(It.IsAny<int>())).Returns((Product)null); // Simulate that the product no longer exists
+        _productRepositoryMock.Setup(repo => repo.Get(It.IsAny<int>())).Returns((Product)null);
 
-        // The input is now an array of Products
         var cartProductsArray = new[] { cartProduct };
 
-        // Act
         var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(cartProductsArray);
 
-        // Assert
-        Assert.IsFalse(updatedCart.Any());  // Cart should be empty.
-        Assert.IsTrue(removedProducts.Any());  // There should be removed products.
-        Assert.IsTrue(removedProducts.Contains(cartProduct));  // Product should be in the removed list.
+        Assert.IsFalse(updatedCart.Any());
+        Assert.IsTrue(removedProducts.Any());
+        Assert.IsTrue(removedProducts.Contains(cartProduct)); 
     }
 
 
     [TestMethod]
     public void VerifyAndUpdateCart_SufficientStock_UpdatesCartWithLatestProductDetails()
     {
-        // Arrange
-        var cartProduct = new Product { Id = 1, Stock = 10 };  // Assuming a 'Stock' property for this example
-        var latestProduct = new Product { Id = 1, Stock = 5 };  // Latest details with sufficient stock
+        var cartProduct = new Product { Id = 1, Stock = 10 }; 
+        var latestProduct = new Product { Id = 1, Stock = 5 }; 
         _productRepositoryMock.Setup(repo => repo.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
 
-        // Act
         var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(new[] { cartProduct });
 
-        // Assert
         Assert.AreEqual(1, updatedCart.Length);
-        Assert.IsTrue(updatedCart.Any(p => p.Id == latestProduct.Id));  // Ensure it contains the latest product details
-        Assert.IsFalse(removedProducts.Any());  // No products should be removed
+        Assert.IsTrue(updatedCart.Any(p => p.Id == latestProduct.Id)); 
+        Assert.IsFalse(removedProducts.Any()); 
     }
 
     [TestMethod]
     public void VerifyAndUpdateCart_InsufficientStock_RemovesProductFromCart()
     {
-        // Arrange
-        var cartProduct = new Product { Id = 1, Stock = 10 };  // Assuming a 'Stock' property for this example
-        var latestProduct = new Product { Id = 1, Stock = 0 };  // Latest details but no stock available
+        var cartProduct = new Product { Id = 1, Stock = 10 };
+        var latestProduct = new Product { Id = 1, Stock = 0 };
         _productRepositoryMock.Setup(repo => repo.GetAllProducts(It.IsAny<FilterQuery>())).Returns(new[] { latestProduct });
 
-        // Act
         var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(new[] { cartProduct });
 
-        // Assert
-        Assert.AreEqual(0, updatedCart.Length);  // Product should be removed from the cart
-        Assert.IsTrue(removedProducts.Contains(cartProduct));  // Product should be in the removed list
+        Assert.AreEqual(0, updatedCart.Length);
+        Assert.IsTrue(removedProducts.Contains(cartProduct));
     }
 
 

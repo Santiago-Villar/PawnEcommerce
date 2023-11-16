@@ -163,7 +163,6 @@ public class ProductTest
     [TestMethod]
     public void AddDuplicateColor()
     {
-        // Create a new product
         var freshProduct = new Product
         {
             Name = "Fresh Test Product",
@@ -173,17 +172,14 @@ public class ProductTest
             ProductColors = new List<ProductColor>()
         };
 
-        // Create new color objects
         var redColor = new Color(10) { Name = "Red" };
         var blueColor = new Color(11) { Name = "Blue" };
 
-        // Add colors to product
         freshProduct.AddColor(redColor);
         freshProduct.AddColor(blueColor);
-        freshProduct.AddColor(redColor);  // Intentionally adding a duplicate color
+        freshProduct.AddColor(redColor); 
 
-        // Check if the count of colors in the product is 2
-        Assert.AreEqual(freshProduct.ProductColors.Count, 2);  // We expect only 2 unique colors
+        Assert.AreEqual(freshProduct.ProductColors.Count, 2);
     }
 
     [TestMethod]

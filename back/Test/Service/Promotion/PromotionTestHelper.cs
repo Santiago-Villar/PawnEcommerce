@@ -40,7 +40,7 @@ public class PromotionTestHelper
         {
             Category = category,
             Price = price,
-            ProductColors = productColors,  // This is the change
+            ProductColors = productColors, 
             Brand = brand
         };
     }

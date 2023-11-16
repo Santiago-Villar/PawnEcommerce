@@ -39,13 +39,13 @@ namespace PawnEcommerce.Controllers
 
                 var (updatedCart, removedProducts) = _productService.VerifyAndUpdateCart(cartProducts);
 
-                if (removedProducts.Any())//Si no hay stock para todos los productos
+                if (removedProducts.Any())
                 {
                     var removalNotification = _productService.GenerateRemovalNotification(removedProducts);
                     return StatusCode(StatusCodes.Status409Conflict, new { updatedCart, Message = removalNotification });
                 }
 
-                if (updatedCart.Any())//Si hay para todos y el carrito NO est� vac�o
+                if (updatedCart.Any())
                 {
                     var sale = newSale.ToEntity();
                     sale.UserId = userId;
@@ -62,7 +62,7 @@ namespace PawnEcommerce.Controllers
 
                     return Ok(new {emptyCart, Message = "Sale created successfully" });
                 }
-                else //Se hizo una Sale con el carrito vac�o
+                else 
                 {
                     int[] emptyCart = new int[] { };
                     return BadRequest(new {emptyCart, Message = "There are no products available for sale in your cart." });

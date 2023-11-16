@@ -132,45 +132,37 @@ public class SaleControllerTest
     [TestMethod]
     public void CreateSale_Successful_ReturnsOkWithEmptyCartMessage()
     {
-        // Arrange
         var userId = 1;
         var fakeToken = "Bearer fake_token";
 
-        var user = new User { Id = userId }; // Replace with your actual User entity
+        var user = new User { Id = userId };
         sessionServiceMock.Setup(ss => ss.GetCurrentUser()).Returns(user);
 
-        // Mocking product service to simulate database operations
         var productServiceMock = new Mock<IProductService>();
         productServiceMock.Setup(ps => ps.Get(It.IsAny<int>())).Returns(aProduct);
         productServiceMock.Setup(ps => ps.VerifyAndUpdateCart(It.IsAny<Product[]>()))
             .Returns((new Product[] { aProduct }, new List<Product>()));
 
-        // Mocking sale service
         var saleServiceMock = new Mock<ISaleService>();
-        saleServiceMock.Setup(ss => ss.Create(It.IsAny<Sale>())).Returns(1); // Assuming the sale ID returned is 1
+        saleServiceMock.Setup(ss => ss.Create(It.IsAny<Sale>())).Returns(1);
 
         var saleController = new SaleController(saleServiceMock.Object, productServiceMock.Object, serviceProviderMock.Object);
 
-        // Set up the HTTP context to include an authorization header
         saleController.ControllerContext = new ControllerContext
         {
             HttpContext = httpContextMock.Object
         };
 
-        // Act
         var actionResult = saleController.Create(_newSale);
 
-        // Assert
         Assert.IsNotNull(actionResult, "No action result returned");
 
-        // Check the actual type of the actionResult
         Assert.IsInstanceOfType(actionResult, typeof(OkObjectResult), $"Unexpected action result type: {actionResult.GetType().Name}");
 
         var okResult = actionResult as OkObjectResult;
         Assert.IsNotNull(okResult, "Expected OkObjectResult");
         Assert.IsNotNull(okResult.Value, "Ok result has no value");
 
-        // Now let's use reflection to check the Value
         var valueType = okResult.Value.GetType();
         var messageProperty = valueType.GetProperty("Message");
         Assert.IsNotNull(messageProperty, "The 'Message' property is not found on the result value");
@@ -179,10 +171,7 @@ public class SaleControllerTest
         Assert.IsNotNull(messageValue, "The 'Message' property should not be null");
         Assert.IsInstanceOfType(messageValue, typeof(string), "The 'Message' property should be a string");
 
-        // If you want to assert the message string
         Assert.AreEqual("Sale created successfully", messageValue.ToString(), "Unexpected message content");
-
-
     }
 
 

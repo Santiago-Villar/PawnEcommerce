@@ -62,7 +62,7 @@ namespace Service.Session
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 }),
-                Expires = DateTime.UtcNow.AddDays(1), // El token expira en 1 día
+                Expires = DateTime.UtcNow.AddDays(1), // Token expires daily
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
